@@ -9,3 +9,8 @@
 - [ ] 我的任务页
 - [ ] 数据采集页
 - [ ] 数据标注页
+## 技术栈
+- [Material Design](https://material.io/guidelines/#introduction-principles) UI设计规范
+- [Restrofit2](https://github.com/square/retrofit) 处理Restful HTTP请求端
+- [RxJava](https://github.com/ReactiveX/RxJava) Java异步框架
+- [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) Model-view-presenter架构
