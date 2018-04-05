@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+        <Spinner
+            android:id="@+id/request_method_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            >
+        </Spinner>
+
+        <EditText
+            android:id="@+id/urlEt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:hint="URL"
+            android:maxLines="1"
+            />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/requestEt"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="Request Body"
+        android:maxLines="5"
+        />
+    <Button
+        android:id="@+id/sendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send"/>
+    <EditText
+        android:id="@+id/responseEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Response"
+        android:background="@color/colorGray"
+        android:maxLines="10"
+        />
+
+</LinearLayout>
