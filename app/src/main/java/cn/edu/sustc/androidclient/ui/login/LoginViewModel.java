@@ -33,7 +33,6 @@ public class LoginViewModel extends BaseObservable{
     private LoginService loginService;
 
     public LoginViewModel(){
-        Logger.addLogAdapter(new AndroidLogAdapter());
         Retrofit retrofit = RetrofitFactory.getInstance();
         loginService = retrofit.create(LoginService.class);
         initData();

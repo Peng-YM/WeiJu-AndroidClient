@@ -1,7 +1,5 @@
 # Android Client
 
-----
-
 ![logo](logo.jpg)
 
 ## 介绍
