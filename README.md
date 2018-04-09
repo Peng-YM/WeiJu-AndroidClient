@@ -1,6 +1,6 @@
-# Android Client
+# 微聚
 
-![logo](logo.jpg)
+![logo](logo.png)
 
 ## 介绍
 本项目将实现一个数据采集，标注模块的安卓APP。后端服务器的实现在[这里](https://github.com/Wang-GY/Data-Collection-Annotation-Android-App)
