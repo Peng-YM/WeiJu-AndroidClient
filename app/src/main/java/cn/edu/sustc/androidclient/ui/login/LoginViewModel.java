@@ -1,14 +1,15 @@
 package cn.edu.sustc.androidclient.ui.login;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.view.View;
 
-import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.BR;
+import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.data.Credential;
@@ -23,16 +24,17 @@ import rx.schedulers.Schedulers;
 public class LoginViewModel extends BaseObservable{
     private static final String TAG = "LoginViewModel";
 
-    private boolean hasError;
+    // data binding
     private int progressBarVisibility;
-
     private String email;
     private String password;
 
-
+    private AlertDialog alertDialog;
     private LoginService loginService;
+    private Context context;
 
-    public LoginViewModel(){
+    public LoginViewModel(Context context){
+        this.context = context;
         Retrofit retrofit = RetrofitFactory.getInstance();
         loginService = retrofit.create(LoginService.class);
         initData();
@@ -43,17 +45,18 @@ public class LoginViewModel extends BaseObservable{
     }
 
 
-    public void login(final View view){
+    public void login(View view){
         Session session = new Session(email, password);
+
         Logger.d("login Button was clicked");
         Logger.d(session);
+
         Subscriber<MyResponse<Credential>> responseSubscriber = new Subscriber<MyResponse<Credential>>() {
             @Override
             public void onCompleted() {
                 Logger.d("login Completed");
                 setProgressBarVisibility(View.GONE);
                 // start main activity
-                Context context = view.getContext();
                 MainActivity.start(context);
             }
 
@@ -61,6 +64,8 @@ public class LoginViewModel extends BaseObservable{
             public void onError(Throwable e) {
                 Logger.e("login Failed!\n" + e.getLocalizedMessage());
                 setProgressBarVisibility(View.GONE);
+                alertDialog.setMessage(context.getResources().getString(R.string.alert_bad_credential));
+                alertDialog.show();
             }
 
             @Override
@@ -75,25 +80,23 @@ public class LoginViewModel extends BaseObservable{
                 editor.commit();
             }
         };
-        setProgressBarVisibility(View.VISIBLE);
-        // TODO: remove fake login
-        loginService.fakeLogin()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseSubscriber);
-        // login
-//        loginService.login(session)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(responseSubscriber);
-    }
+        if (notEmpty()){
+            setProgressBarVisibility(View.VISIBLE);
+            // TODO: remove fake login
+            loginService.fakeLogin()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(responseSubscriber);
+            // login
+//            loginService.login(session)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(responseSubscriber);
+        }else{
+            alertDialog.setMessage(context.getResources().getString(R.string.alert_field_empty));
+            alertDialog.show();
+        }
 
-    public boolean isHasError() {
-        return hasError;
-    }
-
-    public void setHasError(boolean hasError) {
-        this.hasError = hasError;
     }
 
     @Bindable
@@ -124,5 +127,13 @@ public class LoginViewModel extends BaseObservable{
     public void setPassword(String password) {
         this.password = password;
         notifyPropertyChanged(BR.password);
+    }
+
+    public void setAlertDialog(AlertDialog alertDialog) {
+        this.alertDialog = alertDialog;
+    }
+
+    private boolean notEmpty(){
+        return email != null && password != null && !email.isEmpty() && !password.isEmpty();
     }
 }
