@@ -1,10 +1,14 @@
 {
-  "users": [
-  ],
-  "sessions": [
-
-  ],
-  "commits": [
-
+  "users": [],
+  "sessions": [],
+  "commits": [],
+  "credentials": [
+    {
+      "data": {
+        "id": "12314214214",
+        "token": "token"
+      },
+      "id": 1
+    }
   ]
 }
