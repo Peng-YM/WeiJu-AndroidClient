@@ -11,7 +11,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import cn.edu.sustc.androidclient.common.LogCatStrategy;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
-import cn.edu.sustc.androidclient.ui.login.LoginActivity;
 
 // application class which is responsible to initialize global variables
 public class MyApplication extends Application {
@@ -36,8 +35,5 @@ public class MyApplication extends Application {
         });
 
         Logger.d("Application Started");
-
-        // show login activity
-        LoginActivity.start(MyApplication.this);
     }
 }

@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.common;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharePreferenceHelper {

@@ -1,4 +1,5 @@
 package cn.edu.sustc.androidclient.ui.login;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,10 +11,10 @@ import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.BR;
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.Credential;
-import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.rest.LoginService;
 import cn.edu.sustc.androidclient.ui.main.MainActivity;

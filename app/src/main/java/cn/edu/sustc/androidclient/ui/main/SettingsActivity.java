@@ -1,6 +1,8 @@
 package cn.edu.sustc.androidclient.ui.main;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+
 import cn.edu.sustc.androidclient.common.BaseActivity;
 
 
