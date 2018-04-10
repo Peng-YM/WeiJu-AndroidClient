@@ -8,26 +8,36 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher_background"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/logo"
+        android:label=""
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <!-- main view activity -->
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/app_name"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
         <!-- setting activity -->
         <activity android:name=".ui.main.SettingsActivity" />
 
         <!-- login activity -->
-        <activity android:name=".ui.login.LoginActivity">
-        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
 
-        <activity android:name=".ui.Splash"
+        <!--registration activity-->
+        <activity android:name=".ui.login.RegistrationActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
+        <!--splash activity-->
+        <activity
+            android:name=".ui.Splash"
             android:theme="@style/AppTheme.NoActionBar"
             >
             <intent-filter>
@@ -35,6 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

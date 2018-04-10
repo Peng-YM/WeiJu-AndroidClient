@@ -39,6 +39,15 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.task_fragment_layout, TaskFragment.getInstance())
+                .commit();
+
+    }
+
+    private void getTasks() {
+
     }
 
     @Override

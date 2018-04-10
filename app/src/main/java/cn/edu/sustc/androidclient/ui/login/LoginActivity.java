@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.ui.login;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
+import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        ActivityLoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
         LoginViewModel model =  new LoginViewModel(LoginActivity.this);
         // set alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
@@ -39,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
         alertDialog = builder.create();
         model.setAlertDialog(alertDialog);
-        binding.setLoginViewModel(model);
+        loginBinding.setLoginViewModel(model);
     }
 
 }

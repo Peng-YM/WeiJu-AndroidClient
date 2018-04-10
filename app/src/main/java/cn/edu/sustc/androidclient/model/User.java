@@ -5,6 +5,7 @@ public class User {
     public String username;
     public String email;
     public long phone;
+    public String password;
     public int credit;
     public long balance;
     public String nickname;

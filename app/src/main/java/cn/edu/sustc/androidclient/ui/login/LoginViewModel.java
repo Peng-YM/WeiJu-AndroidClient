@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.UUID;
+
 import cn.edu.sustc.androidclient.BR;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.MyResponse;
@@ -16,7 +18,8 @@ import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
-import cn.edu.sustc.androidclient.rest.LoginService;
+import cn.edu.sustc.androidclient.model.User;
+import cn.edu.sustc.androidclient.rest.UserService;
 import cn.edu.sustc.androidclient.ui.main.MainActivity;
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -24,24 +27,21 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class LoginViewModel extends BaseObservable{
-    private static final String TAG = "LoginViewModel";
-
     // data binding
     private int progressBarVisibility;
     private String email;
     private String password;
 
     private AlertDialog alertDialog;
-    private LoginService loginService;
+    private UserService userService;
     private Context context;
     private LoginActivity activity;
 
     public LoginViewModel(Context context){
         this.context = context;
         Retrofit retrofit = RetrofitFactory.getInstance();
-        loginService = retrofit.create(LoginService.class);
+        userService = retrofit.create(UserService.class);
         initData();
-//        Logger.d(activity.test);
     }
 
     private void initData(){
@@ -52,13 +52,13 @@ public class LoginViewModel extends BaseObservable{
     public void login(View view){
         Session session = new Session(email, password);
 
-        Logger.d("login Button was clicked");
+        Logger.d("Attempted to Login: ");
         Logger.d(session);
 
         Subscriber<MyResponse<Credential>> responseSubscriber = new Subscriber<MyResponse<Credential>>() {
             @Override
             public void onCompleted() {
-                Logger.d("login Completed");
+                Logger.d("Login Completed");
                 setProgressBarVisibility(View.GONE);
                 // start main activity
                 MainActivity.start(context);
@@ -87,12 +87,12 @@ public class LoginViewModel extends BaseObservable{
         if (notEmpty()){
             setProgressBarVisibility(View.VISIBLE);
             // TODO: remove fake login
-            loginService.fakeLogin()
+            userService.fakeLogin()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(responseSubscriber);
             // login
-//            loginService.login(session)
+//            userService.login(session)
 //                    .subscribeOn(Schedulers.io())
 //                    .observeOn(AndroidSchedulers.mainThread())
 //                    .subscribe(responseSubscriber);
@@ -101,6 +101,52 @@ public class LoginViewModel extends BaseObservable{
             alertDialog.show();
         }
 
+    }
+
+    public void registration(View view){
+        User newUser = new User();
+        newUser.id = UUID.randomUUID().toString();
+        newUser.email = email;
+        newUser.password = password;
+
+        Logger.d("Attempted to registration");
+        Subscriber<MyResponse<User>> responseSubscriber = new Subscriber<MyResponse<User>>() {
+            @Override
+            public void onCompleted() {
+                Logger.d("Registration Completed");
+                setProgressBarVisibility(View.GONE);
+                LoginActivity.start(context);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Logger.d("Registration Failed");
+                setProgressBarVisibility(View.GONE);
+                alertDialog.setMessage(context.getResources().getString(R.string.alert_registration_failed));
+                alertDialog.show();
+            }
+
+            @Override
+            public void onNext(MyResponse<User> userMyResponse) {
+
+            }
+        };
+        if(notEmpty()){
+            setProgressBarVisibility(View.VISIBLE);
+            userService.registration(newUser)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(responseSubscriber);
+        }else{
+            alertDialog.setMessage(context.getResources().getString(R.string.alert_field_empty));
+            alertDialog.show();
+        }
+
+    }
+
+
+    public void goToRegistration(View view){
+        RegistrationActivity.start(context);
     }
 
     @Bindable
