@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.data;
+package cn.edu.sustc.androidclient.common;
 
 import java.util.ArrayList;
 

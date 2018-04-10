@@ -6,16 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
-import cn.edu.sustc.androidclient.model.Session;
 public class LoginActivity extends BaseActivity {
 
-    private View mLoginFormView;
     private AlertDialog alertDialog;
+    public String test;
 
     public static void start(Context context){
         Intent intent = new Intent(context, LoginActivity.class);
@@ -25,6 +23,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.test = "Hello";
         setContentView(R.layout.activity_login);
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         LoginViewModel model =  new LoginViewModel(LoginActivity.this);

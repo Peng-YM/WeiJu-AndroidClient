@@ -12,9 +12,10 @@ import cn.edu.sustc.androidclient.BR;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
-import cn.edu.sustc.androidclient.data.Credential;
-import cn.edu.sustc.androidclient.data.MyResponse;
+import cn.edu.sustc.androidclient.model.Credential;
+import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.model.Session;
+import cn.edu.sustc.androidclient.rest.LoginService;
 import cn.edu.sustc.androidclient.ui.main.MainActivity;
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -32,12 +33,14 @@ public class LoginViewModel extends BaseObservable{
     private AlertDialog alertDialog;
     private LoginService loginService;
     private Context context;
+    private LoginActivity activity;
 
     public LoginViewModel(Context context){
         this.context = context;
         Retrofit retrofit = RetrofitFactory.getInstance();
         loginService = retrofit.create(LoginService.class);
         initData();
+//        Logger.d(activity.test);
     }
 
     private void initData(){
@@ -77,7 +80,7 @@ public class LoginViewModel extends BaseObservable{
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("id", credential.id);
                 editor.putString("token", credential.token);
-                editor.commit();
+                editor.apply();
             }
         };
         if (notEmpty()){

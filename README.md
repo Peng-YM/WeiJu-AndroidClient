@@ -19,6 +19,10 @@
 - [RxJava2](https://github.com/ReactiveX/RxJava) Java异步框架
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html) 数据绑定
 - [JSON Server](https://github.com/typicode/json-server) Fake REST API
+- [Logger](https://github.com/orhanobut/logger)
+- [Dagger2](https://github.com/google/dagger) 依赖注入框架
+- [Glide](https://github.com/bumptech/glide) 图片加载库
+- [Material Dialogs](https://github.com/afollestad/material-dialogs)
 
 ## 许可证
 

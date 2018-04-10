@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.data;
+package cn.edu.sustc.androidclient.common;
 
 public class MyResponse<T> {
     public Object meta = null;

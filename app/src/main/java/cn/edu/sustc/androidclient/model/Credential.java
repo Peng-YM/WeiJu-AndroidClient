@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.data;
+package cn.edu.sustc.androidclient.model;
 
 public class Credential {
     public String id;
