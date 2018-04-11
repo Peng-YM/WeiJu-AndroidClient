@@ -72,4 +72,6 @@ dependencies {
     // Material Dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.android.support:cardview-v7:27.1.1'
+    // Rich Text
+    implementation 'com.zzhoujay.richtext:richtext:3.0.7'
 }

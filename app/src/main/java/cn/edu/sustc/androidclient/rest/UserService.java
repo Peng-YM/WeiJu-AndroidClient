@@ -7,6 +7,7 @@ import cn.edu.sustc.androidclient.model.User;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import rx.Observable;
 
 public interface UserService {
@@ -15,6 +16,9 @@ public interface UserService {
 
     @POST("users")
     Observable<MyResponse<User>> registration(@Body User user);
+
+    @GET("users")
+    Observable<MyResponse<User>> getProfile(@Path("id") String id);
 
     // fake apis here
     @GET("credentials/1")

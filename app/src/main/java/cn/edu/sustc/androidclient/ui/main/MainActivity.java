@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.ui.about.AboutActivity;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.BaseActivity;
+import cn.edu.sustc.androidclient.ui.task.TaskDetailActivity;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,10 +88,18 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_manage) {
-
+        switch (id){
+            case R.id.nav_all_task:
+                break;
+            case R.id.nav_my_task:
+                TaskDetailActivity.start(this);
+                break;
+            case R.id.nav_about:
+                AboutActivity.start(this);
+                break;
+            default:
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

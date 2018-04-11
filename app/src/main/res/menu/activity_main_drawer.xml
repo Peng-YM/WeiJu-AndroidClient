@@ -5,21 +5,26 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/nav_all_task"
+            android:icon="@drawable/ic_all_tasks"
             android:title="@string/task"
             android:checked="true"
             />
         <item
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/nav_my_task"
+            android:icon="@drawable/ic_my_task"
             android:title="@string/my_task" />
+
         <item
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/exchange"
+            android:icon="@drawable/ic_load_credit"
             android:title="@string/exchange" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/settings" />
         <item
+            android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/about" />
     </group>

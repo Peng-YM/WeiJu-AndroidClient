@@ -62,7 +62,6 @@ public class TaskFragmentViewModel extends BaseObservable{
             @Override
             public void onNext(Task task) {
                 taskAdapter.addItem(task);
-                Logger.d(task.title);
             }
         };
 

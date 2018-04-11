@@ -40,4 +40,9 @@
     <string name="view_details">查看详情</string>
     <string name="annotation_task">标注任务</string>
     <string name="collection_task">采集任务</string>
+    <string name="title_activity_user_profile">用户信息</string>
+
+    <!--任务详情页-->
+    <string name="task_details">任务详情</string>
+    <string name="get_task">领取任务</string>
 </resources>
