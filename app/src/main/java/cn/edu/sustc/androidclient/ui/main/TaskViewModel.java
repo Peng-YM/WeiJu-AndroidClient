@@ -2,12 +2,16 @@ package cn.edu.sustc.androidclient.ui.main;
 
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.orhanobut.logger.Logger;
+
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
 
 public class TaskViewModel extends BaseObservable{
@@ -18,13 +22,13 @@ public class TaskViewModel extends BaseObservable{
     }
 
     public String getCoverUrl(){
-        // TODO: remove dummy
-//        if(task.pictures.isEmpty()){
-//            return "";
-//        }
-//        // get first picture as cover
-//        return task.pictures.get(0);
-        return "https://en.wikipedia.org/wiki/File:Lenna.png";
+        // TODO: change base url
+        String BASE_URL = RetrofitFactory.getBaseUrl();
+        BASE_URL = "http://10.0.2.2:8080/";
+        if (task.pictures != null && !task.pictures.isEmpty()){
+            return BASE_URL + task.pictures.get(0);
+        }
+        return "";
     }
 
     public String getTitle(){
@@ -35,8 +39,9 @@ public class TaskViewModel extends BaseObservable{
         return task.author;
     }
 
-    @BindingAdapter({"imageUrl"})
+    @BindingAdapter({"myApp:imageUrl"})
     public static void loadImage(ImageView imageView, String url){
+        Logger.d("Fetch Image from url: %s", url);
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.logo)

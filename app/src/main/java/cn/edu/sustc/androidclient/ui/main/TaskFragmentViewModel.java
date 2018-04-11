@@ -44,7 +44,7 @@ public class TaskFragmentViewModel extends BaseObservable{
         subscriber = new Subscriber<Task>() {
             @Override
             public void onCompleted() {
-                Logger.d("Successfully Fetched Tasks");
+                Logger.v("Successfully Fetched Tasks");
                 hideAll();
                 setContentViewVisibility(View.VISIBLE);
                 completedListener.onCompleted();

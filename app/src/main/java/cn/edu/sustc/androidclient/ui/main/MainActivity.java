@@ -15,6 +15,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.BaseActivity;
+import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskDetailActivity;
 
 public class MainActivity extends BaseActivity
@@ -97,6 +98,8 @@ public class MainActivity extends BaseActivity
             case R.id.nav_about:
                 AboutActivity.start(this);
                 break;
+            case R.id.action_settings:
+                SettingsActivity.start(this);
             default:
         }
 

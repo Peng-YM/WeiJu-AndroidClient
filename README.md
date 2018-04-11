@@ -1,10 +1,18 @@
 # 微聚
 
-![logo](logo.png)
+<center>![logo](logo.png)</center>
 
 ## 介绍
 本项目将实现一个数据采集，标注模块的安卓APP。后端服务器的实现在[这里](https://github.com/Wang-GY/Data-Collection-Annotation-Android-App)
+## Demo
+
+|                                                              |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98b7n2llj20bj0keq46.jpg" width="300"/> | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98bq8o8zj20bj0ke75j.jpg" width="300"/> |
+| <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98cyuj02j20bj0kediy.jpg" width="300"/> | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98cjgjhjj20bj0kemzg.jpg" width="300"/> |
+
 ## 功能实现
+
 - [x] 登录界面
 - [ ] 主界面
 - [ ] 用户信息页

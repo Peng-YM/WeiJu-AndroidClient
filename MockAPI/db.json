@@ -1,93 +1,78 @@
 {
-  "users": [
-    {
-      "balance": 0,
-      "credit": 0,
-      "email": "12345@qq.com",
-      "id": "8bbd9896-e176-454a-bf86-30f5c46f0b93",
-      "level": 0,
-      "password": "123454535353",
-      "phone": 0
-    }
-  ],
+  "users": [{
+    "balance": 0,
+    "credit": 0,
+    "email": "12345@qq.com",
+    "id": "8bbd9896-e176-454a-bf86-30f5c46f0b93",
+    "level": 0,
+    "password": "123454535353",
+    "phone": 0
+  }],
   "sessions": [],
   "commits": [],
-  "credentials": [
-    {
-      "data": {
-        "id": "12314214214",
-        "token": "token"
-      },
-      "id": 1
-    }
-  ],
-  "tasks": [
+  "credentials": [{
+    "id": "1",
+    "token": "token"
+  }],
+  "tasks": [{
+      "id": 5,
+      "author": "云天励飞",
+      "xml": "xxxx",
+      "title": "验证码识别",
+      "start": "xxxx",
+      "end": "xxx",
+      "descriptions": "xxx",
+      "pictures": [
+        "Test.jpeg"
+      ]
+    },
     {
       "id": 1,
-      "data": [{
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      },
-      {
-        "id": 1,
-        "author": "南方科技大学",
-        "xml": "xxxx",
-        "title": "人脸识别任务",
-        "start": "xxxx",
-        "end": "xxx",
-        "descriptions": "xxx"
-      }
-    ]
+      "author": "南方科技大学",
+      "xml": "xxxx",
+      "title": "人脸识别任务",
+      "start": "xxxx",
+      "end": "xxx",
+      "descriptions": "xxx",
+      "pictures": [
+        "1.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "author": "Google",
+      "xml": "xxxx",
+      "title": "车牌识别",
+      "start": "xxxx",
+      "end": "xxx",
+      "descriptions": "xxx",
+      "pictures": [
+        "2.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "author": "北京大学",
+      "xml": "xxxx",
+      "title": "动物图像采集",
+      "start": "xxxx",
+      "end": "xxx",
+      "descriptions": "xxx",
+      "pictures": [
+        "3.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "author": "清华大学",
+      "xml": "xxxx",
+      "title": "手写数字识别",
+      "start": "xxxx",
+      "end": "xxx",
+      "descriptions": "xxx",
+      "pictures": [
+        "4.jpg"
+      ]
     }
   ]
 }

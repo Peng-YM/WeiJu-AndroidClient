@@ -13,6 +13,6 @@ public interface TaskService {
     @GET("tasks")
     Observable<MyResponse<Task>> getTasks(@Query("offset") int offset, @Query("limit") int limit);
 
-    @GET("tasks/1")
+    @GET("tasks")
     Observable<MyResponse<List<Task>>> fakeGetTasks();
 }
