@@ -8,3 +8,4 @@
 /build
 /captures
 .externalNativeBuild
+/MockAPI/node_modules
