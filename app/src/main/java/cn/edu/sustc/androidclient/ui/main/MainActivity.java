@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +15,10 @@ import android.view.MenuItem;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
-import cn.edu.sustc.androidclient.common.BaseActivity;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskDetailActivity;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static void start(Context context){
@@ -93,12 +93,11 @@ public class MainActivity extends BaseActivity
             case R.id.nav_all_task:
                 break;
             case R.id.nav_my_task:
-                TaskDetailActivity.start(this);
                 break;
             case R.id.nav_about:
                 AboutActivity.start(this);
                 break;
-            case R.id.action_settings:
+            case R.id.nav_settings:
                 SettingsActivity.start(this);
             default:
         }

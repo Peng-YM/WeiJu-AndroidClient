@@ -7,12 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 
-public class RegistrationActivity extends BaseActivity {
+public class RegistrationActivity extends AppCompatActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, RegistrationActivity.class);
         context.startActivity(intent);

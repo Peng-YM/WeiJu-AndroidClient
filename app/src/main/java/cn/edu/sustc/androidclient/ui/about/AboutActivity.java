@@ -16,8 +16,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.BaseActivity;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, AboutActivity.class);
         context.startActivity(intent);

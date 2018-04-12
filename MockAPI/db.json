@@ -21,7 +21,7 @@
       "title": "验证码识别",
       "start": "xxxx",
       "end": "xxx",
-      "descriptions": "xxx",
+      "descriptions": "# 任务要求",
       "pictures": [
         "Test.jpeg"
       ]
@@ -33,7 +33,7 @@
       "title": "人脸识别任务",
       "start": "xxxx",
       "end": "xxx",
-      "descriptions": "xxx",
+      "descriptions": "# 任务要求",
       "pictures": [
         "1.jpg"
       ]
@@ -45,7 +45,7 @@
       "title": "车牌识别",
       "start": "xxxx",
       "end": "xxx",
-      "descriptions": "xxx",
+      "descriptions": "# 任务要求",
       "pictures": [
         "2.jpg"
       ]
@@ -57,7 +57,7 @@
       "title": "动物图像采集",
       "start": "xxxx",
       "end": "xxx",
-      "descriptions": "xxx",
+      "descriptions": "# 任务要求",
       "pictures": [
         "3.jpg"
       ]
@@ -69,7 +69,7 @@
       "title": "手写数字识别",
       "start": "xxxx",
       "end": "xxx",
-      "descriptions": "xxx",
+      "descriptions": "# 任务要求",
       "pictures": [
         "4.jpg"
       ]

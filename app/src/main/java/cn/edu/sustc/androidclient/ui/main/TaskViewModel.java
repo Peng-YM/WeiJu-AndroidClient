@@ -2,7 +2,7 @@ package cn.edu.sustc.androidclient.ui.main;
 
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
-import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +13,7 @@ import com.orhanobut.logger.Logger;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
+import cn.edu.sustc.androidclient.ui.task.TaskDetailActivity;
 
 public class TaskViewModel extends BaseObservable{
     private Task task;
@@ -51,5 +52,10 @@ public class TaskViewModel extends BaseObservable{
                 .load(url)
                 .apply(options)
                 .into(imageView);
+    }
+
+    public void onClick(View view) {
+        Logger.json(task.toString());
+        TaskDetailActivity.start(view.getContext(), task);
     }
 }

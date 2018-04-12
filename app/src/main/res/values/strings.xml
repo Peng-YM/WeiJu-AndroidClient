@@ -16,7 +16,7 @@
     <!-- 侧滑栏 -->
     <string name="settings">设置</string>
     <string name="exit">退出</string>
-    <string name="task">所有任务</string>
+    <string name="all_tasks">所有任务</string>
     <string name="my_task">我的任务</string>
     <string name="exchange">积分兑换</string>
     <string name="about">关于</string>

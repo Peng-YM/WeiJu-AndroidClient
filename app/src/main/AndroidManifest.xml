@@ -9,7 +9,7 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
-        android:label=""
+        android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -17,10 +17,13 @@
         <!-- main view activity -->
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/all_tasks"
+            />
 
         <!-- setting activity -->
-        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".ui.settings.SettingsActivity"
+            android:label="@string/settings"/>
 
         <!-- login activity -->
         <activity
@@ -44,6 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.profile.UserProfileActivity"
             android:label="@string/title_activity_user_profile"
