@@ -14,14 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
-import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
-import cn.edu.sustc.androidclient.ui.task.TaskDetailActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskManagerActivity;
 
 public class MainActivity extends AppCompatActivity

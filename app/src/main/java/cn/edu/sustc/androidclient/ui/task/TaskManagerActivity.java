@@ -19,6 +19,6 @@ public class TaskManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_manager);
         ViewPager viewPager = findViewById(R.id.task_manager_pager);
-        viewPager.setAdapter(new CustomPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new CustomPagerAdapter(this));
     }
 }

@@ -35,4 +35,6 @@ public class TaskDetailViewModel extends BaseObservable {
     private void initData(){
         this.task = new ObservableField<>();
     }
+
+
 }

@@ -57,7 +57,9 @@
         <activity
             android:name=".ui.about.AboutActivity"
             android:label="@string/about" />
-        <activity android:name=".ui.task.TaskManagerActivity"></activity>
+        <activity android:name=".ui.task.TaskManagerActivity"
+            android:label="@string/my_task"
+            />
     </application>
 
 </manifest>

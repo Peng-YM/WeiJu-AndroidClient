@@ -45,4 +45,8 @@
     <!--任务详情页-->
     <string name="task_details">任务详情</string>
     <string name="get_task">领取任务</string>
+
+    <!--我的任务-->
+    <string name="finished_task">已完成</string>
+    <string name="processing_task">进行中</string>
 </resources>

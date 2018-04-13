@@ -7,7 +7,6 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import cn.edu.sustc.androidclient.BR;
 import cn.edu.sustc.androidclient.common.CompletedListener;

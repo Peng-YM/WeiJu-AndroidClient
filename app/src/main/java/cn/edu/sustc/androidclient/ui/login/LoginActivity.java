@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.ui.login;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
-import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 
 public class LoginActivity extends AppCompatActivity {
 

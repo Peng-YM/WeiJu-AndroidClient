@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:myApp="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.ui.task.TaskDetailViewModel"/>
+            type="cn.edu.sustc.androidclient.ui.main.TaskViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="177dp"
             android:background="@android:color/darker_gray"
-            android:src="@drawable/logo" />
+            myApp:imageUrl="@{viewModel.coverUrl}" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.task.title}"
+                android:text="@{viewModel.title}"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
@@ -50,10 +50,9 @@
 
         </RelativeLayout>
         <TextView
-            android:id="@+id/task_descriptions_tv"
+            android:id="@+id/task_markdown_descriptions"
             android:layout_width="match_parent"
-            android:layout_height="227dp"
-            android:text="@{viewModel.task.descriptions}" />
+            android:layout_height="227dp" />
 
         <Button
             android:id="@+id/button"

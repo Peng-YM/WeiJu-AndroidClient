@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBar;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.BaseActivity;

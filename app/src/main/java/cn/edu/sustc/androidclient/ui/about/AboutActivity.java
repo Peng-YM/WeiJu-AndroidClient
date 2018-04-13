@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.ui.about;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -10,8 +9,6 @@ import com.orhanobut.logger.Logger;
 import com.zzhoujay.richtext.RichText;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 

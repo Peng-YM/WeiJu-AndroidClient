@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.orhanobut.logger.Logger;
 
-
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
@@ -25,7 +24,7 @@ public class TaskViewModel extends BaseObservable{
     public String getCoverUrl(){
         // TODO: change base url
         String BASE_URL = RetrofitFactory.getBaseUrl();
-        BASE_URL = "http://10.0.2.2:8080/";
+        BASE_URL = "http://69.171.71.251:8080/";
         if (task.pictures != null && !task.pictures.isEmpty()){
             return BASE_URL + task.pictures.get(0);
         }
@@ -38,6 +37,10 @@ public class TaskViewModel extends BaseObservable{
 
     public String getAuthor(){
         return task.author;
+    }
+
+    public String getDescriptions(){
+        return task.descriptions;
     }
 
     @BindingAdapter({"myApp:imageUrl"})
