@@ -1,10 +1,10 @@
 package cn.edu.sustc.androidclient.ui.profile;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,15 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.MyResponse;
-import cn.edu.sustc.androidclient.common.RetrofitFactory;
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.UserService;
-import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ProfileViewModel extends BaseObservable {
     private User user;
@@ -49,7 +41,7 @@ public class ProfileViewModel extends BaseObservable {
                 .into(imageView);
     }
 
-    public void goToProfile(){
+    public void goToProfile(View view){
         UserProfileActivity.start(context);
     }
 }

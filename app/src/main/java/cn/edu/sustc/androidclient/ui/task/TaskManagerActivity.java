@@ -7,8 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.BaseActivity;
 
-public class TaskManagerActivity extends AppCompatActivity {
+public class TaskManagerActivity extends BaseActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, TaskManagerActivity.class);
         context.startActivity(intent);

@@ -49,8 +49,7 @@
         </activity>
         <activity
             android:name=".ui.profile.UserProfileActivity"
-            android:label="@string/title_activity_user_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_user_profile" />
         <activity
             android:name=".ui.task.TaskDetailActivity"
             android:label="@string/task_details" />

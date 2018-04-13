@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.common;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.schedulers.Schedulers;
 
 public class RetrofitFactory {
     private static volatile Retrofit retrofit = null;
@@ -17,7 +18,9 @@ public class RetrofitFactory {
                 if (retrofit == null){
                     retrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)
-                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .addCallAdapterFactory(
+                                    RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io())
+                            )
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                 }
