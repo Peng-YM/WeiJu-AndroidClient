@@ -8,7 +8,6 @@ public class User {
     public String password;
     public int credit;
     public long balance;
-    public String nickname;
     public int level;
     public String avatar;
 

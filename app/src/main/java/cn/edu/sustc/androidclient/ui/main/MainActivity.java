@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +19,21 @@ import android.widget.LinearLayout;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
+import cn.edu.sustc.androidclient.common.MyResponse;
+import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
+import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
+import cn.edu.sustc.androidclient.model.User;
+import cn.edu.sustc.androidclient.rest.impl.UserServiceImpl;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
+import cn.edu.sustc.androidclient.ui.profile.ProfileViewModel;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskManagerActivity;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private ActivityMainBinding binding;
 
     public static void start(Context context){
         Intent intent = new Intent(context, MainActivity.class);
@@ -34,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setMainListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,12 +57,40 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        setUpUserProfile();
+        // insert fragments
         getFragmentManager()
                 .beginTransaction()
                 .add(R.id.task_fragment_layout, TaskFragment.getInstance())
                 .commit();
 
+    }
+
+    public void setUpUserProfile(){
+        // get id from shared preference
+        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
+        String id = preferences.getString("id", "DEFAULT");
+        Subscriber<MyResponse<User>> subscriber = new Subscriber<MyResponse<User>>() {
+            @Override
+            public void onCompleted() { }
+
+            @Override
+            public void onError(Throwable e) {
+                // TODO show error dialog
+            }
+
+            @Override
+            public void onNext(MyResponse<User> response) {
+                User user = response.data;
+                // setup navigation view header when data is prepared
+                NavHeaderMainBinding headerMainBinding = DataBindingUtil.inflate(getLayoutInflater(),
+                        R.layout.nav_header_main, binding.navView, false);
+                binding.navView.addHeaderView(headerMainBinding.getRoot());
+                ProfileViewModel profileViewModel = new ProfileViewModel(MainActivity.this, user);
+                headerMainBinding.setUserProfile(profileViewModel);
+            }
+        };
+        UserServiceImpl.getInstance().getProfile(id, subscriber);
     }
 
     // close the continue task card view

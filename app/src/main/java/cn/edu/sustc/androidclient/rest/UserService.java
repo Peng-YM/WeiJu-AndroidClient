@@ -17,7 +17,7 @@ public interface UserService {
     @POST("users")
     Observable<MyResponse<User>> registration(@Body User user);
 
-    @GET("users")
+    @GET("users/{id}")
     Observable<MyResponse<User>> getProfile(@Path("id") String id);
 
     // fake apis here
