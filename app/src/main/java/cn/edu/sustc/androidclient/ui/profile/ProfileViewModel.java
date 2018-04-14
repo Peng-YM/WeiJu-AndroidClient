@@ -13,6 +13,7 @@ import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.User;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ProfileViewModel extends BaseObservable {
     private User user;
@@ -29,7 +30,7 @@ public class ProfileViewModel extends BaseObservable {
     }
 
     @BindingAdapter({"myApp:imageUrl"})
-    public void loadAvatar(ImageView imageView, String url){
+    public static void loadAvatar(ImageView imageView, String url){
         Logger.d("Load Avatar from %s", url);
         RequestOptions options = new RequestOptions()
             .circleCrop()
@@ -41,7 +42,16 @@ public class ProfileViewModel extends BaseObservable {
                 .into(imageView);
     }
 
+    @BindingAdapter({"myApp:profileBgUrl"})
+    public static void loadProfileBackground(ImageView imageView, String url){
+        Glide.with(imageView.getContext())
+                .load(url)
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 1)))
+                .into(imageView);
+    }
+
     public void goToProfile(View view){
-        UserProfileActivity.start(context);
+        UserProfileActivity.start(context, user);
     }
 }

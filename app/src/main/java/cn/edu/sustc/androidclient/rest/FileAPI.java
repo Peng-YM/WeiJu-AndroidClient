@@ -11,4 +11,6 @@ public interface FileAPI {
     @Streaming
     @GET
     Observable<Response<ResponseBody>> downloadFile(@Url String fileUrl);
+
+
 }

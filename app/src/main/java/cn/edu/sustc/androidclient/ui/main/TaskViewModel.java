@@ -45,7 +45,7 @@ public class TaskViewModel extends BaseObservable{
 
     @BindingAdapter({"myApp:imageUrl"})
     public static void loadImage(ImageView imageView, String url){
-        Logger.d("Fetch Image from url: %s", url);
+        Logger.v("Fetch Image from url: %s", url);
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.logo)
