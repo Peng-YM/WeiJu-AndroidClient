@@ -11,9 +11,12 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import cn.edu.sustc.androidclient.common.LogCatStrategy;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.rest.impl.FileService;
 
 // application class which is responsible to initialize global variables
 public class MyApplication extends Application {
+    private static String PACKAGE_NAME;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,6 +37,12 @@ public class MyApplication extends Application {
             }
         });
 
+        PACKAGE_NAME = getApplicationContext().getPackageName();
+
         Logger.d("Application Started");
+    }
+
+    public static String getMyPackageName() {
+        return PACKAGE_NAME;
     }
 }
