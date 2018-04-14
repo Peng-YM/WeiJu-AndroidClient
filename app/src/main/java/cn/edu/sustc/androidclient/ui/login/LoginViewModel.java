@@ -19,7 +19,7 @@ import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.UserService;
+import cn.edu.sustc.androidclient.rest.UserAPI;
 import cn.edu.sustc.androidclient.ui.main.MainActivity;
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -33,14 +33,14 @@ public class LoginViewModel extends BaseObservable{
     private String password;
 
     private AlertDialog alertDialog;
-    private UserService userService;
+    private UserAPI userAPI;
     private Context context;
     private LoginActivity activity;
 
     public LoginViewModel(Context context){
         this.context = context;
         Retrofit retrofit = RetrofitFactory.getInstance();
-        userService = retrofit.create(UserService.class);
+        userAPI = retrofit.create(UserAPI.class);
         initData();
     }
 
@@ -87,12 +87,12 @@ public class LoginViewModel extends BaseObservable{
         if (notEmpty()){
             setProgressBarVisibility(View.VISIBLE);
             // TODO: remove fake login
-            userService.fakeLogin()
+            userAPI.fakeLogin()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(responseSubscriber);
             // login
-//            userService.login(session)
+//            userAPI.login(session)
 //                    .subscribeOn(Schedulers.io())
 //                    .observeOn(AndroidSchedulers.mainThread())
 //                    .subscribe(responseSubscriber);
@@ -133,7 +133,7 @@ public class LoginViewModel extends BaseObservable{
         };
         if(notEmpty()){
             setProgressBarVisibility(View.VISIBLE);
-            userService.registration(newUser)
+            userAPI.registration(newUser)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(responseSubscriber);

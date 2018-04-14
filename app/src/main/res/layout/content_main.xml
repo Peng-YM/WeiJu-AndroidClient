@@ -79,6 +79,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="29dp"
                                 android:text="@string/continue_"
+                                android:onClick="@{mainListener::continueTask}"
                                 android:textColor="@color/colorAccent" />
 
                             <TextView

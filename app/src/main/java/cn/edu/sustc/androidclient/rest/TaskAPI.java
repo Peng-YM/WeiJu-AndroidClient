@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public interface TaskService {
+public interface TaskAPI {
     @GET("tasks")
     Observable<MyResponse<Task>> getTasks(@Query("offset") int offset, @Query("limit") int limit);
 

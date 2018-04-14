@@ -5,24 +5,23 @@ import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.UserService;
+import cn.edu.sustc.androidclient.rest.UserAPI;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public class UserServiceImpl{
-    private static UserServiceImpl instance;
-    private UserService service;
-    private UserServiceImpl(UserService service){
-        this.service = service;
+public class UserService {
+    private static UserService instance;
+    private UserAPI userAPI;
+    private UserService(UserAPI userAPI){
+        this.userAPI = userAPI;
     }
 
-    public static UserServiceImpl getInstance(){
+    public static UserService getInstance(){
         if (instance == null){
-            synchronized (UserServiceImpl.class){
+            synchronized (UserService.class){
                 if (instance == null){
-                    instance = new UserServiceImpl(
-                            RetrofitFactory.getInstance().create(UserService.class)
+                    instance = new UserService(
+                            RetrofitFactory.getInstance().create(UserAPI.class)
                     );
                 }
             }
@@ -31,7 +30,7 @@ public class UserServiceImpl{
     }
 
     public void login(Session session, Subscriber<MyResponse<Credential>> subscriber){
-        this.service
+        this.userAPI
             .login(session)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(subscriber);
@@ -39,7 +38,7 @@ public class UserServiceImpl{
 
 
     public void getProfile(String id, Subscriber<MyResponse<User>> subscriber) {
-        this.service
+        this.userAPI
             .getProfile(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(subscriber);

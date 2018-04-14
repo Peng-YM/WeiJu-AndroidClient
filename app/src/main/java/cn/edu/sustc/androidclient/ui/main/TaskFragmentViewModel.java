@@ -13,7 +13,8 @@ import cn.edu.sustc.androidclient.common.CompletedListener;
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
-import cn.edu.sustc.androidclient.rest.TaskService;
+import cn.edu.sustc.androidclient.rest.TaskAPI;
+import cn.edu.sustc.androidclient.rest.impl.TaskService;
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
@@ -64,23 +65,7 @@ public class TaskFragmentViewModel extends BaseObservable{
             }
         };
 
-        TaskService taskService = retrofit.create(TaskService.class);
-        taskService.fakeGetTasks()
-                .map(new Func1<MyResponse<List<Task>>, List<Task>>() {
-                    @Override
-                    public List<Task> call(MyResponse<List<Task>> listMyResponse) {
-                        return listMyResponse.data;
-                    }
-                })
-                .flatMap(new Func1<List<Task>, Observable<Task>>() {
-                    @Override
-                    public Observable<Task> call(List<Task> tasks) {
-                        return Observable.from(tasks);
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+        TaskService.getInstance().getTasks(subscriber);
     }
 
     private void initData(){

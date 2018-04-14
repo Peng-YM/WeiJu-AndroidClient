@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +23,11 @@ import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.impl.UserServiceImpl;
+import cn.edu.sustc.androidclient.rest.impl.UserService;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
 import cn.edu.sustc.androidclient.ui.profile.ProfileViewModel;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
+import cn.edu.sustc.androidclient.ui.task.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskManagerActivity;
 import rx.Subscriber;
 
@@ -90,13 +90,19 @@ public class MainActivity extends AppCompatActivity
                 headerMainBinding.setUserProfile(profileViewModel);
             }
         };
-        UserServiceImpl.getInstance().getProfile(id, subscriber);
+        UserService.getInstance().getProfile(id, subscriber);
     }
 
     // close the continue task card view
     public void closeCard(View view){
         LinearLayout parent = findViewById(R.id.task_card_parent);
         parent.removeViewAt(0);
+    }
+
+    // continue task
+    public void continueTask(View view){
+        TaskManagerActivity.start(this);
+        closeCard(view);
     }
 
 
@@ -140,6 +146,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_my_task:
                 TaskManagerActivity.start(this);
+                break;
+            case R.id.gallery:
+                CollectionTaskActivity.start(this);
                 break;
             case R.id.nav_about:
                 AboutActivity.start(this);

@@ -25,3 +25,18 @@
   **[] $VALUES;
   public *;
 }
+
+-dontwarn com.yanzhenjie.album.**
+-keep class com.yanzhenjie.album.**{*;}
+
+-dontwarn com.yanzhenjie.fragment.**
+-keep class com.yanzhenjie.fragment.**{*;}
+
+-dontwarn com.yanzhenjie.mediascanner.**
+-keep class com.yanzhenjie.mediascanner.**{*;}
+
+-dontwarn com.yanzhenjie.loading.**
+-keep class com.yanzhenjie.loading.**{*;}
+
+-dontwarn com.yanzhenjie.statusview.**
+-keep class com.yanzhenjie.statusview.**{*;}
