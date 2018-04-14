@@ -25,15 +25,23 @@
             android:icon="@drawable/ic_gallery"
             android:title="图库"
             />
+    </group>
 
+    <group android:title="">
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/about" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout"
+            android:icon="@drawable/ic_logout"
+            />
     </group>
 
 </menu>

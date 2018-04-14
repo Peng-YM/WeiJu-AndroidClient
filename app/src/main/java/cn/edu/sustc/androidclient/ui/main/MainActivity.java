@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.ui.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -9,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.User;
 import cn.edu.sustc.androidclient.rest.impl.UserService;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
+import cn.edu.sustc.androidclient.ui.login.LoginActivity;
 import cn.edu.sustc.androidclient.ui.profile.ProfileViewModel;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.ui.task.CollectionTaskActivity;
@@ -105,6 +108,26 @@ public class MainActivity extends AppCompatActivity
         closeCard(view);
     }
 
+    // logout
+    private void logout(){
+        // show alert dialog
+        new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.alert))
+                .setMessage(getResources().getString(R.string.alert_logout))
+                .setIcon(R.drawable.ic_alert)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // delete credentials
+                        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
+                        preferences.edit().remove("id").remove("token").apply();
+                        // go to login page
+                        LoginActivity.start(MainActivity.this);
+                    }
+                })
+                .setNegativeButton(R.string.no, null).show();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -155,6 +178,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_settings:
                 SettingsActivity.start(this);
+                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+
             default:
         }
 

@@ -9,6 +9,7 @@
     <string name="alert_bad_credential">登录失败，请检查账号或密码是否错误</string>
     <string name="alert_registration_failed">注册失败，邮箱是否已经注册？</string>
     <string name="alert_field_empty">"请填写所有必填信息"</string>
+    <string name="alert_logout">是否注销登录？</string>
     <string name="yes">是</string>
     <string name="no">否</string>
     <!-- 侧滑栏 -->
@@ -18,6 +19,7 @@
     <string name="my_task">我的任务</string>
     <string name="exchange">积分兑换</string>
     <string name="about">关于</string>
+    <string name="logout">注销</string>
 
 
     <!-- 登录页面 -->
