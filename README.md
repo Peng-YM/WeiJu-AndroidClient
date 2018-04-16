@@ -1,5 +1,6 @@
 # 微聚
 [![CircleCI](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master.svg?style=svg&circle-token=5b83b358dafd7082f76eeb2de4412045b3832b46)](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/87a394c007be4b50929c838075602bbe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Peng-YM/AndroidClient&amp;utm_campaign=Badge_Grade)
 --------
 ![logo](logo.png)
 
