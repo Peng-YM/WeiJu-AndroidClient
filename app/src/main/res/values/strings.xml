@@ -2,7 +2,6 @@
     <string name="app_name">微聚APP</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <!--警告栏-->
     <string name="alert">警告</string>
@@ -26,10 +25,6 @@
     <string name="prompt_email">邮箱</string>
     <string name="prompt_password">密码</string>
     <string name="action_login">登录</string>
-    <string name="error_invalid_email">邮箱不合法</string>
-    <string name="error_invalid_password">密码长度过短</string>
-    <string name="error_incorrect_password">密码错误</string>
-    <string name="error_field_required">必填项</string>
     <string name="action_sign_up">注册</string>
     <string name="welcome">欢迎</string>
 
@@ -40,7 +35,6 @@
     <string name="view_details">查看详情</string>
     <string name="annotation_task">标注任务</string>
     <string name="collection_task">采集任务</string>
-    <string name="title_activity_user_profile">用户信息</string>
 
     <!--任务详情页-->
     <string name="task_details">任务详情</string>

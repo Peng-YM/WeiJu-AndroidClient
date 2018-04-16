@@ -16,7 +16,6 @@
             android:title="@string/my_task" />
 
         <item
-            android:id="@+id/exchange"
             android:icon="@drawable/ic_load_credit"
             android:title="@string/exchange" />
 
