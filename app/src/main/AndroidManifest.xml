@@ -30,14 +30,16 @@
         <!-- login activity -->
         <activity
             android:name=".ui.login.LoginActivity"
-            android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
+            />
 
         <!-- registration activity -->
         <activity
             android:name=".ui.login.RegistrationActivity"
-            android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
+            />
 
         <!-- splash activity -->
         <activity

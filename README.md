@@ -11,13 +11,13 @@
 | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98b7n2llj20bj0keq46.jpg" width="300"/> | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98bq8o8zj20bj0ke75j.jpg" width="300"/> |
 | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98cyuj02j20bj0kediy.jpg" width="300"/> | <img src="http://ww1.sinaimg.cn/large/c2dfc71dgy1fq98cjgjhjj20bj0kemzg.jpg" width="300"/> |
 
-## 功能实现
+## 界面实现
 
 - [x] 登录界面
-- [ ] 主界面
-- [ ] 用户信息页
-- [ ] 任务详情页
-- [ ] 我的任务页
+- [x] 主界面
+- [x] 用户信息页
+- [x] 任务详情页
+- [x] 我的任务页
 - [ ] 数据采集页
 - [ ] 数据标注页
 ## 技术栈
