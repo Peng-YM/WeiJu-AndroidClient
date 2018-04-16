@@ -1,5 +1,6 @@
 # 微聚
-
+[![CircleCI](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master.svg?style=svg&circle-token=5b83b358dafd7082f76eeb2de4412045b3832b46)](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master)
+--------
 ![logo](logo.png)
 
 ## 介绍
