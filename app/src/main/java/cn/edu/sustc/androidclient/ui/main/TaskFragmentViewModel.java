@@ -6,21 +6,14 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
-import java.util.List;
-
 import cn.edu.sustc.androidclient.BR;
 import cn.edu.sustc.androidclient.common.CompletedListener;
-import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
-import cn.edu.sustc.androidclient.rest.TaskAPI;
 import cn.edu.sustc.androidclient.rest.impl.TaskService;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Retrofit;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class TaskFragmentViewModel extends BaseObservable{
     private int contentViewVisibility;
@@ -28,10 +21,8 @@ public class TaskFragmentViewModel extends BaseObservable{
     private int errorInfoLayoutVisibility;
     private String exception;
 
-    private Subscriber<Task> subscriber;
     private TaskAdapter taskAdapter;
     private CompletedListener completedListener;
-    private Retrofit retrofit;
 
     public TaskFragmentViewModel(TaskAdapter adapter, CompletedListener completedListener){
         this.taskAdapter = adapter;
@@ -41,9 +32,9 @@ public class TaskFragmentViewModel extends BaseObservable{
     }
 
     private void getTasks(){
-        subscriber = new Subscriber<Task>() {
+        Observer<Task> observer = new Observer<Task>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 Logger.v("Successfully Fetched Tasks");
                 hideAll();
                 setContentViewVisibility(View.VISIBLE);
@@ -60,17 +51,20 @@ public class TaskFragmentViewModel extends BaseObservable{
             }
 
             @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
             public void onNext(Task task) {
                 taskAdapter.addItem(task);
             }
         };
 
-        TaskService.getInstance().getTasks(subscriber);
+        TaskService.getInstance().getTasks(observer);
     }
 
     private void initData(){
-        retrofit = RetrofitFactory.getInstance();
-
         setContentViewVisibility(View.VISIBLE);
         setProgressBarVisibility(View.VISIBLE);
         setErrorInfoLayoutVisibility(View.GONE);

@@ -1,16 +1,16 @@
 package cn.edu.sustc.androidclient.rest.impl;
 
-import java.util.List;;
+import java.util.List;
 
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
 import cn.edu.sustc.androidclient.repository.UserRepository;
 import cn.edu.sustc.androidclient.rest.TaskAPI;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 
 public class TaskService {
     private static TaskService instance;
@@ -32,23 +32,13 @@ public class TaskService {
         return instance;
     }
 
-    public void getTasks(Subscriber<Task> subscriber){
+    public void getTasks(Observer<Task> observer){
         // TODO: Paging
         this.taskAPI
                 .fakeGetTasks()
-                .map(new Func1<MyResponse<List<Task>>, List<Task>>() {
-                    @Override
-                    public List<Task> call(MyResponse<List<Task>> response) {
-                        return response.data;
-                    }
-                })
-                .flatMap(new Func1<List<Task>, Observable<Task>>() {
-                    @Override
-                    public Observable<Task> call(List<Task> tasks) {
-                        return Observable.from(tasks);
-                    }
-                })
+                .map(response -> response.data)
+                .flatMap((Function<List<Task>, Observable<Task>>) Observable::fromIterable)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 }

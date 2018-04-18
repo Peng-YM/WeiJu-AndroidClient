@@ -6,8 +6,8 @@ import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
 import cn.edu.sustc.androidclient.service.UserService;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class UserRepository {
     private static UserRepository instance;
@@ -29,18 +29,18 @@ public class UserRepository {
         return instance;
     }
 
-    public void login(Session session, Subscriber<MyResponse<Credential>> subscriber){
+    public void login(Session session, Observer<MyResponse<Credential>> observer){
         this.userService
             .login(session)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(subscriber);
+            .subscribe(observer);
     }
 
 
-    public void getProfile(String id, Subscriber<MyResponse<User>> subscriber) {
+    public void getProfile(String id, Observer<MyResponse<User>> observer) {
         this.userService
             .getProfile(id)
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(subscriber);
+            .subscribe(observer);
     }
 }

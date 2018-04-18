@@ -15,10 +15,11 @@ import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
 import cn.edu.sustc.androidclient.service.UserService;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class LoginViewModel extends ViewModel{
     private UserService userService;
@@ -39,17 +40,10 @@ public class LoginViewModel extends ViewModel{
         Logger.d("Attempted to Login: ");
         Logger.d(session);
 
-        Subscriber<MyResponse<Credential>> responseSubscriber = new Subscriber<MyResponse<Credential>>() {
+        Observer<MyResponse<Credential>> observer = new Observer<MyResponse<Credential>>() {
             @Override
-            public void onCompleted() {
-                Logger.d("Login Completed");
-                status.setValue(LoginStatus.LOGIN_SUCCESS);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Logger.e("login Failed!\n" + e.getLocalizedMessage());
-                status.setValue(LoginStatus.LOGIN_FAILED);
+            public void onSubscribe(Disposable d) {
+                status.setValue(LoginStatus.PROGRESSING);
             }
 
             @Override
@@ -63,18 +57,30 @@ public class LoginViewModel extends ViewModel{
                 editor.putString("token", credential.token);
                 editor.apply();
             }
+
+            @Override
+            public void onError(Throwable e) {
+                Logger.e("login Failed!\n" + e.getLocalizedMessage());
+                status.setValue(LoginStatus.LOGIN_FAILED);
+            }
+
+            @Override
+            public void onComplete() {
+                Logger.d("Login Completed");
+                status.setValue(LoginStatus.LOGIN_SUCCESS);
+            }
         };
-        status.setValue(LoginStatus.PROGRESSING);
+
         // TODO: remove fake login
         userService.fakeLogin()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseSubscriber);
+                .subscribe(observer);
         // login
 //        userService.login(session)
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(responseSubscriber);
+//                .subscribe(observer);
     }
 
     public void registration(Session session){
@@ -84,9 +90,9 @@ public class LoginViewModel extends ViewModel{
         newUser.password = session.password;
 
         Logger.d("Attempted to registration");
-        Subscriber<MyResponse<User>> responseSubscriber = new Subscriber<MyResponse<User>>() {
+        Observer<MyResponse<User>> responseSubscriber = new Observer<MyResponse<User>>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 Logger.d("Registration Completed");
                 status.setValue(LoginStatus.REGISTRATION_SUCCESS);
             }
@@ -98,12 +104,16 @@ public class LoginViewModel extends ViewModel{
             }
 
             @Override
+            public void onSubscribe(Disposable d) {
+                status.setValue(LoginStatus.PROGRESSING);
+            }
+
+            @Override
             public void onNext(MyResponse<User> userMyResponse) {
 
             }
         };
 
-        status.setValue(LoginStatus.PROGRESSING);
         userService.registration(newUser)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

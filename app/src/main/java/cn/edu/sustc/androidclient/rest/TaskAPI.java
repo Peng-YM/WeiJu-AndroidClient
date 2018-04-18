@@ -5,9 +5,9 @@ import java.util.List;
 
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.model.Task;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 public interface TaskAPI {
     @GET("tasks")

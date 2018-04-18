@@ -4,11 +4,11 @@ import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import rx.Observable;
 
 public interface UserService {
     @POST("sessions")

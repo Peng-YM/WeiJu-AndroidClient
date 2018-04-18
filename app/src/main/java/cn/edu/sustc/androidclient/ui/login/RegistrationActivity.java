@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.ui.login;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;

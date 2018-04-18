@@ -32,7 +32,8 @@ import cn.edu.sustc.androidclient.ui.profile.ProfileViewModel;
 import cn.edu.sustc.androidclient.ui.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.ui.task.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.ui.task.TaskManagerActivity;
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,13 +74,18 @@ public class MainActivity extends AppCompatActivity
         // get id from shared preference
         SharedPreferences preferences = SharePreferenceHelper.getPreferences();
         String id = preferences.getString("id", "DEFAULT");
-        Subscriber<MyResponse<User>> subscriber = new Subscriber<MyResponse<User>>() {
+        Observer<MyResponse<User>> subscriber = new Observer<MyResponse<User>>() {
             @Override
-            public void onCompleted() { }
+            public void onComplete() { }
 
             @Override
             public void onError(Throwable e) {
                 // TODO show error dialog
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override

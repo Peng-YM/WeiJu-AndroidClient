@@ -11,7 +11,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import cn.edu.sustc.androidclient.common.LogCatStrategy;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
-import cn.edu.sustc.androidclient.rest.impl.FileService;
 
 // application class which is responsible to initialize global variables
 public class MyApplication extends Application {

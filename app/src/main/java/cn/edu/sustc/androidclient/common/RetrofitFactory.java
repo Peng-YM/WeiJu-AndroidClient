@@ -1,11 +1,10 @@
 package cn.edu.sustc.androidclient.common;
 
-import javax.inject.Singleton;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.schedulers.Schedulers;
 
 public class RetrofitFactory {
     private static volatile Retrofit retrofit = null;
@@ -21,7 +20,7 @@ public class RetrofitFactory {
                     retrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)
                             .addCallAdapterFactory(
-                                    RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io())
+                                    RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
                             )
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();

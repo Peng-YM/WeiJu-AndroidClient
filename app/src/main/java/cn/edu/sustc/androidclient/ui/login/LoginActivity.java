@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
+import com.orhanobut.logger.Logger;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.Session;
@@ -73,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         model.getStatus().observe(this, status -> {
             switch (status){
                 case LOGIN_SUCCESS:
+                    Logger.d("Go to MainActivity");
                     // go to main activity
                     MainActivity.start(this);
                     break;
