@@ -5,10 +5,10 @@
     <data>
         <variable
             name="profileViewModel"
-            type="cn.edu.sustc.androidclient.ui.profile.ProfileViewModel"/>
+            type="cn.edu.sustc.androidclient.viewmodel.ProfileViewModel"/>
         <variable
             name="profileActivity"
-            type="cn.edu.sustc.androidclient.ui.profile.UserProfileActivity"/>
+            type="cn.edu.sustc.androidclient.view.profile.UserProfileActivity"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:id="@+id/profile_layout"

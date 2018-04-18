@@ -18,32 +18,32 @@
 
         <!-- main view activity -->
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".view.main.MainActivity"
             android:label="@string/all_tasks"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- setting activity -->
         <activity
-            android:name=".ui.settings.SettingsActivity"
+            android:name=".view.settings.SettingsActivity"
             android:label="@string/settings" />
 
         <!-- login activity -->
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".view.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
             />
 
         <!-- registration activity -->
         <activity
-            android:name=".ui.login.RegistrationActivity"
+            android:name=".view.login.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
             />
 
         <!-- splash activity -->
         <activity
-            android:name=".ui.Splash"
+            android:name=".view.Splash"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,19 +52,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.profile.UserProfileActivity"
+            android:name=".view.profile.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity
-            android:name=".ui.task.TaskDetailActivity"
+            android:name=".view.task.TaskDetailActivity"
             android:label="@string/task_details" />
         <activity
-            android:name=".ui.about.AboutActivity"
+            android:name=".view.about.AboutActivity"
             android:label="@string/about" />
         <activity
-            android:name=".ui.task.TaskManagerActivity"
+            android:name=".view.task.TaskManagerActivity"
             android:label="@string/my_task" />
-        <activity android:name=".ui.task.CollectionTaskActivity"></activity>
+        <activity android:name=".view.task.CollectionTaskActivity"></activity>
     </application>
 
 </manifest>

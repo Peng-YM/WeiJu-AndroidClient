@@ -4,7 +4,7 @@
     <data>
         <variable
             name="userProfile"
-            type="cn.edu.sustc.androidclient.ui.profile.ProfileViewModel"/>
+            type="cn.edu.sustc.androidclient.viewmodel.ProfileViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

@@ -6,7 +6,7 @@
 
         <variable
             name="loginActivity"
-            type="cn.edu.sustc.androidclient.ui.login.LoginActivity" />
+            type="cn.edu.sustc.androidclient.view.login.LoginActivity" />
     </data>
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +19,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".view.login.LoginActivity">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"

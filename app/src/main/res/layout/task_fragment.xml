@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.ui.main.TaskFragmentViewModel"/>
+            type="cn.edu.sustc.androidclient.viewmodel.TaskFragmentViewModel"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="registrationActivity"
-            type="cn.edu.sustc.androidclient.ui.login.RegistrationActivity"/>
+            type="cn.edu.sustc.androidclient.view.login.RegistrationActivity"/>
     </data>
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".ui.login.RegistrationActivity">
+        tools:context=".view.login.RegistrationActivity">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
