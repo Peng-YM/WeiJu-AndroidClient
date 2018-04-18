@@ -1,27 +1,27 @@
-package cn.edu.sustc.androidclient.rest.impl;
+package cn.edu.sustc.androidclient.repository;
 
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.UserAPI;
+import cn.edu.sustc.androidclient.service.UserService;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class UserService {
-    private static UserService instance;
-    private UserAPI userAPI;
-    private UserService(UserAPI userAPI){
-        this.userAPI = userAPI;
+public class UserRepository {
+    private static UserRepository instance;
+    private UserService userService;
+    private UserRepository(UserService userService){
+        this.userService = userService;
     }
 
-    public static UserService getInstance(){
+    public static UserRepository getInstance(){
         if (instance == null){
-            synchronized (UserService.class){
+            synchronized (UserRepository.class){
                 if (instance == null){
-                    instance = new UserService(
-                            RetrofitFactory.getInstance().create(UserAPI.class)
+                    instance = new UserRepository(
+                            RetrofitFactory.getInstance().create(UserService.class)
                     );
                 }
             }
@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public void login(Session session, Subscriber<MyResponse<Credential>> subscriber){
-        this.userAPI
+        this.userService
             .login(session)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(subscriber);
@@ -38,7 +38,7 @@ public class UserService {
 
 
     public void getProfile(String id, Subscriber<MyResponse<User>> subscriber) {
-        this.userAPI
+        this.userService
             .getProfile(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(subscriber);

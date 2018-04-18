@@ -1,57 +1,41 @@
 package cn.edu.sustc.androidclient.ui.login;
 
-import android.app.AlertDialog;
-import android.content.Context;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
 import java.util.UUID;
 
-import cn.edu.sustc.androidclient.BR;
-import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.Credential;
 import cn.edu.sustc.androidclient.model.Session;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.UserAPI;
-import cn.edu.sustc.androidclient.ui.main.MainActivity;
+import cn.edu.sustc.androidclient.service.UserService;
 import retrofit2.Retrofit;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class LoginViewModel extends BaseObservable{
-    // data binding
-    private int progressBarVisibility;
-    private String email;
-    private String password;
+public class LoginViewModel extends ViewModel{
+    private UserService userService;
+    private MutableLiveData<LoginStatus> status;
 
-    private AlertDialog alertDialog;
-    private UserAPI userAPI;
-    private Context context;
-    private LoginActivity activity;
-
-    public LoginViewModel(Context context){
-        this.context = context;
+    public LoginViewModel(){
         Retrofit retrofit = RetrofitFactory.getInstance();
-        userAPI = retrofit.create(UserAPI.class);
+        userService = retrofit.create(UserService.class);
         initData();
     }
 
     private void initData(){
-        progressBarVisibility = View.GONE;
+        status = new MutableLiveData<LoginStatus>();
+        status.setValue(LoginStatus.NORMAL);
     }
 
-
-    public void login(View view){
-        Session session = new Session(email, password);
-
+    public void login(Session session){
         Logger.d("Attempted to Login: ");
         Logger.d(session);
 
@@ -59,17 +43,13 @@ public class LoginViewModel extends BaseObservable{
             @Override
             public void onCompleted() {
                 Logger.d("Login Completed");
-                setProgressBarVisibility(View.GONE);
-                // start main activity
-                MainActivity.start(context);
+                status.setValue(LoginStatus.LOGIN_SUCCESS);
             }
 
             @Override
             public void onError(Throwable e) {
                 Logger.e("login Failed!\n" + e.getLocalizedMessage());
-                setProgressBarVisibility(View.GONE);
-                alertDialog.setMessage(context.getResources().getString(R.string.alert_bad_credential));
-                alertDialog.show();
+                status.setValue(LoginStatus.LOGIN_FAILED);
             }
 
             @Override
@@ -84,46 +64,37 @@ public class LoginViewModel extends BaseObservable{
                 editor.apply();
             }
         };
-        if (notEmpty()){
-            setProgressBarVisibility(View.VISIBLE);
-            // TODO: remove fake login
-            userAPI.fakeLogin()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(responseSubscriber);
-            // login
-//            userAPI.login(session)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(responseSubscriber);
-        }else{
-            alertDialog.setMessage(context.getResources().getString(R.string.alert_field_empty));
-            alertDialog.show();
-        }
-
+        status.setValue(LoginStatus.PROGRESSING);
+        // TODO: remove fake login
+        userService.fakeLogin()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseSubscriber);
+        // login
+//        userService.login(session)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(responseSubscriber);
     }
 
-    public void registration(View view){
+    public void registration(Session session){
         User newUser = new User();
         newUser.id = UUID.randomUUID().toString();
-        newUser.email = email;
-        newUser.password = password;
+        newUser.email = session.email;
+        newUser.password = session.password;
 
         Logger.d("Attempted to registration");
         Subscriber<MyResponse<User>> responseSubscriber = new Subscriber<MyResponse<User>>() {
             @Override
             public void onCompleted() {
                 Logger.d("Registration Completed");
-                setProgressBarVisibility(View.GONE);
-                LoginActivity.start(context);
+                status.setValue(LoginStatus.REGISTRATION_SUCCESS);
             }
 
             @Override
             public void onError(Throwable e) {
                 Logger.d("Registration Failed");
-                setProgressBarVisibility(View.GONE);
-                alertDialog.setMessage(context.getResources().getString(R.string.alert_registration_failed));
-                alertDialog.show();
+                status.setValue(LoginStatus.REGISTRATION_FAILED);
             }
 
             @Override
@@ -131,59 +102,15 @@ public class LoginViewModel extends BaseObservable{
 
             }
         };
-        if(notEmpty()){
-            setProgressBarVisibility(View.VISIBLE);
-            userAPI.registration(newUser)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(responseSubscriber);
-        }else{
-            alertDialog.setMessage(context.getResources().getString(R.string.alert_field_empty));
-            alertDialog.show();
-        }
 
+        status.setValue(LoginStatus.PROGRESSING);
+        userService.registration(newUser)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseSubscriber);
     }
 
-
-    public void goToRegistration(View view){
-        RegistrationActivity.start(context);
-    }
-
-    @Bindable
-    public int getProgressBarVisibility() {
-        return progressBarVisibility;
-    }
-
-    public void setProgressBarVisibility(int progressBarVisibility) {
-        this.progressBarVisibility = progressBarVisibility;
-        notifyPropertyChanged(BR.progressBarVisibility);
-    }
-
-    @Bindable
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-        notifyPropertyChanged(BR.email);
-    }
-
-    @Bindable
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
-    }
-
-    public void setAlertDialog(AlertDialog alertDialog) {
-        this.alertDialog = alertDialog;
-    }
-
-    private boolean notEmpty(){
-        return email != null && password != null && !email.isEmpty() && !password.isEmpty();
+    public MutableLiveData<LoginStatus> getStatus() {
+        return status;
     }
 }

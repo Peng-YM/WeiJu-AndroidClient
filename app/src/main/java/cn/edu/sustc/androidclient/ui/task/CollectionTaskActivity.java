@@ -35,4 +35,8 @@ public class CollectionTaskActivity extends BaseActivity {
             }
         });
     }
+
+    private void selectAlbum(){
+
+    }
 }

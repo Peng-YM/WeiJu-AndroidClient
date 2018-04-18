@@ -1,15 +1,13 @@
 package cn.edu.sustc.androidclient.rest.impl;
 
-import android.app.Application;
-
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
+import cn.edu.sustc.androidclient.repository.UserRepository;
 import cn.edu.sustc.androidclient.rest.FileAPI;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
@@ -27,7 +25,7 @@ public class FileService {
 
     public static FileService getInstance(){
         if (instance == null){
-            synchronized (UserService.class){
+            synchronized (UserRepository.class){
                 if (instance == null){
                     instance = new FileService(
                             RetrofitFactory.getInstance().create(FileAPI.class)

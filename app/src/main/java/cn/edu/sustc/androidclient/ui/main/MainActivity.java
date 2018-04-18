@@ -25,7 +25,7 @@ import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.User;
-import cn.edu.sustc.androidclient.rest.impl.UserService;
+import cn.edu.sustc.androidclient.repository.UserRepository;
 import cn.edu.sustc.androidclient.ui.about.AboutActivity;
 import cn.edu.sustc.androidclient.ui.login.LoginActivity;
 import cn.edu.sustc.androidclient.ui.profile.ProfileViewModel;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                 headerMainBinding.setUserProfile(profileViewModel);
             }
         };
-        UserService.getInstance().getProfile(id, subscriber);
+        UserRepository.getInstance().getProfile(id, subscriber);
     }
 
     // close the continue task card view

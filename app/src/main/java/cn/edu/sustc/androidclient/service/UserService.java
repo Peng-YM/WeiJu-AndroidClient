@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.rest;
+package cn.edu.sustc.androidclient.service;
 
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.model.Credential;
@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
 
-public interface UserAPI {
+public interface UserService {
     @POST("sessions")
     Observable<MyResponse<Credential>> login(@Body Session session);
 

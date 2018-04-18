@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="loginViewModel"
-            type="cn.edu.sustc.androidclient.ui.login.LoginViewModel"/>
+            name="registrationActivity"
+            type="cn.edu.sustc.androidclient.ui.login.RegistrationActivity"/>
     </data>
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.login.RegistrationActivity">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginBottom="8dp"
-            android:visibility="@{loginViewModel.progressBarVisibility}" />
+            android:visibility="@{registrationActivity.progressBarVisibility}" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -60,7 +60,7 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true"
-            android:text="@={loginViewModel.email}"
+            android:text="@={registrationActivity.email}"
             android:textSize="16sp" />
 
         <EditText
@@ -75,7 +75,7 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true"
-            android:text="@={loginViewModel.password}"
+            android:text="@={registrationActivity.password}"
             android:textSize="16sp" />
 
         <android.support.v7.widget.CardView
@@ -84,7 +84,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="176dp"
-            android:onClick="@{loginViewModel::registration}"
+            android:onClick="@{registrationActivity::registration}"
             app:cardBackgroundColor="@color/colorAccent"
             app:cardCornerRadius="25dp">
 

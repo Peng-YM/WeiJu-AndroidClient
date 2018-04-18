@@ -5,6 +5,7 @@ import java.util.List;;
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.Task;
+import cn.edu.sustc.androidclient.repository.UserRepository;
 import cn.edu.sustc.androidclient.rest.TaskAPI;
 import rx.Observable;
 import rx.Subscriber;
@@ -20,7 +21,7 @@ public class TaskService {
 
     public static TaskService getInstance(){
         if (instance == null){
-            synchronized (UserService.class){
+            synchronized (UserRepository.class){
                 if (instance == null){
                     instance = new TaskService(
                             RetrofitFactory.getInstance().create(TaskAPI.class)
