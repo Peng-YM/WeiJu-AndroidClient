@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -11,9 +10,12 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import cn.edu.sustc.androidclient.common.LogCatStrategy;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.di.DaggerMyAppComponent;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 
 // application class which is responsible to initialize global variables
-public class MyApplication extends Application {
+public class MyApplication extends DaggerApplication {
     private static String PACKAGE_NAME;
 
     @Override
@@ -39,6 +41,11 @@ public class MyApplication extends Application {
         PACKAGE_NAME = getApplicationContext().getPackageName();
 
         Logger.d("Application Started");
+    }
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerMyAppComponent.builder().create(this);
     }
 
     public static String getMyPackageName() {

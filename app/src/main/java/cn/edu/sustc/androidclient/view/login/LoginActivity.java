@@ -14,12 +14,13 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
     private AlertDialog alertDialog;
     private LoginViewModel model;
 
@@ -34,20 +35,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ActivityLoginBinding loginBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_login);
-        // get view model
-        model = ViewModelProviders.of(this).get(LoginViewModel.class);
+    protected Class<LoginViewModel> getViewModel() {
+        return LoginViewModel.class;
+    }
 
+    @Override
+    protected void onCreate(Bundle instance, LoginViewModel viewModel, ActivityLoginBinding binding) {
+        this.model = viewModel;
+        binding.setLoginActivity(this);
         initData();
         initViews();
         initListeners();
+    }
 
-        // bind to view
-        loginBinding.setLoginActivity(this);
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_login;
     }
 
     private void initData(){

@@ -13,8 +13,16 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            postprocessing {
+                removeUnusedCode true
+                removeUnusedResources true
+                obfuscate true
+                optimizeCode true
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+        debug {
+            applicationIdSuffix '.debug'
         }
     }
     dataBinding {
@@ -81,4 +89,7 @@ dependencies {
     // Dagger 2
     implementation 'com.google.dagger:dagger:2.14.1'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    implementation "com.google.dagger:dagger-android:2.14.1"
+    implementation "com.google.dagger:dagger-android-support:2.14.1"
+    annotationProcessor "com.google.dagger:dagger-android-processor:2.14.1"
 }

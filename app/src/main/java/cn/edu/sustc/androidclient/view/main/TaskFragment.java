@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.CompletedListener;
+import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.databinding.TaskFragmentBinding;
 import cn.edu.sustc.androidclient.view.adapter.TaskAdapter;
 import cn.edu.sustc.androidclient.viewmodel.TaskFragmentViewModel;

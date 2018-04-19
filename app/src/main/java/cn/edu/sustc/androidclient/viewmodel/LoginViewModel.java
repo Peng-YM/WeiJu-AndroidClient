@@ -8,6 +8,8 @@ import com.orhanobut.logger.Logger;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.common.MyResponse;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
@@ -23,12 +25,14 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class LoginViewModel extends ViewModel{
+    // injected modules
     private UserService userService;
+    // data
     private MutableLiveData<LoginStatus> status;
 
-    public LoginViewModel(){
-        Retrofit retrofit = RetrofitFactory.getInstance();
-        userService = retrofit.create(UserService.class);
+    @Inject
+    public LoginViewModel(UserService userService){
+        this.userService = userService;
         initData();
     }
 
