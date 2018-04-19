@@ -1,101 +1,97 @@
 package cn.edu.sustc.androidclient.view.login;
 
-import android.app.AlertDialog;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
+import android.content.SharedPreferences;
 import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
-import cn.edu.sustc.androidclient.model.data.Session;
+import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
     private AlertDialog alertDialog;
     private LoginViewModel model;
+    private ActivityRegistrationBinding binding;
+
     // data binding
-    public ObservableField<Integer> progressBarVisibility;
     public ObservableField<String> email;
     public ObservableField<String> password;
 
     public static void start(Context context){
-        Intent intent = new Intent(context, RegistrationActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
-        ActivityRegistrationBinding registrationBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_registration);
-        // get view model
-        model = ViewModelProviders.of(this).get(LoginViewModel.class);
+    protected Class<LoginViewModel> getViewModel() {
+        return LoginViewModel.class;
+    }
 
+    @Override
+    protected void onCreate(Bundle instance, LoginViewModel viewModel, ActivityRegistrationBinding binding) {
+        this.model = viewModel;
+        this.binding = binding;
+
+        binding.setRegistrationActivity(this);
         initData();
         initViews();
         initListeners();
-
-        // bind to view
-        registrationBinding.setRegistrationActivity(this);
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_registration;
+    }
+
     private void initData(){
-        progressBarVisibility = new ObservableField<>();
         email = new ObservableField<>();
         password = new ObservableField<>();
-
-        // set progress bar visibility
-        progressBarVisibility.set(View.GONE);
     }
-
 
     private void initViews(){
         // set alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.alert))
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
+                .setPositiveButton("OK", (dialogInterface, i) -> {});
         alertDialog = builder.create();
-
-        // set progress bar visibility
-        progressBarVisibility.set(View.GONE);
+        binding.registrationProgressBar.setVisibility(View.GONE);
     }
 
     private void initListeners(){
-        model.getStatus().observe(this, status -> {
-            switch (status){
-                case REGISTRATION_SUCCESS:
-                    // go to login activity
-                    LoginActivity.start(this);
-                    break;
-                case LOGIN_FAILED:
-                    // stop progress bar
-                    progressBarVisibility.set(View.GONE);
-                    // show alert dialog
-                    alertDialog.setMessage(getResources().getString(R.string.alert_registration_failed));
-                    alertDialog.show();
-                    break;
-                case PROGRESSING:
-                    // show progress bar
-                    progressBarVisibility.set(View.VISIBLE);
-                    break;
-                default:
-                    break;
+        model.getCreatedUser().observe(this, resource -> {
+            if (resource != null){
+                switch (resource.status){
+                    case ERROR:
+                        String errorInfo = resource.message;
+                        alertDialog.setMessage(errorInfo);
+                        alertDialog.show();
+                        binding.registrationProgressBar.setVisibility(View.GONE);
+                        break;
+                    case LOADING:
+                        binding.registrationProgressBar.setVisibility(View.VISIBLE);
+                        break;
+                    case SUCCESS:
+                        // save credential and go to login
+                        LoginActivity.start(this);
+                        binding.registrationProgressBar.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }
 
     public void registration(View view){
-        model.registration(new Session(email.get(), password.get()));
+        User newUser = new User();
+        newUser.password = password.get();
+        newUser.email = email.get();
     }
 }

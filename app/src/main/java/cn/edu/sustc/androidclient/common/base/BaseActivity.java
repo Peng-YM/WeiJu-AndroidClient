@@ -8,9 +8,11 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.common.ActivityCollector;
 import dagger.android.support.DaggerAppCompatActivity;
 
 /**
@@ -25,6 +27,8 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCollector.addActivity(this);
+
         ViewDataBinding binding = DataBindingUtil.setContentView(this, getLayoutResId());
         ViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
         onCreate(savedInstanceState, (M) viewModel, (B) binding);
@@ -34,4 +38,21 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     protected abstract void onCreate(Bundle instance, M viewModel, B binding);
 
     protected abstract @LayoutRes int getLayoutResId();
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return(super.onOptionsItemSelected(item));
+    }
 }

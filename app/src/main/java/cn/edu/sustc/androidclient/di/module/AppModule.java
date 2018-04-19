@@ -15,15 +15,20 @@ import dagger.Provides;
         NetworkModule.class
 })
 public class AppModule {
+    // provide application context
     @Provides
     @Singleton
     Context provideContext(MyApplication application){
         return application.getApplicationContext();
     }
 
+    // provide scheduler
     @Provides
     @Singleton
     AppSchedulerProvider provideSchedulerProvider(){
         return new AppSchedulerProvider();
     }
+
+    // provide SharePreferences
+
 }

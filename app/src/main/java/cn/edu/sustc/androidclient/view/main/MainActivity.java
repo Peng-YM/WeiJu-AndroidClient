@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
-import cn.edu.sustc.androidclient.common.MyResponse;
+import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;

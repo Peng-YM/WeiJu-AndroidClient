@@ -1,4 +1,6 @@
-package cn.edu.sustc.androidclient.common;
+package cn.edu.sustc.androidclient.model;
+
+import cn.edu.sustc.androidclient.model.MyError;
 
 public class MyResponse<T> {
     public Object meta = null;

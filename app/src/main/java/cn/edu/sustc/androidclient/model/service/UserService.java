@@ -1,10 +1,11 @@
 package cn.edu.sustc.androidclient.model.service;
 
-import cn.edu.sustc.androidclient.common.MyResponse;
+import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -22,5 +23,5 @@ public interface UserService {
 
     // fake apis here
     @GET("credentials/1")
-    Observable<MyResponse<Credential>> fakeLogin();
+    Single<MyResponse<Credential>> fakeLogin();
 }

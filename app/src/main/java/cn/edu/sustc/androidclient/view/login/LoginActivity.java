@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
@@ -14,8 +15,11 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
+import cn.edu.sustc.androidclient.model.MyResource;
+import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
@@ -23,9 +27,9 @@ import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
     private AlertDialog alertDialog;
     private LoginViewModel model;
+    private ActivityLoginBinding binding;
 
     // data binding
-    public ObservableField<Integer> progressBarVisibility;
     public ObservableField<String> email;
     public ObservableField<String> password;
 
@@ -42,10 +46,11 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     @Override
     protected void onCreate(Bundle instance, LoginViewModel viewModel, ActivityLoginBinding binding) {
         this.model = viewModel;
+        this.binding = binding;
+
         binding.setLoginActivity(this);
         initData();
         initViews();
-        initListeners();
     }
 
     @Override
@@ -54,12 +59,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     private void initData(){
-        progressBarVisibility = new ObservableField<>();
         email = new ObservableField<>();
         password = new ObservableField<>();
-
-        // set progress bar visibility
-        progressBarVisibility.set(View.GONE);
     }
 
     private void initViews(){
@@ -67,45 +68,48 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.alert))
                 .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                });
+                .setPositiveButton("OK", (dialogInterface, i) -> {});
         alertDialog = builder.create();
-    }
-
-    private void initListeners(){
-        model.getStatus().observe(this, status -> {
-            switch (status){
-                case LOGIN_SUCCESS:
-                    Logger.d("Go to MainActivity");
-                    // go to main activity
-                    MainActivity.start(this);
-                    break;
-                case LOGIN_FAILED:
-                    // stop progress bar
-                    progressBarVisibility.set(View.GONE);
-                    // show alert dialog
-                    alertDialog.setMessage(getResources().getString(R.string.alert_bad_credential));
-                    alertDialog.show();
-                    break;
-                case PROGRESSING:
-                    // show progress bar
-                    progressBarVisibility.set(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
-        });
+        binding.loginProgressBar.setVisibility(View.GONE);
     }
 
     public void login(View view){
         model.login(new Session(email.get(), password.get()));
+        model.getCredential().observe(this, resource -> {
+            if (resource != null){
+                switch (resource.status){
+                    case ERROR:
+                        String errorInfo = resource.message;
+                        alertDialog.setMessage(errorInfo);
+                        alertDialog.show();
+                        binding.loginProgressBar.setVisibility(View.GONE);
+                        break;
+                    case LOADING:
+                        binding.loginProgressBar.setVisibility(View.VISIBLE);
+                        break;
+                    case SUCCESS:
+                        // save credential and go to main activity
+                        saveCredential(resource.data);
+                        MainActivity.start(this);
+                        binding.loginProgressBar.setVisibility(View.GONE);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     public void goToRegistration(View view){
         RegistrationActivity.start(this);
+    }
+
+    private void saveCredential(Credential credential){
+        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("id", credential.id);
+        editor.putString("token", credential.token);
+        editor.apply();
     }
 }
 

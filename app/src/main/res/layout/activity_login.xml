@@ -22,15 +22,14 @@
         tools:context=".view.login.LoginActivity">
 
         <ProgressBar
+            android:id="@+id/login_progress_bar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="8dp"
-            android:visibility="@{loginActivity.progressBarVisibility}" />
+            android:layout_marginBottom="8dp" />
 
         <ImageView
-            android:id="@+id/imageView3"
             android:layout_width="188dp"
             android:layout_height="108dp"
             android:layout_alignParentTop="true"
@@ -95,7 +94,6 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

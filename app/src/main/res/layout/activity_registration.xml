@@ -19,15 +19,14 @@
         tools:context=".view.login.RegistrationActivity">
 
         <ProgressBar
+            android:id="@+id/registration_progress_bar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="8dp"
-            android:visibility="@{registrationActivity.progressBarVisibility}" />
+            android:layout_marginBottom="8dp" />
 
         <ImageView
-            android:id="@+id/imageView3"
             android:layout_width="188dp"
             android:layout_height="108dp"
             android:layout_alignParentTop="true"
@@ -36,7 +35,6 @@
             app:srcCompat="@drawable/logo" />
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

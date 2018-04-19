@@ -10,82 +10,28 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.common.MyResponse;
-import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
-import cn.edu.sustc.androidclient.model.service.UserService;
-import cn.edu.sustc.androidclient.view.login.LoginStatus;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
+import cn.edu.sustc.androidclient.model.repository.UserRepository;
 
 public class LoginViewModel extends ViewModel{
     // injected modules
-    private UserService userService;
+    private UserRepository userRepository;
     // data
-    private MutableLiveData<LoginStatus> status;
+    private MutableLiveData<MyResource<Credential>> credential;
+    private MutableLiveData<MyResource<User>> createdUser;
 
     @Inject
-    public LoginViewModel(UserService userService){
-        this.userService = userService;
-        initData();
+    public LoginViewModel(UserRepository repository){
+        this.userRepository = repository;
     }
 
-    private void initData(){
-        status = new MutableLiveData<LoginStatus>();
-        status.setValue(LoginStatus.NORMAL);
-    }
-
-    public void login(Session session){
-        Logger.d("Attempted to Login: ");
-        Logger.d(session);
-
-        Observer<MyResponse<Credential>> observer = new Observer<MyResponse<Credential>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                status.setValue(LoginStatus.PROGRESSING);
-            }
-
-            @Override
-            public void onNext(MyResponse<Credential> response) {
-                Credential credential = response.data;
-                Logger.d("Get credential: \n" + credential.toString());
-                // save credential
-                SharedPreferences preferences = SharePreferenceHelper.getPreferences();
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("id", credential.id);
-                editor.putString("token", credential.token);
-                editor.apply();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Logger.e("login Failed!\n" + e.getLocalizedMessage());
-                status.setValue(LoginStatus.LOGIN_FAILED);
-            }
-
-            @Override
-            public void onComplete() {
-                Logger.d("Login Completed");
-                status.setValue(LoginStatus.LOGIN_SUCCESS);
-            }
-        };
-
-        // TODO: remove fake login
-        userService.fakeLogin()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-        // login
-//        userService.login(session)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
+    public void login(Session session) {
+        Logger.d("Attempted to Login: ", session);
+        credential = userRepository.login(session);
     }
 
     public void registration(Session session){
@@ -95,37 +41,22 @@ public class LoginViewModel extends ViewModel{
         newUser.password = session.password;
 
         Logger.d("Attempted to registration");
-        Observer<MyResponse<User>> responseSubscriber = new Observer<MyResponse<User>>() {
-            @Override
-            public void onComplete() {
-                Logger.d("Registration Completed");
-                status.setValue(LoginStatus.REGISTRATION_SUCCESS);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Logger.d("Registration Failed");
-                status.setValue(LoginStatus.REGISTRATION_FAILED);
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                status.setValue(LoginStatus.PROGRESSING);
-            }
-
-            @Override
-            public void onNext(MyResponse<User> userMyResponse) {
-
-            }
-        };
-
-        userService.registration(newUser)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseSubscriber);
     }
 
-    public MutableLiveData<LoginStatus> getStatus() {
-        return status;
+    public MutableLiveData<MyResource<Credential>> getCredential() {
+        return credential;
+    }
+
+    public MutableLiveData<MyResource<User>> getCreatedUser() {
+        return createdUser;
+    }
+
+    /**
+     * the mutable data should be clear when the ViewModel is destroyed.
+     * */
+    @Override
+    protected void onCleared(){
+        super.onCleared();
+        userRepository.onClear();
     }
 }
