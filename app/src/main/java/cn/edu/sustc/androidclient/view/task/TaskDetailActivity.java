@@ -8,13 +8,16 @@ import android.os.Bundle;
 import com.zzhoujay.richtext.RichText;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.BaseActivity;
+import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.viewmodel.TaskViewModel;
 
-public class TaskDetailActivity extends BaseActivity {
+public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTaskDetailBinding> {
+    // injected modules
     private ActivityTaskDetailBinding binding;
+    private TaskViewModel viewModel;
+
     public static void start(Context context, Task task){
         Intent intent = new Intent(context, TaskDetailActivity.class);
         intent.putExtra("task", task);
@@ -22,14 +25,25 @@ public class TaskDetailActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_detail);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_task_detail);
+    protected Class<TaskViewModel> getViewModel() {
+        return TaskViewModel.class;
+    }
+
+    @Override
+    protected void onCreate(Bundle instance, TaskViewModel viewModel, ActivityTaskDetailBinding binding) {
+        this.viewModel = viewModel;
+        this.binding = binding;
+
         Intent intent = getIntent();
         Task task = (Task) intent.getSerializableExtra("task");
-        TaskViewModel viewModel = new TaskViewModel(task);
+        viewModel.setTask(task);
+
         binding.setViewModel(viewModel);
         RichText.fromMarkdown(task.descriptions).into(binding.taskMarkdownDescriptions);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_task_detail;
     }
 }

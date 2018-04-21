@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.BaseActivity;
 import cn.edu.sustc.androidclient.view.adapter.CustomPagerAdapter;
 
-public class TaskManagerActivity extends BaseActivity {
+public class TaskManagerActivity extends AppCompatActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, TaskManagerActivity.class);
         context.startActivity(intent);

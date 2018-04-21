@@ -24,7 +24,7 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
     public ObservableField<String> password;
 
     public static void start(Context context){
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, RegistrationActivity.class);
         context.startActivity(intent);
     }
 
@@ -41,7 +41,6 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         binding.setRegistrationActivity(this);
         initData();
         initViews();
-        initListeners();
     }
 
     @Override
@@ -64,7 +63,11 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         binding.registrationProgressBar.setVisibility(View.GONE);
     }
 
-    private void initListeners(){
+    public void registration(View view){
+        User newUser = new User();
+        newUser.password = password.get();
+        newUser.email = email.get();
+
         model.getCreatedUser().observe(this, resource -> {
             if (resource != null){
                 switch (resource.status){
@@ -87,11 +90,5 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
                 }
             }
         });
-    }
-
-    public void registration(View view){
-        User newUser = new User();
-        newUser.password = password.get();
-        newUser.email = email.get();
     }
 }

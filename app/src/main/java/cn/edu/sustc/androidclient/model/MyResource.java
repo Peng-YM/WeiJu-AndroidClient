@@ -8,9 +8,9 @@ import io.reactivex.annotations.Nullable;
  * a generic class that describes a data with a status
  * */
 public class MyResource<T> {
-    @NonNull public final Status status;
-    @Nullable public final T data;
-    @Nullable public final String message;
+    @NonNull public Status status;
+    @Nullable public T data;
+    @Nullable public String message;
 
     private MyResource(@NonNull Status status, @Nullable T data, @Nullable String message){
         this.status = status;

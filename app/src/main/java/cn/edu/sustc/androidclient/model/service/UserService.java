@@ -19,7 +19,7 @@ public interface UserService {
     Observable<MyResponse<User>> registration(@Body User user);
 
     @GET("users/{id}")
-    Observable<MyResponse<User>> getProfile(@Path("id") String id);
+    Single<MyResponse<User>> getProfile(@Path("id") String id);
 
     // fake apis here
     @GET("credentials/1")

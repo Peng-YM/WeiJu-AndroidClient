@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
+import cn.edu.sustc.androidclient.common.Status;
+import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
@@ -28,16 +30,19 @@ import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.repository.UserRepository;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.login.LoginActivity;
+import cn.edu.sustc.androidclient.viewmodel.MainViewModel;
 import cn.edu.sustc.androidclient.viewmodel.ProfileViewModel;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.view.task.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
-import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
         implements NavigationView.OnNavigationItemSelectedListener {
+    // injected modules
     private ActivityMainBinding binding;
+    private MainViewModel viewModel;
 
     public static void start(Context context){
         Intent intent = new Intent(context, MainActivity.class);
@@ -45,10 +50,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    protected void onCreate(Bundle instance, MainViewModel viewModel, ActivityMainBinding binding) {
+        this.binding = binding;
+        this.viewModel = viewModel;
+
         binding.setMainListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,39 +72,28 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .add(R.id.task_fragment_layout, TaskFragment.getInstance())
                 .commit();
+    }
 
+    @Override
+    protected Class<MainViewModel> getViewModel() {
+        return MainViewModel.class;
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
     }
 
     public void setUpUserProfile(){
-        // get id from shared preference
-        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
-        String id = preferences.getString("id", "DEFAULT");
-        Observer<MyResponse<User>> subscriber = new Observer<MyResponse<User>>() {
-            @Override
-            public void onComplete() { }
-
-            @Override
-            public void onError(Throwable e) {
-                // TODO show error dialog
-            }
-
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(MyResponse<User> response) {
-                User user = response.data;
-                // setup navigation view header when data is prepared
+        viewModel.getCurrentUser().observe(this, userMyResource -> {
+            if (userMyResource != null && userMyResource.status == Status.SUCCESS){
                 NavHeaderMainBinding headerMainBinding = DataBindingUtil.inflate(getLayoutInflater(),
                         R.layout.nav_header_main, binding.navView, false);
                 binding.navView.addHeaderView(headerMainBinding.getRoot());
-                ProfileViewModel profileViewModel = new ProfileViewModel(MainActivity.this, user);
+                ProfileViewModel profileViewModel = new ProfileViewModel(MainActivity.this, userMyResource.data);
                 headerMainBinding.setUserProfile(profileViewModel);
             }
-        };
-        UserRepository.getInstance().getProfile(id, subscriber);
+        });
     }
 
     // close the continue task card view

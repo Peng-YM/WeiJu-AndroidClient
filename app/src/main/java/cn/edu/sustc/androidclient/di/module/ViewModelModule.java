@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import cn.edu.sustc.androidclient.di.ViewModelKey;
 import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
+import cn.edu.sustc.androidclient.viewmodel.MainViewModel;
+import cn.edu.sustc.androidclient.viewmodel.TaskViewModel;
 import cn.edu.sustc.androidclient.viewmodel.ViewModelFactory;
 import dagger.Binds;
 import dagger.Module;
@@ -26,4 +28,14 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel.class)
     abstract ViewModel bindLoginViewModel(LoginViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel.class)
+    abstract ViewModel bindMainViewModel(MainViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TaskViewModel.class)
+    abstract ViewModel bindTaskViewModel(TaskViewModel viewModel);
 }

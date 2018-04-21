@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.BaseActivity;
 
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends AppCompatActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, SettingsActivity.class);
         context.startActivity(intent);

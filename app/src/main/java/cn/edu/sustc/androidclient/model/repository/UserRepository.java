@@ -16,14 +16,13 @@ import cn.edu.sustc.androidclient.model.service.UserService;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class UserRepository implements BaseViewModel {
-    @Deprecated
-    private static UserRepository instance;
     // injected modules
     private final UserService userService;
     private final AppSchedulerProvider schedulerProvider;
@@ -33,21 +32,6 @@ public class UserRepository implements BaseViewModel {
     private MutableLiveData<MyResource<Credential>> credential;
     private MutableLiveData<MyResource<User>> userProfile;
 
-    @Deprecated
-    public static UserRepository getInstance(){
-        if (instance == null){
-            synchronized (UserRepository.class){
-                if (instance == null){
-                    instance = new UserRepository(
-                            RetrofitFactory.getInstance().create(UserService.class),
-                            new AppSchedulerProvider()
-                    );
-                }
-            }
-        }
-        return instance;
-    }
-
     @Inject
     public UserRepository(UserService userService, AppSchedulerProvider schedulerProvider){
         this.userService = userService;
@@ -55,15 +39,7 @@ public class UserRepository implements BaseViewModel {
         initData();
     }
 
-    public void login(Session session, Observer<MyResponse<Credential>> observer){
-        this.userService
-            .login(session)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(observer);
-    }
-
-
-    public void getProfile(String id, Observer<MyResponse<User>> observer) {
+    public void getProfile(String id, SingleObserver<MyResponse<User>> observer) {
         this.userService
             .getProfile(id)
             .observeOn(AndroidSchedulers.mainThread())
@@ -96,6 +72,38 @@ public class UserRepository implements BaseViewModel {
                     }
                 });
         return credential;
+    }
+
+    public MutableLiveData<MyResource<Credential>> registration() {
+        return credential;
+    }
+
+    public MutableLiveData<MyResource<User>> getUserProfile(String id) {
+        userProfile = new MutableLiveData<>();
+        userService.getProfile(id)
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
+                .subscribe(new SingleObserver<MyResponse<User>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                        MyResource<User> resource = MyResource.loading(null);
+                        userProfile.postValue(resource);
+                    }
+
+                    @Override
+                    public void onSuccess(MyResponse<User> response) {
+                        MyResource<User> resource = MyResource.success(response.data);
+                        userProfile.postValue(resource);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        MyResource<User> resource = MyResource.error("Cannot get user profile!", null);
+                        userProfile.postValue(resource);
+                    }
+                });
+        return userProfile;
     }
 
     private void initData(){

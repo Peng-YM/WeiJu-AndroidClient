@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
+import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import dagger.Module;
 import dagger.Provides;
 
@@ -30,5 +31,9 @@ public class AppModule {
     }
 
     // provide SharePreferences
-
+    @Provides
+    @Singleton
+    SharedPreferences provideSharePreferences(){
+        return SharePreferenceHelper.getPreferences();
+    }
 }

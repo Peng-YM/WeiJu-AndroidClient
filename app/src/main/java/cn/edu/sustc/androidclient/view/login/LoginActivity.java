@@ -101,6 +101,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     public void goToRegistration(View view){
+        Logger.d("Go to registration");
         RegistrationActivity.start(this);
     }
 

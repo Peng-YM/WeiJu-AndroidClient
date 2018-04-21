@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.view.about;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
@@ -13,9 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.BaseActivity;
 
-public class AboutActivity extends BaseActivity {
+public class AboutActivity extends AppCompatActivity {
     public static void start(Context context){
         Intent intent = new Intent(context, AboutActivity.class);
         context.startActivity(intent);
