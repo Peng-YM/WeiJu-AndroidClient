@@ -11,38 +11,38 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
-import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
-import cn.edu.sustc.androidclient.model.repository.UserRepository;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.login.LoginActivity;
+import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.viewmodel.MainViewModel;
-import cn.edu.sustc.androidclient.viewmodel.ProfileViewModel;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.view.task.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
         implements NavigationView.OnNavigationItemSelectedListener {
     // injected modules
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
+
+    private NavHeaderMainBinding headerBinding;
 
     public static void start(Context context){
         Intent intent = new Intent(context, MainActivity.class);
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         this.viewModel = viewModel;
 
         binding.setMainListener(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = binding.contentMain.toolbar;
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -64,9 +64,9 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        setUpUserProfile();
+        binding.navView.setNavigationItemSelectedListener(this);
+
+        setUpNavigationView();
         // insert fragments
         getFragmentManager()
                 .beginTransaction()
@@ -84,14 +84,30 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         return R.layout.activity_main;
     }
 
-    public void setUpUserProfile(){
-        viewModel.getCurrentUser().observe(this, userMyResource -> {
+    /**
+     * Set up Navigation view
+     * */
+    public void setUpNavigationView(){
+        headerBinding = DataBindingUtil.inflate(getLayoutInflater(),
+                R.layout.nav_header_main, binding.navView, false);
+        binding.navView.addHeaderView(headerBinding.getRoot());
+
+        viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
             if (userMyResource != null && userMyResource.status == Status.SUCCESS){
-                NavHeaderMainBinding headerMainBinding = DataBindingUtil.inflate(getLayoutInflater(),
-                        R.layout.nav_header_main, binding.navView, false);
-                binding.navView.addHeaderView(headerMainBinding.getRoot());
-                ProfileViewModel profileViewModel = new ProfileViewModel(MainActivity.this, userMyResource.data);
-                headerMainBinding.setUserProfile(profileViewModel);
+                User user = userMyResource.data;
+                headerBinding.headerEmail.setText(user.email);
+                headerBinding.headerUsername.setText(user.username);
+                RequestOptions options = new RequestOptions()
+                        .circleCrop()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.ic_load_error);
+                Glide.with(headerBinding.headerAvatar)
+                        .load(user.avatar)
+                        .apply(options)
+                        .into(headerBinding.headerAvatar);
+                headerBinding.headerAvatar.
+                        setOnClickListener(view ->
+                                UserProfileActivity.start(MainActivity.this, user));
             }
         });
     }

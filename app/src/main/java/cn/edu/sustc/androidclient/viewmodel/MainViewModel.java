@@ -29,12 +29,12 @@ public class MainViewModel extends ViewModel {
     public MainViewModel(UserRepository userRepository, SharedPreferences preferences){
         this.userRepository = userRepository;
         this.preferences = preferences;
-    }
-
-    public LiveData<MyResource<User>> getCurrentUser() {
         // get id from preference
         String id = preferences.getString("id", "");
         currentUser = userRepository.getUserProfile(id);
+    }
+
+    public LiveData<MyResource<User>> getLiveCurrentUser() {
         Logger.d("Current user: ", currentUser);
         return currentUser;
     }

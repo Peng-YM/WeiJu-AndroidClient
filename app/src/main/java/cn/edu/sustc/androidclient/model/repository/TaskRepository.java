@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.Status;
@@ -64,7 +66,7 @@ public class TaskRepository implements BaseViewModel{
     private CompositeDisposable disposables = new CompositeDisposable();
     private MutableLiveData<MyResource<List<Task>>> liveTaskList = new MutableLiveData<>();
 
-
+    @Inject
     public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider){
         this.taskService = taskService;
         this.schedulerProvider = schedulerProvider;
@@ -81,11 +83,13 @@ public class TaskRepository implements BaseViewModel{
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposables.add(d);
+                        MyResource<List<Task>> resource = MyResource.loading(null);
+                        liveTaskList.postValue(resource);
                     }
 
                     @Override
                     public void onNext(MyResponse<List<Task>> response) {
-                        MyResource<List<Task>> resource = MyResource.loading(response.data);
+                        MyResource<List<Task>> resource = MyResource.success(response.data);
                         liveTaskList.postValue(resource);
                     }
 
