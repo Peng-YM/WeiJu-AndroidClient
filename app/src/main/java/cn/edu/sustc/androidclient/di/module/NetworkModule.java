@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.service.FileService;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import cn.edu.sustc.androidclient.model.service.UserService;
 import dagger.Module;
@@ -35,5 +36,11 @@ public class NetworkModule {
     @Singleton
     TaskService provideTaskService(Retrofit retrofit){
         return retrofit.create(TaskService.class);
+    }
+
+    @Provides
+    @Singleton
+    FileService provideFileService(Retrofit retrofit){
+        return retrofit.create(FileService.class);
     }
 }

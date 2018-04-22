@@ -1,88 +1,114 @@
 package cn.edu.sustc.androidclient.model.repository;
 
-public class FileRepository {
-//    private static FileRepository instance;
-//    private FileService fileAPI;
-//
-//    public static FileRepository getInstance(){
-//        if (instance == null){
-//            synchronized (UserRepository.class){
-//                if (instance == null){
-//                    instance = new FileRepository(
-//                            RetrofitFactory.getInstance().create(FileService.class)
-//                    );
-//                }
-//            }
-//        }
-//        return instance;
-//    }
-//
-//    private FileRepository(FileService fileAPI){
-//        this.fileAPI = fileAPI;
-//    }
-//
-//    public void download(String url, String pathToSave, Observer<File> observer){
-//        this.fileAPI
-//                .downloadFile(url)
-//                .flatMap(processResponse(pathToSave))
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(observer);
-//    }
-//
-//    private Func1<Response<ResponseBody>, Observable<File>> processResponse(final String pathToSave){
-//        return new Func1<Response<ResponseBody>, Observable<File>>() {
-//            @Override
-//            public Observable<File> call(Response<ResponseBody> responseBodyResponse) {
-//                return saveToDisk(responseBodyResponse, pathToSave);
-//            }
-//        };
-//    }
-//
-//    private Observable<File> saveToDisk(final Response<ResponseBody> response, final String pathToSave){
-//        return Observable.create(new Observable.OnSubscribe<File>() {
-//            @Override
-//            public void call(Subscriber<? super File> subscriber) {
-//                try{
-////                    String headers = response.headers().get("Content-Disposition");
-////                    String filename = headers.replace("attachment; filename=", "");
-//                    String filename = "Lenna.jpg";
-//
-//                    new File(pathToSave).mkdir();
-//                    File destination = new File(pathToSave + filename);
-//                    BufferedSink bufferedSink = Okio.buffer(Okio.sink(destination));
-//                    bufferedSink.writeAll(response.body().source());
-//                    bufferedSink.close();
-//
-//                    subscriber.onNext(destination);
-//                    subscriber.onCompleted();
-//                }catch (IOException | NullPointerException e){
-//                    Logger.e(e.getMessage());
-//                    subscriber.onError(e);
-//                }
-//            }
-//        });
-//    }
-//
-//    public static void test(){
-//        String path = "/data/data/" + MyApplication.getMyPackageName() + "/";
-//        String url = "https://pic2.zhimg.com/80/63536f2f01409f750162828a980a0380_hd.jpg";
-//        Observer<File> fileObserver = new Observer<File>() {
-//            @Override
-//            public void onCompleted() {
-//                Logger.d("Download completed");
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Logger.e(e.getLocalizedMessage());
-//            }
-//
-//            @Override
-//            public void onNext(File file) {
-//                Logger.d("File downloaded to" + file.getAbsolutePath());
-//            }
-//        };
-//        FileRepository.getInstance()
-//                .download(url, path, fileObserver);
-//    }
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
+import com.orhanobut.logger.Logger;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
+import cn.edu.sustc.androidclient.common.RetrofitFactory;
+import cn.edu.sustc.androidclient.common.base.BaseViewModel;
+import cn.edu.sustc.androidclient.common.base.SchedulerProvider;
+import cn.edu.sustc.androidclient.model.MyResource;
+import cn.edu.sustc.androidclient.model.service.FileService;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.Okio;
+import retrofit2.Response;
+
+public class FileRepository implements BaseViewModel {
+    @Deprecated
+    private static FileRepository instance;
+
+    private FileService fileService;
+    private SchedulerProvider schedulerProvider;
+
+    // data
+    private CompositeDisposable disposables = new CompositeDisposable();
+
+    @Deprecated
+    public static FileRepository getInstance(){
+        if (instance == null){
+            synchronized (UserRepository.class){
+                if (instance == null){
+                    instance = new FileRepository(
+                            RetrofitFactory.getInstance().create(FileService.class)
+                    );
+                }
+            }
+        }
+        return instance;
+    }
+
+    @Deprecated
+    private FileRepository(FileService fileService){
+        this.fileService = fileService;
+    }
+
+    @Inject
+    public FileRepository(FileService service, AppSchedulerProvider schedulerProvider){
+        this.fileService = service;
+        this.schedulerProvider = schedulerProvider;
+    }
+
+    public LiveData<MyResource<File>> download(String url, String pathToSave){
+        MutableLiveData<MyResource<File>> target = new MutableLiveData<>();
+        target.postValue(MyResource.loading(null));
+
+        this.fileService
+                .downloadFile(url)
+                .flatMap(responseBodyResponse -> saveToDisk(responseBodyResponse, pathToSave))
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new SingleObserver<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        target.postValue(MyResource.success(file));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        target.postValue(MyResource.error(e.getMessage(), null));
+                    }
+                });
+        return target;
+    }
+
+
+    private Single<File> saveToDisk(final Response<ResponseBody> response, final String pathToSave){
+        return Single.create(emitter -> {
+            try{
+                File destination = new File(pathToSave);
+                BufferedSink bufferedSink = Okio.buffer(Okio.sink(destination));
+                bufferedSink.writeAll(response.body().source());
+                bufferedSink.close();
+                emitter.onSuccess(destination);
+            }catch (IOException | NullPointerException e){
+                Logger.e(e.getMessage());
+                emitter.onError(e);
+            }
+        });
+    }
+
+    @Override
+    public void onClear(){
+        disposables.dispose();
+    }
+
 }

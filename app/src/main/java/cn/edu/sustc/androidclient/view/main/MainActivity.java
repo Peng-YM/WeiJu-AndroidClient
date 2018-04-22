@@ -33,6 +33,7 @@ import cn.edu.sustc.androidclient.view.login.LoginActivity;
 import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
+import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
 
@@ -182,6 +183,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         int id = item.getItemId();
         switch (id){
             case R.id.nav_all_task:
+                AnnotationTaskActivity.start(this);
                 break;
             case R.id.nav_my_task:
                 TaskManagerActivity.start(this);

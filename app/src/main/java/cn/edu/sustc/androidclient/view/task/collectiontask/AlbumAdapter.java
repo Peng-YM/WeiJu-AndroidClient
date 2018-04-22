@@ -28,7 +28,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void notifyDataSetChanged(List<AlbumFile> imagePathList){
         this.albumFiles = imagePathList;
-        Logger.d("Selected Files: %s", imagePathList.toString());
+        for (AlbumFile file: imagePathList){
+            Logger.d("Selected File: %s", file.getPath());
+        }
         super.notifyDataSetChanged();
     }
 

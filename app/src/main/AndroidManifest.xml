@@ -65,6 +65,7 @@
             android:name=".view.task.TaskManagerActivity"
             android:label="@string/my_task" />
         <activity android:name=".view.task.collectiontask.CollectionTaskActivity"></activity>
+        <activity android:name=".view.task.annotationtask.AnnotationTaskActivity" />
     </application>
 
 </manifest>
