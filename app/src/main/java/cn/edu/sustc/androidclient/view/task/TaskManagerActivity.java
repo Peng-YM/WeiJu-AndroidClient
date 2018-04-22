@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.adapter.CustomPagerAdapter;
 
 public class TaskManagerActivity extends AppCompatActivity {
     public static void start(Context context){

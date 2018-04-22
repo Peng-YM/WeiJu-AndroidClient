@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.viewmodel;
+package cn.edu.sustc.androidclient.view.main;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -35,7 +35,6 @@ public class MainViewModel extends ViewModel {
     }
 
     public LiveData<MyResource<User>> getLiveCurrentUser() {
-        Logger.d("Current user: ", currentUser);
         return currentUser;
     }
 }

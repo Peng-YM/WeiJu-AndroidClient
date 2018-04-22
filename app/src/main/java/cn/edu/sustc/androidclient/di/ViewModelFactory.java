@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.viewmodel;
+package cn.edu.sustc.androidclient.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

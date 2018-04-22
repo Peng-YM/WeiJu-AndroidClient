@@ -56,7 +56,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity
-            android:name=".view.task.TaskDetailActivity"
+            android:name=".view.task.taskdetail.TaskDetailActivity"
             android:label="@string/task_details" />
         <activity
             android:name=".view.about.AboutActivity"

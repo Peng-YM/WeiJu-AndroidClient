@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.viewmodel;
+package cn.edu.sustc.androidclient.view.task;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.view.task.TaskDetailActivity;
+import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 public class TaskViewModel extends ViewModel{
     private Task task;

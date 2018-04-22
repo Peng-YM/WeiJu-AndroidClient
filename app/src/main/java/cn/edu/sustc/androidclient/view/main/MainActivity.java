@@ -30,8 +30,8 @@ import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.login.LoginActivity;
+import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
-import cn.edu.sustc.androidclient.viewmodel.MainViewModel;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.view.task.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
@@ -128,8 +128,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     private void logout(){
         // show alert dialog
         new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.alert))
-                .setMessage(getResources().getString(R.string.alert_logout))
+                .setTitle(R.string.alert)
+                .setMessage(R.string.alert_logout)
                 .setIcon(R.drawable.ic_alert)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override

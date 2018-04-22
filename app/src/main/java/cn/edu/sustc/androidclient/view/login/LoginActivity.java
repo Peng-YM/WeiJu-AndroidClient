@@ -1,15 +1,11 @@
 package cn.edu.sustc.androidclient.view.login;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
@@ -18,11 +14,9 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
-import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
-import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
 
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
     private AlertDialog alertDialog;
@@ -51,6 +45,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         binding.setLoginActivity(this);
         initData();
         initViews();
+
+//        Logger.d("TaskFragment is %s", fragment);
     }
 
     @Override

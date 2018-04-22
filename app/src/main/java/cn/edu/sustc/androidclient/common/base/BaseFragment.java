@@ -19,8 +19,6 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
     private B viewDataBinding;
     private View rootView;
 
-    public abstract int getBindingVariable();
-
     public abstract @LayoutRes int getLayoutId();
 
     public abstract M getViewModel();
@@ -58,8 +56,6 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewDataBinding.setVariable(getBindingVariable(), viewModel);
-        viewDataBinding.executePendingBindings();
     }
 
     public BaseActivity getBaseActivity() {

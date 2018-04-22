@@ -22,17 +22,13 @@ public class CollectionTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_task);
         Button startBtn = findViewById(R.id.start_collection_task);
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        startBtn.setOnClickListener(view ->
                 Album.image(CollectionTaskActivity.this)
-                        .multipleChoice()
-                        .camera(true)
-                        .columnCount(3)
-                        .selectCount(3)
-                        .start();
-            }
-        });
+                .multipleChoice()
+                .camera(true)
+                .columnCount(3)
+                .selectCount(3)
+                .start());
     }
 
     private void selectAlbum(){

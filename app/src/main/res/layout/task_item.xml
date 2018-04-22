@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.viewmodel.TaskViewModel"/>
+            type="cn.edu.sustc.androidclient.view.task.TaskViewModel"/>
     </data>
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"

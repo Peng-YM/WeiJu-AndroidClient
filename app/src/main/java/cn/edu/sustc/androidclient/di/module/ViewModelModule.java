@@ -4,10 +4,10 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 import cn.edu.sustc.androidclient.di.ViewModelKey;
-import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
-import cn.edu.sustc.androidclient.viewmodel.MainViewModel;
-import cn.edu.sustc.androidclient.viewmodel.TaskViewModel;
-import cn.edu.sustc.androidclient.viewmodel.ViewModelFactory;
+import cn.edu.sustc.androidclient.view.login.LoginViewModel;
+import cn.edu.sustc.androidclient.view.main.MainViewModel;
+import cn.edu.sustc.androidclient.view.task.TaskViewModel;
+import cn.edu.sustc.androidclient.di.ViewModelFactory;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;

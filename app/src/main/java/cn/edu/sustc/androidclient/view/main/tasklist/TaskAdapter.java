@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.adapter;
+package cn.edu.sustc.androidclient.view.main.tasklist;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -12,7 +12,7 @@ import java.util.List;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.TaskItemBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.viewmodel.TaskViewModel;
+import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder> {
     private List<Task> tasks;

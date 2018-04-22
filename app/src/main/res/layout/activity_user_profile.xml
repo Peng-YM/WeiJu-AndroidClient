@@ -4,9 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="profileViewModel"
-            type="cn.edu.sustc.androidclient.viewmodel.ProfileViewModel"/>
-        <variable
             name="profileActivity"
             type="cn.edu.sustc.androidclient.view.profile.UserProfileActivity"/>
     </data>
@@ -22,8 +19,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                myApp:profileBgUrl="@{profileViewModel.user.avatar}" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_photo"
@@ -38,30 +34,27 @@
                 app:layout_constraintHorizontal_bias="0.034"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_background"
-                app:layout_constraintVertical_bias="0.433"
-                myApp:imageUrl="@{profileViewModel.user.avatar}"/>
+                app:layout_constraintVertical_bias="0.433" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/profile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@{profileViewModel.user.username}"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toBottomOf="@+id/profile_email" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/profile_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{profileViewModel.user.email}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/profile_photo"

@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.main;
+package cn.edu.sustc.androidclient.view.main.tasklist;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.databinding.TaskFragmentBinding;
-import cn.edu.sustc.androidclient.view.adapter.TaskAdapter;
-import cn.edu.sustc.androidclient.viewmodel.TaskFragmentViewModel;
+import dagger.android.AndroidInjection;
 
 public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, CompletedListener {
     private TaskAdapter taskAdapter;
@@ -48,6 +47,11 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         fragmentViewModel = new TaskFragmentViewModel(taskAdapter, this);
         fragmentBinding.setViewModel(fragmentViewModel);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable

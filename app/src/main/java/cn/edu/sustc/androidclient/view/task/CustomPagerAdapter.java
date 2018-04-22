@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.adapter;
+package cn.edu.sustc.androidclient.view.task;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

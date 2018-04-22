@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +11,6 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 import cn.edu.sustc.androidclient.model.data.User;
-import cn.edu.sustc.androidclient.viewmodel.LoginViewModel;
 
 public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
     private AlertDialog alertDialog;

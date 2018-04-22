@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.viewmodel;
+package cn.edu.sustc.androidclient.view.login;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
