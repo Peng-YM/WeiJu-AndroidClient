@@ -16,12 +16,16 @@ import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.common.base.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.service.FileService;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okio.BufferedSink;
 import okio.Okio;
@@ -88,6 +92,19 @@ public class FileRepository implements BaseViewModel {
                     }
                 });
         return target;
+    }
+
+    public void upload(String url, File file, SingleObserver observer){
+        RequestBody requestFile = RequestBody.create(
+                MediaType.parse(file.getAbsolutePath()),
+                file
+        );
+        MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+        this.fileService
+                .upload(url, body)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(observer);
     }
 
 
