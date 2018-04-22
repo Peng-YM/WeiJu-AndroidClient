@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.databinding.TaskFragmentBinding;
-import dagger.android.AndroidInjection;
 
 public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, CompletedListener {
     private TaskAdapter taskAdapter;

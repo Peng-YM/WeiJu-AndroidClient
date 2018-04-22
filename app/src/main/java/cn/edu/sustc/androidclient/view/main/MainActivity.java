@@ -22,9 +22,9 @@ import com.bumptech.glide.request.RequestOptions;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -33,7 +33,7 @@ import cn.edu.sustc.androidclient.view.login.LoginActivity;
 import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
-import cn.edu.sustc.androidclient.view.task.CollectionTaskActivity;
+import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>

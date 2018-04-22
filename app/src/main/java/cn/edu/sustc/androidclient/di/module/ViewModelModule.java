@@ -3,11 +3,13 @@ package cn.edu.sustc.androidclient.di.module;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import cn.edu.sustc.androidclient.di.ViewModelFactory;
 import cn.edu.sustc.androidclient.di.ViewModelKey;
 import cn.edu.sustc.androidclient.view.login.LoginViewModel;
 import cn.edu.sustc.androidclient.view.main.MainViewModel;
+import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragmentViewModel;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
-import cn.edu.sustc.androidclient.di.ViewModelFactory;
+import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
@@ -38,4 +40,9 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TaskViewModel.class)
     abstract ViewModel bindTaskViewModel(TaskViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CollectionTaskViewModel.class)
+    abstract ViewModel bindCollectionTaskViewModel(CollectionTaskViewModel taskViewModel);
 }

@@ -1,14 +1,13 @@
 package cn.edu.sustc.androidclient.view.main.tasklist;
 
 import android.arch.lifecycle.ViewModel;
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
-import cn.edu.sustc.androidclient.BR;
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;

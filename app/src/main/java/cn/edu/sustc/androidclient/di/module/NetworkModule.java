@@ -5,6 +5,8 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.common.Constants;
+import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.service.TaskService;
 import cn.edu.sustc.androidclient.model.service.UserService;
 import dagger.Module;
 import dagger.Provides;
@@ -27,5 +29,11 @@ public class NetworkModule {
     @Singleton
     UserService provideUserService(Retrofit retrofit) {
         return retrofit.create(UserService.class);
+    }
+
+    @Provides
+    @Singleton
+    TaskService provideTaskService(Retrofit retrofit){
+        return retrofit.create(TaskService.class);
     }
 }

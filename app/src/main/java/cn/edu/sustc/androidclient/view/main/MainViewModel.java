@@ -4,17 +4,9 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
-import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.repository.UserRepository;

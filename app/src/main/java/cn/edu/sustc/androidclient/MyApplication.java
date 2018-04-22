@@ -14,7 +14,7 @@ import com.orhanobut.logger.LogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.di.DaggerMyAppComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;

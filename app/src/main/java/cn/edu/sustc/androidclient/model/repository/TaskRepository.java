@@ -8,7 +8,6 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
-import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
@@ -19,9 +18,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
 
 public class TaskRepository implements BaseViewModel{
     @Deprecated

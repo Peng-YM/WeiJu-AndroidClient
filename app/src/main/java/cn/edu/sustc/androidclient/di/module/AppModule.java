@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import dagger.Module;
 import dagger.Provides;
 

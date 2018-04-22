@@ -11,7 +11,7 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Credential;

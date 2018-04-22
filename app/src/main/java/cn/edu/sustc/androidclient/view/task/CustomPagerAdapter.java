@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.edu.sustc.androidclient.view.task.Pages;
-
 public class CustomPagerAdapter extends PagerAdapter {
     private Context context;
 

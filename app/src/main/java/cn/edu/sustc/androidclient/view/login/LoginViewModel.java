@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.login;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.SharedPreferences;
 
 import com.orhanobut.logger.Logger;
 
@@ -10,7 +9,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.common.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
