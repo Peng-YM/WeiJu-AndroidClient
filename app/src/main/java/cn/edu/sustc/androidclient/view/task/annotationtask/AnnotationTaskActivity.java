@@ -36,6 +36,12 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         binding.downloadButton.setOnClickListener(view -> {
             downloadBtnClicked();
         });
+        binding.undoButton.setOnClickListener(view -> {
+            binding.annotateImageView.undo();
+        });
+        binding.clearButton.setOnClickListener(view -> {
+            binding.annotateImageView.clear();
+        });
     }
 
     private void downloadBtnClicked(){
