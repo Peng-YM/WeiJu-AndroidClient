@@ -2,19 +2,23 @@ package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
+import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
+import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -61,7 +65,8 @@ public class TaskRepository implements BaseViewModel{
     private AppSchedulerProvider schedulerProvider;
 
     private CompositeDisposable disposables = new CompositeDisposable();
-    private MutableLiveData<MyResource<List<Task>>> liveTaskList = new MutableLiveData<>();
+    private MyResource<List<Task>> taskList;
+    private MutableLiveData<MyResource<List<Task>>> liveTaskList;
 
     @Inject
     public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider){
@@ -70,35 +75,40 @@ public class TaskRepository implements BaseViewModel{
     }
 
     public MutableLiveData<MyResource<List<Task>>> getTaskList(int offset, int limit){
+        taskList = MyResource.loading(new ArrayList<Task>());
+        liveTaskList = new MutableLiveData<>();
+        liveTaskList.postValue(taskList);
         // TODO: remove fake method
         this.taskService
                 .fakeGetTasks()
 //                .getTasks(offset, limit)
+                .map(response -> response.data)
+                .flatMap(Observable::fromIterable)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
-                .subscribe(new Observer<MyResponse<List<Task>>>() {
+                .subscribe(new Observer<Task>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposables.add(d);
-                        MyResource<List<Task>> resource = MyResource.loading(null);
-                        liveTaskList.postValue(resource);
                     }
 
                     @Override
-                    public void onNext(MyResponse<List<Task>> response) {
-                        MyResource<List<Task>> resource = MyResource.success(response.data);
-                        liveTaskList.postValue(resource);
+                    public void onNext(Task task) {
+                        taskList.data.add(task);
+                        liveTaskList.postValue(taskList);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        MyResource<List<Task>> resource = MyResource.error("Error fetching task!", null);
-                        liveTaskList.postValue(resource);
+                        taskList.status = Status.ERROR;
+                        taskList.message = "Error loading data";
+                        liveTaskList.postValue(taskList);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        taskList.status = Status.SUCCESS;
+                        liveTaskList.postValue(taskList);
                     }
                 });
         return liveTaskList;
