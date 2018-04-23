@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -18,6 +19,9 @@ import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
 public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel, ActivityAnnotationTaskBinding> {
     private AnnotationTaskViewModel viewModel;
     private ActivityAnnotationTaskBinding binding;
+    private AnnotateImageView annotateImageView;
+
+    private int startX=0, startY=0, endX=0, endY=0;
 
     public static void start(Context context){
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
@@ -33,14 +37,18 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     protected void onCreate(Bundle instance, AnnotationTaskViewModel viewModel, ActivityAnnotationTaskBinding binding) {
         this.viewModel = viewModel;
         this.binding = binding;
+
+        annotateImageView = binding.annotateImageView;
+        annotateImageView.setOnTouchListener((view, motionEvent) -> onAnnotationTouched(motionEvent));
+
         binding.downloadButton.setOnClickListener(view -> {
             downloadBtnClicked();
         });
         binding.undoButton.setOnClickListener(view -> {
-            binding.annotateImageView.undo();
+            annotateImageView.undo();
         });
         binding.clearButton.setOnClickListener(view -> {
-            binding.annotateImageView.clear();
+            annotateImageView.clear();
         });
     }
 
@@ -61,6 +69,44 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
            }
         });
+    }
+
+    private boolean onAnnotationTouched(MotionEvent event){
+        AnnotateImageView.EditMode mode = annotateImageView.getMode();
+        switch (mode){
+            case EDIT:
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN: {
+                        startX = (int) event.getX();
+                        startY = (int) event.getY();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_MOVE: {
+                        endX = (int) event.getX();
+                        endY = (int) event.getY();
+                        Shape currentShape = new Rectangle(startX, startY, endX, endY);
+                        annotateImageView.addDraftShape(currentShape);
+                        annotateImageView.invalidate();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        endX = (int) event.getX();
+                        endY = (int) event.getY();
+                        // ignore the rectangle that is too small(created from user's click, not drag)
+                        if (endX - startX > 10) {
+                            Shape currentShape = new Rectangle(startX, startY, endX, endY);
+                            annotateImageView.addShape(currentShape);
+                            annotateImageView.invalidate();
+                            return true;
+                        }
+                        return true;
+                    }
+                }
+            case SELECT:
+                return true;
+            default:
+                return true;
+        }
     }
 
     @Override

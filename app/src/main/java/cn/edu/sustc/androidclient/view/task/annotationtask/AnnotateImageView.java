@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -18,18 +17,14 @@ import cn.edu.sustc.androidclient.R;
 public class AnnotateImageView extends View {
     private Paint paint;
     private Bitmap bitmap;
-    private Canvas canvas;
     private List<Shape> shapeList;
     private Shape currentShape;
-    private int currentColor;
-    private int startX=0, startY=0, endX=0, endY=0;
     private EditMode mode;
 
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         paint = new Paint();
         shapeList = new ArrayList<>();
-        currentColor = Color.BLUE;
 
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.cover);
         mode = EditMode.EDIT;
@@ -40,7 +35,6 @@ public class AnnotateImageView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        this.canvas = canvas;
         super.onDraw(canvas);
         // draw image
         canvas.drawBitmap(bitmap, 0, 0, null);
@@ -56,55 +50,13 @@ public class AnnotateImageView extends View {
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event){
-        switch (mode){
-            case EDIT:
-                return onTouchEventEditMode(event);
-            default:
-                return onTouchEventSelectMode(event);
-        }
+    public void addDraftShape(Shape shape){
+        currentShape = shape;
     }
 
-    private boolean onTouchEventEditMode(MotionEvent event){
-        if (event.getAction() == MotionEvent.ACTION_DOWN){
-            startX = (int) event.getX();
-            startY = (int) event.getY();
-            invalidate();
-            return true;
-        }
-        else if(event.getAction() == MotionEvent.ACTION_MOVE){
-            endX = (int) event.getX();
-            endY = (int) event.getY();
-            currentShape = new Rectangle(startX, startY, endX, endY);
-            invalidate();
-            return true;
-        }
-        else if (event.getAction() == MotionEvent.ACTION_UP){
-            endX = (int) event.getX();
-            endY = (int) event.getY();
-            // ignore the rectangle that is too small(created from user's click, not drag)
-            if (endX - startX > 10){
-                shapeList.add(new Rectangle(startX, startY, endX, endY));
-                currentShape = null;
-                invalidate();
-            }
-            return true;
-        }
-        return super.onTouchEvent(event);
-    }
-
-    private boolean onTouchEventSelectMode(MotionEvent event){
-        // TODO
-        return super.onTouchEvent(event);
-    }
-
-    public void setCurrentColor(int currentColor) {
-        this.currentColor = currentColor;
-    }
-
-    public int getCurrentColor() {
-        return currentColor;
+    public void addShape(Shape shape){
+        shapeList.add(shape);
+        currentShape = null;
     }
 
     /**
@@ -127,17 +79,16 @@ public class AnnotateImageView extends View {
         return false;
     }
 
-    public static enum EditMode{
-        SELECT,
-        EDIT;
-    }
-
-
     public EditMode getMode() {
         return mode;
     }
 
     public void setMode(EditMode mode) {
         this.mode = mode;
+    }
+
+    public static enum EditMode{
+        SELECT,
+        EDIT;
     }
 }
