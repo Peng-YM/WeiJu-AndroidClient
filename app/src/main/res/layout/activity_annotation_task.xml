@@ -9,8 +9,8 @@
         <cn.edu.sustc.androidclient.view.task.annotationtask.AnnotateImageView
             android:id="@+id/annotate_image_view"
             android:layout_width="match_parent"
-            android:layout_height="413dp"
-            android:scaleType="centerCrop"
+            android:layout_height="390dp"
+            android:scaleType="matrix"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +43,8 @@
             android:id="@+id/undo_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             android:text="Undo"
-            app:layout_constraintEnd_toStartOf="@+id/clear_button"
-            app:layout_constraintHorizontal_bias="0.479"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/annotate_image_view" />
 
@@ -56,10 +52,20 @@
             android:id="@+id/clear_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="68dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:text="Clear"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/annotate_image_view" />
+
+        <Button
+            android:id="@+id/mode_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="MODE"
+            app:layout_constraintEnd_toStartOf="@+id/clear_button"
+            app:layout_constraintStart_toEndOf="@+id/undo_button"
             app:layout_constraintTop_toBottomOf="@+id/annotate_image_view" />
     </android.support.constraint.ConstraintLayout>
 </layout>
