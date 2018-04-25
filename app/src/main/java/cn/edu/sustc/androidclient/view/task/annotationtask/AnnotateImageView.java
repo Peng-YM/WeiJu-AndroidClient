@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -37,7 +39,6 @@ public class AnnotateImageView extends AppCompatImageView {
     private int viewWidth, viewHeight;
 
     private Canvas myCanvas;
-    private Canvas viewCanvas;
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
@@ -89,12 +90,11 @@ public class AnnotateImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        this.viewCanvas = canvas;
         super.onDraw(canvas);
 
         // draw current rectangle(during motion) on view canvas
         if (currentShape != null){
-            currentShape.draw(viewCanvas, paint);
+            currentShape.draw(canvas, paint);
         }
 
         // draw image
@@ -278,8 +278,16 @@ public class AnnotateImageView extends AppCompatImageView {
                 lastTouchY = (int) event.getY();
                 // ignore the rectangle that is too small(created from user's click, not drag)
                 if (lastTouchX - touchDownX > 10) {
-                    Shape currentShape = new Rectangle(touchDownX, touchDownY, lastTouchX, lastTouchY);
-                    addShape(currentShape);
+                    // need to apply inverse matrix transformation to the shape
+                    RectF rect = new RectF(touchDownX, touchDownY, lastTouchX, lastTouchY);
+                    Matrix inverseCopy = new Matrix();
+                    if (currentMatrix.invert(inverseCopy)){
+                        inverseCopy.mapRect(rect);
+                    }
+
+                    Shape transformedShape =
+                            new Rectangle((int) rect.left, (int) rect.top, (int) rect.right, (int) rect.bottom);
+                    addShape(transformedShape);
                     invalidate();
                 }
                 break;
