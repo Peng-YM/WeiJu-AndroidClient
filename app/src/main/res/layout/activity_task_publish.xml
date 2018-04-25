@@ -6,32 +6,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_dark_background">
-
-        <com.scrat.app.richtext.RichEditText
-            android:id="@+id/knife"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/tools"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            android:gravity="top|start"
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingEnd="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingStart="16dp"
             android:paddingTop="16dp"
-            android:scrollbars="vertical"
-            android:textColor="#fff"
-            app:bulletColor="@color/blue_500"
-            app:bulletGapWidth="@dimen/bullet_gap_width"
-            app:bulletRadius="@dimen/bullet_radius"
-            app:historyEnable="true"
-            app:historySize="99"
-            app:linkColor="@color/blue_500"
-            app:linkUnderline="true"
-            app:quoteCapWidth="@dimen/quote_gap_width"
-            app:quoteColor="@color/blue_500"
-            app:quoteStripeWidth="@dimen/quote_stripe_width"></com.scrat.app.richtext.RichEditText>
+            android:layout_above="@id/tools"
+            android:layout_alignParentTop="true">
+            <com.scrat.app.richtext.RichEditText
+                android:id="@+id/knife"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:gravity="top|start"
+                android:scrollbars="vertical"
+                android:textColor="#fff"
+                app:bulletColor="@color/blue_500"
+                app:bulletGapWidth="@dimen/bullet_gap_width"
+                app:bulletRadius="@dimen/bullet_radius"
+                app:historyEnable="true"
+                app:historySize="99"
+                app:linkColor="@color/blue_500"
+                app:linkUnderline="true"
+                app:quoteCapWidth="@dimen/quote_gap_width"
+                app:quoteColor="@color/blue_500"
+                app:quoteStripeWidth="@dimen/quote_stripe_width"/>
+        </ScrollView>
+
+
 
         <HorizontalScrollView
             android:id="@+id/tools"
@@ -52,7 +57,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_bold"></ImageButton>
+                    android:src="@drawable/ic_format_bold"/>
 
                 <ImageButton
                     android:id="@+id/italic"
@@ -61,7 +66,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_italic"></ImageButton>
+                    android:src="@drawable/ic_format_italic"/>
 
                 <ImageButton
                     android:id="@+id/underline"
@@ -70,7 +75,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_underline"></ImageButton>
+                    android:src="@drawable/ic_format_underline"/>
 
                 <ImageButton
                     android:id="@+id/strikethrough"
@@ -79,7 +84,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_strikethrough"></ImageButton>
+                    android:src="@drawable/ic_format_strikethrough"/>
 
                 <ImageButton
                     android:id="@+id/bullet"
@@ -88,7 +93,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_bullet"></ImageButton>
+                    android:src="@drawable/ic_format_bullet"/>
 
                 <ImageButton
                     android:id="@+id/quote"
@@ -97,7 +102,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_quote"></ImageButton>
+                    android:src="@drawable/ic_format_quote"/>
 
                 <ImageButton
                     android:id="@+id/link"
@@ -106,7 +111,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_insert_link"></ImageButton>
+                    android:src="@drawable/ic_insert_link"/>
 
                 <ImageButton
                     android:id="@+id/clear"
@@ -115,7 +120,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_clear"></ImageButton>
+                    android:src="@drawable/ic_format_clear"/>
 
             </LinearLayout>
 

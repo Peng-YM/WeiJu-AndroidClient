@@ -3,15 +3,18 @@ package cn.edu.sustc.androidclient.view.task.publishtask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.scrat.app.richtext.RichEditText;
 
 import cn.edu.sustc.androidclient.R;
@@ -49,6 +52,14 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
                         "<img src=\"http://biuugames.huya.com/5-160222145918.jpg\"><br><br>"
         );
         setUpEditor();
+    }
+
+    private void closeKeyboard() {
+        View view = getWindow().peekDecorView();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     private void setUpEditor() {

@@ -200,11 +200,12 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 break;
             case R.id.nav_logout:
                 logout();
+                break;
             case R.id.nav_publish:
                 TaskPublishActivity.start(this);
                 break;
-
             default:
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
