@@ -102,4 +102,7 @@ dependencies {
     // Butter Knife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // Rich text editor
+    implementation 'com.github.huzhenjie:RichTextEditor:1.0.4'
 }

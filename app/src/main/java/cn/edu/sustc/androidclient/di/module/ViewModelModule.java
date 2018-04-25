@@ -11,6 +11,7 @@ import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragmentViewModel;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskViewModel;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskViewModel;
+import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
@@ -51,4 +52,9 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AnnotationTaskViewModel.class)
     abstract ViewModel bindAnnotationTaskVM(AnnotationTaskViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TaskPublishViewModel.class)
+    abstract ViewModel bindTaskPublishViewModel(TaskPublishViewModel viewModel);
 }

@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         this.binding = binding;
 
         annotateImageView = binding.annotateImageView;
+        annotateImageView.init(BitmapFactory.decodeResource(getResources(), R.drawable.cover));
         binding.downloadButton.setOnClickListener(view -> {
             downloadBtnClicked();
         });
@@ -45,10 +47,10 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             annotateImageView.clear();
         });
         binding.modeButton.setOnClickListener(view -> {
-            AnnotateImageView.EditMode mode =
-                    annotateImageView.getEditMode() == AnnotateImageView.EditMode.EDIT
-                            ? AnnotateImageView.EditMode.SELECT : AnnotateImageView.EditMode.EDIT;
-            annotateImageView.setEditMode(mode);
+            AnnotateImageView.Mode mode =
+                    annotateImageView.getMode() == AnnotateImageView.Mode.EDIT
+                            ? AnnotateImageView.Mode.SELECT : AnnotateImageView.Mode.EDIT;
+            annotateImageView.setMode(mode);
         });
     }
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Commits {
+public class CollectionCommits {
     public String id;
     @SerializedName("task_id")
     public String taskId;

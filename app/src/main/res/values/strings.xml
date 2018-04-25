@@ -43,4 +43,24 @@
     <!--我的任务-->
     <string name="finished_task">已完成</string>
     <string name="processing_task">进行中</string>
+
+    <!--任务发布页-->
+    <string name="publish_task">发布任务</string>
+    <string name="menu_undo">撤销</string>
+    <string name="menu_redo">重做</string>
+    <string name="menu_github">GitHub</string>
+
+    <string name="dialog_title">插入链接</string>
+    <string name="dialog_edit_hint">http(s)://</string>
+    <string name="dialog_button_ok">确认</string>
+    <string name="dialog_button_cancel">取消</string>
+
+    <string name="toast_bold">加粗</string>
+    <string name="toast_italic">斜体</string>
+    <string name="toast_underline">下划线</string>
+    <string name="toast_strikethrough">删除线</string>
+    <string name="toast_bullet">列表</string>
+    <string name="toast_quote">引用</string>
+    <string name="toast_insert_link">插入连接</string>
+    <string name="toast_format_clear">清除格式</string>
 </resources>

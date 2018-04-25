@@ -36,6 +36,7 @@ import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
+import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -199,6 +200,8 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 break;
             case R.id.nav_logout:
                 logout();
+            case R.id.nav_publish:
+                TaskPublishActivity.start(this);
                 break;
 
             default:

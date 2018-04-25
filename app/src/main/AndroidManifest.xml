@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -30,16 +30,14 @@
         <!-- login activity -->
         <activity
             android:name=".view.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- registration activity -->
         <activity
             android:name=".view.login.RegistrationActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- splash activity -->
         <activity
@@ -53,8 +51,7 @@
         </activity>
         <activity
             android:name=".view.profile.UserProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.task.taskdetail.TaskDetailActivity"
             android:label="@string/task_details" />
@@ -64,8 +61,10 @@
         <activity
             android:name=".view.task.TaskManagerActivity"
             android:label="@string/my_task" />
-        <activity android:name=".view.task.collectiontask.CollectionTaskActivity"></activity>
+        <activity android:name=".view.task.collectiontask.CollectionTaskActivity" />
         <activity android:name=".view.task.annotationtask.AnnotationTaskActivity" />
+        <activity android:name=".view.task.annotationtask.TagEditorActivity" />
+        <activity android:name=".view.task.publishtask.TaskPublishActivity" />
     </application>
 
 </manifest>
