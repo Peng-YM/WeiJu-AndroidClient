@@ -22,6 +22,7 @@ import cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordinate;
 public class AnnotateImageView extends AppCompatImageView {
     private Context context;
     private Bitmap srcBitmap; // original picture
+    private Bitmap mixedBitmap;
 
     private Paint paint;
     private List<Shape> shapeList;
@@ -34,7 +35,9 @@ public class AnnotateImageView extends AppCompatImageView {
     private Coordinate startPoint = new Coordinate(0, 0), endPoint;
     private Matrix currentMatrix, savedMatrix;
     private int viewWidth, viewHeight;
+
     private Canvas myCanvas;
+    private Canvas viewCanvas;
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
@@ -53,13 +56,27 @@ public class AnnotateImageView extends AppCompatImageView {
 
     private void init(Bitmap bitmap){
         srcBitmap = bitmap;
-        currentMatrix = new Matrix();
-        savedMatrix = new Matrix();
-
         paint = new Paint();
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLUE);
+
+        initBitmap();
+        currentMatrix = new Matrix();
+        savedMatrix = new Matrix();
+    }
+
+    private void initBitmap(){
+        mixedBitmap = null;
+        myCanvas = null;
+
+        mixedBitmap = srcBitmap.copy(Bitmap.Config.RGB_565, true);
+        myCanvas = new Canvas(mixedBitmap);
+
+        // draw existing rectangles
+        for (Shape shape: shapeList){
+            shape.draw(myCanvas, paint);
+        }
     }
 
     @Override
@@ -72,20 +89,16 @@ public class AnnotateImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        this.viewCanvas = canvas;
         super.onDraw(canvas);
 
-        // draw image
-        setImageBitmap(srcBitmap);
-
-        // draw current rectangle(during motion)
+        // draw current rectangle(during motion) on view canvas
         if (currentShape != null){
-            currentShape.draw(canvas, paint);
+            currentShape.draw(viewCanvas, paint);
         }
 
-        // draw existing rectangles
-        for (Shape shape: shapeList){
-            shape.draw(canvas, paint);
-        }
+        // draw image
+        setImageBitmap(mixedBitmap);
     }
 
     public void addDraftShape(Shape shape){
@@ -95,6 +108,8 @@ public class AnnotateImageView extends AppCompatImageView {
     public void addShape(Shape shape){
         shapeList.add(shape);
         currentShape = null;
+        // draw current shape on mixed canvas
+        shape.draw(myCanvas, paint);
     }
 
 
@@ -123,9 +138,14 @@ public class AnnotateImageView extends AppCompatImageView {
      * */
     public void clear(){
         shapeList.clear();
+        initBitmap();
         invalidate();
     }
 
+    @Override
+    public void invalidate() {
+        super.invalidate();
+    }
 
     /**
      * undo the previous step
@@ -133,6 +153,7 @@ public class AnnotateImageView extends AppCompatImageView {
     public boolean undo(){
         if (shapeList.size() > 0){
             shapeList.remove(shapeList.size() - 1);
+            initBitmap();
             invalidate();
             return true;
         }
