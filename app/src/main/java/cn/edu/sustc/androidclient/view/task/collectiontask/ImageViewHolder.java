@@ -23,11 +23,11 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
         this.itemSize = itemSize;
         this.itemClickListener = itemClickListener;
 
-        imageView = (ImageView) itemView.findViewById(R.id.iv_album_content_image);
+        imageView = itemView.findViewById(R.id.iv_album_content_image);
         itemView.setOnClickListener(this);
     }
 
-    public void setData(AlbumFile albumFile){
+    public void setData(AlbumFile albumFile) {
         Album.getAlbumConfig()
                 .getAlbumLoader()
                 .loadAlbumFile(imageView, albumFile, itemSize, itemSize);
@@ -35,7 +35,7 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View view) {
-        if (itemClickListener != null){
+        if (itemClickListener != null) {
             itemClickListener.onItemClick(view, getAdapterPosition());
         }
     }

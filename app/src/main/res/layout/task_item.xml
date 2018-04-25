@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:myApp="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.view.task.TaskViewModel"/>
+            type="cn.edu.sustc.androidclient.view.task.TaskViewModel" />
     </data>
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardUseCompatPadding="true"
         android:onClick="@{viewModel::onClick}"
-        >
+        card_view:cardCornerRadius="4dp"
+        card_view:cardUseCompatPadding="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,20 +28,20 @@
                 android:layout_height="100dp"
                 android:layout_margin="8dp"
                 android:src="@drawable/logo"
-                myApp:imageUrl="@{viewModel.coverUrl}"
-                />
+                myApp:imageUrl="@{viewModel.coverUrl}" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.title}"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -50,9 +52,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
                     android:text="@string/annotation_task"
-                    />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

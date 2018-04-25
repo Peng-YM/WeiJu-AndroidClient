@@ -14,11 +14,11 @@ public class AnnotationTaskViewModel extends ViewModel {
     private FileRepository fileRepository;
 
     @Inject
-    public AnnotationTaskViewModel(FileRepository fileRepository){
+    public AnnotationTaskViewModel(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }
 
-    public LiveData<MyResource<File>> downloadFile(String url, String path){
+    public LiveData<MyResource<File>> downloadFile(String url, String path) {
         return fileRepository.download(url, path);
     }
 }

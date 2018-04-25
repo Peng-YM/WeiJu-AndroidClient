@@ -10,7 +10,7 @@ import cn.edu.sustc.androidclient.R;
 
 
 public class SettingsActivity extends AppCompatActivity {
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, SettingsActivity.class);
         context.startActivity(intent);
     }
@@ -24,9 +24,9 @@ public class SettingsActivity extends AppCompatActivity {
                 replace(R.id.setting_fragment, new MyPreferenceFragment()).commit();
     }
 
-    public static class MyPreferenceFragment extends PreferenceFragment{
+    public static class MyPreferenceFragment extends PreferenceFragment {
         @Override
-        public void onCreate(final Bundle savedInstanceState){
+        public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
         }

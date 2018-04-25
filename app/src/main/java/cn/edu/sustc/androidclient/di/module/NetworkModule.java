@@ -5,7 +5,6 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.common.Constants;
-import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.service.FileService;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import cn.edu.sustc.androidclient.model.service.UserService;
@@ -18,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
     @Provides
     @Singleton
-    Retrofit provideRetrofit(){
+    Retrofit provideRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -34,13 +33,13 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    TaskService provideTaskService(Retrofit retrofit){
+    TaskService provideTaskService(Retrofit retrofit) {
         return retrofit.create(TaskService.class);
     }
 
     @Provides
     @Singleton
-    FileService provideFileService(Retrofit retrofit){
+    FileService provideFileService(Retrofit retrofit) {
         return retrofit.create(FileService.class);
     }
 }

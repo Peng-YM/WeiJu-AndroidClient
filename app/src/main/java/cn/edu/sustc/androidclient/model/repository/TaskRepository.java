@@ -11,31 +11,45 @@ import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
-import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.model.MyResource;
-import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class TaskRepository implements BaseViewModel{
+public class TaskRepository implements BaseViewModel {
     @Deprecated
     private static TaskRepository instance;
+    /**
+     * New Code
+     */
+
+    // injected module
+    private TaskService taskService;
+    private AppSchedulerProvider schedulerProvider;
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private MyResource<List<Task>> taskList;
+    private MutableLiveData<MyResource<List<Task>>> liveTaskList;
+
     @Deprecated
-    private TaskRepository(TaskService taskService){
+    private TaskRepository(TaskService taskService) {
         this.taskService = taskService;
     }
+    @Inject
+    public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider) {
+        this.taskService = taskService;
+        this.schedulerProvider = schedulerProvider;
+    }
+
     @Deprecated
-    public static TaskRepository getInstance(){
-        if (instance == null){
-            synchronized (UserRepository.class){
-                if (instance == null){
+    public static TaskRepository getInstance() {
+        if (instance == null) {
+            synchronized (UserRepository.class) {
+                if (instance == null) {
                     instance = new TaskRepository(
                             RetrofitFactory.getInstance().create(TaskService.class)
                     );
@@ -44,8 +58,9 @@ public class TaskRepository implements BaseViewModel{
         }
         return instance;
     }
+
     @Deprecated
-    public void getTasks(Observer<Task> observer){
+    public void getTasks(Observer<Task> observer) {
         // TODO: Paging
         this.taskService
                 .fakeGetTasks()
@@ -56,25 +71,7 @@ public class TaskRepository implements BaseViewModel{
                 .subscribe(observer);
     }
 
-    /**
-     *  New Code
-     * */
-
-    // injected module
-    private TaskService taskService;
-    private AppSchedulerProvider schedulerProvider;
-
-    private CompositeDisposable disposables = new CompositeDisposable();
-    private MyResource<List<Task>> taskList;
-    private MutableLiveData<MyResource<List<Task>>> liveTaskList;
-
-    @Inject
-    public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider){
-        this.taskService = taskService;
-        this.schedulerProvider = schedulerProvider;
-    }
-
-    public MutableLiveData<MyResource<List<Task>>> getTaskList(int offset, int limit){
+    public MutableLiveData<MyResource<List<Task>>> getTaskList(int offset, int limit) {
         taskList = MyResource.loading(new ArrayList<Task>());
         liveTaskList = new MutableLiveData<>();
         liveTaskList.postValue(taskList);

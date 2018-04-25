@@ -16,9 +16,9 @@ import cn.edu.sustc.androidclient.common.ActivityCollector;
 import dagger.android.support.DaggerAppCompatActivity;
 
 /**
- *  Base class for all activities:
- *  provides Model-View-ViewModel injection.
- * */
+ * Base class for all activities:
+ * provides Model-View-ViewModel injection.
+ */
 public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBinding> extends DaggerAppCompatActivity {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -33,14 +33,16 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         ViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
         onCreate(savedInstanceState, (M) viewModel, (B) binding);
     }
+
     protected abstract Class<M> getViewModel();
 
     protected abstract void onCreate(Bundle instance, M viewModel, B binding);
 
-    protected abstract @LayoutRes int getLayoutResId();
+    protected abstract @LayoutRes
+    int getLayoutResId();
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
     }
@@ -53,6 +55,6 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
                 return true;
         }
 
-        return(super.onOptionsItemSelected(item));
+        return (super.onOptionsItemSelected(item));
     }
 }

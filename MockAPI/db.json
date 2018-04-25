@@ -1,20 +1,25 @@
 {
-  "users": [{
-    "balance": 0,
-    "credit": 0,
-    "email": "12345@qq.com",
-    "id": "8bbd9896-e176-454a-bf86-30f5c46f0b93",
-    "level": 0,
-    "password": "123454535353",
-    "phone": 0
-  }],
+  "users": [
+    {
+      "balance": 0,
+      "credit": 0,
+      "email": "12345@qq.com",
+      "id": "8bbd9896-e176-454a-bf86-30f5c46f0b93",
+      "level": 0,
+      "password": "123454535353",
+      "phone": 0
+    }
+  ],
   "sessions": [],
   "commits": [],
-  "credentials": [{
-    "id": "1",
-    "token": "token"
-  }],
-  "tasks": [{
+  "credentials": [
+    {
+      "id": "1",
+      "token": "token"
+    }
+  ],
+  "tasks": [
+    {
       "id": 5,
       "author": "云天励飞",
       "xml": "xxxx",

@@ -16,41 +16,20 @@ import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
-public class TaskViewModel extends ViewModel{
+public class TaskViewModel extends ViewModel {
     private Task task;
 
     @Deprecated
-    public TaskViewModel(Task task){
+    public TaskViewModel(Task task) {
         this.task = task;
     }
 
     @Inject
-    public TaskViewModel(){}
-
-    public String getCoverUrl(){
-        // TODO: change base url
-        String BASE_URL = RetrofitFactory.getBaseUrl();
-        BASE_URL = "http://69.171.71.251:8080/";
-        if (task.pictures != null && !task.pictures.isEmpty()){
-            return BASE_URL + task.pictures.get(0);
-        }
-        return "";
-    }
-
-    public String getTitle(){
-        return task.title;
-    }
-
-    public String getAuthor(){
-        return task.author;
-    }
-
-    public String getDescriptions(){
-        return task.descriptions;
+    public TaskViewModel() {
     }
 
     @BindingAdapter({"myApp:imageUrl"})
-    public static void loadImage(ImageView imageView, String url){
+    public static void loadImage(ImageView imageView, String url) {
         Logger.v("Fetch Image from url: %s", url);
         RequestOptions options = new RequestOptions()
                 .centerCrop()
@@ -61,6 +40,28 @@ public class TaskViewModel extends ViewModel{
                 .load(url)
                 .apply(options)
                 .into(imageView);
+    }
+
+    public String getCoverUrl() {
+        // TODO: change base url
+        String BASE_URL = RetrofitFactory.getBaseUrl();
+        BASE_URL = "http://69.171.71.251:8080/";
+        if (task.pictures != null && !task.pictures.isEmpty()) {
+            return BASE_URL + task.pictures.get(0);
+        }
+        return "";
+    }
+
+    public String getTitle() {
+        return task.title;
+    }
+
+    public String getAuthor() {
+        return task.author;
+    }
+
+    public String getDescriptions() {
+        return task.descriptions;
     }
 
     public void onClick(View view) {

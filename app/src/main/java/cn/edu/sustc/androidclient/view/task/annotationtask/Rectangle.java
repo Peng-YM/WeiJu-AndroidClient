@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import io.reactivex.annotations.Nullable;
-
-public class Rectangle extends Shape{
+public class Rectangle extends Shape {
     private int startX, startY, endX, endY;
     private String uuid;
     private Paint myPaint;
@@ -23,7 +21,7 @@ public class Rectangle extends Shape{
         this.uuid = UUID.randomUUID().toString();
     }
 
-    public Rectangle(Rectangle rectangle){
+    public Rectangle(Rectangle rectangle) {
         this.startX = rectangle.startX;
         this.startY = rectangle.startY;
         this.endX = rectangle.endX;
@@ -32,16 +30,16 @@ public class Rectangle extends Shape{
     }
 
     @Override
-    public void draw(Canvas canvas, Paint paint){
+    public void draw(Canvas canvas, Paint paint) {
         Rect rect = new Rect(startX, startY, endX, endY);
-        if (paint != null){
+        if (paint != null) {
             canvas.drawRect(rect, paint);
-        }else if (myPaint != null){
+        } else if (myPaint != null) {
             canvas.drawRect(rect, myPaint);
         }
     }
 
-    List<Coordinate> getCriticalPoints(){
+    List<Coordinate> getCriticalPoints() {
         Coordinate leftTop = new Coordinate(this.startX, this.startY);
         Coordinate rightBottom = new Coordinate(this.endX, this.endY);
         ArrayList<Coordinate> criticalPoints = new ArrayList<>();

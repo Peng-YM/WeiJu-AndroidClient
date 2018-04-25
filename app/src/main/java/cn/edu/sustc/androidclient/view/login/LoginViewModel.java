@@ -15,7 +15,7 @@ import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.repository.UserRepository;
 
-public class LoginViewModel extends ViewModel{
+public class LoginViewModel extends ViewModel {
     // injected modules
     private UserRepository userRepository;
     // data
@@ -23,7 +23,7 @@ public class LoginViewModel extends ViewModel{
     private MutableLiveData<MyResource<User>> createdUser;
 
     @Inject
-    public LoginViewModel(UserRepository repository){
+    public LoginViewModel(UserRepository repository) {
         this.userRepository = repository;
     }
 
@@ -32,7 +32,7 @@ public class LoginViewModel extends ViewModel{
         credential = userRepository.login(session);
     }
 
-    public void registration(Session session){
+    public void registration(Session session) {
         User newUser = new User();
         newUser.id = UUID.randomUUID().toString();
         newUser.email = session.email;
@@ -51,9 +51,9 @@ public class LoginViewModel extends ViewModel{
 
     /**
      * the mutable data should be clear when the ViewModel is destroyed.
-     * */
+     */
     @Override
-    protected void onCleared(){
+    protected void onCleared() {
         super.onCleared();
         userRepository.onClear();
     }

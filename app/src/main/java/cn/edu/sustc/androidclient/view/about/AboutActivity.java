@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import cn.edu.sustc.androidclient.R;
 
 public class AboutActivity extends AppCompatActivity {
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);
         context.startActivity(intent);
     }
@@ -29,14 +29,14 @@ public class AboutActivity extends AppCompatActivity {
         RichText.fromMarkdown(getMarkdown()).into(textView);
     }
 
-    private String getMarkdown(){
+    private String getMarkdown() {
         StringBuilder builder = new StringBuilder();
-        try{
+        try {
             InputStream inputStream = getResources().getAssets().open("about.md");
             InputStreamReader reader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(reader);
             String line = "";
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = bufferedReader.readLine()) != null) {
                 builder.append(line + "\n");
             }
             reader.close();
@@ -45,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
             Logger.v("Result: %s", result);
             return result;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Logger.e("Cannot Load About File!");
         }
         return "# 关于我们";

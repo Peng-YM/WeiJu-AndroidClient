@@ -20,15 +20,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private OnItemClickListener itemClickListener;
     private List<AlbumFile> albumFiles;
 
-    public AlbumAdapter(Context context, int itemSize, OnItemClickListener itemClickListener){
+    public AlbumAdapter(Context context, int itemSize, OnItemClickListener itemClickListener) {
         this.inflater = LayoutInflater.from(context);
         this.itemSize = itemSize;
         this.itemClickListener = itemClickListener;
     }
 
-    public void notifyDataSetChanged(List<AlbumFile> imagePathList){
+    public void notifyDataSetChanged(List<AlbumFile> imagePathList) {
         this.albumFiles = imagePathList;
-        for (AlbumFile file: imagePathList){
+        for (AlbumFile file : imagePathList) {
             Logger.d("Selected File: %s", file.getPath());
         }
         super.notifyDataSetChanged();
@@ -43,11 +43,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType){
+        switch (viewType) {
             case AlbumFile.TYPE_IMAGE: {
                 return new ImageViewHolder(inflater.inflate(R.layout.item_content_image, parent, false), itemSize, itemClickListener);
             }
-            case AlbumFile.TYPE_VIDEO:{
+            case AlbumFile.TYPE_VIDEO: {
                 // TODO
             }
             default:
@@ -58,12 +58,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
-        switch (viewType){
-            case AlbumFile.TYPE_IMAGE:{
+        switch (viewType) {
+            case AlbumFile.TYPE_IMAGE: {
                 ((ImageViewHolder) holder).setData(albumFiles.get(position));
                 break;
             }
-            case AlbumFile.TYPE_VIDEO:{
+            case AlbumFile.TYPE_VIDEO: {
                 // TODO
                 break;
             }

@@ -8,7 +8,7 @@ public enum Pages {
     private int titleId;
     private int layoutId;
 
-    Pages(int titleId, int layoutId){
+    Pages(int titleId, int layoutId) {
         this.titleId = titleId;
         this.layoutId = layoutId;
     }

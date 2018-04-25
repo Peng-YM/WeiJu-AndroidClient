@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/undo"
-        android:title="@string/menu_undo"
+    <item
+        android:id="@+id/undo"
         android:icon="@drawable/ic_action_undo"
-        app:showAsAction="ifRoom">
-    </item>
+        android:title="@string/menu_undo"
+        app:showAsAction="ifRoom"></item>
 
-    <item android:id="@+id/redo"
-        android:title="@string/menu_redo"
+    <item
+        android:id="@+id/redo"
         android:icon="@drawable/ic_action_redo"
-        app:showAsAction="ifRoom">
-    </item>
+        android:title="@string/menu_redo"
+        app:showAsAction="ifRoom"></item>
 
-    <item android:id="@+id/github"
+    <item
+        android:id="@+id/github"
         android:title="@string/menu_github"
-        app:showAsAction="collapseActionView">
-    </item>
+        app:showAsAction="collapseActionView"></item>
 </menu>

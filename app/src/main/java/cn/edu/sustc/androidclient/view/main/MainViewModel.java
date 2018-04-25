@@ -18,7 +18,7 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<MyResource<User>> currentUser;
 
     @Inject
-    public MainViewModel(UserRepository userRepository, SharedPreferences preferences){
+    public MainViewModel(UserRepository userRepository, SharedPreferences preferences) {
         this.userRepository = userRepository;
         this.preferences = preferences;
         // get id from preference

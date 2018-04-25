@@ -6,15 +6,13 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
-import javax.inject.Inject;
-
 import cn.edu.sustc.androidclient.common.base.CompletedListener;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-public class TaskFragmentViewModel extends ViewModel{
+public class TaskFragmentViewModel extends ViewModel {
     public ObservableField<Integer> contentViewVisibility;
     public ObservableField<Integer> progressBarVisibility;
     public ObservableField<Integer> errorInfoLayoutVisibility;
@@ -23,14 +21,14 @@ public class TaskFragmentViewModel extends ViewModel{
     private TaskAdapter taskAdapter;
     private CompletedListener completedListener;
 
-    public TaskFragmentViewModel(TaskAdapter adapter, CompletedListener completedListener){
+    public TaskFragmentViewModel(TaskAdapter adapter, CompletedListener completedListener) {
         this.taskAdapter = adapter;
         this.completedListener = completedListener;
         initData();
         getTasks();
     }
 
-    private void getTasks(){
+    private void getTasks() {
         Observer<Task> observer = new Observer<Task>() {
             @Override
             public void onComplete() {
@@ -63,7 +61,7 @@ public class TaskFragmentViewModel extends ViewModel{
         TaskRepository.getInstance().getTasks(observer);
     }
 
-    private void initData(){
+    private void initData() {
         contentViewVisibility = new ObservableField<>(View.VISIBLE);
         progressBarVisibility = new ObservableField<>(View.GONE);
         errorInfoLayoutVisibility = new ObservableField<>(View.GONE);
@@ -73,7 +71,7 @@ public class TaskFragmentViewModel extends ViewModel{
         getTasks();
     }
 
-    private void hideAll(){
+    private void hideAll() {
         contentViewVisibility = new ObservableField<>(View.GONE);
         progressBarVisibility = new ObservableField<>(View.GONE);
         errorInfoLayoutVisibility = new ObservableField<>(View.GONE);

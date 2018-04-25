@@ -13,8 +13,8 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 /**
- *  abstract class to inject activities
- * */
+ * abstract class to inject activities
+ */
 @Module
 abstract class ActivityBuilder {
     @ContributesAndroidInjector

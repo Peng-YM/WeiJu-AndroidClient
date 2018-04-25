@@ -1,4 +1,5 @@
 package cn.edu.sustc.androidclient.model.data;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -25,7 +26,7 @@ public class Task implements Serializable {
         return gson.toJson(this);
     }
 
-    public enum TaskType implements Serializable{
+    public enum TaskType implements Serializable {
         @SerializedName("0")
         COLLECTION(0, R.string.collection_task),
         @SerializedName("1")
@@ -34,7 +35,7 @@ public class Task implements Serializable {
         private int type;
         private int description;
 
-        TaskType(int type, int description){
+        TaskType(int type, int description) {
             this.type = type;
             this.description = description;
         }
@@ -48,17 +49,17 @@ public class Task implements Serializable {
         }
     }
 
-    public static class TaskFormatter implements Serializable{
+    public static class TaskFormatter implements Serializable {
         public List<Tag> tags;
     }
 
-    public static class Tag implements Serializable{
+    public static class Tag implements Serializable {
         public String name;
         public String description;
         public List<Attribute> attributes;
     }
 
-    public static class Attribute implements Serializable{
+    public static class Attribute implements Serializable {
         public String name;
         public String description;
         public List<String> values;

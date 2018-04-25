@@ -17,7 +17,7 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
     private ActivityTaskDetailBinding binding;
     private TaskViewModel viewModel;
 
-    public static void start(Context context, Task task){
+    public static void start(Context context, Task task) {
         Intent intent = new Intent(context, TaskDetailActivity.class);
         intent.putExtra("task", task);
         context.startActivity(intent);

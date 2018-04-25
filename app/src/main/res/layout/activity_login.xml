@@ -99,9 +99,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="136dp"
-            android:text="@string/action_sign_up"
-            android:textColor="#fff"
             android:onClick="@{loginActivity::goToRegistration}"
-            />
+            android:text="@string/action_sign_up"
+            android:textColor="#fff" />
     </RelativeLayout>
 </layout>

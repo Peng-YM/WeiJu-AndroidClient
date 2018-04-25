@@ -6,10 +6,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all_task"
-            android:icon="@drawable/ic_all_tasks"
-            android:title="@string/all_tasks"
             android:checked="true"
-            />
+            android:icon="@drawable/ic_all_tasks"
+            android:title="@string/all_tasks" />
         <item
             android:id="@+id/nav_my_task"
             android:icon="@drawable/ic_my_task"
@@ -22,14 +21,12 @@
         <item
             android:id="@+id/gallery"
             android:icon="@drawable/ic_gallery"
-            android:title="图库"
-            />
+            android:title="图库" />
 
         <item
             android:id="@+id/nav_publish"
-            android:title="@string/publish_task"
             android:icon="@drawable/ic_publish"
-            />
+            android:title="@string/publish_task" />
     </group>
 
     <group android:title="">
@@ -44,9 +41,8 @@
 
         <item
             android:id="@+id/nav_logout"
-            android:title="@string/logout"
             android:icon="@drawable/ic_logout"
-            />
+            android:title="@string/logout" />
     </group>
 
 </menu>

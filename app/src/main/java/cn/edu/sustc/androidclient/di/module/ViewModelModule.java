@@ -7,7 +7,6 @@ import cn.edu.sustc.androidclient.di.ViewModelFactory;
 import cn.edu.sustc.androidclient.di.ViewModelKey;
 import cn.edu.sustc.androidclient.view.login.LoginViewModel;
 import cn.edu.sustc.androidclient.view.main.MainViewModel;
-import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragmentViewModel;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskViewModel;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskViewModel;
@@ -19,12 +18,12 @@ import dagger.multibindings.IntoMap;
 
 /**
  * abstract class to inject ViewModels
- * */
+ */
 @Module
 public abstract class ViewModelModule {
     /**
      * provide ViewModelFactory
-     * */
+     */
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
 

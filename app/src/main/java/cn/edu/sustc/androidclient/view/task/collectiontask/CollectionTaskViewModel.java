@@ -7,7 +7,7 @@ import javax.inject.Inject;
 public class CollectionTaskViewModel extends ViewModel {
 
     @Inject
-    public CollectionTaskViewModel(){
+    public CollectionTaskViewModel() {
 
     }
 }

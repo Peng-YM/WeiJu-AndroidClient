@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 public class CustomPagerAdapter extends PagerAdapter {
     private Context context;
 
-    public CustomPagerAdapter(Context context){
+    public CustomPagerAdapter(Context context) {
         this.context = context;
     }
 

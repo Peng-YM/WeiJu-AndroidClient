@@ -52,7 +52,7 @@ public class AnnotateImageView extends AppCompatImageView {
     /**
      * @param bitmap: source bitmap
      */
-    public void init(Bitmap bitmap){
+    public void init(Bitmap bitmap) {
         srcBitmap = bitmap;
         paint = new Paint();
         paint.setStrokeWidth(10);
@@ -68,7 +68,7 @@ public class AnnotateImageView extends AppCompatImageView {
     /**
      * reset mixedBitmap to original bitmap
      */
-    private void initMixedBitmap(){
+    private void initMixedBitmap() {
         mixedBitmap = null;
         myCanvas = null;
 
@@ -76,7 +76,7 @@ public class AnnotateImageView extends AppCompatImageView {
         myCanvas = new Canvas(mixedBitmap);
 
         // draw existing rectangles
-        for (Shape shape: shapeList){
+        for (Shape shape : shapeList) {
             shape.draw(myCanvas, paint);
         }
     }
@@ -86,7 +86,7 @@ public class AnnotateImageView extends AppCompatImageView {
         super.onDraw(canvas);
 
         // draw current rectangle(during motion) on view canvas
-        if (currentShape != null){
+        if (currentShape != null) {
             currentShape.draw(canvas, paint);
         }
 
@@ -96,18 +96,20 @@ public class AnnotateImageView extends AppCompatImageView {
 
     /**
      * show current drawing shape on view canvas
+     *
      * @param shape current drawing shape
      */
-    public void addDraftShape(Shape shape){
+    public void addDraftShape(Shape shape) {
         currentShape = shape;
     }
 
 
     /**
      * draw shape to mixedBitmap
+     *
      * @param shape shape to be added
      */
-    public void addShape(Shape shape){
+    public void addShape(Shape shape) {
         shapeList.add(shape);
         currentShape = null;
         // draw current shape on mixed canvas
@@ -116,17 +118,18 @@ public class AnnotateImageView extends AppCompatImageView {
 
 
     /**
-     *  get the shape clicked(center) by user
-     *  @param clickPoint user's click point
-     * */
-    public Shape getShape(Coordinate clickPoint){
+     * get the shape clicked(center) by user
+     *
+     * @param clickPoint user's click point
+     */
+    public Shape getShape(Coordinate clickPoint) {
         double minDistance = Integer.MAX_VALUE;
         int minIndex = -1, cnt = 0;
 
-        for(Shape shape: shapeList){
+        for (Shape shape : shapeList) {
             Coordinate center = shape.getCenter();
             double newDistance = center.distanceTo(clickPoint);
-            if(minDistance > newDistance){
+            if (minDistance > newDistance) {
                 minIndex = cnt;
                 minDistance = newDistance;
                 Logger.d("Update Distance: %f", minDistance);
@@ -138,8 +141,8 @@ public class AnnotateImageView extends AppCompatImageView {
 
     /**
      * clear the screen
-     * */
-    public void clear(){
+     */
+    public void clear() {
         shapeList.clear();
         initMixedBitmap();
         invalidate();
@@ -148,9 +151,9 @@ public class AnnotateImageView extends AppCompatImageView {
 
     /**
      * undo the previous step
-     * */
-    public boolean undo(){
-        if (shapeList.size() > 0){
+     */
+    public boolean undo() {
+        if (shapeList.size() > 0) {
             shapeList.remove(shapeList.size() - 1);
             initMixedBitmap();
             invalidate();
@@ -171,14 +174,14 @@ public class AnnotateImageView extends AppCompatImageView {
      * handle touch event
      * Operations:
      * 1. Select mode:
-     *  a. Select one shape
-     *  b. Double touch to scale and move the picture
+     * a. Select one shape
+     * b. Double touch to scale and move the picture
      * 2. Edit mode:
-     *  single touch to draw shapes
-     * */
+     * single touch to draw shapes
+     */
     @Override
-    public boolean onTouchEvent(MotionEvent event){
-        switch (mode){
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (mode) {
             case EDIT:
                 handleEdit(event);
                 break;
@@ -192,12 +195,12 @@ public class AnnotateImageView extends AppCompatImageView {
     }
 
     /**
-     *
      * handle touch event when in select mode
+     *
      * @param event
      */
-    private void handleSelect(MotionEvent event){
-        switch (event.getAction() & MotionEvent.ACTION_MASK){
+    private void handleSelect(MotionEvent event) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: // single finger
                 savedMatrix.set(currentMatrix);
                 startPoint.set(event.getX(), event.getY());
@@ -207,7 +210,7 @@ public class AnnotateImageView extends AppCompatImageView {
             case MotionEvent.ACTION_POINTER_DOWN: // double finger
                 oldDistance = calculateDistance(event);
                 // set threshold to avoid jitter
-                if (oldDistance > 10f){
+                if (oldDistance > 10f) {
                     savedMatrix.set(currentMatrix);
                     midPoint = calculateMidPoint(event);
                     selectMode = SelectMode.ZOOM;
@@ -215,18 +218,18 @@ public class AnnotateImageView extends AppCompatImageView {
 
             case MotionEvent.ACTION_MOVE:
                 // single finger drag
-                if(selectMode == SelectMode.DRAG){
+                if (selectMode == SelectMode.DRAG) {
                     currentMatrix.set(savedMatrix);
                     float dx = event.getX() - startPoint.x;
                     float dy = event.getY() - startPoint.y;
                     currentMatrix.postTranslate(dx, dy);
                 }
                 // double fingers zoom
-                else if (selectMode == SelectMode.ZOOM && event.getPointerCount() == 2){
+                else if (selectMode == SelectMode.ZOOM && event.getPointerCount() == 2) {
                     float newDistance = calculateDistance(event);
                     currentMatrix.set(savedMatrix);
 
-                    if (newDistance > 10f){
+                    if (newDistance > 10f) {
                         // calculate scale percentage from the movement
                         float scale = newDistance / oldDistance;
                         currentMatrix.postScale(scale, scale, midPoint.x, midPoint.y);
@@ -238,9 +241,9 @@ public class AnnotateImageView extends AppCompatImageView {
                 break;
             case MotionEvent.ACTION_POINTER_UP:
                 savedMatrix.set(currentMatrix);
-                if (event.getActionIndex() == 0){
+                if (event.getActionIndex() == 0) {
                     startPoint = new Coordinate(event.getX(1), event.getY(1));
-                }else if (event.getActionIndex() == 1){
+                } else if (event.getActionIndex() == 1) {
                     startPoint = new Coordinate(event.getX(0), event.getY(0));
                 }
                 selectMode = SelectMode.DRAG;
@@ -249,13 +252,13 @@ public class AnnotateImageView extends AppCompatImageView {
         setImageMatrix(currentMatrix);
     }
 
-    private float calculateDistance(MotionEvent event){
+    private float calculateDistance(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
         return (float) Math.sqrt(x * x + y * y);
     }
 
-    private Coordinate calculateMidPoint(MotionEvent event){
+    private Coordinate calculateMidPoint(MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         return new Coordinate(x / 2, y / 2);
@@ -263,10 +266,11 @@ public class AnnotateImageView extends AppCompatImageView {
 
     /**
      * handle touch event when in edit mode
+     *
      * @param event
      */
-    private void handleEdit(MotionEvent event){
-        switch (event.getAction()){
+    private void handleEdit(MotionEvent event) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 touchDownX = (int) event.getX();
                 touchDownY = (int) event.getY();
@@ -291,7 +295,7 @@ public class AnnotateImageView extends AppCompatImageView {
                     // need to apply inverse matrix transformation to the shape
                     RectF rect = new RectF(touchDownX, touchDownY, lastTouchX, lastTouchY);
                     Matrix inverseCopy = new Matrix();
-                    if (currentMatrix.invert(inverseCopy)){
+                    if (currentMatrix.invert(inverseCopy)) {
                         inverseCopy.mapRect(rect);
                     }
 
@@ -308,17 +312,17 @@ public class AnnotateImageView extends AppCompatImageView {
     /**
      * Modes
      */
-    public static enum Mode {
+    public enum Mode {
         SELECT,
-        EDIT;
+        EDIT
     }
 
     /**
      * Select Modes
      */
-    public static enum SelectMode{
+    public enum SelectMode {
         NONE,
         DRAG,
-        ZOOM;
+        ZOOM
     }
 }

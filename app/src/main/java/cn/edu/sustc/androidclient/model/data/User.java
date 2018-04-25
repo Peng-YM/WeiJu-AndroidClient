@@ -2,7 +2,7 @@ package cn.edu.sustc.androidclient.model.data;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
     public String id;
     public String username;
     public String email;

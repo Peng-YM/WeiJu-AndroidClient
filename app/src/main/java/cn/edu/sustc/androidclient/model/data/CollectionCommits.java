@@ -12,7 +12,7 @@ public class CollectionCommits {
     public String authorId;
     public List<Result> results;
 
-    static class Result{
+    static class Result {
         @SerializedName("picture_url")
         String pictureUrl;
         String xml;

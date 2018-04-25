@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:myApp="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.view.task.TaskViewModel"/>
+            type="cn.edu.sustc.androidclient.view.task.TaskViewModel" />
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.task.taskdetail.TaskDetailActivity"
         android:orientation="vertical"
-        >
+        tools:context=".view.task.taskdetail.TaskDetailActivity">
 
         <ImageView
             android:layout_width="match_parent"
@@ -27,9 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.title}"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -49,6 +51,7 @@
                 android:text="可赚取：10积分/份" />
 
         </RelativeLayout>
+
         <TextView
             android:id="@+id/task_markdown_descriptions"
             android:layout_width="match_parent"
@@ -58,11 +61,10 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/get_task"
-            android:textSize="15sp"
-            android:textColor="#fff"
             android:background="@color/colorPrimary"
-            />
+            android:text="@string/get_task"
+            android:textColor="#fff"
+            android:textSize="15sp" />
 
 
     </LinearLayout>

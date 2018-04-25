@@ -28,7 +28,7 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
     private ActivityUserProfileBinding binding;
     private User user;
 
-    public static void start(Context context, User user){
+    public static void start(Context context, User user) {
         Intent intent = new Intent(context, UserProfileActivity.class);
         intent.putExtra("user", user);
         context.startActivity(intent);
@@ -53,7 +53,7 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
         layout.clone(constraintLayout);
         expandedLayout.clone(this, R.layout.user_profile_expanded);
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
-            if (userMyResource != null && userMyResource.status == Status.SUCCESS){
+            if (userMyResource != null && userMyResource.status == Status.SUCCESS) {
                 user = userMyResource.data;
                 binding.profileUsername.setText(user.username);
                 binding.profileEmail.setText(user.email);
@@ -76,18 +76,17 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
         return R.layout.activity_user_profile;
     }
 
-    public void change(View view){
-        if (!isExpanded){
+    public void change(View view) {
+        if (!isExpanded) {
             TransitionManager.beginDelayedTransition(constraintLayout);
             expandedLayout.applyTo(constraintLayout);
             isExpanded = !isExpanded;
-        }else{
+        } else {
             TransitionManager.beginDelayedTransition(constraintLayout);
             layout.applyTo(constraintLayout);
             isExpanded = !isExpanded;
         }
     }
-
 
 
 }

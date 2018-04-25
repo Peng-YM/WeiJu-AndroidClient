@@ -1,4 +1,5 @@
 package cn.edu.sustc.androidclient.view.task.publishtask;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +22,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
     private RichEditText taskEditor;
     private ActivityTaskPublishBinding binding;
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, TaskPublishActivity.class);
         context.startActivity(intent);
     }
@@ -50,7 +51,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
         setUpEditor();
     }
 
-    private void setUpEditor(){
+    private void setUpEditor() {
         setupBold();
         setupItalic();
         setupUnderline();

@@ -20,7 +20,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private ActivityAnnotationTaskBinding binding;
     private AnnotateImageView annotateImageView;
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
         context.startActivity(intent);
     }
@@ -54,22 +54,22 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         });
     }
 
-    private void downloadBtnClicked(){
+    private void downloadBtnClicked() {
         String url = binding.pictureUrl.getText().toString();
         String path = this.getFilesDir().getPath() + "/" + UUID.randomUUID() + ".jpg";
         viewModel.downloadFile(url, path).observe(this, fileMyResource -> {
-           if (fileMyResource != null){
-               switch (fileMyResource.status){
-                   case SUCCESS:
-                       File downloadedFile = fileMyResource.data;
-                       Logger.d("Successfully downloaded file: %s", downloadedFile.getAbsolutePath());
-                       break;
-                   case ERROR:
-                       Toast.makeText(this,"Cannot download file " + url, Toast.LENGTH_SHORT).show();
-                       break;
-               }
+            if (fileMyResource != null) {
+                switch (fileMyResource.status) {
+                    case SUCCESS:
+                        File downloadedFile = fileMyResource.data;
+                        Logger.d("Successfully downloaded file: %s", downloadedFile.getAbsolutePath());
+                        break;
+                    case ERROR:
+                        Toast.makeText(this, "Cannot download file " + url, Toast.LENGTH_SHORT).show();
+                        break;
+                }
 
-           }
+            }
         });
     }
 

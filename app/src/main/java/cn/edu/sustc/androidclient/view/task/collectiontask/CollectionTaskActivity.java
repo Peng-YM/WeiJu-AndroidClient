@@ -16,7 +16,6 @@ import com.yanzhenjie.album.util.DisplayUtils;
 import com.yanzhenjie.album.widget.divider.Divider;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
@@ -29,7 +28,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     private AlbumAdapter adapter;
     private ArrayList<AlbumFile> albumFiles;
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, CollectionTaskActivity.class);
         context.startActivity(intent);
     }
@@ -47,7 +46,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         Divider divider = AlbumUtils.getDivider(Color.WHITE);
-        int itemSize =(DisplayUtils.sScreenWidth - (divider.getWidth() * 4)) / 3;
+        int itemSize = (DisplayUtils.sScreenWidth - (divider.getWidth() * 4)) / 3;
         adapter = new AlbumAdapter(this, itemSize, (view, position) -> previewAlbum(position));
 
         recyclerView.setAdapter(adapter);
@@ -60,7 +59,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         return R.layout.activity_collection_task;
     }
 
-    private void selectAlbum(){
+    private void selectAlbum() {
         Album.album(this)
                 .multipleChoice()
                 .requestCode(200)
@@ -76,10 +75,10 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
                 .start();
     }
 
-    private void previewAlbum(int position){
-        if (albumFiles == null || albumFiles.size() == 0){
+    private void previewAlbum(int position) {
+        if (albumFiles == null || albumFiles.size() == 0) {
             Toast.makeText(this, "You selected nothing", Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             Album.galleryAlbum(this)
                     .checkable(true)
                     .checkedList(albumFiles)

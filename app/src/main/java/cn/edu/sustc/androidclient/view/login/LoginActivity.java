@@ -11,23 +11,22 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
+    // data binding
+    public ObservableField<String> email;
+    public ObservableField<String> password;
     private AlertDialog alertDialog;
     private LoginViewModel model;
     private ActivityLoginBinding binding;
 
-    // data binding
-    public ObservableField<String> email;
-    public ObservableField<String> password;
-
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
@@ -54,26 +53,27 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         return R.layout.activity_login;
     }
 
-    private void initData(){
+    private void initData() {
         email = new ObservableField<>();
         password = new ObservableField<>();
     }
 
-    private void initViews(){
+    private void initViews() {
         // set alert dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.alert))
                 .setCancelable(false)
-                .setPositiveButton("OK", (dialogInterface, i) -> {});
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                });
         alertDialog = builder.create();
         binding.loginProgressBar.setVisibility(View.GONE);
     }
 
-    public void login(View view){
+    public void login(View view) {
         model.login(new Session(email.get(), password.get()));
         model.getCredential().observe(this, resource -> {
-            if (resource != null){
-                switch (resource.status){
+            if (resource != null) {
+                switch (resource.status) {
                     case ERROR:
                         String errorInfo = resource.message;
                         alertDialog.setMessage(errorInfo);
@@ -96,12 +96,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         });
     }
 
-    public void goToRegistration(View view){
+    public void goToRegistration(View view) {
         Logger.d("Go to registration");
         RegistrationActivity.start(this);
     }
 
-    private void saveCredential(Credential credential){
+    private void saveCredential(Credential credential) {
         SharedPreferences preferences = SharePreferenceHelper.getPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("id", credential.id);

@@ -1,386 +1,386 @@
 {
-	"info": {
-		"_postman_id": "7593c432-81c1-4fe9-b143-17b79433e375",
-		"name": "APP",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Users",
-			"description": "",
-			"item": [
-				{
-					"name": "Create Utils Functions",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c51ef49e-627b-4fe5-a6fb-cb93d7914dba",
-								"type": "text/javascript",
-								"exec": [
-									"postman.setGlobalVariable(\"loadUtils\", function loadUtils() {",
-									"    let utils = {};",
-									"",
-									"    utils.randomUUID = function randomUUID() {",
-									"        var randomId = Math.abs(Math.floor(Math.random() * Number.MIN_SAFE_INTEGER));",
-									"        return randomId;",
-									"    }",
-									"",
-									"    return utils;",
-									"",
-									"} + '; loadUtils();');",
-									"tests['Utils initialized'] = true;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "{{url}}",
-							"host": [
-								"{{url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Random User",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "2dcfb63f-3795-46f5-a9c4-5029379e2039",
-								"type": "text/javascript",
-								"exec": [
-									"let utils = eval(globals.loadUtils);",
-									"pm.environment.set(\"user_id\", utils.randomUUID());"
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "ab56e363-ca2d-4adb-9923-65e7be48d3e5",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Create Random User\"] = responseCode.code === 201;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": {{user_id}},\n    \"data\": {\n        \"username\": \"Tom\",\n        \"email\": \"example@xxx.com\",\n        \"phone\": \"1234567890\",\n        \"credit\": 100,\n        \"balance\": 100,\n        \"nickname\": \"Tom\",\n        \"level\": 0,\n        \"avatar\": \"URL\"\n    }\n}"
-						},
-						"url": {
-							"raw": "http://{{base_url}}/users",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "43b46b93-7027-4911-bc19-a1487db4b318",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Get All Users\"] = responseCode.code === 200;",
-									"// achieve all users here"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{base_url}}/users",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User Profile",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "064c0fe1-5cd2-4508-a38f-2f8fa9da3cd0",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"get user profile\"] = responseCode.code === 200;"
-								]
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "e475ed0d-21ce-4644-a56f-37a8336e38fd",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"data\": {\n        \"type\": \"user\",\n        \"id\": 2,\n        \"attributes\": {\n            \"name\": \"PengYM\",\n            \"age\": 21,\n            \"credits\": 100,\n            \"balances\": 100000\n        }\n    }\n}"
-						},
-						"url": {
-							"raw": "http://{{base_url}}/users/{{user_id}}",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"{{user_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete a Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b9310277-ed6c-40ea-b9c0-84842cc2c939",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Delete a Users\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{base_url}}/users/{{user_id}}",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"{{user_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Commits",
-			"description": "",
-			"item": [
-				{
-					"name": "Create a commit",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "90ab4b15-44d2-4c03-8408-b98548adbfd8",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Create a commit\"] = responseCode.code === 201;"
-								]
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "d885cde3-fa89-4af5-b1f5-dc00eb1b8485",
-								"type": "text/javascript",
-								"exec": [
-									"let utils = eval(globals.loadUtils);",
-									"pm.environment.set(\"commit_id\", utils.randomUUID());"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n        \"id\": {{commit_id}},\n        \"data\": {\n            \"id\": \"commit_id\",\n            \"type\": \"commit\",\n            \"attributes\": [\n                {\n                    \"task_id\": \"uuid\",\n                    \"author_id\": \"uuid\",\n                    \"picture_id\": \"uuid\",\n                    \"xml\": \"xxx\"\n                }\n            ]\n        }\n}"
-						},
-						"url": {
-							"raw": "http://{{base_url}}/commits",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"commits"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete a Commit",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{base_url}}/commits/{{commit_id}}",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"commits",
-								"{{commit_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Tasks",
-			"description": "",
-			"item": [
-				{
-					"name": "Create a Task",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "5ec4c905-c38e-4081-9d61-1fe268addead",
-								"type": "text/javascript",
-								"exec": [
-									"let utils = eval(globals.loadUtils);",
-									"pm.environment.set(\"task_id\", utils.randomUUID());"
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "e452ae43-1532-4ab4-bf35-2a931853fbd5",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"create a task\"] = responseCode.code === 201;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": {{task_id}},\n    \"data\": {\n        \"id\": {{task_id}},\n        \"type\": \"task\",\n        \"attributes\": {\n            \"xml\": \"xxxx\",\n            \"title\": \"xxx\",\n            \"start\": \"xxxx\",\n            \"end\": \"xxx\",\n            \"descriptions\": \"xxx\"\n        }\n    }\n}"
-						},
-						"url": {
-							"raw": "http://{{base_url}}/tasks",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"tasks"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete a Task",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "0cd21c29-2678-4e3e-8977-e564fbdd336f",
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Delete a Task\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "http://{{base_url}}/tasks/{{task_id}}",
-							"protocol": "http",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"tasks",
-								"{{task_id}}"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Notifications",
-			"description": "",
-			"item": []
-		}
-	]
+  "info": {
+    "_postman_id": "7593c432-81c1-4fe9-b143-17b79433e375",
+    "name": "APP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "description": "",
+      "item": [
+        {
+          "name": "Create Utils Functions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c51ef49e-627b-4fe5-a6fb-cb93d7914dba",
+                "type": "text/javascript",
+                "exec": [
+                  "postman.setGlobalVariable(\"loadUtils\", function loadUtils() {",
+                  "    let utils = {};",
+                  "",
+                  "    utils.randomUUID = function randomUUID() {",
+                  "        var randomId = Math.abs(Math.floor(Math.random() * Number.MIN_SAFE_INTEGER));",
+                  "        return randomId;",
+                  "    }",
+                  "",
+                  "    return utils;",
+                  "",
+                  "} + '; loadUtils();');",
+                  "tests['Utils initialized'] = true;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "{{url}}",
+              "host": [
+                "{{url}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Random User",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2dcfb63f-3795-46f5-a9c4-5029379e2039",
+                "type": "text/javascript",
+                "exec": [
+                  "let utils = eval(globals.loadUtils);",
+                  "pm.environment.set(\"user_id\", utils.randomUUID());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "ab56e363-ca2d-4adb-9923-65e7be48d3e5",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"Create Random User\"] = responseCode.code === 201;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"id\": {{user_id}},\n    \"data\": {\n        \"username\": \"Tom\",\n        \"email\": \"example@xxx.com\",\n        \"phone\": \"1234567890\",\n        \"credit\": 100,\n        \"balance\": 100,\n        \"nickname\": \"Tom\",\n        \"level\": 0,\n        \"avatar\": \"URL\"\n    }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}/users",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "43b46b93-7027-4911-bc19-a1487db4b318",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"Get All Users\"] = responseCode.code === 200;",
+                  "// achieve all users here"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "http://{{base_url}}/users",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "064c0fe1-5cd2-4508-a38f-2f8fa9da3cd0",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"get user profile\"] = responseCode.code === 200;"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "e475ed0d-21ce-4644-a56f-37a8336e38fd",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 2,\n    \"data\": {\n        \"type\": \"user\",\n        \"id\": 2,\n        \"attributes\": {\n            \"name\": \"PengYM\",\n            \"age\": 21,\n            \"credits\": 100,\n            \"balances\": 100000\n        }\n    }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b9310277-ed6c-40ea-b9c0-84842cc2c939",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"Delete a Users\"] = responseCode.code === 200;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "http://{{base_url}}/users/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "{{user_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Commits",
+      "description": "",
+      "item": [
+        {
+          "name": "Create a commit",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "90ab4b15-44d2-4c03-8408-b98548adbfd8",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"Create a commit\"] = responseCode.code === 201;"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "d885cde3-fa89-4af5-b1f5-dc00eb1b8485",
+                "type": "text/javascript",
+                "exec": [
+                  "let utils = eval(globals.loadUtils);",
+                  "pm.environment.set(\"commit_id\", utils.randomUUID());"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"id\": {{commit_id}},\n        \"data\": {\n            \"id\": \"commit_id\",\n            \"type\": \"commit\",\n            \"attributes\": [\n                {\n                    \"task_id\": \"uuid\",\n                    \"author_id\": \"uuid\",\n                    \"picture_id\": \"uuid\",\n                    \"xml\": \"xxx\"\n                }\n            ]\n        }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}/commits",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "commits"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Commit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "http://{{base_url}}/commits/{{commit_id}}",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "commits",
+                "{{commit_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "description": "",
+      "item": [
+        {
+          "name": "Create a Task",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "5ec4c905-c38e-4081-9d61-1fe268addead",
+                "type": "text/javascript",
+                "exec": [
+                  "let utils = eval(globals.loadUtils);",
+                  "pm.environment.set(\"task_id\", utils.randomUUID());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "e452ae43-1532-4ab4-bf35-2a931853fbd5",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"create a task\"] = responseCode.code === 201;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"id\": {{task_id}},\n    \"data\": {\n        \"id\": {{task_id}},\n        \"type\": \"task\",\n        \"attributes\": {\n            \"xml\": \"xxxx\",\n            \"title\": \"xxx\",\n            \"start\": \"xxxx\",\n            \"end\": \"xxx\",\n            \"descriptions\": \"xxx\"\n        }\n    }\n}"
+            },
+            "url": {
+              "raw": "http://{{base_url}}/tasks",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Task",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0cd21c29-2678-4e3e-8977-e564fbdd336f",
+                "type": "text/javascript",
+                "exec": [
+                  "tests[\"Delete a Task\"] = responseCode.code === 200;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {},
+            "url": {
+              "raw": "http://{{base_url}}/tasks/{{task_id}}",
+              "protocol": "http",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tasks",
+                "{{task_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "description": "",
+      "item": []
+    }
+  ]
 }

@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import cn.edu.sustc.androidclient.R;
 
 public class TaskManagerActivity extends AppCompatActivity {
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, TaskManagerActivity.class);
         context.startActivity(intent);
     }

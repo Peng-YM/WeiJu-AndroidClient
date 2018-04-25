@@ -22,9 +22,9 @@ import com.bumptech.glide.request.RequestOptions;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
-import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -33,9 +33,9 @@ import cn.edu.sustc.androidclient.view.login.LoginActivity;
 import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
+import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
-import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     private NavHeaderMainBinding headerBinding;
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         Toolbar toolbar = binding.contentMain.toolbar;
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -88,14 +88,14 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     /**
      * Set up Navigation view
-     * */
-    public void setUpNavigationView(){
+     */
+    public void setUpNavigationView() {
         headerBinding = DataBindingUtil.inflate(getLayoutInflater(),
                 R.layout.nav_header_main, binding.navView, false);
         binding.navView.addHeaderView(headerBinding.getRoot());
 
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
-            if (userMyResource != null && userMyResource.status == Status.SUCCESS){
+            if (userMyResource != null && userMyResource.status == Status.SUCCESS) {
                 User user = userMyResource.data;
                 headerBinding.headerEmail.setText(user.email);
                 headerBinding.headerUsername.setText(user.username);
@@ -115,19 +115,19 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     }
 
     // close the continue task card view
-    public void closeCard(View view){
+    public void closeCard(View view) {
         LinearLayout parent = findViewById(R.id.task_card_parent);
         parent.removeViewAt(0);
     }
 
     // continue task
-    public void continueTask(View view){
+    public void continueTask(View view) {
         TaskManagerActivity.start(this);
         closeCard(view);
     }
 
     // logout
-    private void logout(){
+    private void logout() {
         // show alert dialog
         new AlertDialog.Builder(this)
                 .setTitle(R.string.alert)
@@ -149,7 +149,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.action_exit:
                 ActivityCollector.finishAll();
                 return true;
@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.nav_all_task:
                 AnnotationTaskActivity.start(this);
                 break;
@@ -207,7 +207,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
             default:
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

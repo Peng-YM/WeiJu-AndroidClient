@@ -1,6 +1,6 @@
 package cn.edu.sustc.androidclient.model.data;
 
-public class Session{
+public class Session {
     public String email;
     public String password;
 

@@ -28,7 +28,7 @@ public class UserRepository implements BaseViewModel {
     private MutableLiveData<MyResource<User>> userProfile;
 
     @Inject
-    public UserRepository(UserService userService, AppSchedulerProvider schedulerProvider){
+    public UserRepository(UserService userService, AppSchedulerProvider schedulerProvider) {
         this.userService = userService;
         this.schedulerProvider = schedulerProvider;
         initData();
@@ -36,9 +36,9 @@ public class UserRepository implements BaseViewModel {
 
     public void getProfile(String id, SingleObserver<MyResponse<User>> observer) {
         this.userService
-            .getProfile(id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(observer);
+                .getProfile(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     public MutableLiveData<MyResource<Credential>> login(Session session) {
@@ -101,7 +101,7 @@ public class UserRepository implements BaseViewModel {
         return userProfile;
     }
 
-    private void initData(){
+    private void initData() {
         credential = new MutableLiveData<>();
         userProfile = new MutableLiveData<>();
     }

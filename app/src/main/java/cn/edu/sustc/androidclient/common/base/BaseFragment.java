@@ -13,20 +13,21 @@ import android.view.ViewGroup;
 
 import dagger.android.support.DaggerFragment;
 
-public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBinding> extends DaggerFragment{
+public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBinding> extends DaggerFragment {
     private BaseActivity activity;
     private M viewModel;
     private B viewDataBinding;
     private View rootView;
 
-    public abstract @LayoutRes int getLayoutId();
+    public abstract @LayoutRes
+    int getLayoutId();
 
     public abstract M getViewModel();
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof BaseActivity){
+        if (context instanceof BaseActivity) {
             BaseActivity activity = (BaseActivity) context;
             this.activity = activity;
             activity.onAttachFragment(this);
@@ -34,7 +35,7 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
     }
 
     @Override
-    public void onCreate(@Nullable Bundle saveInstanceState){
+    public void onCreate(@Nullable Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         viewModel = getViewModel();
     }
@@ -50,7 +51,7 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
     @Override
     public void onDetach() {
         activity = null;
-        super.onDetach();;
+        super.onDetach();
     }
 
     @Override
@@ -62,7 +63,7 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
         return activity;
     }
 
-    public B getViewDataBinding(){
+    public B getViewDataBinding() {
         return viewDataBinding;
     }
 }

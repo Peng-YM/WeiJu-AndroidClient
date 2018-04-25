@@ -10,6 +10,7 @@ import cn.edu.sustc.androidclient.view.login.LoginActivity;
 
 public class Splash extends AppCompatActivity {
     private static int SPLASH_TIMEOUT = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +19,7 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent( Splash.this, LoginActivity.class);
+                Intent intent = new Intent(Splash.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

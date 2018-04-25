@@ -18,7 +18,7 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private TaskFragmentViewModel fragmentViewModel;
     private TaskFragmentBinding fragmentBinding;
 
-    public static TaskFragment getInstance(){
+    public static TaskFragment getInstance() {
         return new TaskFragment();
     }
 
@@ -30,7 +30,7 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     @Override
     public void onCompleted() {
-        if (fragmentBinding.swipeRefreshLayout.isRefreshing()){
+        if (fragmentBinding.swipeRefreshLayout.isRefreshing()) {
             fragmentBinding.swipeRefreshLayout.setRefreshing(false);
         }
     }

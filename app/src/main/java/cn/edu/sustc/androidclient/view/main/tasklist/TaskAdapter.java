@@ -17,7 +17,7 @@ import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder> {
     private List<Task> tasks;
 
-    public TaskAdapter(){
+    public TaskAdapter() {
         tasks = new ArrayList<>();
     }
 
@@ -44,7 +44,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder>
         return tasks.size();
     }
 
-    public void addItem(Task task){
+    public void addItem(Task task) {
         tasks.add(task);
         notifyItemInserted(tasks.size() - 1);
     }
@@ -56,6 +56,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder>
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
         private TaskItemBinding itemBinding;
+
         public BindingHolder(TaskItemBinding itemBinding) {
             super(itemBinding.cardView);
             this.itemBinding = itemBinding;

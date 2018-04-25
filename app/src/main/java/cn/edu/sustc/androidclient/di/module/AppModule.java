@@ -19,21 +19,21 @@ public class AppModule {
     // provide application context
     @Provides
     @Singleton
-    Context provideContext(MyApplication application){
+    Context provideContext(MyApplication application) {
         return application.getApplicationContext();
     }
 
     // provide scheduler
     @Provides
     @Singleton
-    AppSchedulerProvider provideSchedulerProvider(){
+    AppSchedulerProvider provideSchedulerProvider() {
         return new AppSchedulerProvider();
     }
 
     // provide SharePreferences
     @Provides
     @Singleton
-    SharedPreferences provideSharePreferences(){
+    SharedPreferences provideSharePreferences() {
         return SharePreferenceHelper.getPreferences();
     }
 }

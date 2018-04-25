@@ -16,11 +16,8 @@ import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.common.base.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.service.FileService;
-import io.reactivex.Completable;
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
 import io.reactivex.SingleObserver;
-import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import okhttp3.MediaType;
@@ -42,10 +39,21 @@ public class FileRepository implements BaseViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Deprecated
-    public static FileRepository getInstance(){
-        if (instance == null){
-            synchronized (UserRepository.class){
-                if (instance == null){
+    private FileRepository(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @Inject
+    public FileRepository(FileService service, AppSchedulerProvider schedulerProvider) {
+        this.fileService = service;
+        this.schedulerProvider = schedulerProvider;
+    }
+
+    @Deprecated
+    public static FileRepository getInstance() {
+        if (instance == null) {
+            synchronized (UserRepository.class) {
+                if (instance == null) {
                     instance = new FileRepository(
                             RetrofitFactory.getInstance().create(FileService.class)
                     );
@@ -55,18 +63,7 @@ public class FileRepository implements BaseViewModel {
         return instance;
     }
 
-    @Deprecated
-    private FileRepository(FileService fileService){
-        this.fileService = fileService;
-    }
-
-    @Inject
-    public FileRepository(FileService service, AppSchedulerProvider schedulerProvider){
-        this.fileService = service;
-        this.schedulerProvider = schedulerProvider;
-    }
-
-    public LiveData<MyResource<File>> download(String url, String pathToSave){
+    public LiveData<MyResource<File>> download(String url, String pathToSave) {
         MutableLiveData<MyResource<File>> target = new MutableLiveData<>();
         target.postValue(MyResource.loading(null));
 
@@ -94,7 +91,7 @@ public class FileRepository implements BaseViewModel {
         return target;
     }
 
-    public void upload(String url, File file, SingleObserver observer){
+    public void upload(String url, File file, SingleObserver observer) {
         RequestBody requestFile = RequestBody.create(
                 MediaType.parse(file.getAbsolutePath()),
                 file
@@ -108,15 +105,15 @@ public class FileRepository implements BaseViewModel {
     }
 
 
-    private Single<File> saveToDisk(final Response<ResponseBody> response, final String pathToSave){
+    private Single<File> saveToDisk(final Response<ResponseBody> response, final String pathToSave) {
         return Single.create(emitter -> {
-            try{
+            try {
                 File destination = new File(pathToSave);
                 BufferedSink bufferedSink = Okio.buffer(Okio.sink(destination));
                 bufferedSink.writeAll(response.body().source());
                 bufferedSink.close();
                 emitter.onSuccess(destination);
-            }catch (IOException | NullPointerException e){
+            } catch (IOException | NullPointerException e) {
                 Logger.e(e.getMessage());
                 emitter.onError(e);
             }
@@ -124,7 +121,7 @@ public class FileRepository implements BaseViewModel {
     }
 
     @Override
-    public void onClear(){
+    public void onClear() {
         disposables.dispose();
     }
 

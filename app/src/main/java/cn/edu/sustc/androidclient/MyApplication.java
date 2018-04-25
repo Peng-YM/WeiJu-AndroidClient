@@ -38,7 +38,8 @@ public class MyApplication extends DaggerApplication {
                 .methodCount(1)
                 .build();
         com.orhanobut.logger.Logger.addLogAdapter(new AndroidLogAdapter(strategy) {
-            @Override public boolean isLoggable(int priority, String tag) {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
                 return BuildConfig.DEBUG;
             }
         });

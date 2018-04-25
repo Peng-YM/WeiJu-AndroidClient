@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="mainListener"
-            type="cn.edu.sustc.androidclient.view.main.MainActivity"/>
+            type="cn.edu.sustc.androidclient.view.main.MainActivity" />
     </data>
+
     <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,10 +18,9 @@
         tools:openDrawer="start">
 
         <include
-            layout="@layout/content_main"
             android:id="@+id/content_main"
-            app:mainListener="@{mainListener}"
-            />
+            layout="@layout/content_main"
+            app:mainListener="@{mainListener}" />
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
