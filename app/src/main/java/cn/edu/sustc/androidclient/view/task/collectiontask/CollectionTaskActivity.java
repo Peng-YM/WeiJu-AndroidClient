@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
@@ -45,11 +46,6 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
 
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        Divider divider = AlbumUtils.getDivider(Color.WHITE);
-        int itemSize = (DisplayUtils.sScreenWidth - (divider.getWidth() * 4)) / 3;
-        adapter = new AlbumAdapter(this, itemSize, (view, position) -> previewAlbum(position));
-
-        recyclerView.setAdapter(adapter);
 
         binding.startCollectionTask.setOnClickListener(view -> selectAlbum());
     }
@@ -60,13 +56,17 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     }
 
     private void selectAlbum() {
-        Album.album(this)
+        if (adapter == null){
+            int itemSize = (binding.albumView.getWidth()) / 3;
+            adapter = new AlbumAdapter(this, itemSize, (view, position) -> previewAlbum(position));
+            binding.albumView.setAdapter(adapter);
+        }
+        Logger.d("Select Images from album");
+        Album.image(this)
                 .multipleChoice()
-                .requestCode(200)
                 .columnCount(3)
                 .selectCount(6)
                 .camera(true)
-                .cameraVideoLimitBytes(20 * 10 ^ 6) //20 mb
                 .checkedList(albumFiles)
                 .onResult((requestCode, result) -> {
                     albumFiles = result;

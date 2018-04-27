@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.impl.OnItemClickListener;
@@ -18,6 +19,7 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public ImageViewHolder(View itemView, int itemSize, OnItemClickListener itemClickListener) {
         super(itemView);
+        Logger.d("Initialized ImageViewHolder");
         itemView.getLayoutParams().height = itemSize;
 
         this.itemSize = itemSize;

@@ -51,6 +51,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 // TODO
             }
             default:
+                Logger.e("Not handle yet!");
                 return null;
         }
     }
@@ -65,8 +66,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             case AlbumFile.TYPE_VIDEO: {
                 // TODO
+                Logger.e("Not handle video yet");
                 break;
             }
+            default:
+                break;
         }
     }
 
