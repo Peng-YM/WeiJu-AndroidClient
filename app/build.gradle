@@ -105,4 +105,7 @@ dependencies {
 
     // Rich text editor
     implementation 'com.github.huzhenjie:RichTextEditor:1.0.4'
+
+    // Form Validation
+    implementation 'com.basgeekball:awesome-validation:4.1'
 }

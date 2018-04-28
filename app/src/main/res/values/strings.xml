@@ -27,6 +27,7 @@
     <string name="action_login">登录</string>
     <string name="action_sign_up">注册</string>
     <string name="welcome">欢迎</string>
+    <string name="email_error">邮箱格式错误</string>
 
     <!--主界面-->
     <string name="welcome_back">欢迎回来</string>

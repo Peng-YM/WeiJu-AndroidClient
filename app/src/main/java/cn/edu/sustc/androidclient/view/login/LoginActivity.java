@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
@@ -25,6 +29,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     private AlertDialog alertDialog;
     private LoginViewModel model;
     private ActivityLoginBinding binding;
+    // validation
+    AwesomeValidation awesomeValidation;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -44,8 +50,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         binding.setLoginActivity(this);
         initData();
         initViews();
-
-//        Logger.d("TaskFragment is %s", fragment);
     }
 
     @Override
@@ -56,6 +60,12 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     private void initData() {
         email = new ObservableField<>();
         password = new ObservableField<>();
+
+        // init validations
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation.addValidation(binding.loginEmail, Patterns.EMAIL_ADDRESS, getString(R.string.email_error));
+        awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
     }
 
     private void initViews() {
@@ -70,30 +80,32 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     public void login(View view) {
-        model.login(new Session(email.get(), password.get()));
-        model.getCredential().observe(this, resource -> {
-            if (resource != null) {
-                switch (resource.status) {
-                    case ERROR:
-                        String errorInfo = resource.message;
-                        alertDialog.setMessage(errorInfo);
-                        alertDialog.show();
-                        binding.loginProgressBar.setVisibility(View.GONE);
-                        break;
-                    case LOADING:
-                        binding.loginProgressBar.setVisibility(View.VISIBLE);
-                        break;
-                    case SUCCESS:
-                        // save credential and go to main activity
-                        saveCredential(resource.data);
-                        MainActivity.start(this);
-                        binding.loginProgressBar.setVisibility(View.GONE);
-                        break;
-                    default:
-                        break;
+        if (awesomeValidation.validate()) {
+            model.login(new Session(email.get(), password.get()));
+            model.getCredential().observe(this, resource -> {
+                if (resource != null) {
+                    switch (resource.status) {
+                        case ERROR:
+                            String errorInfo = resource.message;
+                            alertDialog.setMessage(errorInfo);
+                            alertDialog.show();
+                            binding.loginProgressBar.setVisibility(View.GONE);
+                            break;
+                        case LOADING:
+                            binding.loginProgressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            // save credential and go to main activity
+                            saveCredential(resource.data);
+                            MainActivity.start(this);
+                            binding.loginProgressBar.setVisibility(View.GONE);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void goToRegistration(View view) {
