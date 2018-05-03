@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;

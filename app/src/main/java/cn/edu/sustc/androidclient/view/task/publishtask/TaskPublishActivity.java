@@ -3,7 +3,6 @@ package cn.edu.sustc.androidclient.view.task.publishtask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.scrat.app.richtext.RichEditText;
 
 import cn.edu.sustc.androidclient.R;

@@ -5,8 +5,6 @@
 
     <!--警告栏-->
     <string name="alert">警告</string>
-    <string name="alert_bad_credential">登录失败，请检查账号或密码是否错误</string>
-    <string name="alert_registration_failed">注册失败，邮箱是否已经注册？</string>
     <string name="alert_field_empty">"请填写所有必填信息"</string>
     <string name="alert_logout">是否注销登录？</string>
     <string name="yes">是</string>

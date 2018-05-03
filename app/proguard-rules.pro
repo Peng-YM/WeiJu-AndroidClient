@@ -18,7 +18,13 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-ignorewarnings
+-keep class * {
+    public private *;
+}
+
+-renamesourcefileattribute SourceFile
+
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
@@ -40,3 +46,10 @@
 
 -dontwarn com.yanzhenjie.statusview.**
 -keep class com.yanzhenjie.statusview.**{*;}
+
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** {*;}
+-keep interface com.squareup.okhttp3.* { *; }
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault

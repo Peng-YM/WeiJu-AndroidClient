@@ -6,17 +6,4 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="EditorTheme" parent="android:Theme.Material">
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:textColorHighlight">@color/blue_200</item>
-        <item name="android:alertDialogTheme">@style/EditorTheme.AlertDialogTheme</item>
-    </style>
-
-    <style name="EditorTheme.AlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
-        <item name="android:colorPrimary">@color/blue_500</item>
-        <item name="android:colorPrimaryDark">@color/blue_700</item>
-        <item name="android:colorAccent">@color/blue_500</item>
-    </style>
 </resources>

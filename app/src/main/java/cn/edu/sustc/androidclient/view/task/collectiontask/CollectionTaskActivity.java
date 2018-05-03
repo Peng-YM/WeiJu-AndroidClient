@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.task.collectiontask;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +11,6 @@ import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.api.widget.Widget;
-import com.yanzhenjie.album.util.AlbumUtils;
-import com.yanzhenjie.album.util.DisplayUtils;
-import com.yanzhenjie.album.widget.divider.Divider;
 
 import java.util.ArrayList;
 
