@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.widget.Toast;

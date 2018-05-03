@@ -53,3 +53,8 @@
 -keep interface com.squareup.okhttp3.* { *; }
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# remove Logcat output in release
+-assumenosideeffects class com.orhanobut.logger.Logger {
+    *;
+}
