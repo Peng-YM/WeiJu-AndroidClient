@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -14,9 +16,7 @@ import javax.inject.Singleton;
 import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.common.http.NetworkConnectionInterceptor;
-import cn.edu.sustc.androidclient.model.service.FileService;
-import cn.edu.sustc.androidclient.model.service.TaskService;
-import cn.edu.sustc.androidclient.model.service.UserService;
+import cn.edu.sustc.androidclient.common.http.NetworkStateEvent;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -59,16 +59,18 @@ public class NetworkModule {
             public boolean isInternetAvailable() {
                 NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
                 boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnectedOrConnecting();
+                        activeNetwork.isConnected();
+                if (isConnected){
+                    EventBus.getDefault().post(new NetworkStateEvent(true));
+                }
                 return isConnected;
             }
 
             @Override
             public void onInternetUnavailable() {
-                // we can broadcast this event to activity/fragment/service
-                // through LocalBroadcastReceiver or
-                // RxBus/EventBus
+                // broadcast this event to activity/fragment/service through EventBus
                 Logger.d("Network Unavailable!");
+                EventBus.getDefault().post(new NetworkStateEvent(false));
             }
         });
         return okHttpClientBuilder.build();

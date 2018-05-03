@@ -19,14 +19,15 @@ import cn.edu.sustc.androidclient.di.DaggerMyAppComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 
-// application class which is responsible to initialize global variables
+/**
+ * Application class which is responsible to initialize global variables
+ */
 public class MyApplication extends DaggerApplication {
     private static String PACKAGE_NAME;
-
     @Override
     public void onCreate() {
         super.onCreate();
-        // global SharedPreferences
+        // Global SharedPreferences
         Context applicationContext = getApplicationContext();
         SharedPreferences globalPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         SharePreferenceHelper.setPreference(globalPrefs);
