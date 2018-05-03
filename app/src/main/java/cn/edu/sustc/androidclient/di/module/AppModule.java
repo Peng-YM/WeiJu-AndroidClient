@@ -13,7 +13,8 @@ import dagger.Provides;
 
 @Module(includes = {
         ViewModelModule.class,
-        NetworkModule.class
+        NetworkModule.class,
+        ServiceModule.class
 })
 public class AppModule {
     // provide application context
