@@ -27,6 +27,11 @@
             android:name=".view.settings.SettingsActivity"
             android:label="@string/settings" />
 
+        <!-- welcome activity -->
+        <activity
+            android:name=".view.login.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <!-- login activity -->
         <activity
             android:name=".view.login.LoginActivity"
@@ -61,13 +66,16 @@
         <activity
             android:name=".view.task.TaskManagerActivity"
             android:label="@string/my_task" />
-        <activity android:name=".view.task.collectiontask.CollectionTaskActivity"
+        <activity
+            android:name=".view.task.collectiontask.CollectionTaskActivity"
             android:label="@string/collection_task" />
-        <activity android:name=".view.task.annotationtask.AnnotationTaskActivity"
-            android:label="@string/annotation_task"/>
+        <activity
+            android:name=".view.task.annotationtask.AnnotationTaskActivity"
+            android:label="@string/annotation_task" />
         <activity android:name=".view.task.annotationtask.TagEditorActivity" />
-        <activity android:name=".view.task.publishtask.TaskPublishActivity"
-            android:label="@string/publish_task"/>
+        <activity
+            android:name=".view.task.publishtask.TaskPublishActivity"
+            android:label="@string/publish_task" />
     </application>
 
 </manifest>
