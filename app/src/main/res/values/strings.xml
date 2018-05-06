@@ -26,6 +26,7 @@
     <string name="action_sign_up">注册</string>
     <string name="welcome">欢迎</string>
     <string name="email_error">邮箱格式错误</string>
+    <string name="forget_password">忘记密码？</string>
 
     <!--主界面-->
     <string name="welcome_back">欢迎回来</string>
