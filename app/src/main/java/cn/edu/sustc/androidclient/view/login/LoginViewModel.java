@@ -28,7 +28,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(Session session) {
-        Logger.d("Attempted to Login: ", session);
+        Logger.d("Attempted to Login: Email: %s, Password: %s", session.email, session.password);
         credential = userRepository.login(session);
     }
 

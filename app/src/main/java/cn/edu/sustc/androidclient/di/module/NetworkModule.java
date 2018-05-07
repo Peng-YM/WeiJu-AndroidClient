@@ -50,9 +50,9 @@ public class NetworkModule {
     @Singleton
     OkHttpClient provideOkHttpClient(ConnectivityManager connectivityManager){
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        okHttpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
-        okHttpClientBuilder.readTimeout(5, TimeUnit.SECONDS);
-        okHttpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
+        okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
+        okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
+        okHttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
         // add network state interceptor
         okHttpClientBuilder.addInterceptor(new NetworkConnectionInterceptor() {
             @Override

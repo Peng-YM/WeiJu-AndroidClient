@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -28,6 +30,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBinding> extends DaggerAppCompatActivity {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+    @Inject
+    ConnectivityManager connectivityManager;
 
     NetworkStateEvent networkStateEvent;
 
@@ -40,6 +44,11 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         ViewDataBinding binding = DataBindingUtil.setContentView(this, getLayoutResId());
         ViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
         onCreate(savedInstanceState, (M) viewModel, (B) binding);
+
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnected();
+        networkStateEvent = new NetworkStateEvent(isConnected);
     }
 
     protected abstract Class<M> getViewModel();

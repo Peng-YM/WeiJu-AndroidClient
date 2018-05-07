@@ -2,6 +2,8 @@ package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.orhanobut.logger.Logger;
+
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
@@ -32,13 +34,6 @@ public class UserRepository implements BaseViewModel {
         this.userService = userService;
         this.schedulerProvider = schedulerProvider;
         initData();
-    }
-
-    public void getProfile(String id, SingleObserver<MyResponse<User>> observer) {
-        this.userService
-                .getProfile(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
     }
 
     public MutableLiveData<MyResource<Credential>> login(Session session) {

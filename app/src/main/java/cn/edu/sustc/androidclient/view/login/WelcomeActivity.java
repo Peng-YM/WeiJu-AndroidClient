@@ -1,35 +1,30 @@
 package cn.edu.sustc.androidclient.view.login;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.edu.sustc.androidclient.R;
 
 public class WelcomeActivity extends AppCompatActivity {
+    @BindView(R.id.button_login)
+    Button login;
+    @BindView(R.id.button_registration)
+    Button registration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Button login = findViewById(R.id.button_login);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
+        ButterKnife.bind(this);
+        login.setOnClickListener(v -> {
+            LoginActivity.start(this);
         });
 
-        Button registration = findViewById(R.id.button_registration);
-        registration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-            }
+        registration.setOnClickListener(v -> {
+            RegistrationActivity.start(this);
         });
     }
 }
