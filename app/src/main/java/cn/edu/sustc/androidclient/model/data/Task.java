@@ -28,9 +28,10 @@ public class Task implements Serializable {
 
     public enum TaskType implements Serializable {
         @SerializedName("0")
-        COLLECTION(0, R.string.collection_task),
+        ANNOTATION(1, R.string.annotation_task),
         @SerializedName("1")
-        ANNOTATION(1, R.string.annotation_task);
+        COLLECTION(0, R.string.collection_task);
+
 
         private int type;
         private int description;

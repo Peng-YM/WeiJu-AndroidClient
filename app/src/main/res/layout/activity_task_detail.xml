@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="采集任务"
+            android:text="@{viewModel.taskType}"
             myApp:layout_constraintStart_toStartOf="parent"
             myApp:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

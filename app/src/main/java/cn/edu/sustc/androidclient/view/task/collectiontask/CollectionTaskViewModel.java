@@ -65,7 +65,6 @@ public class CollectionTaskViewModel extends ViewModel {
                         progress.postValue(resource);
                         Logger.d("Uploaded %d file: %s\nURL:%s", total, file.getPath(), TextUtils.join("\n", urls));
                     }
-
                 }
 
                 @Override
