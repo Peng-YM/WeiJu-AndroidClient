@@ -46,8 +46,19 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         binding.fab.setOnClickListener(view -> selectAlbum());
         binding.commitBtn.setOnClickListener(view -> {
             if (albumFiles != null) {
-                viewModel.uploadImages(albumFiles).observe(this, progress -> {
-                    binding.commitBtn.setText(String.format("%.1f%%", progress));
+                viewModel.uploadImages(albumFiles).observe(this, resource -> {
+                    switch (resource.status){
+                        case LOADING:
+                            binding.commitBtn.setText(String.format("%.1f%%", resource.data));
+                            break;
+                        case SUCCESS:
+                            binding.commitBtn.setText(getString(R.string.commit_success));
+                            break;
+                        case ERROR:
+                            showAlertDialog(resource.message);
+                        default:
+                            break;
+                    }
                 });
             } else {
                 showAlertDialog(getString(R.string.alert_nothing_selected));

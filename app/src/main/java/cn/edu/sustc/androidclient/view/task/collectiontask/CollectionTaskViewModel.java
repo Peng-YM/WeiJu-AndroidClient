@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.view.task.collectiontask;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.AlbumFile;
@@ -13,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
@@ -33,12 +35,16 @@ public class CollectionTaskViewModel extends ViewModel {
         disposables = new CompositeDisposable();
     }
 
-    public MutableLiveData<Float> uploadImages(ArrayList<AlbumFile> albumFiles) {
-        MutableLiveData<Float> progress = new MutableLiveData<>();
-        progress.postValue(0f);
+    public MutableLiveData<MyResource<Float>> uploadImages(ArrayList<AlbumFile> albumFiles) {
+        MutableLiveData<MyResource<Float>> progress = new MutableLiveData<>();
+        MyResource<Float> resource = MyResource.loading(0f);
+        progress.postValue(resource);
+
         int total = albumFiles.size();
         // thread safe counter
         AtomicInteger counter = new AtomicInteger(0);
+        ArrayList<String> urls = new ArrayList<>();
+
         for (AlbumFile file : albumFiles) {
             SingleObserver<MyResponse<List<String>>> observer = new SingleObserver<MyResponse<List<String>>>() {
                 @Override
@@ -49,12 +55,22 @@ public class CollectionTaskViewModel extends ViewModel {
                 @Override
                 public void onSuccess(MyResponse<List<String>> urlResponse) {
                     counter.incrementAndGet();
-                    progress.postValue(((float) counter.get() / total) * 100);
-                    Logger.d("Uploaded file: %s\nURL:%s", file.getPath(), urlResponse.data);
+                    urls.add(urlResponse.data.get(0));
+
+                    if (counter.get() < total){
+                        MyResource<Float> resource = MyResource.loading(((float) counter.get() / total) * 100);
+                        progress.postValue(resource);
+                    }else {
+                        MyResource<Float> resource = MyResource.success(100f);
+                        progress.postValue(resource);
+                        Logger.d("Uploaded %d file: %s\nURL:%s", total, file.getPath(), TextUtils.join("\n", urls));
+                    }
+
                 }
 
                 @Override
                 public void onError(Throwable e) {
+                    progress.postValue(MyResource.error("上传失败！", ((float) counter.get() / total) * 100));
                     Logger.e("Unable to upload file: \n");
                     e.printStackTrace();
                 }
