@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 import com.orhanobut.logger.Logger;
@@ -31,13 +32,15 @@ public class AnnotateImageView extends AppCompatImageView {
 
     private int touchDownX = 0;
     private int touchDownY = 0;
-    private Coordinate startPoint = new Coordinate(0, 0), endPoint;
+    private Coordinate startPoint = new Coordinate(0, 0);
     private Matrix currentMatrix, savedMatrix;
 
     private Canvas myCanvas; // canvas to draw the mixed picture
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
+
+    private DisplayMetrics dm;
 
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -59,6 +62,7 @@ public class AnnotateImageView extends AppCompatImageView {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLUE);
 
+        dm = context.getResources().getDisplayMetrics();
         initMixedBitmap();
         currentMatrix = new Matrix();
         savedMatrix = new Matrix();
@@ -92,6 +96,47 @@ public class AnnotateImageView extends AppCompatImageView {
 
         // draw image
         setImageBitmap(mixedBitmap);
+    }
+
+    /**
+     * Center the image
+     * @param horizontal center in horizontal
+     * @param vertical center in vertical
+     */
+    protected Matrix center(boolean horizontal, boolean vertical) {
+        Matrix m = new Matrix();
+        RectF rect = new RectF(0, 0, srcBitmap.getWidth(), srcBitmap.getHeight());
+        m.mapRect(rect);
+
+        float height = rect.height();
+        float width = rect.width();
+
+        float deltaX = 0, deltaY = 0;
+
+        if (vertical) {
+            // 图片小于屏幕大小，则居中显示。大于屏幕，上方留空则往上移，下方留空则往下移
+            int screenHeight = dm.heightPixels;
+            if (height < screenHeight) {
+                deltaY = (screenHeight - height) / 2 - rect.top;
+            } else if (rect.top > 0) {
+                deltaY = -rect.top;
+            } else if (rect.bottom < screenHeight) {
+                deltaY = this.getHeight() - rect.bottom;
+            }
+        }
+
+        if (horizontal) {
+            int screenWidth = dm.widthPixels;
+            if (width < screenWidth) {
+                deltaX = (screenWidth - width) / 2 - rect.left;
+            } else if (rect.left > 0) {
+                deltaX = -rect.left;
+            } else if (rect.right < screenWidth) {
+                deltaX = screenWidth - rect.right;
+            }
+        }
+        m.postTranslate(deltaX, deltaY);
+        return m;
     }
 
     /**

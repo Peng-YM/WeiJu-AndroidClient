@@ -37,9 +37,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
         annotateImageView = binding.annotateImageView;
         annotateImageView.init(BitmapFactory.decodeResource(getResources(), R.drawable.cover));
-        binding.downloadButton.setOnClickListener(view -> {
-            downloadBtnClicked();
-        });
         binding.undoButton.setOnClickListener(view -> {
             annotateImageView.undo();
         });
@@ -51,25 +48,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                     annotateImageView.getMode() == AnnotateImageView.Mode.EDIT
                             ? AnnotateImageView.Mode.SELECT : AnnotateImageView.Mode.EDIT;
             annotateImageView.setMode(mode);
-        });
-    }
-
-    private void downloadBtnClicked() {
-        String url = binding.pictureUrl.getText().toString();
-        String path = this.getFilesDir().getPath() + "/" + UUID.randomUUID() + ".jpg";
-        viewModel.downloadFile(url, path).observe(this, fileMyResource -> {
-            if (fileMyResource != null) {
-                switch (fileMyResource.status) {
-                    case SUCCESS:
-                        File downloadedFile = fileMyResource.data;
-                        Logger.d("Successfully downloaded file: %s", downloadedFile.getAbsolutePath());
-                        break;
-                    case ERROR:
-                        Toast.makeText(this, "Cannot download file " + url, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-
-            }
         });
     }
 

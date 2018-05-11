@@ -43,7 +43,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
-        binding.startCollectionTask.setOnClickListener(view -> selectAlbum());
+        binding.fab.setOnClickListener(view -> selectAlbum());
     }
 
     @Override

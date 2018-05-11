@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     public void login(View view) {
+        binding.loginProgressBar.setVisibility(View.VISIBLE);
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
             model.login(new Session(email.get(), password.get()));

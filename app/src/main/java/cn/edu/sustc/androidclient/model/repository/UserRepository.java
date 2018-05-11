@@ -64,7 +64,31 @@ public class UserRepository implements BaseViewModel {
         return credential;
     }
 
-    public MutableLiveData<MyResource<Credential>> registration() {
+    public MutableLiveData<MyResource<Credential>> registration(User user) {
+        userService.registration(user)
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
+                .subscribe(new SingleObserver<MyResponse<Credential>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                        MyResource<Credential> resource = MyResource.loading(null);
+                        credential.postValue(resource);
+                    }
+
+                    @Override
+                    public void onSuccess(MyResponse<Credential> response) {
+                        MyResource<Credential> resource = MyResource.success(response.data);
+                        credential.postValue(resource);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        MyResource<Credential> resource = MyResource.error("注册失败", null);
+                        credential.postValue(resource);
+                    }
+                });
+
         return credential;
     }
 
@@ -94,6 +118,30 @@ public class UserRepository implements BaseViewModel {
                     }
                 });
         return userProfile;
+    }
+
+    public void updateUserProfile(User user){
+        userService.updateProfile(user.id, user)
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
+                .subscribe(new SingleObserver<MyResponse<User>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(MyResponse<User> response) {
+                        MyResource<User> resource = MyResource.success(response.data);
+                        userProfile.postValue(resource);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        MyResource<User> resource = MyResource.error("Cannot update profile", null);
+                        userProfile.postValue(resource);
+                    }
+                });
     }
 
     private void initData() {
