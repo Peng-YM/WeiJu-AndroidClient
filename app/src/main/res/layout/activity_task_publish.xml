@@ -6,16 +6,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_dark_background">
+
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/tools"
+            android:layout_alignParentTop="true"
             android:paddingEnd="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:layout_above="@id/tools"
-            android:layout_alignParentTop="true">
+            android:paddingTop="16dp">
+
             <com.scrat.app.richtext.RichEditText
                 android:id="@+id/knife"
                 android:layout_width="match_parent"
@@ -33,9 +35,8 @@
                 app:linkUnderline="true"
                 app:quoteCapWidth="@dimen/quote_gap_width"
                 app:quoteColor="@color/blue_500"
-                app:quoteStripeWidth="@dimen/quote_stripe_width"/>
+                app:quoteStripeWidth="@dimen/quote_stripe_width" />
         </ScrollView>
-
 
 
         <HorizontalScrollView
@@ -57,7 +58,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_bold"/>
+                    android:src="@drawable/ic_format_bold" />
 
                 <ImageButton
                     android:id="@+id/italic"
@@ -66,7 +67,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_italic"/>
+                    android:src="@drawable/ic_format_italic" />
 
                 <ImageButton
                     android:id="@+id/underline"
@@ -75,7 +76,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_underline"/>
+                    android:src="@drawable/ic_format_underline" />
 
                 <ImageButton
                     android:id="@+id/strikethrough"
@@ -84,7 +85,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_strikethrough"/>
+                    android:src="@drawable/ic_format_strikethrough" />
 
                 <ImageButton
                     android:id="@+id/bullet"
@@ -93,7 +94,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_bullet"/>
+                    android:src="@drawable/ic_format_bullet" />
 
                 <ImageButton
                     android:id="@+id/quote"
@@ -102,7 +103,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_quote"/>
+                    android:src="@drawable/ic_format_quote" />
 
                 <ImageButton
                     android:id="@+id/link"
@@ -111,7 +112,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_insert_link"/>
+                    android:src="@drawable/ic_insert_link" />
 
                 <ImageButton
                     android:id="@+id/clear"
@@ -120,7 +121,7 @@
                     android:background="?android:selectableItemBackground"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/ic_format_clear"/>
+                    android:src="@drawable/ic_format_clear" />
 
             </LinearLayout>
 

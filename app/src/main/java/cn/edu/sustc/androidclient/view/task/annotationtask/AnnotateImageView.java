@@ -100,8 +100,9 @@ public class AnnotateImageView extends AppCompatImageView {
 
     /**
      * Center the image
+     *
      * @param horizontal center in horizontal
-     * @param vertical center in vertical
+     * @param vertical   center in vertical
      */
     protected Matrix center(boolean horizontal, boolean vertical) {
         Matrix m = new Matrix();

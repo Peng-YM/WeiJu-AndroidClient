@@ -1,10 +1,8 @@
 package cn.edu.sustc.androidclient.view.task.collectiontask;
 
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -47,12 +45,12 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
 
         binding.fab.setOnClickListener(view -> selectAlbum());
         binding.commitBtn.setOnClickListener(view -> {
-            if (albumFiles != null){
+            if (albumFiles != null) {
                 viewModel.uploadImages(albumFiles).observe(this, progress -> {
                     binding.commitBtn.setText(String.format("%.1f%%", progress));
                 });
-            }else{
-                showAlertDialog("未选择图片！");
+            } else {
+                showAlertDialog(getString(R.string.alert_nothing_selected));
             }
         });
     }
@@ -63,7 +61,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     }
 
     private void selectAlbum() {
-        if (adapter == null){
+        if (adapter == null) {
             int itemSize = (binding.albumView.getWidth()) / 3;
             adapter = new AlbumAdapter(this, itemSize, (view, position) -> previewAlbum(position));
             binding.albumView.setAdapter(adapter);

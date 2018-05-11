@@ -78,12 +78,12 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNetworkChangedEvent(NetworkStateEvent event){
+    public void onNetworkChangedEvent(NetworkStateEvent event) {
         Toast.makeText(this, "Network Connected State: " + event.isConnected(), Toast.LENGTH_SHORT).show();
         networkStateEvent = event;
     }
 
-    protected boolean isNetworkConnected(){
+    protected boolean isNetworkConnected() {
         return networkStateEvent.isConnected();
     }
 
@@ -99,8 +99,8 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         EventBus.getDefault().unregister(this);
     }
 
-    protected void showAlertDialog(String message){
-        AlertDialog dialog = new  AlertDialog.Builder(this)
+    protected void showAlertDialog(String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setTitle(getString(R.string.alert))
                 .setMessage(message)

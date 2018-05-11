@@ -1,7 +1,7 @@
 package cn.edu.sustc.androidclient.view.login;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import butterknife.BindView;

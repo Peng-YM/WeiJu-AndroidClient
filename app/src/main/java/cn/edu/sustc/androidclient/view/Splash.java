@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.login.LoginActivity;
 import cn.edu.sustc.androidclient.view.login.WelcomeActivity;
 
 public class Splash extends AppCompatActivity {

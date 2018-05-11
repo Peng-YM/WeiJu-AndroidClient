@@ -24,6 +24,7 @@ import dagger.android.DaggerApplication;
  */
 public class MyApplication extends DaggerApplication {
     private static String PACKAGE_NAME;
+
     @Override
     public void onCreate() {
         super.onCreate();

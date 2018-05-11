@@ -27,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
     /**
      * Retrofit provider
+     *
      * @param client OkHttpClient instance injected by Dagger
      * @return Retrofit
      */
@@ -43,12 +44,13 @@ public class NetworkModule {
 
     /**
      * OkHttpClient Provider
+     *
      * @param connectivityManager Injected ConnectivityManager to provide network info
      * @return OkHttpClient
      */
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(ConnectivityManager connectivityManager){
+    OkHttpClient provideOkHttpClient(ConnectivityManager connectivityManager) {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
@@ -60,7 +62,7 @@ public class NetworkModule {
                 NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
                 boolean isConnected = activeNetwork != null &&
                         activeNetwork.isConnected();
-                if (isConnected){
+                if (isConnected) {
                     EventBus.getDefault().post(new NetworkStateEvent(true));
                 }
                 return isConnected;
@@ -78,8 +80,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    ConnectivityManager provideConnectionManager(MyApplication application){
+    ConnectivityManager provideConnectionManager(MyApplication application) {
         Context context = application.getApplicationContext();
-        return (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }

@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.task.collectiontask;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.AlbumFile;
@@ -22,9 +21,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class CollectionTaskViewModel extends ViewModel {
+    private final static String FILE_URL = "http://206.189.35.98:12000/api/file/";
     private TaskRepository taskRepository;
     private FileRepository fileRepository;
-    private final static String FILE_URL = "http://206.189.35.98:12000/api/file/";
     private CompositeDisposable disposables;
 
     @Inject
@@ -34,13 +33,13 @@ public class CollectionTaskViewModel extends ViewModel {
         disposables = new CompositeDisposable();
     }
 
-    public MutableLiveData<Float> uploadImages(ArrayList<AlbumFile> albumFiles){
+    public MutableLiveData<Float> uploadImages(ArrayList<AlbumFile> albumFiles) {
         MutableLiveData<Float> progress = new MutableLiveData<>();
         progress.postValue(0f);
         int total = albumFiles.size();
         // thread safe counter
         AtomicInteger counter = new AtomicInteger(0);
-        for (AlbumFile file: albumFiles){
+        for (AlbumFile file : albumFiles) {
             SingleObserver<MyResponse<List<String>>> observer = new SingleObserver<MyResponse<List<String>>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
@@ -50,7 +49,7 @@ public class CollectionTaskViewModel extends ViewModel {
                 @Override
                 public void onSuccess(MyResponse<List<String>> urlResponse) {
                     counter.incrementAndGet();
-                    progress.postValue(((float)counter.get() / total) * 100);
+                    progress.postValue(((float) counter.get() / total) * 100);
                     Logger.d("Uploaded file: %s\nURL:%s", file.getPath(), urlResponse.data);
                 }
 

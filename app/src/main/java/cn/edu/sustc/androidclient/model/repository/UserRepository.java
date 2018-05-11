@@ -2,8 +2,6 @@ package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.orhanobut.logger.Logger;
-
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
@@ -119,7 +117,7 @@ public class UserRepository implements BaseViewModel {
         return userProfile;
     }
 
-    public void updateUserProfile(User user){
+    public void updateUserProfile(User user) {
         userService.updateProfile(user.id, user)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

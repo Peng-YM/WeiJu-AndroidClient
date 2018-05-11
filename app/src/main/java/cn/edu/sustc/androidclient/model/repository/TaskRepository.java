@@ -39,6 +39,7 @@ public class TaskRepository implements BaseViewModel {
     private TaskRepository(TaskService taskService) {
         this.taskService = taskService;
     }
+
     @Inject
     public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider) {
         this.taskService = taskService;

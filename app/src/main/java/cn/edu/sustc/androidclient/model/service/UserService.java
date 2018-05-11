@@ -4,7 +4,6 @@ import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -18,6 +17,7 @@ import retrofit2.http.Path;
 public interface UserService {
     /**
      * User Login
+     *
      * @param session session
      * @return Credential
      */
@@ -26,6 +26,7 @@ public interface UserService {
 
     /**
      * User registration
+     *
      * @param user new user
      * @return new User
      */
@@ -34,6 +35,7 @@ public interface UserService {
 
     /**
      * Get user profile
+     *
      * @param id user id
      * @return User
      */
@@ -42,6 +44,7 @@ public interface UserService {
 
     /**
      * Update User profile
+     *
      * @param id user id
      * @return updated user profile
      */

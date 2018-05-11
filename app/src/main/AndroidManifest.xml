@@ -30,7 +30,7 @@
         <!-- welcome activity -->
         <activity
             android:name=".view.login.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- login activity -->
         <activity

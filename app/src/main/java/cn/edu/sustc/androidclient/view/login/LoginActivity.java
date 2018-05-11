@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.view.login;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,10 +24,10 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
-    private LoginViewModel model;
-    private ActivityLoginBinding binding;
     // validation
     AwesomeValidation awesomeValidation;
+    private LoginViewModel model;
+    private ActivityLoginBinding binding;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
