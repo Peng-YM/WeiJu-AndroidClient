@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.common.base;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.http.NetworkStateEvent;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -95,5 +97,16 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    protected void showAlertDialog(String message){
+        AlertDialog dialog = new  AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.alert))
+                .setMessage(message)
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                })
+                .create();
+        dialog.show();
     }
 }

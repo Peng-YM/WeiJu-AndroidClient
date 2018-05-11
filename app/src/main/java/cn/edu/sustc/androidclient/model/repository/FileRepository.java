@@ -7,6 +7,7 @@ import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,10 @@ import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.common.base.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
+import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.service.FileService;
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
@@ -91,14 +95,16 @@ public class FileRepository implements BaseViewModel {
         return target;
     }
 
-    public void upload(String url, File file, SingleObserver observer) {
+    public void upload(String url, File file, SingleObserver<MyResponse<List<String>>> observer) {
         RequestBody requestFile = RequestBody.create(
-                MediaType.parse(file.getAbsolutePath()),
+                MediaType.parse("multipart/form-data"),
                 file
         );
-        MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), requestFile);
+        RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), file.getName());
         this.fileService
-                .upload(url, body)
+                .upload(url, body, name)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(observer);

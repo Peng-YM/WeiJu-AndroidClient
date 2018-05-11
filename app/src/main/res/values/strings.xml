@@ -63,4 +63,9 @@
     <string name="toast_quote">引用</string>
     <string name="toast_insert_link">插入连接</string>
     <string name="toast_format_clear">清除格式</string>
+
+    <!--采集任务页-->
+    <string name="commit">提交</string>
+
+    <!--标注任务页-->
 </resources>

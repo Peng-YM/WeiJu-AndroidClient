@@ -1,8 +1,10 @@
 package cn.edu.sustc.androidclient.view.task.collectiontask;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -44,6 +46,15 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         binding.fab.setOnClickListener(view -> selectAlbum());
+        binding.commitBtn.setOnClickListener(view -> {
+            if (albumFiles != null){
+                viewModel.uploadImages(albumFiles).observe(this, progress -> {
+                    binding.commitBtn.setText(String.format("%.1f%%", progress));
+                });
+            }else{
+                showAlertDialog("未选择图片！");
+            }
+        });
     }
 
     @Override

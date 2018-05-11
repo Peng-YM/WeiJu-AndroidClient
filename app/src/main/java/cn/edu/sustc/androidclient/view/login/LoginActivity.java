@@ -25,7 +25,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
-    private AlertDialog alertDialog;
     private LoginViewModel model;
     private ActivityLoginBinding binding;
     // validation
@@ -68,13 +67,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     private void initViews() {
-        // set alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.alert))
-                .setCancelable(false)
-                .setPositiveButton("OK", (dialogInterface, i) -> {
-                });
-        alertDialog = builder.create();
         binding.loginProgressBar.setVisibility(View.GONE);
     }
 
@@ -88,8 +80,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                     switch (resource.status) {
                         case ERROR:
                             String errorInfo = resource.message;
-                            alertDialog.setMessage(errorInfo);
-                            alertDialog.show();
+                            showAlertDialog(errorInfo);
                             binding.loginProgressBar.setVisibility(View.GONE);
                             break;
                         case LOADING:

@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.view.task;
 
 import android.arch.lifecycle.ViewModel;
+import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +18,7 @@ import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 public class TaskViewModel extends ViewModel {
-    private Task task;
+    public Task task;
 
     @Deprecated
     public TaskViewModel(Task task) {
@@ -44,31 +45,17 @@ public class TaskViewModel extends ViewModel {
 
     public String getCoverUrl() {
         // TODO: change base url
-        String BASE_URL = RetrofitFactory.getBaseUrl();
-        BASE_URL = "http://69.171.71.251:8080/";
+        String BASE_URL = "http://69.171.71.251:8080/";
         if (task.pictures != null && !task.pictures.isEmpty()) {
             return BASE_URL + task.pictures.get(0);
         }
         return "";
     }
 
-    public String getTitle() {
-        return task.title;
-    }
-
-    public String getAuthor() {
-        return task.author;
-    }
-
-    public String getDescriptions() {
-        return task.descriptions;
-    }
-
     public void onClick(View view) {
         Logger.json(task.toString());
         TaskDetailActivity.start(view.getContext(), task);
     }
-
 
     public void setTask(Task task) {
         this.task = task;

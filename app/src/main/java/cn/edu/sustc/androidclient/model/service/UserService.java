@@ -22,7 +22,7 @@ public interface UserService {
      * @return Credential
      */
     @POST("sessions")
-    Observable<MyResponse<Credential>> login(@Body Session session);
+    Single<MyResponse<Credential>> login(@Body Session session);
 
     /**
      * User registration

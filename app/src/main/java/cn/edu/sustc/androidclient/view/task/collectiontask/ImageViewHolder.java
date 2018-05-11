@@ -19,7 +19,6 @@ public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public ImageViewHolder(View itemView, int itemSize, OnItemClickListener itemClickListener) {
         super(itemView);
-        Logger.d("Initialized ImageViewHolder");
         itemView.getLayoutParams().height = itemSize;
 
         this.itemSize = itemSize;

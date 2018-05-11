@@ -1,7 +1,11 @@
 package cn.edu.sustc.androidclient.model.service;
 
+import java.util.List;
+
+import cn.edu.sustc.androidclient.model.MyResponse;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
@@ -18,8 +22,9 @@ public interface FileService {
 
     @Multipart
     @POST
-    Single<Response<ResponseBody>> upload(
+    Single<MyResponse<List<String>>> upload(
             @Url String url,
-            @Part MultipartBody.Part file
+            @Part MultipartBody.Part file,
+            @Part("name") RequestBody name
     );
 }

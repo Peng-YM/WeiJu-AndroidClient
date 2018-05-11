@@ -39,14 +39,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.title}"
+                    android:text="@{viewModel.task.title}"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.author}"
+                    android:text="@{viewModel.task.author}"
                     android:textSize="14sp" />
 
                 <TextView
