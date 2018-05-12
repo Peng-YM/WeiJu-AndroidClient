@@ -13,11 +13,14 @@ import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
+import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
+import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 
 public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTaskDetailBinding> {
     // injected modules
     private ActivityTaskDetailBinding binding;
     private TaskViewModel viewModel;
+    private Task task;
 
     public static void start(Context context, Task task) {
         Intent intent = new Intent(context, TaskDetailActivity.class);
@@ -36,11 +39,27 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         this.binding = binding;
 
         Intent intent = getIntent();
-        Task task = (Task) intent.getSerializableExtra("task");
+        task = (Task) intent.getSerializableExtra("task");
         viewModel.setTask(task);
 
         binding.setViewModel(viewModel);
         RichText.fromMarkdown(task.descriptions).into(binding.taskMarkdownDescriptions);
+        binding.takeTaskBtn.setOnClickListener(view -> takeTask());
+    }
+
+    private void takeTask(){
+        switch (task.type){
+            case COLLECTION:
+                //TODO: pass task to intent
+                CollectionTaskActivity.start(this, task);
+                break;
+            case ANNOTATION:
+                //TODO: pass task to intent
+                AnnotationTaskActivity.start(this);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

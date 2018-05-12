@@ -17,16 +17,24 @@ import java.util.ArrayList;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
+import cn.edu.sustc.androidclient.model.data.Task;
+
+import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
 public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel, ActivityCollectionTaskBinding> {
     private CollectionTaskViewModel viewModel;
     private ActivityCollectionTaskBinding binding;
+    private Task task;
 
     private AlbumAdapter adapter;
     private ArrayList<AlbumFile> albumFiles;
 
-    public static void start(Context context) {
+    public static void start(Context context, Task task){
+        if (task.type == COLLECTION){
+            Logger.e("Task type incorrect!");
+        }
         Intent intent = new Intent(context, CollectionTaskActivity.class);
+        intent.putExtra("task", task);
         context.startActivity(intent);
     }
 
@@ -40,9 +48,12 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         this.viewModel = viewModel;
         this.binding = binding;
 
+        this.task = (Task) getIntent().getSerializableExtra("task");
+
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
+        binding.taskTitleTv.setText(task.title);
         binding.fab.setOnClickListener(view -> selectAlbum());
         binding.commitBtn.setOnClickListener(view -> {
             if (albumFiles != null) {

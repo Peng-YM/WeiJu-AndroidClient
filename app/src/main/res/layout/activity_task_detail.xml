@@ -32,7 +32,7 @@
                 app:srcCompat="@drawable/logo" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/take_task_btn"
                 android:layout_width="0dp"
                 android:layout_height="34dp"
                 android:background="@color/colorPrimary"
@@ -77,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/button2"
+                app:layout_constraintBottom_toTopOf="@+id/take_task_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

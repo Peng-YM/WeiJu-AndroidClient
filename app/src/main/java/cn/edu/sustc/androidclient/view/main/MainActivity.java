@@ -190,7 +190,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 TaskManagerActivity.start(this);
                 break;
             case R.id.gallery:
-                CollectionTaskActivity.start(this);
+                CollectionTaskActivity.start(this, null);
                 break;
             case R.id.nav_about:
                 AboutActivity.start(this);

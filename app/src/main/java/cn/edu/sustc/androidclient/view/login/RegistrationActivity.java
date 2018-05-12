@@ -65,8 +65,8 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         User newUser = new User();
         newUser.password = password.get();
         newUser.email = email.get();
-
-        model.getCreatedUser().observe(this, resource -> {
+        model.registration(newUser);
+        model.getCredential().observe(this, resource -> {
             if (resource != null) {
                 switch (resource.status) {
                     case ERROR:

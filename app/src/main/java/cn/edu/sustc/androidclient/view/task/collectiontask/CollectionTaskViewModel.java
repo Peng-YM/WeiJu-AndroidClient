@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.view.task.collectiontask;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.Bindable;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
+import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import io.reactivex.SingleObserver;

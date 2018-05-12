@@ -91,6 +91,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                             Logger.d("Credential: %s", resource.data);
                             MainActivity.start(this);
                             binding.loginProgressBar.setVisibility(View.GONE);
+                            finish();
                             break;
                         default:
                             break;

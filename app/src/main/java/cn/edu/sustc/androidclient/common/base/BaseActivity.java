@@ -79,7 +79,7 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNetworkChangedEvent(NetworkStateEvent event) {
-        Toast.makeText(this, "Network Connected State: " + event.isConnected(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Network Connected State: " + event.isConnected(), Toast.LENGTH_SHORT).show();
         networkStateEvent = event;
     }
 
