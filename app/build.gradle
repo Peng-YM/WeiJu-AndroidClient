@@ -79,6 +79,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     // Rich Text
     implementation 'com.zzhoujay.richtext:richtext:3.0.7'
+    implementation 'com.zzhoujay:html:1.0.1'
     // Round Image view
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     // Swipe Layout

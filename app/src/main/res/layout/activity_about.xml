@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".view.about.AboutActivity">
 
-    <TextView
-        android:id="@+id/about_tv"
+    <WebView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/about_wv">
+    </WebView>
 
 </LinearLayout>
