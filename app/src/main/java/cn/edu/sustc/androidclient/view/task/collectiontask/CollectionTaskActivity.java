@@ -30,9 +30,9 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     private ArrayList<AlbumFile> albumFiles;
 
     public static void start(Context context, Task task){
-        if (task.type == COLLECTION){
-            Logger.e("Task type incorrect!");
-        }
+//        if (task.type == COLLECTION){
+//            Logger.e("Task type incorrect!");
+//        }
         Intent intent = new Intent(context, CollectionTaskActivity.class);
         intent.putExtra("task", task);
         context.startActivity(intent);

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.zzhoujay.richtext.RichText;
-
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
@@ -41,7 +39,8 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         viewModel.setTask(task);
 
         binding.setViewModel(viewModel);
-        RichText.fromMarkdown(task.descriptions).into(binding.taskMarkdownDescriptions);
+        //TODO: change to task description!
+        binding.taskDescriptions.loadUrl("file:///android_asset/index.html");
         binding.takeTaskBtn.setOnClickListener(view -> takeTask());
     }
 
