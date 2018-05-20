@@ -112,6 +112,9 @@ public class TaskRepository implements BaseViewModel {
         return liveTaskList;
     }
 
+    public void takeTask(){
+
+    }
 
     @Override
     public void onClear() {

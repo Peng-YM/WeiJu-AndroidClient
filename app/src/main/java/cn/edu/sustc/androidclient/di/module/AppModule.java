@@ -57,6 +57,8 @@ public class AppModule {
      * @param appContext Application Context
      * @return MyDataBase
      */
+    @Provides
+    @Singleton
     MyDataBase provideDataBase(Context appContext){
         MyDataBase dataBase = Room.databaseBuilder(appContext, MyDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries()

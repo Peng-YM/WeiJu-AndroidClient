@@ -118,7 +118,7 @@ public class UserRepository implements BaseViewModel {
     }
 
     public void updateUserProfile(User user) {
-        userService.updateProfile(user.id, user)
+        userService.updateProfile(user.getUserId(), user)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(new SingleObserver<MyResponse<User>>() {

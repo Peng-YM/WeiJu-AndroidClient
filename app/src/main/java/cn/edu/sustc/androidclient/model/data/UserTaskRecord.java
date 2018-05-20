@@ -62,4 +62,10 @@ public class UserTaskRecord {
         public static final int EXPIRED = 2;
         public static final int ACCEPTED = 3;
     }
+
+    @Override
+    public String toString() {
+        String result = String.format("userId: %s\n taskId: %s\n status: %s\n", userId, taskId, status);
+        return result;
+    }
 }

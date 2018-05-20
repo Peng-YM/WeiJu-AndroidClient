@@ -55,16 +55,16 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
             if (userMyResource != null && userMyResource.status == Status.SUCCESS) {
                 user = userMyResource.data;
-                binding.profileUsername.setText(user.username);
-                binding.profileEmail.setText(user.email);
+                binding.profileUsername.setText(user.getUsername());
+                binding.profileEmail.setText(user.getEmail());
                 Glide.with(binding.profileBackground.getContext())
-                        .load(user.avatar)
+                        .load(user.getAvatar())
                         .apply(RequestOptions.centerCropTransform())
                         .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 1)))
                         .into(binding.profileBackground);
 
                 Glide.with(binding.profilePhoto)
-                        .load(user.avatar)
+                        .load(user.getAvatar())
                         .apply(RequestOptions.centerCropTransform())
                         .into(binding.profilePhoto);
             }

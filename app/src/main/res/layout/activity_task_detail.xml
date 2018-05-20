@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_height="195dp"
+                android:layout_height="258dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.coverUrl}"
                 app:layout_constraintEnd_toEndOf="parent"

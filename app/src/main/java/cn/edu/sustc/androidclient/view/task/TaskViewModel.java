@@ -12,11 +12,14 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 public class TaskViewModel extends ViewModel {
     public Task task;
+    private MyDataBase dataBase;
 
     @Deprecated
     public TaskViewModel(Task task) {
@@ -24,7 +27,8 @@ public class TaskViewModel extends ViewModel {
     }
 
     @Inject
-    public TaskViewModel() {
+    public TaskViewModel(MyDataBase dataBase) {
+        this.dataBase = dataBase;
     }
 
     @BindingAdapter({"myApp:imageUrl"})
@@ -64,6 +68,18 @@ public class TaskViewModel extends ViewModel {
     public void onClick(View view) {
         Logger.json(task.toString());
         TaskDetailActivity.start(view.getContext(), task);
+    }
+
+    public void takeTask(){
+//        Logger.d("Task task");
+        String userId = "1";
+//        String taskId = task.id;
+//        int status = UserTaskRecord.TaskStatus.PROGRESSING;
+//        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
+//        dataBase.userTaskDao().takeTask(record);
+        for(UserTaskRecord r: dataBase.userTaskDao().getAllUserRecord(userId)){
+            Logger.d(r);
+        }
     }
 
     public void setTask(Task task) {

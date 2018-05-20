@@ -70,9 +70,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     public void login(View view) {
-        binding.loginProgressBar.setVisibility(View.VISIBLE);
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
+            binding.loginProgressBar.setVisibility(View.VISIBLE);
             model.login(new Session(email.get(), password.get()));
             model.getCredential().observe(this, resource -> {
                 if (resource != null) {
@@ -109,8 +109,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     private void saveCredential(Credential credential) {
         SharedPreferences preferences = SharePreferenceHelper.getPreferences();
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("id", credential.id);
-        editor.putString("token", credential.token);
+        editor.putString("id", credential.getUserId());
+        editor.putString("token", credential.getToken());
         editor.apply();
     }
 }

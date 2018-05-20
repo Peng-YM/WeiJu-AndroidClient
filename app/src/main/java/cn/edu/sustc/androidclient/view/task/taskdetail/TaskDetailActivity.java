@@ -1,8 +1,12 @@
 package cn.edu.sustc.androidclient.view.task.taskdetail;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Window;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
@@ -41,22 +45,7 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         binding.setViewModel(viewModel);
         //TODO: change to task description!
         binding.taskDescriptions.loadUrl("file:///android_asset/index.html");
-        binding.takeTaskBtn.setOnClickListener(view -> takeTask());
-    }
-
-    private void takeTask(){
-        switch (task.type){
-            case COLLECTION:
-                //TODO: pass task to intent
-                CollectionTaskActivity.start(this, task);
-                break;
-            case ANNOTATION:
-                //TODO: pass task to intent
-                AnnotationTaskActivity.start(this);
-                break;
-            default:
-                break;
-        }
+        binding.takeTaskBtn.setOnClickListener(view -> viewModel.takeTask());
     }
 
     @Override
