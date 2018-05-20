@@ -44,7 +44,7 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
 
         binding.setViewModel(viewModel);
         //TODO: change to task description!
-        binding.taskDescriptions.loadUrl("file:///android_asset/index.html");
+        binding.taskDescriptions.loadUrl("file:///android_asset/about.html");
         binding.takeTaskBtn.setOnClickListener(view -> viewModel.takeTask());
     }
 

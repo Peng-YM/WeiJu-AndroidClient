@@ -118,13 +118,13 @@ public class UserRepository implements BaseViewModel {
     }
 
     public void updateUserProfile(User user) {
-        userService.updateProfile(user.getUserId(), user)
+        userService.updateProfile(user.userId, user)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(new SingleObserver<MyResponse<User>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposables.add(d);
                     }
 
                     @Override

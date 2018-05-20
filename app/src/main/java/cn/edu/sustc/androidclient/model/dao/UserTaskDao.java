@@ -14,16 +14,13 @@ import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
 @Dao
 public interface UserTaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void takeTask(UserTaskRecord record);
+    void takeTask(UserTaskRecord... records);
 
     @Update
-    void updateRecord(UserTaskRecord record);
+    void updateRecord(UserTaskRecord... records);
 
     @Delete
-    void deleteRecord(UserTaskRecord record);
-
-    @Query("SELECT * FROM UserTaskRecord WHERE recordId == :recordId")
-    UserTaskRecord getRecordById(int recordId);
+    void deleteRecord(UserTaskRecord... records);
 
     @Query("SELECT * FROM UserTaskRecord WHERE userId == :userId AND status == :status")
     List<UserTaskRecord> getRecordsByStatus(String userId, int status);

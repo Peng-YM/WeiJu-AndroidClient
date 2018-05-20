@@ -63,8 +63,8 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
 
     public void registration(View view) {
         User newUser = new User();
-        newUser.setPassword(password.get());
-        newUser.setEmail(email.get());
+        newUser.password = password.get();
+        newUser.email = email.get();
         model.registration(newUser);
         model.getCredential().observe(this, resource -> {
             if (resource != null) {

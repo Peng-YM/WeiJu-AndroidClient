@@ -97,14 +97,14 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
             if (userMyResource != null && userMyResource.status == Status.SUCCESS) {
                 User user = userMyResource.data;
-                headerBinding.headerEmail.setText(user.getEmail());
-                headerBinding.headerUsername.setText(user.getUsername());
+                headerBinding.headerEmail.setText(user.email);
+                headerBinding.headerUsername.setText(user.username);
                 RequestOptions options = new RequestOptions()
                         .circleCrop()
                         .placeholder(R.drawable.logo)
                         .error(R.drawable.ic_load_error);
                 Glide.with(headerBinding.headerAvatar)
-                        .load(user.getAvatar())
+                        .load(user.avatar)
                         .apply(options)
                         .into(headerBinding.headerAvatar);
                 headerBinding.headerAvatar.

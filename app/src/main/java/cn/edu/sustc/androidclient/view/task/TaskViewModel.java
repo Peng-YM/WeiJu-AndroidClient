@@ -17,6 +17,9 @@ import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
+import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
+import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
+
 public class TaskViewModel extends ViewModel {
     public Task task;
     private MyDataBase dataBase;
@@ -73,10 +76,10 @@ public class TaskViewModel extends ViewModel {
     public void takeTask(){
 //        Logger.d("Task task");
         String userId = "1";
-//        String taskId = task.id;
-//        int status = UserTaskRecord.TaskStatus.PROGRESSING;
-//        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
-//        dataBase.userTaskDao().takeTask(record);
+        String taskId = task.taskId;
+        int status = UserTaskRecord.TaskStatus.PROGRESSING;
+        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
+        dataBase.userTaskDao().takeTask(record);
         for(UserTaskRecord r: dataBase.userTaskDao().getAllUserRecord(userId)){
             Logger.d(r);
         }

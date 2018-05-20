@@ -33,7 +33,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void registration(User user) {
-        user.setUserId(UUID.randomUUID().toString());
+        user.userId = UUID.randomUUID().toString();
         this.credential = userRepository.registration(user);
         Logger.d("Attempted to registration: %s", user);
     }

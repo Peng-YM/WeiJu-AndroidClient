@@ -1,23 +1,31 @@
 package cn.edu.sustc.androidclient.model.data;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
-import cn.edu.sustc.androidclient.R;
-
+@Entity(
+        primaryKeys = {"taskId"}
+)
 public class Task implements Serializable {
-    public String id;
+    @SerializedName("id")
+    @NonNull
+    public String taskId;
     public String title;
     public String start;
     public String end;
     public String descriptions;
     public String author;
+    public int type;
+    @Ignore
     public List<String> pictures;
-    @SerializedName("type")
-    public TaskType type;
+    @Ignore
     public TaskFormatter formatter;
 
     @Override
@@ -26,28 +34,9 @@ public class Task implements Serializable {
         return gson.toJson(this);
     }
 
-    public enum TaskType implements Serializable {
-        @SerializedName("0")
-        ANNOTATION(1, R.string.annotation_task),
-        @SerializedName("1")
-        COLLECTION(0, R.string.collection_task);
-
-
-        private int type;
-        private int description;
-
-        TaskType(int type, int description) {
-            this.type = type;
-            this.description = description;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public int getDescription() {
-            return description;
-        }
+    public static class TaskType {
+        public final static int COLLECTION = 0;
+        public final static int ANNOTATION = 1;
     }
 
     public static class TaskFormatter implements Serializable {
