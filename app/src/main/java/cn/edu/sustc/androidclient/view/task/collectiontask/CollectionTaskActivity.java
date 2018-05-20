@@ -19,8 +19,6 @@ import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 
-import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
-
 public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel, ActivityCollectionTaskBinding> {
     private CollectionTaskViewModel viewModel;
     private ActivityCollectionTaskBinding binding;

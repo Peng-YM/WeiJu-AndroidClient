@@ -2,7 +2,9 @@ package cn.edu.sustc.androidclient.model;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 
+import cn.edu.sustc.androidclient.model.converters.FormatterConverter;
 import cn.edu.sustc.androidclient.model.dao.CollectedImageDao;
 import cn.edu.sustc.androidclient.model.dao.CredentialDao;
 import cn.edu.sustc.androidclient.model.dao.TaskDao;
@@ -23,6 +25,7 @@ import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
                 CollectedImage.class
         },
         version = 1, exportSchema = false)
+@TypeConverters({FormatterConverter.class})
 public abstract class MyDataBase extends RoomDatabase {
     public abstract UserTaskDao userTaskDao();
     public abstract CredentialDao credentialDao();

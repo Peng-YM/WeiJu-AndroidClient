@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -17,14 +16,8 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.di.DaggerMyAppComponent;
-import cn.edu.sustc.androidclient.model.MyDataBase;
-import cn.edu.sustc.androidclient.model.data.CollectedImage;
-import cn.edu.sustc.androidclient.model.data.Credential;
-import cn.edu.sustc.androidclient.model.data.Task;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
-
-import static cn.edu.sustc.androidclient.common.Constants.DATABASE_NAME;
 
 /**
  * Application class which is responsible to initialize global variables

@@ -12,19 +12,19 @@ import static java.lang.String.format;
  */
 @Entity(
         indices = {@Index(value = {"userId", "taskId"}, unique = true)},
-        primaryKeys = {"userId", "taskId"}
-//        foreignKeys = {
-//                @ForeignKey(
-//                        entity = Task.class,
-//                        parentColumns = "taskId",
-//                        childColumns = "taskId"
-//                ),
-//                @ForeignKey(
-//                        entity = User.class,
-//                        parentColumns = "userId",
-//                        childColumns = "userId"
-//                )
-//        }
+        primaryKeys = {"userId", "taskId"},
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Task.class,
+                        parentColumns = "taskId",
+                        childColumns = "taskId"
+                ),
+                @ForeignKey(
+                        entity = User.class,
+                        parentColumns = "userId",
+                        childColumns = "userId"
+                )
+        }
 )
 public class UserTaskRecord {
     @NonNull

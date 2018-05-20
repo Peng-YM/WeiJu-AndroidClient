@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -23,9 +22,7 @@ public class Task implements Serializable {
     public String descriptions;
     public String author;
     public int type;
-    @Ignore
-    public List<String> pictures;
-    @Ignore
+    public String cover;
     public TaskFormatter formatter;
 
     @Override
@@ -54,4 +51,5 @@ public class Task implements Serializable {
         public String description;
         public List<String> values;
     }
+
 }

@@ -51,10 +51,7 @@ public class TaskViewModel extends ViewModel {
     public String getCoverUrl() {
         // TODO: change base url
         String BASE_URL = "http://69.171.71.251:8080/";
-        if (task.pictures != null && !task.pictures.isEmpty()) {
-            return BASE_URL + task.pictures.get(0);
-        }
-        return "";
+        return BASE_URL + task.cover;
     }
 
     public String getTaskType(){
@@ -76,10 +73,10 @@ public class TaskViewModel extends ViewModel {
     public void takeTask(){
 //        Logger.d("Task task");
         String userId = "1";
-        String taskId = task.taskId;
-        int status = UserTaskRecord.TaskStatus.PROGRESSING;
-        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
-        dataBase.userTaskDao().takeTask(record);
+//        String taskId = task.taskId;
+//        int status = UserTaskRecord.TaskStatus.PROGRESSING;
+//        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
+//        dataBase.userTaskDao().takeTask(record);
         for(UserTaskRecord r: dataBase.userTaskDao().getAllUserRecord(userId)){
             Logger.d(r);
         }
