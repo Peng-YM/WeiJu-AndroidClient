@@ -5,31 +5,40 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
 import cn.edu.sustc.androidclient.model.converters.FormatterConverter;
+import cn.edu.sustc.androidclient.model.dao.AnnotationCommitDao;
 import cn.edu.sustc.androidclient.model.dao.CollectedImageDao;
 import cn.edu.sustc.androidclient.model.dao.CredentialDao;
 import cn.edu.sustc.androidclient.model.dao.TaskDao;
+import cn.edu.sustc.androidclient.model.dao.TransactionDao;
 import cn.edu.sustc.androidclient.model.dao.UserDao;
-import cn.edu.sustc.androidclient.model.dao.UserTaskDao;
+import cn.edu.sustc.androidclient.model.dao.UserTransactionDao;
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
 import cn.edu.sustc.androidclient.model.data.CollectedImage;
 import cn.edu.sustc.androidclient.model.data.Credential;
+import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.User;
-import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
+import cn.edu.sustc.androidclient.model.data.UserTransactionRecord;
 
 @Database(
         entities = {
-                UserTaskRecord.class,
-                Credential.class,
+                UserTransactionRecord.class,
                 User.class,
+                Transaction.class,
                 Task.class,
-                CollectedImage.class
+                Credential.class,
+                CollectedImage.class,
+                AnnotationCommits.class
         },
         version = 1, exportSchema = false)
 @TypeConverters({FormatterConverter.class})
 public abstract class MyDataBase extends RoomDatabase {
-    public abstract UserTaskDao userTaskDao();
+    public abstract AnnotationCommitDao annotationCommitDao();
+    public abstract CollectedImageDao collectedImageDao();
     public abstract CredentialDao credentialDao();
     public abstract TaskDao taskDao();
+    public abstract TransactionDao transactionDao();
     public abstract UserDao userDao();
-    public abstract CollectedImageDao collectedImageDao();
+    public abstract UserTransactionDao userTaskDao();
 }

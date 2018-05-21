@@ -16,31 +16,13 @@ public class Credential {
     @PrimaryKey
     @NonNull
     @SerializedName("id")
-    private String userId;
-    private String token;
+    public String userId;
+    public String token;
 
     public Credential(@NonNull String userId, String token) {
         this.userId = userId;
         this.token = token;
     }
-
-    @NonNull
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(@NonNull String userId) {
-        this.userId = userId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
 
     @Override
     public String toString() {

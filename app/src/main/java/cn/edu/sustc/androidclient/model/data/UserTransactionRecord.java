@@ -11,13 +11,13 @@ import static java.lang.String.format;
  * Entity Class to model the relationship between user and task
  */
 @Entity(
-        indices = {@Index(value = {"userId", "taskId"}, unique = true)},
-        primaryKeys = {"userId", "taskId"},
+        indices = {@Index(value = {"userId", "transactionId"}, unique = true)},
+        primaryKeys = {"userId", "transactionId"},
         foreignKeys = {
                 @ForeignKey(
-                        entity = Task.class,
-                        parentColumns = "taskId",
-                        childColumns = "taskId"
+                        entity = Transaction.class,
+                        parentColumns = "transactionId",
+                        childColumns = "transactionId"
                 ),
                 @ForeignKey(
                         entity = User.class,
@@ -26,20 +26,20 @@ import static java.lang.String.format;
                 )
         }
 )
-public class UserTaskRecord {
+public class UserTransactionRecord {
     @NonNull
     public String userId;
     @NonNull
-    public String taskId;
+    public String transactionId;
     public int status;
 
-    public UserTaskRecord(@NonNull String userId, @NonNull String taskId, int status) {
+    public UserTransactionRecord(@NonNull String userId, @NonNull String transactionId, int status) {
         this.userId = userId;
-        this.taskId = taskId;
+        this.transactionId = transactionId;
         this.status = status;
     }
 
-    public static class TaskStatus {
+    public static class TransactionStatus {
         public static final int PROGRESSING = 0;
         public static final int FINISHED = 1;
         public static final int EXPIRED = 2;
@@ -48,6 +48,6 @@ public class UserTaskRecord {
 
     @Override
     public String toString() {
-        return format("userId: %s\n taskId: %s\n status: %s\n", userId, taskId, status);
+        return format("userId: %s\n transactionId: %s\n status: %s\n", userId, transactionId, status);
     }
 }

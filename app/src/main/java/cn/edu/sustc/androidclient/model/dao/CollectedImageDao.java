@@ -13,10 +13,10 @@ import cn.edu.sustc.androidclient.model.data.CollectedImage;
 public interface CollectedImageDao {
     @Insert
     void collect(CollectedImage... instances);
-    @Query("SELECT * FROM CollectedImage WHERE taskId == :taskId")
+    @Query("SELECT * FROM CollectedImage WHERE transactionId == :taskId")
     List<CollectedImage> getCollectedImages(String taskId);
     @Delete
     void deleteCollectedImages(CollectedImage... instances);
-    @Query("DELETE FROM CollectedImage WHERE taskId == :taskId")
+    @Query("DELETE FROM CollectedImage WHERE transactionId == :taskId")
     void deleteAllCollectedImages(String taskId);
 }
