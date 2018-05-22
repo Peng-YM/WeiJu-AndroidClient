@@ -7,6 +7,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 @Entity(
@@ -47,5 +49,11 @@ public class Transaction implements Serializable{
         public static final int FINISHED = 1;
         public static final int EXPIRED = 2;
         public static final int ACCEPTED = 3;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

@@ -1,5 +1,7 @@
 package cn.edu.sustc.androidclient.model.data;
 
+import com.google.gson.Gson;
+
 public class Session {
     public String email;
     public String password;
@@ -11,6 +13,7 @@ public class Session {
 
     @Override
     public String toString() {
-        return String.format("Email: %s\nPassword: %s\n", email, password);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

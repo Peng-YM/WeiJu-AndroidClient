@@ -1,16 +1,15 @@
 package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(
-        foreignKeys = {@ForeignKey(entity = User.class,
-                parentColumns = "userId",
-                childColumns = "userId")}
+        indices = {@Index(value = "userId", unique = true)}
 )
 public class Credential {
     @PrimaryKey
@@ -26,6 +25,7 @@ public class Credential {
 
     @Override
     public String toString() {
-        return String.format("id: %s\ntoken: %s", userId, token);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

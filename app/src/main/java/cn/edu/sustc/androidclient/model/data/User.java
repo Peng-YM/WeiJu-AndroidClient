@@ -1,17 +1,25 @@
 package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity(
+        foreignKeys = {
+                @ForeignKey(entity = Credential.class,
+                        parentColumns = "userId",
+                        childColumns = "userId"
+                )
+        },
         indices = {
                 @Index(value = {"userId"}, unique = true)
         }
@@ -43,6 +51,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("username: %s", username);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

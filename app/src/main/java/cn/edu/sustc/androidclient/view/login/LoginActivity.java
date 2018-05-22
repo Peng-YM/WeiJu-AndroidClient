@@ -81,9 +81,11 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                             String errorInfo = resource.message;
                             showAlertDialog(errorInfo);
                             binding.loginProgressBar.setVisibility(View.GONE);
+                            binding.loginBtn.setClickable(true);
                             break;
                         case LOADING:
                             binding.loginProgressBar.setVisibility(View.VISIBLE);
+                            binding.loginBtn.setClickable(false);
                             break;
                         case SUCCESS:
                             // save credential and go to main activity

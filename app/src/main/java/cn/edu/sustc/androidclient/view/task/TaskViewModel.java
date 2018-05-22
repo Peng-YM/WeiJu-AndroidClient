@@ -15,6 +15,9 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
@@ -53,8 +56,8 @@ public class TaskViewModel extends ViewModel {
         return BASE_URL + task.cover;
     }
 
-    public String getTaskType(){
-        switch (task.type){
+    public String getTaskType() {
+        switch (task.type) {
             case ANNOTATION:
                 return "标注任务";
             case COLLECTION:
@@ -69,8 +72,11 @@ public class TaskViewModel extends ViewModel {
         TaskDetailActivity.start(view.getContext(), task);
     }
 
-    public void takeTask(){
-
+    public Completable takeTask() {
+        return Completable.fromAction(() -> {
+            dataBase.taskDao()
+                    .saveTask(task);
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
     }
 
     public void setTask(Task task) {
