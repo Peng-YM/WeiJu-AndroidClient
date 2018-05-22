@@ -4,7 +4,8 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
-import cn.edu.sustc.androidclient.model.converters.FormatterConverter;
+import cn.edu.sustc.androidclient.model.converters.AnnotationTagListConverter;
+import cn.edu.sustc.androidclient.model.converters.TaskFormatterConverter;
 import cn.edu.sustc.androidclient.model.dao.AnnotationCommitDao;
 import cn.edu.sustc.androidclient.model.dao.CollectedImageDao;
 import cn.edu.sustc.androidclient.model.dao.CredentialDao;
@@ -28,7 +29,10 @@ import cn.edu.sustc.androidclient.model.data.User;
                 AnnotationCommits.class
         },
         version = 1, exportSchema = false)
-@TypeConverters({FormatterConverter.class})
+@TypeConverters({
+        TaskFormatterConverter.class,
+        AnnotationTagListConverter.class
+})
 public abstract class MyDataBase extends RoomDatabase {
     public abstract AnnotationCommitDao annotationCommitDao();
     public abstract CollectedImageDao collectedImageDao();

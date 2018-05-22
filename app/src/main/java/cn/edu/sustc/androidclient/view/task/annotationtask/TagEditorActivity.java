@@ -1,12 +1,6 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
@@ -16,7 +10,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
     @Override
     protected Class<AnnotationTaskViewModel> getViewModel() {
-        return null;
+        return AnnotationTaskViewModel.class;
     }
 
     @Override
@@ -26,7 +20,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
     @Override
     protected int getLayoutResId() {
-        return 0;
+        return R.layout.activity_tag_editor;
     }
 
 }
