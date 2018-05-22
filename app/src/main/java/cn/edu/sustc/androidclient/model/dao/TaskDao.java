@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import cn.edu.sustc.androidclient.model.data.Task;
+import io.reactivex.Single;
 
 @Dao
 public interface TaskDao {
@@ -17,5 +18,5 @@ public interface TaskDao {
     @Update
     void updateTask(Task task);
     @Query("SELECT * FROM Task WHERE taskId == :taskId")
-    Task getTask(String taskId);
+    Single<Task> getTask(String taskId);
 }

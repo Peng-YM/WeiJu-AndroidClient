@@ -53,8 +53,8 @@ dependencies {
 
     implementation 'com.android.support:support-vector-drawable:27.1.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
@@ -64,13 +64,18 @@ dependencies {
     // RxJava2
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9:'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    // RxJava support for Room
+    //noinspection GradleDependency
+    implementation "android.arch.persistence.room:rxjava2:1.0.0"
     // Gson
     implementation 'com.google.code.gson:gson:2.8.2'
     // Logger
     implementation 'com.orhanobut:logger:2.2.0'
     // room Database
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    //noinspection GradleDependency
     implementation "android.arch.persistence.room:runtime:1.0.0"
+    //noinspection GradleDependency
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     androidTestImplementation "android.arch.persistence.room:testing:1.1.0"
     // Android debug database

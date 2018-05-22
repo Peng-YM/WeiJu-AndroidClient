@@ -26,6 +26,26 @@ public class Transaction implements Serializable{
     @NonNull
     @ColumnInfo(index = true)
     public String transactionId;
+    @NonNull
     public String userId;
+    @NonNull
     public String taskId;
+    public int status;
+
+    public Transaction(@NonNull String transactionId,
+                       @NonNull String userId,
+                       @NonNull String taskId,
+                       int status) {
+        this.transactionId = transactionId;
+        this.userId = userId;
+        this.taskId = taskId;
+        this.status = status;
+    }
+
+    public static class TransactionStatus {
+        public static final int PROGRESSING = 0;
+        public static final int FINISHED = 1;
+        public static final int EXPIRED = 2;
+        public static final int ACCEPTED = 3;
+    }
 }

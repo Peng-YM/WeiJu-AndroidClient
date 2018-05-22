@@ -8,13 +8,14 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import cn.edu.sustc.androidclient.model.data.CollectedImage;
+import io.reactivex.Flowable;
 
 @Dao
 public interface CollectedImageDao {
     @Insert
     void collect(CollectedImage... instances);
     @Query("SELECT * FROM CollectedImage WHERE transactionId == :taskId")
-    List<CollectedImage> getCollectedImages(String taskId);
+    Flowable<List<CollectedImage>> getCollectedImages(String taskId);
     @Delete
     void deleteCollectedImages(CollectedImage... instances);
     @Query("DELETE FROM CollectedImage WHERE transactionId == :taskId")
