@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.model.data.UserTaskRecord;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
@@ -71,15 +70,7 @@ public class TaskViewModel extends ViewModel {
     }
 
     public void takeTask(){
-//        Logger.d("Task task");
-        String userId = "1";
-//        String taskId = task.taskId;
-//        int status = UserTaskRecord.TaskStatus.PROGRESSING;
-//        UserTaskRecord record = new UserTaskRecord(userId, taskId, status);
-//        dataBase.userTaskDao().takeTask(record);
-        for(UserTaskRecord r: dataBase.userTaskDao().getAllUserRecord(userId)){
-            Logger.d(r);
-        }
+
     }
 
     public void setTask(Task task) {

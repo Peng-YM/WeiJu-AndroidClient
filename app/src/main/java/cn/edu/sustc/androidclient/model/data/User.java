@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -10,7 +11,11 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Entity
+@Entity(
+        indices = {
+                @Index(value = {"userId"}, unique = true)
+        }
+)
 public class User implements Serializable {
     public User(@NonNull String userId, String email, String password) {
         this.userId = userId;
@@ -22,7 +27,6 @@ public class User implements Serializable {
     public User(){
         this.userId = UUID.randomUUID().toString();
     }
-
 
     @SerializedName("id")
     @PrimaryKey

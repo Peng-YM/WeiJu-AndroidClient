@@ -5,18 +5,23 @@ import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
 @Entity(
-        primaryKeys = {"taskId", "imagePath"},
-        foreignKeys = @ForeignKey(entity = Task.class,
-        parentColumns = "taskId",
-        childColumns = "taskId"))
+        primaryKeys = {"transactionId", "imagePath"},
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Transaction.class,
+                        parentColumns = "transactionId",
+                        childColumns = "transactionId"
+                )
+        }
+)
 public class CollectedImage {
     @NonNull
-    public String taskId;
+    public String transactionId;
     @NonNull
     public String imagePath;
 
-    public CollectedImage(String taskId, String imagePath) {
-        this.taskId = taskId;
+    public CollectedImage(String transactionId, String imagePath) {
+        this.transactionId = transactionId;
         this.imagePath = imagePath;
     }
 }

@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import cn.edu.sustc.androidclient.model.data.Credential;
+import io.reactivex.Single;
 
 @Dao
 public interface CredentialDao {
@@ -21,7 +22,7 @@ public interface CredentialDao {
     void updateCredential(Credential credential);
 
     @Query("SELECT * FROM Credential WHERE userId == :userId")
-    Credential getUserCredential(String userId);
+    Single<Credential> getUserCredential(String userId);
 }
 
 

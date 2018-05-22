@@ -12,10 +12,14 @@ import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.model.MyResource;
+import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
+import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -63,7 +67,7 @@ public class TaskRepository implements BaseViewModel {
     @Deprecated
     public void getTasks(Observer<Task> observer) {
         // TODO: Paging
-        this.taskService
+        taskService
                 .fakeGetTasks()
                 .map(response -> response.data)
                 .flatMap(Observable::fromIterable)
@@ -77,7 +81,7 @@ public class TaskRepository implements BaseViewModel {
         liveTaskList = new MutableLiveData<>();
         liveTaskList.postValue(taskList);
         // TODO: remove fake method
-        this.taskService
+        taskService
                 .fakeGetTasks()
 //                .getTasks(offset, limit)
                 .map(response -> response.data)
@@ -112,8 +116,33 @@ public class TaskRepository implements BaseViewModel {
         return liveTaskList;
     }
 
-    public void takeTask(){
+    public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info){
+        MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
+        // TODO: need to save the transaction to database!
+        taskService.applyTask(info)
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
+                .subscribe(new SingleObserver<MyResponse<Transaction>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                        MyResource<Transaction> resource = MyResource.loading(null);
+                        transaction.postValue(resource);
+                    }
 
+                    @Override
+                    public void onSuccess(MyResponse<Transaction> response) {
+                        MyResource<Transaction> resource = MyResource.success(response.data);
+                        transaction.postValue(resource);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        MyResource<Transaction> resource = MyResource.error("Cannot apply task!", null);
+                        transaction.postValue(resource);
+                    }
+                });
+        return transaction;
     }
 
     @Override

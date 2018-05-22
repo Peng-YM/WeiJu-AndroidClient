@@ -1,6 +1,8 @@
 package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -10,10 +12,13 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity(
-        primaryKeys = {"taskId"}
+        indices = {
+                @Index(value = {"taskId"}, unique = true)
+        }
 )
 public class Task implements Serializable {
     @SerializedName("id")
+    @PrimaryKey
     @NonNull
     public String taskId;
     public String title;

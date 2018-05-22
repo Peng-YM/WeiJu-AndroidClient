@@ -3,6 +3,8 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.io.Serializable;
+
 public abstract class Shape {
     abstract void draw(Canvas canvas, Paint paint);
 
@@ -12,7 +14,7 @@ public abstract class Shape {
 
     abstract void setPaint(Paint paint);
 
-    public static class Coordinate {
+    public static class Coordinate implements Serializable{
         public float x, y;
 
         public Coordinate(float x, float y) {

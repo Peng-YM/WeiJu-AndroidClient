@@ -109,8 +109,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     private void saveCredential(Credential credential) {
         SharedPreferences preferences = SharePreferenceHelper.getPreferences();
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("id", credential.getUserId());
-        editor.putString("token", credential.getToken());
+        editor.putString("id", credential.userId);
+        editor.putString("token", credential.token);
         editor.apply();
     }
 }
