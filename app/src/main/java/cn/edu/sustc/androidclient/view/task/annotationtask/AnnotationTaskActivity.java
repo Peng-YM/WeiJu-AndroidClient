@@ -49,7 +49,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             public void onClick(View v){
                 popup_tags();
             }
-        });a
+        });
         next_step.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 // next image
