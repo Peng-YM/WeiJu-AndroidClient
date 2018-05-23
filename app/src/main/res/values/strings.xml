@@ -72,5 +72,7 @@
     <string name="add_tag">添加标签</string>
     <string name="edit_tag">编辑标签</string>
     <string name="next_step">下一步</string>
-
+    <!--标签属性编辑页-->
+    <string name="preview">预览</string>
+    <string name="save">保存</string>
 </resources>

@@ -71,6 +71,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             Logger.json(attribute.toString());
             TextView nameTv = new TextView(this);
             nameTv.setText(attribute.name);
+            nameTv.setTextSize(20);
             TextView descriptionTv = new TextView(this);
             descriptionTv.setText(attribute.description);
             binding.tagEditorLayout.addView(nameTv);
@@ -102,8 +103,8 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                     group.setOrientation(RadioGroup.HORIZONTAL);
                     RadioButton trueButton = new RadioButton(this);
                     RadioButton falseButton = new RadioButton(this);
-                    trueButton.setText("是");
-                    falseButton.setText("否");
+                    trueButton.setText(getString(R.string.yes));
+                    falseButton.setText(getString(R.string.no));
                     group.addView(trueButton);
                     group.addView(falseButton);
                     binding.tagEditorLayout.addView(group);
