@@ -23,7 +23,7 @@
       "name": "attr2",
       "description": "this is attr2",
       "type": "multi-option",
-      "options": ["option1", "option2"],
+      "options": ["option1", "option2", "option3", "option4"],
       "values": ["option1", "option2"]
     },
     {

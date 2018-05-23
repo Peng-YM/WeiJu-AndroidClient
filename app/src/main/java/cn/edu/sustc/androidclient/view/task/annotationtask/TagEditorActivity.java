@@ -4,11 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
@@ -68,18 +76,39 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             binding.tagEditorLayout.addView(nameTv);
             binding.tagEditorLayout.addView(descriptionTv);
             switch(attribute.type){
-                case SINGLE_OPTION:
+                case SINGLE_OPTION:{
                     // spinner
-
+                    Spinner spinner = new Spinner(this);
+                    ArrayAdapter<String> adapter =
+                            new ArrayAdapter<String>(this,
+                                    android.R.layout.simple_spinner_item, attribute.options);
+                    adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                    spinner.setAdapter(adapter);
+                    binding.tagEditorLayout.addView(spinner);
                     break;
-                case MULTI_OPTION:
+                }
+                case MULTI_OPTION: {
                     // check boxes
-
+                    for (String option: attribute.options){
+                        CheckBox checkBox = new CheckBox(this);
+                        checkBox.setText(option);
+                        binding.tagEditorLayout.addView(checkBox);
+                    }
                     break;
-                case BOOLEAN:
+                }
+                case BOOLEAN: {
                     // radio button
-                    
+                    RadioGroup group = new RadioGroup(this);
+                    group.setOrientation(RadioGroup.HORIZONTAL);
+                    RadioButton trueButton = new RadioButton(this);
+                    RadioButton falseButton = new RadioButton(this);
+                    trueButton.setText("是");
+                    falseButton.setText("否");
+                    group.addView(trueButton);
+                    group.addView(falseButton);
+                    binding.tagEditorLayout.addView(group);
                     break;
+                }
                 case STRING:{
                     // edit text
                     EditText editText = new EditText(this);
