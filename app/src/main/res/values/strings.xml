@@ -6,6 +6,7 @@
     <!--警告栏-->
     <string name="alert">警告</string>
     <string name="alert_field_empty">"请填写所有必填信息"</string>
+    <string name="alert_field_number">请填写数字</string>
     <string name="alert_logout">是否注销登录？</string>
     <string name="yes">是</string>
     <string name="no">否</string>

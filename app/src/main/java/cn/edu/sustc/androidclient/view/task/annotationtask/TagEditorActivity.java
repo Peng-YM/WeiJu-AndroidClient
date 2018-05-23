@@ -7,16 +7,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
@@ -35,6 +36,8 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private AnnotationTag tag;
     private AnnotationTaskViewModel viewModel;
     private ActivityTagEditorBinding binding;
+    private AwesomeValidation awesomeValidation;
+    private ArrayList<Integer> widgetIds;
 
     public static void start(Context context){
         Intent intent = new Intent(context, TagEditorActivity.class);
@@ -50,6 +53,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     protected void onCreate(Bundle savedInstanceState, AnnotationTaskViewModel viewModel, ActivityTagEditorBinding binding) {
         this.viewModel = viewModel;
         this.binding = binding;
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         // TODO: remove this
         String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
         try {
@@ -62,6 +66,12 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
+        binding.previewTagButton.setOnClickListener(v -> {});
+        binding.saveTagButton.setOnClickListener(v -> {
+            if(awesomeValidation.validate()){
+               getResults();
+            }
+        });
         addAttributes();
     }
 
@@ -76,6 +86,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             descriptionTv.setText(attribute.description);
             binding.tagEditorLayout.addView(nameTv);
             binding.tagEditorLayout.addView(descriptionTv);
+            // TODO: can be refactor
             switch(attribute.type){
                 case SINGLE_OPTION:{
                     // spinner
@@ -118,6 +129,10 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     ));
                     binding.tagEditorLayout.addView(editText);
+                    awesomeValidation.addValidation(editText,
+                            s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
+                    awesomeValidation.addValidation(editText, "^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$",
+                            getString(R.string.alert_field_number));
                     break;
                 }
                 case NUMBER:{
@@ -128,11 +143,17 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                             ViewGroup.LayoutParams.WRAP_CONTENT
                     ));
                     binding.tagEditorLayout.addView(editText);
+                    awesomeValidation.addValidation(editText,
+                            s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
                     // edit text
                     break;
                 }
             }
         }
+    }
+
+    private void getResults(){
+
     }
 
     @Override
