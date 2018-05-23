@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 
@@ -15,13 +15,13 @@ import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
  */
 public class AnnotationTagListConverter {
     @TypeConverter
-    public ArrayList<AnnotationTag> fromString(String json){
-        Type listType = new TypeToken<ArrayList<AnnotationTag>>() {}.getType();
+    public static List<AnnotationTag> fromString(String json){
+        Type listType = new TypeToken<List<AnnotationTag>>() {}.getType();
         return new Gson().fromJson(json, listType);
     }
 
     @TypeConverter
-    public String fromList(ArrayList<AnnotationTag> list){
+    public static String fromList(List<AnnotationTag> list){
         return new Gson().toJson(list);
     }
 }

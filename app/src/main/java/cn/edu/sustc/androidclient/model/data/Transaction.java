@@ -26,10 +26,13 @@ import java.io.Serializable;
 public class Transaction implements Serializable{
     @PrimaryKey
     @NonNull
-    @ColumnInfo(index = true)
     public String transactionId;
+
+    @ColumnInfo(index = true)
     @NonNull
     public String userId;
+
+    @ColumnInfo(index = true)
     @NonNull
     public String taskId;
     public int status;

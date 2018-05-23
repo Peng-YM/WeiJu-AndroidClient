@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.model.data;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
@@ -22,16 +23,16 @@ import static cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordina
             @ForeignKey(entity = Transaction.class,
                 parentColumns = "transactionId",
                 childColumns = "transactionId")
-        },
-        indices = {@Index(value = {"userId", "transactionId"}, unique = true)}
+        }
 )
 public class AnnotationCommits implements Serializable{
+    @ColumnInfo(index = true)
     @NonNull
     public String transactionId;
+
+    @ColumnInfo(index = true)
     @NonNull
     public String userId;
-    // TODO: add type converter
-    @Ignore
     public List<AnnotationTag> tags;
     public static class AnnotationTag implements Serializable{
         public List<Coordinate> criticalPoints;
