@@ -1,27 +1,18 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.PopupMenu;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
 
 public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel, ActivityAnnotationTaskBinding> {
-    @BindView(R.id.add_tag)
-    Button add_tag;
-    @BindView(R.id.next_step)
-    Button next_step;
     private AnnotationTaskViewModel viewModel;
     private ActivityAnnotationTaskBinding binding;
     private AnnotateImageView annotateImageView;
@@ -44,16 +35,11 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         annotateImageView = binding.annotateImageView;
         annotateImageView.init(BitmapFactory.decodeResource(getResources(), R.drawable.cover));
 
-        ButterKnife.bind(this);
-        add_tag.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                popup_tags();
-            }
-        });
-        next_step.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                // next image
-            }
+        binding.addTag.setOnClickListener(v -> popup_tags());
+        binding.nextStep.setOnClickListener(v -> {
+            // next image
+            // TODO: only for test
+            TagEditorActivity.start(this);
         });
 
 //        binding.undoButton.setOnClickListener(view -> {
@@ -72,7 +58,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     }
 
     private void popup_tags(){
-        PopupMenu popup = new PopupMenu(AnnotationTaskActivity.this, add_tag);
+        PopupMenu popup = new PopupMenu(AnnotationTaskActivity.this, binding.addTag);
         Menu menu = popup.getMenu();
 
         // 此处应该用for循环加载tag

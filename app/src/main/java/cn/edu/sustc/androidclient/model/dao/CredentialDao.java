@@ -7,10 +7,8 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
 
 @Dao
 public interface CredentialDao {

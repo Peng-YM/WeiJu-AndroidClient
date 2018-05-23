@@ -12,8 +12,6 @@ import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

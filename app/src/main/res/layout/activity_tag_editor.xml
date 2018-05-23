@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    </android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/tag_editor_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15sp"
+            android:paddingEnd="15sp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tag_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:text="属性名称"
+                android:padding="10sp"
+                />
+            <TextView
+                android:id="@+id/tag_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:text="属性描述"
+                />
+        </LinearLayout>
+    </ScrollView>
 </layout>
