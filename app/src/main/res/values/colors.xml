@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="blue_500">#FF2196F3</color>
+
+
+    <!--用于表单未填写完时的按钮颜色-->
+    <color name="button_before_fill_up_form">#FFFFFF</color>
+    <!--用于表单填写完成后，提交前的按钮颜色-->
+    <color name="button_after_fill_up_form">#79B5EF</color>
 </resources>

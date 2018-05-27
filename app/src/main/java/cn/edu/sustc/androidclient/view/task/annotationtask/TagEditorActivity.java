@@ -2,9 +2,11 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -38,6 +40,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private ActivityTagEditorBinding binding;
     private AwesomeValidation awesomeValidation;
     private ArrayList<Integer> widgetIds;
+    private Button fillUpBtn;
 
     public static void start(Context context){
         Intent intent = new Intent(context, TagEditorActivity.class);
@@ -53,11 +56,15 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     protected void onCreate(Bundle savedInstanceState, AnnotationTaskViewModel viewModel, ActivityTagEditorBinding binding) {
         this.viewModel = viewModel;
         this.binding = binding;
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);//创建一个做验证的对象
+
+        fillUpBtn = findViewById(R.id.save_tag_button);
+
+        //动态生成的表单内容
         // TODO: remove this
         String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
         try {
-            tag = new Gson().fromJson(JSONString, AnnotationTag.class);
+            tag = new Gson().fromJson(JSONString, AnnotationTag.class);  //生成AnnotationTag这样的对象
         }catch (Exception e){
             Logger.e("Cannot interpret JSON");
             e.printStackTrace();
@@ -67,9 +74,11 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
         binding.previewTagButton.setOnClickListener(v -> {});
-        binding.saveTagButton.setOnClickListener(v -> {
+        binding.saveTagButton.setOnClickListener(v -> { // 点击提交按钮的时候引用awesomevalidation验证
             if(awesomeValidation.validate()){
-               getResults();
+//                fillUpBtn.setBackgroundResource(R.drawable.button_background);
+//                fillUpBtn.setTextColor(Color.parseColor("#FFF"));
+                getResults();
             }
         });
         addAttributes();
