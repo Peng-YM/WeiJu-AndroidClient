@@ -20,6 +20,7 @@ import cn.edu.sustc.androidclient.R;
 
 public abstract class FormField {
     public abstract List<String> getValues();
+    public abstract boolean filled();
 
     public static class NumberField extends FormField{
         private EditText editText;
@@ -39,6 +40,13 @@ public abstract class FormField {
         public List<String> getValues() {
             return Arrays.asList(editText.getText().toString());
         }
+
+        @Override
+        public boolean filled() {
+            return editText.getText().toString().trim().length() != 0;
+        }
+
+
     }
 
     public static class StringField extends FormField{
@@ -58,6 +66,11 @@ public abstract class FormField {
         public List<String> getValues() {
             return Arrays.asList(editText.getText().toString());
         }
+
+        @Override
+        public boolean filled() {
+            return editText.getText().toString().trim().length() != 0;
+        }
     }
 
     public static class BooleanField extends FormField{
@@ -70,8 +83,7 @@ public abstract class FormField {
             group.setOrientation(RadioGroup.HORIZONTAL);
             trueButton = new RadioButton(context);
             falseButton = new RadioButton(context);
-            
-            // default true
+
             trueButton.setText(context.getString(R.string.yes));
             falseButton.setText(context.getString(R.string.no));
 
@@ -84,6 +96,12 @@ public abstract class FormField {
         public List<String> getValues() {
             int selectedId = group.getCheckedRadioButtonId();
             return Arrays.asList("" + (selectedId == trueButton.getId()));
+        }
+
+        @Override
+        public boolean filled() {
+            return group.getCheckedRadioButtonId() != trueButton.getId() &&
+                    group.getCheckedRadioButtonId() != falseButton.getId();
         }
     }
 
@@ -102,6 +120,11 @@ public abstract class FormField {
         @Override
         public List<String> getValues() {
             return Arrays.asList(spinner.getSelectedItem().toString());
+        }
+
+        @Override
+        public boolean filled() {
+            return spinner.isSelected();
         }
     }
 
@@ -125,6 +148,16 @@ public abstract class FormField {
                 }
             }
             return results;
+        }
+
+        @Override
+        public boolean filled() {
+            for (CheckBox checkBox: checkboxes){
+                if (checkBox.isChecked()){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
