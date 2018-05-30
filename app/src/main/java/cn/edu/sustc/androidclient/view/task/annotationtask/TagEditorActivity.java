@@ -25,6 +25,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityTagEditorBinding;
+import cn.edu.sustc.androidclient.view.task.annotationtask.form.FormField;
 
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.Attribute;
@@ -39,7 +40,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private AnnotationTaskViewModel viewModel;
     private ActivityTagEditorBinding binding;
     private AwesomeValidation awesomeValidation;
-    private ArrayList<Integer> widgetIds;
+    private ArrayList<FormField> formFields;
     private Button fillUpBtn;
 
     public static void start(Context context){
@@ -59,7 +60,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);//创建一个做验证的对象
 
         fillUpBtn = findViewById(R.id.save_tag_button);
-
+        formFields = new ArrayList<>();
         //动态生成的表单内容
         // TODO: remove this
         String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
@@ -95,74 +96,45 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             descriptionTv.setText(attribute.description);
             binding.tagEditorLayout.addView(nameTv);
             binding.tagEditorLayout.addView(descriptionTv);
-            // TODO: can be refactor
+            FormField field;
             switch(attribute.type){
                 case SINGLE_OPTION:{
-                    // spinner
-                    Spinner spinner = new Spinner(this);
-                    ArrayAdapter<String> adapter =
-                            new ArrayAdapter<String>(this,
-                                    android.R.layout.simple_spinner_item, attribute.options);
-                    adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-                    spinner.setAdapter(adapter);
-                    binding.tagEditorLayout.addView(spinner);
+                    field = new FormField.SingleOptionField(
+                            this, binding.tagEditorLayout, attribute.options);
                     break;
                 }
                 case MULTI_OPTION: {
-                    // check boxes
-                    for (String option: attribute.options){
-                        CheckBox checkBox = new CheckBox(this);
-                        checkBox.setText(option);
-                        binding.tagEditorLayout.addView(checkBox);
-                    }
+                    field = new FormField.MultiOptionsField(
+                            this, binding.tagEditorLayout, attribute.options);
                     break;
                 }
                 case BOOLEAN: {
-                    // radio button
-                    RadioGroup group = new RadioGroup(this);
-                    group.setOrientation(RadioGroup.HORIZONTAL);
-                    RadioButton trueButton = new RadioButton(this);
-                    RadioButton falseButton = new RadioButton(this);
-                    trueButton.setText(getString(R.string.yes));
-                    falseButton.setText(getString(R.string.no));
-                    group.addView(trueButton);
-                    group.addView(falseButton);
-                    binding.tagEditorLayout.addView(group);
-                    break;
-                }
-                case STRING:{
-                    // edit text
-                    EditText editText = new EditText(this);
-                    editText.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
-                    binding.tagEditorLayout.addView(editText);
-                    awesomeValidation.addValidation(editText,
-                            s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
-                    awesomeValidation.addValidation(editText, "^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$",
-                            getString(R.string.alert_field_number));
+                    field = new FormField.BooleanField(
+                            this, binding.tagEditorLayout);
                     break;
                 }
                 case NUMBER:{
-                    // edit text
-                    EditText editText = new EditText(this);
-                    editText.setLayoutParams(new ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
-                    binding.tagEditorLayout.addView(editText);
-                    awesomeValidation.addValidation(editText,
-                            s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
-                    // edit text
+                    field = new FormField.NumberField(
+                            this, awesomeValidation, binding.tagEditorLayout);
+                    break;
+                }
+                default:
+                case STRING:{
+                    field = new FormField.StringField(
+                            this, awesomeValidation, binding.tagEditorLayout);
                     break;
                 }
             }
+            formFields.add(field);
         }
     }
 
     private void getResults(){
-
+        for (int i = 0; i < tag.attributes.size(); i++){
+            FormField field = formFields.get(i);
+            tag.attributes.get(i).values = field.getValues();
+        }
+        Logger.json(new Gson().toJson(tag));
     }
 
     @Override
