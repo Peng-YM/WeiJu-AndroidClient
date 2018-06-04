@@ -49,10 +49,10 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 //            annotateImageView.clear();
 //        });
 //        binding.modeButton.setOnClickListener(view -> {
-//            AnnotateImageView.Mode mode =
-//                    annotateImageView.getMode() == AnnotateImageView.Mode.EDIT
-//                            ? AnnotateImageView.Mode.SELECT : AnnotateImageView.Mode.EDIT;
-//            annotateImageView.setMode(mode);
+            AnnotateImageView.Mode mode =
+                    annotateImageView.getMode() == AnnotateImageView.Mode.EDIT
+                            ? AnnotateImageView.Mode.SELECT : AnnotateImageView.Mode.EDIT;
+            annotateImageView.setMode(mode);
 //        });
 
     }
@@ -71,6 +71,9 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                AnnotateImageView.Mode mode = AnnotateImageView.Mode.EDIT;
+                annotateImageView.setMode(mode);
+
                 switch (item.getItemId()) {
                     case Menu.FIRST + 0:
                         // 对标签模式的设置（颜色等）
