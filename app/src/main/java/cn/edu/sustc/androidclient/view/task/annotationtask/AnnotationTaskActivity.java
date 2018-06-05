@@ -32,6 +32,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         this.viewModel = viewModel;
         this.binding = binding;
 
+        setTitle("标注任务");
         annotateImageView = binding.annotateImageView;
         annotateImageView.init(BitmapFactory.decodeResource(getResources(), R.drawable.cover));
 
@@ -95,5 +96,23 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_annotation_task;
+    }
+
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.annotation_task, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.annotation_undo) {
+            annotateImageView.undo();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
