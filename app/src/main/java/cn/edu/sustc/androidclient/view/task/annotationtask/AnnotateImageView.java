@@ -247,25 +247,21 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     private void handleSelect(MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: // double finger
-                savedMatrix.set(currentMatrix);
-                startPoint.set(event.getX(), event.getY());
-                break;
-
             case MotionEvent.ACTION_POINTER_DOWN: // double finger
                 oldDistance = calculateDistance(event);
                 // set threshold to avoid jitter
                 if (oldDistance > 10f) {
                     savedMatrix.set(currentMatrix);
-                    midPoint = calculateMidPoint(event);
+                    startPoint = calculateMidPoint(event);
                 }
 
             case MotionEvent.ACTION_MOVE:
                 if(event.getPointerCount() == 2) {
                     // double fingers drag
                     currentMatrix.set(savedMatrix);
-                    float dx = event.getX() - startPoint.x;
-                    float dy = event.getY() - startPoint.y;
+                    midPoint = calculateMidPoint(event);
+                    float dx = midPoint.x - startPoint.x;
+                    float dy = midPoint.y - startPoint.y;
                     currentMatrix.postTranslate(dx, dy);
                     // double fingers zoom
                     float newDistance = calculateDistance(event);
@@ -275,18 +271,6 @@ public class AnnotateImageView extends AppCompatImageView {
                         currentMatrix.postScale(scale, scale, midPoint.x, midPoint.y);
                     }
                 }
-                break;
-            case MotionEvent.ACTION_UP:
-                selectMode = SelectMode.NONE;
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                savedMatrix.set(currentMatrix);
-                if (event.getActionIndex() == 0) {
-                    startPoint = new Coordinate(event.getX(1), event.getY(1));
-                } else if (event.getActionIndex() == 1) {
-                    startPoint = new Coordinate(event.getX(0), event.getY(0));
-                }
-                selectMode = SelectMode.DRAG;
                 break;
         }
         setImageMatrix(currentMatrix);
