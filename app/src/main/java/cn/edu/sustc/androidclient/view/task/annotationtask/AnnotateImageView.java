@@ -247,10 +247,9 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     private void handleSelect(MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN: // single finger
+            case MotionEvent.ACTION_DOWN: // double finger
                 savedMatrix.set(currentMatrix);
                 startPoint.set(event.getX(), event.getY());
-                selectMode = SelectMode.DRAG;
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN: // double finger
@@ -259,22 +258,17 @@ public class AnnotateImageView extends AppCompatImageView {
                 if (oldDistance > 10f) {
                     savedMatrix.set(currentMatrix);
                     midPoint = calculateMidPoint(event);
-                    selectMode = SelectMode.ZOOM;
                 }
 
             case MotionEvent.ACTION_MOVE:
-                // single finger drag
-                if (selectMode == SelectMode.DRAG) {
+                if(event.getPointerCount() == 2) {
+                    // double fingers drag
                     currentMatrix.set(savedMatrix);
                     float dx = event.getX() - startPoint.x;
                     float dy = event.getY() - startPoint.y;
                     currentMatrix.postTranslate(dx, dy);
-                }
-                // double fingers zoom
-                else if (selectMode == SelectMode.ZOOM && event.getPointerCount() == 2) {
+                    // double fingers zoom
                     float newDistance = calculateDistance(event);
-                    currentMatrix.set(savedMatrix);
-
                     if (newDistance > 10f) {
                         // calculate scale percentage from the movement
                         float scale = newDistance / oldDistance;
