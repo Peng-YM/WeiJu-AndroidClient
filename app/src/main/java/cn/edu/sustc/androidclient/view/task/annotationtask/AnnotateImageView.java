@@ -28,11 +28,11 @@ public class AnnotateImageView extends AppCompatImageView {
     private List<Shape> shapeList;
     private Shape currentShape;
     private Mode mode;
-    private SelectMode selectMode;
 
     private int touchDownX = 0;
     private int touchDownY = 0;
     private Coordinate startPoint = new Coordinate(0, 0);
+    private int edit_index = -1;
     private Matrix currentMatrix, savedMatrix;
 
     private Canvas myCanvas; // canvas to draw the mixed picture
@@ -49,7 +49,6 @@ public class AnnotateImageView extends AppCompatImageView {
         // init data
         shapeList = new ArrayList<>();
         mode = Mode.EDIT;
-        selectMode = SelectMode.NONE;
     }
 
     /**
@@ -164,11 +163,11 @@ public class AnnotateImageView extends AppCompatImageView {
 
 
     /**
-     * get the shape clicked(center) by user
+     * get the shape index clicked(center) by user
      *
      * @param clickPoint user's click point
      */
-    public Shape getShape(Coordinate clickPoint) {
+    public int getShape(Coordinate clickPoint) {
         double minDistance = Integer.MAX_VALUE;
         int minIndex = -1, cnt = 0;
 
@@ -182,7 +181,7 @@ public class AnnotateImageView extends AppCompatImageView {
             }
             cnt++;
         }
-        return shapeList.get(minIndex);
+        return minIndex;
     }
 
     /**
@@ -227,6 +226,12 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(event.getPointerCount() == 2) {
+            mode = Mode.SELECT;
+        }
+        else if((edit_index = getShape(new Coordinate(event.getX(), event.getY())))> -1) {
+            mode = Mode.EDIT;
+        }
         switch (mode) {
             case EDIT:
                 handleEdit(event);
@@ -315,7 +320,7 @@ public class AnnotateImageView extends AppCompatImageView {
                 lastTouchX = (int) event.getX();
                 lastTouchY = (int) event.getY();
                 // ignore the rectangle that is too small(created from user's click, not drag)
-                if (lastTouchX - touchDownX > 10) {
+                if ((lastTouchX - touchDownX > 10) && (lastTouchY - touchDownY > 10)) {
                     // need to apply inverse matrix transformation to the shape
                     RectF rect = new RectF(touchDownX, touchDownY, lastTouchX, lastTouchY);
                     Matrix inverseCopy = new Matrix();
