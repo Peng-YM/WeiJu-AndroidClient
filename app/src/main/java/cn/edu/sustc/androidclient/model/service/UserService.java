@@ -21,7 +21,7 @@ public interface UserService {
      * @param session session
      * @return Credential
      */
-    @POST("sessions")
+    @POST("auth/api/login")
     Single<MyResponse<Credential>> login(@Body Session session);
 
     /**
@@ -30,8 +30,8 @@ public interface UserService {
      * @param user new user
      * @return new User
      */
-    @POST("users")
-    Single<MyResponse<Credential>> registration(@Body User user);
+    @POST("auth/api/register")
+    Single<MyResponse<User>> registration(@Body User user);
 
     /**
      * Get user profile
@@ -39,7 +39,7 @@ public interface UserService {
      * @param id user id
      * @return User
      */
-    @GET("users/{id}")
+    @GET("api/users/{id}")
     Single<MyResponse<User>> getProfile(@Path("id") String id);
 
     /**
@@ -48,11 +48,6 @@ public interface UserService {
      * @param id user id
      * @return updated user profile
      */
-    @PATCH("users/{id}")
+    @PATCH("api/users/{id}")
     Single<MyResponse<User>> updateProfile(@Path("id") String id, @Body User user);
-
-
-    // fake apis here
-    @GET("credentials/1")
-    Single<MyResponse<Credential>> fakeLogin();
 }

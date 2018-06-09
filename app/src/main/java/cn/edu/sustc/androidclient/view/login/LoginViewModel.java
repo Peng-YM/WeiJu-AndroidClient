@@ -32,10 +32,13 @@ public class LoginViewModel extends ViewModel {
         credential = userRepository.login(session);
     }
 
-    public void registration(User user) {
+    /**
+     * User registration
+     * @param user New user
+     */
+    public MutableLiveData<MyResource<User>> registration(User user) {
         user.userId = UUID.randomUUID().toString();
-        this.credential = userRepository.registration(user);
-        Logger.d("Attempted to registration: %s", user);
+        return userRepository.registration(user);
     }
 
     public MutableLiveData<MyResource<Credential>> getCredential() {

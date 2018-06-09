@@ -56,5 +56,4 @@ public class Task implements Serializable {
         public String description;
         public List<String> values;
     }
-
 }

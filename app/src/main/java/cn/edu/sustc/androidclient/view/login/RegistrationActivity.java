@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
@@ -36,8 +38,8 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         this.binding = binding;
 
         binding.setRegistrationActivity(this);
+        binding.registrationProgressBar.setVisibility(View.GONE);
         initData();
-        initViews();
     }
 
     @Override
@@ -50,40 +52,26 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         password = new ObservableField<>();
     }
 
-    private void initViews() {
-        // set alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.alert))
-                .setCancelable(false)
-                .setPositiveButton("OK", (dialogInterface, i) -> {
-                });
-        alertDialog = builder.create();
-        binding.registrationProgressBar.setVisibility(View.GONE);
-    }
-
     public void registration(View view) {
+        Logger.d("User %s is attempt to registration...", email.get());
         User newUser = new User();
         newUser.password = password.get();
         newUser.email = email.get();
-        model.registration(newUser);
-        model.getCredential().observe(this, resource -> {
-            if (resource != null) {
-                switch (resource.status) {
-                    case ERROR:
-                        String errorInfo = resource.message;
-                        alertDialog.setMessage(errorInfo);
-                        alertDialog.show();
-                        binding.registrationProgressBar.setVisibility(View.GONE);
-                        break;
+        model.registration(newUser).observe(this, data -> {
+            if (data != null) {
+                switch (data.status) {
                     case LOADING:
                         binding.registrationProgressBar.setVisibility(View.VISIBLE);
                         break;
                     case SUCCESS:
-                        // save credential and go to login
-                        LoginActivity.start(this);
+                        Logger.d("Registration Successfully");
                         binding.registrationProgressBar.setVisibility(View.GONE);
+                        LoginActivity.start(this);
+                        finish();
                         break;
-                    default:
+                    case ERROR:
+                        showAlertDialog(data.message);
+                        binding.registrationProgressBar.setVisibility(View.GONE);
                         break;
                 }
             }

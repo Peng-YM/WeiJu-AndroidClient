@@ -11,6 +11,7 @@ import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
 import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
+import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
@@ -19,6 +20,7 @@ import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,9 +37,12 @@ public class TaskRepository implements BaseViewModel {
     // injected module
     private TaskService taskService;
     private AppSchedulerProvider schedulerProvider;
+    private MyDataBase dataBase;
+
     private CompositeDisposable disposables = new CompositeDisposable();
     private MyResource<List<Task>> taskList;
     private MutableLiveData<MyResource<List<Task>>> liveTaskList;
+
 
     @Deprecated
     private TaskRepository(TaskService taskService) {
@@ -83,7 +88,6 @@ public class TaskRepository implements BaseViewModel {
         // TODO: remove fake method
         taskService
                 .fakeGetTasks()
-//                .getTasks(offset, limit)
                 .map(response -> response.data)
                 .flatMap(Observable::fromIterable)
                 .observeOn(schedulerProvider.ui())
@@ -118,10 +122,14 @@ public class TaskRepository implements BaseViewModel {
 
     public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info){
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
-        // TODO: need to save the transaction to database!
         taskService.applyTask(info)
-                .observeOn(schedulerProvider.ui())
+                .subscribeOn(Schedulers.newThread())
+                .map(response -> {
+                    dataBase.transactionDao().addTransaction(response.data);
+                    return response;
+                })
                 .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<Transaction>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

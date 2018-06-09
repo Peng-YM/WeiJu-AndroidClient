@@ -6,22 +6,16 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
-import cn.edu.sustc.androidclient.common.http.NetworkStateEvent;
+//import cn.edu.sustc.androidclient.di.ApplicationComponent;
 import dagger.android.support.DaggerAppCompatActivity;
 
 /**
@@ -31,10 +25,6 @@ import dagger.android.support.DaggerAppCompatActivity;
 public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBinding> extends DaggerAppCompatActivity {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-    @Inject
-    ConnectivityManager connectivityManager;
-
-    NetworkStateEvent networkStateEvent;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -45,11 +35,6 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         ViewDataBinding binding = DataBindingUtil.setContentView(this, getLayoutResId());
         ViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
         onCreate(savedInstanceState, (M) viewModel, (B) binding);
-
-        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnected();
-        networkStateEvent = new NetworkStateEvent(isConnected);
     }
 
     protected abstract Class<M> getViewModel();

@@ -43,8 +43,7 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         viewModel.setTask(task);
 
         binding.setViewModel(viewModel);
-        //TODO: change to task description!
-        binding.taskDescriptions.loadUrl("file:///android_asset/about.html");
+        binding.taskDescriptions.loadData(task.descriptions, "text/html; charset=utf-8", "UTF-8");
         binding.takeTaskBtn.setOnClickListener(view ->
                 viewModel.takeTask()
                         .subscribe(new CompletableObserver() {

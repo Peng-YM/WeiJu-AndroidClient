@@ -14,8 +14,9 @@ import com.google.gson.annotations.SerializedName;
 public class Credential {
     @PrimaryKey
     @NonNull
-    @SerializedName("id")
+    @SerializedName("user_id")
     public String userId;
+
     public String token;
 
     public Credential(@NonNull String userId, String token) {
