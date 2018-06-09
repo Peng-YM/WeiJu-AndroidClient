@@ -45,8 +45,6 @@ public abstract class FormField {
         public boolean filled() {
             return editText.getText().toString().trim().length() != 0;
         }
-
-
     }
 
     public static class StringField extends FormField{
@@ -100,8 +98,8 @@ public abstract class FormField {
 
         @Override
         public boolean filled() {
-            return group.getCheckedRadioButtonId() != trueButton.getId() &&
-                    group.getCheckedRadioButtonId() != falseButton.getId();
+            return group.getCheckedRadioButtonId() == trueButton.getId() ||
+                    group.getCheckedRadioButtonId() == falseButton.getId();
         }
     }
 
@@ -124,7 +122,7 @@ public abstract class FormField {
 
         @Override
         public boolean filled() {
-            return spinner.isSelected();
+            return spinner.getSelectedItem() != null;
         }
     }
 

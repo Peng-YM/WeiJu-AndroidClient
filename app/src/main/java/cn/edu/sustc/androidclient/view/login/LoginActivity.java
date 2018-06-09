@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                     switch (resource.status) {
                         case ERROR:
                             String errorInfo = resource.message;
-                            showAlertDialog(errorInfo);
+                            showAlertDialog(getString(R.string.alert), errorInfo);
                             binding.loginProgressBar.setVisibility(View.GONE);
                             binding.loginBtn.setClickable(true);
                             break;

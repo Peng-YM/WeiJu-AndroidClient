@@ -52,7 +52,7 @@ public class TaskViewModel extends ViewModel {
 
     public String getCoverUrl() {
         // TODO: change base url
-        String BASE_URL = "http://69.171.71.251:8080/";
+        String BASE_URL = "http://69.171.71.251:9000/";
         return BASE_URL + task.cover;
     }
 

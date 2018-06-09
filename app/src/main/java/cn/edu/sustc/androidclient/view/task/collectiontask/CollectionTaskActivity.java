@@ -64,13 +64,13 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
                             binding.commitBtn.setText(getString(R.string.commit_success));
                             break;
                         case ERROR:
-                            showAlertDialog(resource.message);
+                            showAlertDialog(getString(R.string.alert), resource.message);
                         default:
                             break;
                     }
                 });
             } else {
-                showAlertDialog(getString(R.string.alert_nothing_selected));
+                showAlertDialog(getString(R.string.alert), getString(R.string.alert_nothing_selected));
             }
         });
     }

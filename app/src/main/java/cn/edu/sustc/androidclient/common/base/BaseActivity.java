@@ -98,10 +98,10 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         EventBus.getDefault().unregister(this);
     }
 
-    protected void showAlertDialog(String message) {
+    protected void showAlertDialog(String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
-                .setTitle(getString(R.string.alert))
+                .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", (dialogInterface, i) -> {
                 })

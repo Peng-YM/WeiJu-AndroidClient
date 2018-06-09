@@ -72,6 +72,7 @@
     <!--标注任务页-->
     <string name="add_tag">添加标签</string>
     <string name="edit_tag">编辑标签</string>
+    <string name="add_success">添加成功</string>
     <string name="next_step">下一步</string>
     <!--标签属性编辑页-->
     <string name="preview">预览</string>

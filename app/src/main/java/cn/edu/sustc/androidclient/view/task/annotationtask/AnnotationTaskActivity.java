@@ -2,23 +2,36 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
+import java.util.List;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
+import cn.edu.sustc.androidclient.model.data.Task;
 
 public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel, ActivityAnnotationTaskBinding> {
     private AnnotationTaskViewModel viewModel;
     private ActivityAnnotationTaskBinding binding;
     private AnnotateImageView annotateImageView;
+    private Task task;
+    private List<Bitmap> pictures;
 
-    public static void start(Context context) {
+    public static void start(Context context, Task task) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
+        intent.putExtra("Task", task);
         context.startActivity(intent);
     }
 
@@ -31,16 +44,28 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     protected void onCreate(Bundle instance, AnnotationTaskViewModel viewModel, ActivityAnnotationTaskBinding binding) {
         this.viewModel = viewModel;
         this.binding = binding;
+        task = (Task) getIntent().getSerializableExtra("task");
 
-        setTitle("标注任务");
+        setTitle(task.title);
         annotateImageView = binding.annotateImageView;
-        annotateImageView.init(BitmapFactory.decodeResource(getResources(), R.drawable.cover));
+        annotateImageView.init(pictures.get(0));
 
         binding.addTag.setOnClickListener(v -> popup_tags());
+        //动态生成的表单内容
+        // TODO: remove this
+        String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
+
+        Logger.json(JSONString);
         binding.nextStep.setOnClickListener(v -> {
             // next image
             // TODO: only for test
-            TagEditorActivity.start(this);
+            try {
+                AnnotationCommits.AnnotationTag tag = new Gson().fromJson(JSONString, AnnotationCommits.AnnotationTag.class);
+                TagEditorActivity.start(this, tag);
+            }catch (Exception e){
+                Logger.e("Cannot interpret JSON");
+                e.printStackTrace();
+            }
         });
 
 //        binding.undoButton.setOnClickListener(view -> {

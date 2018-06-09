@@ -25,6 +25,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityTagEditorBinding;
+import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.annotationtask.form.FormField;
 
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
@@ -41,10 +42,10 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private ActivityTagEditorBinding binding;
     private AwesomeValidation awesomeValidation;
     private ArrayList<FormField> formFields;
-    private Button fillUpBtn;
 
-    public static void start(Context context){
+    public static void start(Context context, AnnotationTag tag){
         Intent intent = new Intent(context, TagEditorActivity.class);
+        intent.putExtra("tag", tag);
         context.startActivity(intent);
     }
 
@@ -58,28 +59,26 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         this.viewModel = viewModel;
         this.binding = binding;
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);//创建一个做验证的对象
-
-        fillUpBtn = findViewById(R.id.save_tag_button);
         formFields = new ArrayList<>();
-        //动态生成的表单内容
-        // TODO: remove this
-        String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
-        try {
-            tag = new Gson().fromJson(JSONString, AnnotationTag.class);  //生成AnnotationTag这样的对象
-        }catch (Exception e){
-            Logger.e("Cannot interpret JSON");
-            e.printStackTrace();
-        }
-        Logger.json(JSONString);
+
+        Intent intent = getIntent();
+        tag = (AnnotationTag) intent.getSerializableExtra("task");
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
         binding.previewTagButton.setOnClickListener(v -> {});
-        binding.saveTagButton.setOnClickListener(v -> { // 点击提交按钮的时候引用awesomevalidation验证
+        binding.saveTagButton.setOnClickListener(v -> { // 点击提交按钮的时候引用awesome validation验证
+            // check all field is filled
+            for(FormField field: formFields){
+                if (!field.filled()){
+                    Logger.d("Field is not filled!" + field.getValues());
+                    showAlertDialog(getString(R.string.alert), getString(R.string.alert_field_empty));
+                    return;
+                }
+            }
             if(awesomeValidation.validate()){
-//                fillUpBtn.setBackgroundResource(R.drawable.button_background);
-//                fillUpBtn.setTextColor(Color.parseColor("#FFF"));
                 getResults();
+                showAlertDialog("", getString(R.string.add_success));
             }
         });
         addAttributes();
@@ -87,8 +86,6 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
     private void addAttributes(){
         for(Attribute attribute: tag.attributes){
-            Logger.v("Add attribute: %s", attribute.name);
-            Logger.json(attribute.toString());
             TextView nameTv = new TextView(this);
             nameTv.setText(attribute.name);
             nameTv.setTextSize(20);
