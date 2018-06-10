@@ -2,5 +2,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--在表单填写完整之后的按钮样式-->
-    <item android:drawable="@color/button_after_fill_up_form"/>
+    <item android:drawable="@color/button_after_fill_up_form" />
 </selector>

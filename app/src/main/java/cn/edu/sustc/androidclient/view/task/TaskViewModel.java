@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.task;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,10 +11,6 @@ import com.orhanobut.logger.Logger;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
-import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;

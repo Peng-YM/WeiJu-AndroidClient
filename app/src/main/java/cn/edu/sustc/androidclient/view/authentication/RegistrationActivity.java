@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -13,16 +12,14 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 import cn.edu.sustc.androidclient.model.data.Session;
-import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
-    @Inject
-    LoginViewModel model;
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
-
+    @Inject
+    LoginViewModel model;
     private ActivityRegistrationBinding binding;
 
     public static void start(Context context) {

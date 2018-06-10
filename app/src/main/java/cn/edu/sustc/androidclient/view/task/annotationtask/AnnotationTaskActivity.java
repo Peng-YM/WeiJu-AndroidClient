@@ -59,7 +59,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             try {
                 AnnotationCommits.AnnotationTag tag = new Gson().fromJson(JSONString, AnnotationCommits.AnnotationTag.class);
                 TagEditorActivity.start(this, tag);
-            }catch (Exception e){
+            } catch (Exception e) {
                 Logger.e("Cannot interpret JSON");
                 e.printStackTrace();
             }
@@ -79,7 +79,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 //        });
     }
 
-    private void popup_tags(){
+    private void popup_tags() {
         PopupMenu popup = new PopupMenu(AnnotationTaskActivity.this, binding.addTag);
         Menu menu = popup.getMenu();
 

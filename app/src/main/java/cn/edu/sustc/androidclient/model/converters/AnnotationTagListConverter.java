@@ -15,13 +15,14 @@ import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
  */
 public class AnnotationTagListConverter {
     @TypeConverter
-    public static List<AnnotationTag> fromString(String json){
-        Type listType = new TypeToken<List<AnnotationTag>>() {}.getType();
+    public static List<AnnotationTag> fromString(String json) {
+        Type listType = new TypeToken<List<AnnotationTag>>() {
+        }.getType();
         return new Gson().fromJson(json, listType);
     }
 
     @TypeConverter
-    public static String fromList(List<AnnotationTag> list){
+    public static String fromList(List<AnnotationTag> list) {
         return new Gson().toJson(list);
     }
 }

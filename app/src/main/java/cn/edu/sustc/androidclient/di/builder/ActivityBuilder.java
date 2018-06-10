@@ -18,6 +18,7 @@ import dagger.android.ContributesAndroidInjector;
 
 /**
  * abstract class to inject activities
+ * whenever you add an activity, you need to add it's dependencies here.
  */
 @Module
 public abstract class ActivityBuilder {

@@ -14,6 +14,12 @@ import android.view.ViewGroup;
 
 import dagger.android.support.AndroidSupportInjection;
 
+/**
+ * MVVM fragment
+ *
+ * @param <M> Class type of ViewModel
+ * @param <B> Class type of ViewDataBinding
+ */
 public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBinding> extends Fragment {
     private BaseActivity activity;
     private B binding;
@@ -33,7 +39,7 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof BaseActivity){
+        if (context instanceof BaseActivity) {
             activity = (BaseActivity) context;
             activity.onFragmentAttached();
         }
@@ -54,30 +60,31 @@ public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBindin
         return rootView;
     }
 
-    public BaseActivity getBaseActivity(){
+    public BaseActivity getBaseActivity() {
         return activity;
     }
 
-    public B getBinding(){
+    public B getBinding() {
         return binding;
     }
 
-    private void performDependencyInjection(){
+    private void performDependencyInjection() {
         AndroidSupportInjection.inject(this);
     }
 
-    public void hideKeyBoard(){
-        if (activity != null){
+    public void hideKeyBoard() {
+        if (activity != null) {
             activity.hideKeyBoard();
         }
     }
 
-    public boolean isNetworkConnected(){
+    public boolean isNetworkConnected() {
         return activity != null && activity.isNetworkConnected();
     }
 
     public interface CallBack {
         void onFragmentAttached();
+
         void onFragmentDetached();
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="loginActivity"
             type="cn.edu.sustc.androidclient.view.authentication.LoginActivity" />

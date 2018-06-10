@@ -2,12 +2,9 @@ package cn.edu.sustc.androidclient;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -18,7 +15,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.di.component.DaggerMyAppComponent;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -31,7 +27,7 @@ public class MyApplication extends Application implements HasActivityInjector {
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
     @Override
-    public DispatchingAndroidInjector<Activity> activityInjector(){
+    public DispatchingAndroidInjector<Activity> activityInjector() {
         return activityDispatchingAndroidInjector;
     }
 
@@ -44,19 +40,11 @@ public class MyApplication extends Application implements HasActivityInjector {
                 .build()
                 .inject(this);
 
-        setupSharedPreferences();
         setupLogger();
         Logger.d("Application Started");
     }
 
-    private void setupSharedPreferences(){
-        // Global SharedPreferences
-        Context applicationContext = getApplicationContext();
-        SharedPreferences globalPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        SharePreferenceHelper.setPreference(globalPrefs);
-    }
-
-    private void setupLogger(){
+    private void setupLogger() {
         // Initialize Logger
         PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)

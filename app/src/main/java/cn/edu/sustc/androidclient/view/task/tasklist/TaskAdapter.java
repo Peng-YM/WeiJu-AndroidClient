@@ -12,7 +12,6 @@ import java.util.List;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.TaskItemBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder> {
     private List<Task> tasks;

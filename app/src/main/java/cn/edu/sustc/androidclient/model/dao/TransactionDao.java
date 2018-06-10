@@ -26,6 +26,7 @@ public interface TransactionDao {
     /**
      * find all transaction of a user
      * every time the transaction updated, the Flowable will emit automatically
+     *
      * @param userId user id
      * @return a list of transactions
      */

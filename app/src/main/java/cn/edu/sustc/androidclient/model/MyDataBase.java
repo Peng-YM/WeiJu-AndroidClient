@@ -35,9 +35,14 @@ import cn.edu.sustc.androidclient.model.data.User;
 })
 public abstract class MyDataBase extends RoomDatabase {
     public abstract AnnotationCommitDao annotationCommitDao();
+
     public abstract CollectedImageDao collectedImageDao();
+
     public abstract CredentialDao credentialDao();
+
     public abstract TaskDao taskDao();
+
     public abstract TransactionDao transactionDao();
+
     public abstract UserDao userDao();
 }

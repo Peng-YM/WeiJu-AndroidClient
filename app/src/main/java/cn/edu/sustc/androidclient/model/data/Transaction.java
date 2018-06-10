@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Entity(
         foreignKeys = {
                 @ForeignKey(entity = User.class,
-                    parentColumns = "userId",
-                    childColumns = "userId"
+                        parentColumns = "userId",
+                        childColumns = "userId"
                 ),
                 @ForeignKey(entity = Task.class,
                         parentColumns = "taskId",
@@ -22,7 +22,7 @@ import java.io.Serializable;
                 )
         }
 )
-public class Transaction implements Serializable{
+public class Transaction implements Serializable {
     @PrimaryKey
     @NonNull
     public String transactionId;
@@ -46,16 +46,16 @@ public class Transaction implements Serializable{
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
     public static class TransactionStatus {
         public static final int PROGRESSING = 0;
         public static final int FINISHED = 1;
         public static final int EXPIRED = 2;
         public static final int ACCEPTED = 3;
-    }
-
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
     }
 }

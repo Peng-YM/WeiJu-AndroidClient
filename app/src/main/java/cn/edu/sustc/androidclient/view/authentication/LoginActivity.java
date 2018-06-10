@@ -15,7 +15,6 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
@@ -23,12 +22,13 @@ import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
-    @Inject
-    LoginViewModel model;
-
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
+    @Inject
+    LoginViewModel model;
+    @Inject
+    SharedPreferences preferences;
     // validation
     AwesomeValidation awesomeValidation;
 
@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     @Override
-    protected void onCreate(Bundle instance){
+    protected void onCreate(Bundle instance) {
         super.onCreate(instance);
         binding = getBinding();
         binding.setLoginActivity(this);
@@ -94,7 +94,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     private void saveCredential(Credential credential) {
-        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("id", credential.userId);
         editor.putString("token", credential.token);

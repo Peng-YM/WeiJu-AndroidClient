@@ -14,6 +14,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Modules that provide network functionality
+ */
 @Module
 public class NetworkModule {
     /**
@@ -35,6 +38,7 @@ public class NetworkModule {
 
     /**
      * OkHttpClient Provider
+     *
      * @return OkHttpClient
      */
     @Provides

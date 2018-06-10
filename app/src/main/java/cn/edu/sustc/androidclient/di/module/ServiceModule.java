@@ -9,6 +9,9 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 
+/**
+ * Http Services Modules
+ */
 @Module
 public class ServiceModule {
     @Provides

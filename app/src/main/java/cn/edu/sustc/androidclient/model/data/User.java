@@ -25,17 +25,6 @@ import java.util.UUID;
         }
 )
 public class User implements Serializable {
-    public User(@NonNull String userId, String email, String password) {
-        this.userId = userId;
-        this.email = email;
-        this.password = password;
-    }
-
-    @Ignore
-    public User(){
-        this.userId = UUID.randomUUID().toString();
-    }
-
     @SerializedName("user_id")
     @PrimaryKey
     @NonNull
@@ -48,6 +37,15 @@ public class User implements Serializable {
     public long balance;
     public int level;
     public String avatar;
+    public User(@NonNull String userId, String email, String password) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+    }
+    @Ignore
+    public User() {
+        this.userId = UUID.randomUUID().toString();
+    }
 
     @Override
     public String toString() {

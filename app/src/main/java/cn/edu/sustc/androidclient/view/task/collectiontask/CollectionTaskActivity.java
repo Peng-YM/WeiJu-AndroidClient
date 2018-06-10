@@ -32,7 +32,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     private AlbumAdapter adapter;
     private ArrayList<AlbumFile> albumFiles;
 
-    public static void start(Context context, Task task){
+    public static void start(Context context, Task task) {
         Intent intent = new Intent(context, CollectionTaskActivity.class);
         intent.putExtra("task", task);
         context.startActivity(intent);
@@ -52,7 +52,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         binding.commitBtn.setOnClickListener(view -> {
             if (albumFiles != null) {
                 viewModel.uploadImages(albumFiles).observe(this, resource -> {
-                    switch (resource.status){
+                    switch (resource.status) {
                         case LOADING:
                             binding.commitBtn.setText(String.format("%.1f%%", resource.data));
                             break;

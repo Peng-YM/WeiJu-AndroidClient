@@ -7,7 +7,7 @@ import dagger.Provides;
 @Module
 public class AuthenticationModule {
     @Provides
-    LoginViewModel provideLoginViewModel(UserRepository repository){
+    LoginViewModel provideLoginViewModel(UserRepository repository) {
         return new LoginViewModel(repository);
     }
 }

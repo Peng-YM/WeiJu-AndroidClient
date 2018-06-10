@@ -24,7 +24,7 @@ import dagger.android.AndroidInjection;
  * provides Model-View-ViewModel injection.
  */
 public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBinding>
-        extends AppCompatActivity implements BaseFragment.CallBack{
+        extends AppCompatActivity implements BaseFragment.CallBack {
     private B binding;
     private ProgressDialog progressDialog;
 
@@ -55,12 +55,14 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     }
 
     @Override
-    public void onFragmentAttached(){ }
+    public void onFragmentAttached() {
+    }
 
     @Override
-    public void onFragmentDetached(){ }
+    public void onFragmentDetached() {
+    }
 
-    public B getBinding(){
+    public B getBinding() {
         return binding;
     }
 
@@ -79,33 +81,33 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         dialog.show();
     }
 
-    public void hideKeyBoard(){
+    public void hideKeyBoard() {
         View view = this.getCurrentFocus();
-        if (view != null){
+        if (view != null) {
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (inputMethodManager != null){
+            if (inputMethodManager != null) {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         }
     }
 
-    public void hideLoading(){
-        if (progressDialog != null && progressDialog.isShowing()){
+    public void hideLoading() {
+        if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.cancel();
         }
     }
 
-    public void showLoading(){
+    public void showLoading() {
         hideLoading();
         progressDialog = CommonUtils.showLoadingDialog(this);
     }
 
-    public boolean isNetworkConnected(){
+    public boolean isNetworkConnected() {
         return NetworkUtils.isNetworkConnected(getApplicationContext());
     }
 
-    private void performDependencyInjection(){
+    private void performDependencyInjection() {
         AndroidInjection.inject(this);
     }
 }

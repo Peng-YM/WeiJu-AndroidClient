@@ -14,7 +14,7 @@ public abstract class Shape {
 
     abstract void setPaint(Paint paint);
 
-    public static class Coordinate implements Serializable{
+    public static class Coordinate implements Serializable {
         public float x, y;
 
         public Coordinate(float x, float y) {

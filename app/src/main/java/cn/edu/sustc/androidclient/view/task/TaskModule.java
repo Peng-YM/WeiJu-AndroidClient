@@ -12,22 +12,22 @@ import dagger.Provides;
 @Module
 public class TaskModule {
     @Provides
-    TaskViewModel provideTaskViewModel(MyDataBase dataBase){
+    TaskViewModel provideTaskViewModel(MyDataBase dataBase) {
         return new TaskViewModel(dataBase);
     }
 
     @Provides
-    AnnotationTaskViewModel provideAnnotationTaskViewModel(FileRepository repository){
+    AnnotationTaskViewModel provideAnnotationTaskViewModel(FileRepository repository) {
         return new AnnotationTaskViewModel(repository);
     }
 
     @Provides
-    CollectionTaskViewModel provideCollectionTaskViewModel(TaskRepository taskRepository, FileRepository fileRepository){
+    CollectionTaskViewModel provideCollectionTaskViewModel(TaskRepository taskRepository, FileRepository fileRepository) {
         return new CollectionTaskViewModel(taskRepository, fileRepository);
     }
 
     @Provides
-    TaskPublishViewModel provideTaskPublishViewModel(){
+    TaskPublishViewModel provideTaskPublishViewModel() {
         return new TaskPublishViewModel();
     }
 }

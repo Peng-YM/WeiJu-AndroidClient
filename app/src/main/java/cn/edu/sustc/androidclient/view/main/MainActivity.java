@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.Status;
-import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -45,15 +44,14 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
-        implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector{
-    private ActivityMainBinding binding;
-
+        implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
     @Inject
     MainViewModel viewModel;
-
+    @Inject
+    SharedPreferences sharedPreferences;
+    private ActivityMainBinding binding;
     private NavHeaderMainBinding headerBinding;
 
     public static void start(Context context) {
@@ -139,8 +137,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 .setIcon(R.drawable.ic_alert)
                 .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
                     // delete credentials
-                    SharedPreferences preferences = SharePreferenceHelper.getPreferences();
-                    preferences.edit().remove("id").remove("token").apply();
+                    sharedPreferences.edit().remove("id").remove("token").apply();
                     // go to login page
                     LoginActivity.start(MainActivity.this);
                 })

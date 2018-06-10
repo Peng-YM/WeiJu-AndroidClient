@@ -16,10 +16,10 @@ import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
-public class TaskItemViewModel extends ViewModel{
+public class TaskItemViewModel extends ViewModel {
     public Task task;
 
-    public TaskItemViewModel(Task task){
+    public TaskItemViewModel(Task task) {
         this.task = task;
     }
 

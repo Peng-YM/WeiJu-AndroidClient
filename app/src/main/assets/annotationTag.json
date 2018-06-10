@@ -4,7 +4,7 @@
   "positions": [
     {
       "x": 0,
-      "y":100
+      "y": 100
     },
     {
       "x": 10,
@@ -16,34 +16,53 @@
       "name": "attr1",
       "description": "this is attr1",
       "type": "single-option",
-      "options": ["option1", "option2"],
-      "values": ["option1"]
+      "options": [
+        "option1",
+        "option2"
+      ],
+      "values": [
+        "option1"
+      ]
     },
     {
       "name": "attr2",
       "description": "this is attr2",
       "type": "multi-option",
-      "options": ["option1", "option2", "option3", "option4"],
-      "values": ["option1", "option2"]
+      "options": [
+        "option1",
+        "option2",
+        "option3",
+        "option4"
+      ],
+      "values": [
+        "option1",
+        "option2"
+      ]
     },
     {
       "name": "attr3",
       "description": "this is attr3",
       "type": "number",
       "options": [],
-      "values": ["1"]
+      "values": [
+        "1"
+      ]
     },
     {
       "name": "attr4",
       "description": "this is attr4",
       "type": "boolean",
-      "values": ["true"]
+      "values": [
+        "true"
+      ]
     },
     {
       "name": "attr5",
       "description": "this is attr5",
       "type": "string",
-      "values": ["hello world"]
+      "values": [
+        "hello world"
+      ]
     }
   ]
 }

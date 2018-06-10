@@ -11,12 +11,12 @@ import cn.edu.sustc.androidclient.model.data.Task.TaskFormatter;
  */
 public class TaskFormatterConverter {
     @TypeConverter
-    public TaskFormatter fromJOSN(String json){
+    public TaskFormatter fromJOSN(String json) {
         return new Gson().fromJson(json, TaskFormatter.class);
     }
 
     @TypeConverter
-    public String fromObject(TaskFormatter object){
+    public String fromObject(TaskFormatter object) {
         return new Gson().toJson(object);
     }
 }

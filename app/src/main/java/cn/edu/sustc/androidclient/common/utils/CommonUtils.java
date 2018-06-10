@@ -8,9 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import cn.edu.sustc.androidclient.R;
 
 public final class CommonUtils {
-    private CommonUtils(){}
+    private CommonUtils() {
+    }
 
-    public static ProgressDialog showLoadingDialog(Context context){
+    public static ProgressDialog showLoadingDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.show();
         if (progressDialog.getWindow() != null) {

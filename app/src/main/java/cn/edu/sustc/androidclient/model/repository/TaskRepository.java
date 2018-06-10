@@ -2,14 +2,9 @@ package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
-import cn.edu.sustc.androidclient.common.RetrofitFactory;
-import cn.edu.sustc.androidclient.common.Status;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
@@ -19,10 +14,7 @@ import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -50,7 +42,7 @@ public class TaskRepository implements BaseViewModel {
                 .subscribeOn(schedulerProvider.io());
     }
 
-    public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info){
+    public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
         taskService.applyTask(info)
                 .subscribeOn(Schedulers.newThread())

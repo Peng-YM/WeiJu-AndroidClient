@@ -17,10 +17,13 @@ import io.reactivex.Single;
 public interface TaskDao {
     @Insert
     void saveTask(Task task);
+
     @Delete
     void deleteTask(Task task);
+
     @Update
     void updateTask(Task task);
+
     @Query("SELECT * FROM Task WHERE taskId == :taskId")
     Single<Task> getTask(String taskId);
 }

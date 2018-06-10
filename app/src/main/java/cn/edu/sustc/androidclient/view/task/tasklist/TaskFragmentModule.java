@@ -7,7 +7,7 @@ import dagger.Provides;
 @Module
 public class TaskFragmentModule {
     @Provides
-    TaskFragmentViewModel taskFragmentViewModel(TaskRepository taskRepository){
+    TaskFragmentViewModel taskFragmentViewModel(TaskRepository taskRepository) {
         return new TaskFragmentViewModel(taskRepository);
     }
 }

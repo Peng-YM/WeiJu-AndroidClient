@@ -15,15 +15,15 @@ import static cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordina
 @Entity(
         primaryKeys = {"userId", "transactionId"},
         foreignKeys = {
-            @ForeignKey(entity = User.class,
-                parentColumns = "userId",
-                childColumns = "userId"),
-            @ForeignKey(entity = Transaction.class,
-                parentColumns = "transactionId",
-                childColumns = "transactionId")
+                @ForeignKey(entity = User.class,
+                        parentColumns = "userId",
+                        childColumns = "userId"),
+                @ForeignKey(entity = Transaction.class,
+                        parentColumns = "transactionId",
+                        childColumns = "transactionId")
         }
 )
-public class AnnotationCommits implements Serializable{
+public class AnnotationCommits implements Serializable {
     @ColumnInfo(index = true)
     @NonNull
     public String transactionId;
@@ -32,12 +32,20 @@ public class AnnotationCommits implements Serializable{
     @NonNull
     public String userId;
     public List<AnnotationTag> tags;
-    public static class AnnotationTag implements Serializable{
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static class AnnotationTag implements Serializable {
         public List<Coordinate> positions;
         public String description;
         public String name;
         public List<Attribute> attributes;
     }
+
     public static class Attribute implements Serializable {
         public String name;
         public String description;
@@ -51,13 +59,7 @@ public class AnnotationCommits implements Serializable{
         }
     }
 
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
-    }
-
-    public static class AttributeType{
+    public static class AttributeType {
         public final static String SINGLE_OPTION = "single-option";
         public final static String MULTI_OPTION = "multi-option";
         public final static String NUMBER = "number";

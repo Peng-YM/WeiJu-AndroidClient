@@ -20,11 +20,13 @@ import cn.edu.sustc.androidclient.R;
 
 public abstract class FormField {
     public abstract List<String> getValues();
+
     public abstract boolean filled();
 
-    public static class NumberField extends FormField{
+    public static class NumberField extends FormField {
         private EditText editText;
-        public NumberField(Context context, AwesomeValidation validator, LinearLayout layout){
+
+        public NumberField(Context context, AwesomeValidation validator, LinearLayout layout) {
             editText = new EditText(context);
             editText.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -36,6 +38,7 @@ public abstract class FormField {
             validator.addValidation(editText, "^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$",
                     context.getString(R.string.alert_field_number));
         }
+
         @Override
         public List<String> getValues() {
             return Arrays.asList(editText.getText().toString());
@@ -47,8 +50,9 @@ public abstract class FormField {
         }
     }
 
-    public static class StringField extends FormField{
+    public static class StringField extends FormField {
         private EditText editText;
+
         public StringField(Context context, AwesomeValidation validator, LinearLayout layout) {
             editText = new EditText(context);
             editText.setLayoutParams(new ViewGroup.LayoutParams(
@@ -56,7 +60,7 @@ public abstract class FormField {
                     ViewGroup.LayoutParams.WRAP_CONTENT
             ));
             layout.addView(editText);
-            validator.addValidation(editText, s->s.trim().length() != 0,
+            validator.addValidation(editText, s -> s.trim().length() != 0,
                     context.getString(R.string.alert_field_empty));
         }
 
@@ -71,7 +75,7 @@ public abstract class FormField {
         }
     }
 
-    public static class BooleanField extends FormField{
+    public static class BooleanField extends FormField {
         private RadioGroup group;
         private RadioButton trueButton;
         private RadioButton falseButton;
@@ -103,8 +107,9 @@ public abstract class FormField {
         }
     }
 
-    public static class SingleOptionField extends FormField{
+    public static class SingleOptionField extends FormField {
         private Spinner spinner;
+
         public SingleOptionField(Context context, LinearLayout layout, List<String> options) {
             spinner = new Spinner(context);
             ArrayAdapter<String> adapter =
@@ -126,10 +131,11 @@ public abstract class FormField {
         }
     }
 
-    public static class MultiOptionsField extends FormField{
+    public static class MultiOptionsField extends FormField {
         private ArrayList<CheckBox> checkboxes = new ArrayList<>();
+
         public MultiOptionsField(Context context, LinearLayout layout, List<String> options) {
-            for (String option: options){
+            for (String option : options) {
                 CheckBox checkBox = new CheckBox(context);
                 checkBox.setText(option);
                 checkboxes.add(checkBox);
@@ -140,8 +146,8 @@ public abstract class FormField {
         @Override
         public List<String> getValues() {
             ArrayList<String> results = new ArrayList<>();
-            for (CheckBox checkBox: checkboxes){
-                if (checkBox.isChecked()){
+            for (CheckBox checkBox : checkboxes) {
+                if (checkBox.isChecked()) {
                     results.add(checkBox.getText().toString());
                 }
             }
@@ -150,8 +156,8 @@ public abstract class FormField {
 
         @Override
         public boolean filled() {
-            for (CheckBox checkBox: checkboxes){
-                if (checkBox.isChecked()){
+            for (CheckBox checkBox : checkboxes) {
+                if (checkBox.isChecked()) {
                     return true;
                 }
             }

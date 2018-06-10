@@ -226,10 +226,9 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getPointerCount() == 2) {
+        if (event.getPointerCount() == 2) {
             mode = Mode.SELECT;
-        }
-        else if((edit_index = getShape(new Coordinate(event.getX(), event.getY())))> -1) {
+        } else if ((edit_index = getShape(new Coordinate(event.getX(), event.getY()))) > -1) {
             mode = Mode.EDIT;
         }
         switch (mode) {
@@ -261,7 +260,7 @@ public class AnnotateImageView extends AppCompatImageView {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                if(event.getPointerCount() == 2) {
+                if (event.getPointerCount() == 2) {
                     // double fingers drag
                     currentMatrix.set(savedMatrix);
                     midPoint = calculateMidPoint(event);

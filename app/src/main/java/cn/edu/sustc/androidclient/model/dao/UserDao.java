@@ -13,8 +13,10 @@ import io.reactivex.Single;
 public interface UserDao {
     @Insert
     void addUser(User user);
+
     @Delete
     void deleteUser(User user);
+
     @Update
     void updateUser(User user);
 
@@ -23,6 +25,7 @@ public interface UserDao {
      * 1. if there is no user in the database, Single will trigger onError
      * 2. if there is a user, Single will trigger onSuccess
      * 3. if the user is updated, nothing gonna happen
+     *
      * @param userId user id
      * @return User
      */

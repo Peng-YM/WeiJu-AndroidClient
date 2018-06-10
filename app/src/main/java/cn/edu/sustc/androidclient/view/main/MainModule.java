@@ -10,7 +10,7 @@ import dagger.Provides;
 public class MainModule {
 
     @Provides
-    MainViewModel provideMainViewModel(UserRepository repository, SharedPreferences sharedPreferences){
+    MainViewModel provideMainViewModel(UserRepository repository, SharedPreferences sharedPreferences) {
         return new MainViewModel(repository, sharedPreferences);
     }
 }

@@ -14,10 +14,13 @@ import io.reactivex.Flowable;
 public interface CollectedImageDao {
     @Insert
     void collect(CollectedImage... instances);
+
     @Query("SELECT * FROM CollectedImage WHERE transactionId == :taskId")
     Flowable<List<CollectedImage>> getCollectedImages(String taskId);
+
     @Delete
     void deleteCollectedImages(CollectedImage... instances);
+
     @Query("DELETE FROM CollectedImage WHERE transactionId == :taskId")
     void deleteAllCollectedImages(String taskId);
 }

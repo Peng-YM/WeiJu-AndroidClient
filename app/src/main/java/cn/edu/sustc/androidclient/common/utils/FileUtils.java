@@ -12,7 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public final class FileUtils {
-    private FileUtils(){}
+    private FileUtils() {
+    }
 
     public static File getRootPath(Context context) {
         if (FileUtils.sdCardIsAvailable()) {
@@ -29,19 +30,19 @@ public final class FileUtils {
         } else return false;
     }
 
-    public static String readAssetFile(Context context, String path){
+    public static String readAssetFile(Context context, String path) {
         StringBuilder builder = new StringBuilder();
         try {
             InputStream is = context.getAssets().open(path);
             BufferedReader in =
                     new BufferedReader(new InputStreamReader(is, "UTF-8"));
             String str;
-            while ((str = in.readLine()) != null){
+            while ((str = in.readLine()) != null) {
                 builder.append(str);
             }
             in.close();
             is.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             Logger.e("Cannot open asset file from: %s", path);
             e.printStackTrace();
         }

@@ -37,7 +37,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private AwesomeValidation awesomeValidation;
     private ArrayList<FormField> formFields;
 
-    public static void start(Context context, AnnotationTag tag){
+    public static void start(Context context, AnnotationTag tag) {
         Intent intent = new Intent(context, TagEditorActivity.class);
         intent.putExtra("tag", tag);
         context.startActivity(intent);
@@ -55,17 +55,18 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
-        binding.previewTagButton.setOnClickListener(v -> {});
+        binding.previewTagButton.setOnClickListener(v -> {
+        });
         binding.saveTagButton.setOnClickListener(v -> { // 点击提交按钮的时候引用awesome validation验证
             // check all field is filled
-            for(FormField field: formFields){
-                if (!field.filled()){
+            for (FormField field : formFields) {
+                if (!field.filled()) {
                     Logger.d("Field is not filled!" + field.getValues());
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_field_empty));
                     return;
                 }
             }
-            if(awesomeValidation.validate()){
+            if (awesomeValidation.validate()) {
                 getResults();
                 showAlertDialog("", getString(R.string.add_success));
             }
@@ -73,8 +74,8 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         addAttributes();
     }
 
-    private void addAttributes(){
-        for(Attribute attribute: tag.attributes){
+    private void addAttributes() {
+        for (Attribute attribute : tag.attributes) {
             TextView nameTv = new TextView(this);
             nameTv.setText(attribute.name);
             nameTv.setTextSize(20);
@@ -83,8 +84,8 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             binding.tagEditorLayout.addView(nameTv);
             binding.tagEditorLayout.addView(descriptionTv);
             FormField field;
-            switch(attribute.type){
-                case SINGLE_OPTION:{
+            switch (attribute.type) {
+                case SINGLE_OPTION: {
                     field = new FormField.SingleOptionField(
                             this, binding.tagEditorLayout, attribute.options);
                     break;
@@ -99,13 +100,13 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                             this, binding.tagEditorLayout);
                     break;
                 }
-                case NUMBER:{
+                case NUMBER: {
                     field = new FormField.NumberField(
                             this, awesomeValidation, binding.tagEditorLayout);
                     break;
                 }
                 default:
-                case STRING:{
+                case STRING: {
                     field = new FormField.StringField(
                             this, awesomeValidation, binding.tagEditorLayout);
                     break;
@@ -115,8 +116,8 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         }
     }
 
-    private void getResults(){
-        for (int i = 0; i < tag.attributes.size(); i++){
+    private void getResults() {
+        for (int i = 0; i < tag.attributes.size(); i++) {
             FormField field = formFields.get(i);
             tag.attributes.get(i).values = field.getValues();
         }

@@ -54,10 +54,10 @@ public class CollectionTaskViewModel extends ViewModel {
                     counter.incrementAndGet();
                     urls.add(urlResponse.data.get(0));
 
-                    if (counter.get() < total){
+                    if (counter.get() < total) {
                         MyResource<Float> resource = MyResource.loading(((float) counter.get() / total) * 100);
                         progress.postValue(resource);
-                    }else {
+                    } else {
                         MyResource<Float> resource = MyResource.success(100f);
                         progress.postValue(resource);
                         Logger.d("Uploaded %d file: %s\nURL:%s", total, file.getPath(), TextUtils.join("\n", urls));
