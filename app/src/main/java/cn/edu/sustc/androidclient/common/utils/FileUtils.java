@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class FileUtils {
+public final class FileUtils {
+    private FileUtils(){}
+
     public static File getRootPath(Context context) {
         if (FileUtils.sdCardIsAvailable()) {
             return Environment.getExternalStorageDirectory();

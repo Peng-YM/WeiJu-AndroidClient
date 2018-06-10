@@ -19,8 +19,8 @@ import com.scrat.app.richtext.RichEditText;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskPublishBinding;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, ActivityTaskPublishBinding> {
     @Inject

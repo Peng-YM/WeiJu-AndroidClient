@@ -18,9 +18,9 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.Status;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityUserProfileBinding;
 import cn.edu.sustc.androidclient.model.data.User;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.main.MainViewModel;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 

@@ -5,8 +5,6 @@ import android.arch.lifecycle.ViewModel;
 
 import java.io.File;
 
-import javax.inject.Inject;
-
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 

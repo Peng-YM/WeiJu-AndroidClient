@@ -11,9 +11,9 @@ import android.view.View;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 import cn.edu.sustc.androidclient.model.data.User;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
     @Inject

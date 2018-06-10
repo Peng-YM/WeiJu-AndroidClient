@@ -15,11 +15,11 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
@@ -45,7 +45,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         binding = getBinding();
         binding.setLoginActivity(this);
         initData();
-        initViews();
     }
 
     @Override
@@ -64,14 +63,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
     }
 
-    private void initViews() {
-        binding.loginProgressBar.setVisibility(View.GONE);
-    }
-
     public void login(View view) {
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
-            binding.loginProgressBar.setVisibility(View.VISIBLE);
             model.login(new Session(email.get(), password.get()));
             model.getCredential().observe(this, resource -> {
                 if (resource != null) {
@@ -79,19 +73,17 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                         case ERROR:
                             String errorInfo = resource.message;
                             showAlertDialog(getString(R.string.alert), errorInfo);
-                            binding.loginProgressBar.setVisibility(View.GONE);
-                            binding.loginBtn.setClickable(true);
+                            hideLoading();
                             break;
                         case LOADING:
-                            binding.loginProgressBar.setVisibility(View.VISIBLE);
-                            binding.loginBtn.setClickable(false);
+                            showLoading();
                             break;
                         case SUCCESS:
                             // save credential and go to main activity
                             saveCredential(resource.data);
                             Logger.d("Credential: %s", resource.data);
                             MainActivity.start(this);
-                            binding.loginProgressBar.setVisibility(View.GONE);
+                            hideLoading();
                             finish();
                             break;
                         default:

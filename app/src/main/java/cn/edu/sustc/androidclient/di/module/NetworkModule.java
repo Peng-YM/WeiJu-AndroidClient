@@ -1,22 +1,12 @@
 package cn.edu.sustc.androidclient.di.module;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
-import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.Constants;
-import cn.edu.sustc.androidclient.common.http.NetworkConnectionInterceptor;
-import cn.edu.sustc.androidclient.common.http.NetworkStateEvent;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;

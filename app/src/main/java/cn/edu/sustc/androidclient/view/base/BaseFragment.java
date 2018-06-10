@@ -7,63 +7,77 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import dagger.android.support.DaggerFragment;
+import dagger.android.support.AndroidSupportInjection;
 
-public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBinding> extends DaggerFragment {
+public abstract class BaseFragment<M extends ViewModel, B extends ViewDataBinding> extends Fragment {
     private BaseActivity activity;
-    private M viewModel;
-    private B viewDataBinding;
+    private B binding;
     private View rootView;
 
-    public abstract @LayoutRes
+    protected abstract M getViewModel();
+
+    protected abstract @LayoutRes
     int getLayoutId();
 
-    public abstract M getViewModel();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        performDependencyInjection();
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof BaseActivity) {
-            BaseActivity activity = (BaseActivity) context;
-            this.activity = activity;
-            activity.onAttachFragment(this);
+        if (context instanceof BaseActivity){
+            activity = (BaseActivity) context;
+            activity.onFragmentAttached();
         }
     }
 
     @Override
-    public void onCreate(@Nullable Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
-        viewModel = getViewModel();
+    public void onDetach() {
+        activity.onFragmentDetached();
+        activity = null;
+        super.onDetach();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
-        rootView = viewDataBinding.getRoot();
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        rootView = binding.getRoot();
         return rootView;
     }
 
-    @Override
-    public void onDetach() {
-        activity = null;
-        super.onDetach();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    public BaseActivity getBaseActivity() {
+    public BaseActivity getBaseActivity(){
         return activity;
     }
 
-    public B getViewDataBinding() {
-        return viewDataBinding;
+    public B getBinding(){
+        return binding;
+    }
+
+    private void performDependencyInjection(){
+        AndroidSupportInjection.inject(this);
+    }
+
+    public void hideKeyBoard(){
+        if (activity != null){
+            activity.hideKeyBoard();
+        }
+    }
+
+    public boolean isNetworkConnected(){
+        return activity != null && activity.isNetworkConnected();
+    }
+
+    public interface CallBack {
+        void onFragmentAttached();
+        void onFragmentDetached();
     }
 }

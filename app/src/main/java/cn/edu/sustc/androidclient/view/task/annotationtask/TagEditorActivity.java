@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTagEditorBinding;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.task.annotationtask.form.FormField;
 
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;

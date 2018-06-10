@@ -7,8 +7,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
