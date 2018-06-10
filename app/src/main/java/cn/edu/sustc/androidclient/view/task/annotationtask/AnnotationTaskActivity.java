@@ -29,9 +29,8 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private Task task;
     private List<Bitmap> pictures;
 
-    public static void start(Context context, Task task) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
-        intent.putExtra("Task", task);
         context.startActivity(intent);
     }
 

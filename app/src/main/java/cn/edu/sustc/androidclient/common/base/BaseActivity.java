@@ -61,28 +61,6 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         return (super.onOptionsItemSelected(item));
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onNetworkChangedEvent(NetworkStateEvent event) {
-//        Toast.makeText(this, "Network Connected State: " + event.isConnected(), Toast.LENGTH_SHORT).show();
-        networkStateEvent = event;
-    }
-
-    protected boolean isNetworkConnected() {
-        return networkStateEvent.isConnected();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
     protected void showAlertDialog(String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)

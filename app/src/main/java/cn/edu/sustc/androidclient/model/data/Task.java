@@ -21,9 +21,16 @@ public class Task implements Serializable {
     @PrimaryKey
     @NonNull
     public String taskId;
+
+    @SerializedName("name")
     public String title;
+
+    @SerializedName("start_time")
     public String start;
+
+    @SerializedName("deadline")
     public String end;
+
     public String descriptions;
     public String author;
     public int type;

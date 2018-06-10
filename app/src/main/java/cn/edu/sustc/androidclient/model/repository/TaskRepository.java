@@ -85,9 +85,8 @@ public class TaskRepository implements BaseViewModel {
         taskList = MyResource.loading(new ArrayList<Task>());
         liveTaskList = new MutableLiveData<>();
         liveTaskList.postValue(taskList);
-        // TODO: remove fake method
         taskService
-                .fakeGetTasks()
+                .getTasks(offset, limit)
                 .map(response -> response.data)
                 .flatMap(Observable::fromIterable)
                 .observeOn(schedulerProvider.ui())

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.base.BaseViewModel;
 import cn.edu.sustc.androidclient.model.MyDataBase;
+import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Credential;
@@ -40,7 +41,8 @@ public class UserRepository implements BaseViewModel {
     }
 
     public MutableLiveData<MyResource<Credential>> login(Session session) {
-        userService.login(session)
+        MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
+        userService.login(sessionMyRequest)
                 .subscribeOn(Schedulers.newThread())
                 .map(response -> {
                     dataBase.credentialDao().addCredential(response.data);
@@ -72,10 +74,11 @@ public class UserRepository implements BaseViewModel {
         return credential;
     }
 
-    public MutableLiveData<MyResource<User>> registration(User user) {
+    public MutableLiveData<MyResource<User>> registration(Session session) {
         MutableLiveData<MyResource<User>> userLive = new MutableLiveData<>();
         userLive.postValue(MyResource.loading(null));
-        userService.registration(user)
+        MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
+        userService.registration(sessionMyRequest)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(new SingleObserver<MyResponse<User>>() {

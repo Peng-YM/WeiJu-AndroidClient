@@ -77,7 +77,7 @@ public class NetworkModule {
             }
         });
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         // add logging
         okHttpClientBuilder.addInterceptor(loggingInterceptor);
         return okHttpClientBuilder.build();

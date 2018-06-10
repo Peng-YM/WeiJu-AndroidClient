@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.view.login;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
+import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
@@ -73,8 +75,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
             binding.loginProgressBar.setVisibility(View.VISIBLE);
-            model.login(new Session(email.get(), password.get()));
-            model.getCredential().observe(this, resource -> {
+            MutableLiveData<MyResource<Credential>> credential
+                    =  model.login(new Session(email.get(), password.get()));
+            credential.observe(this, resource -> {
                 if (resource != null) {
                     switch (resource.status) {
                         case ERROR:

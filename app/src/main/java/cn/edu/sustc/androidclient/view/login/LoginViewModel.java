@@ -18,31 +18,23 @@ import cn.edu.sustc.androidclient.model.repository.UserRepository;
 public class LoginViewModel extends ViewModel {
     // injected modules
     private UserRepository userRepository;
-    // data
-    private MutableLiveData<MyResource<Credential>> credential;
-    private MutableLiveData<MyResource<User>> createdUser;
 
     @Inject
     public LoginViewModel(UserRepository repository) {
         this.userRepository = repository;
     }
 
-    public void login(Session session) {
+    public MutableLiveData<MyResource<Credential>> login(Session session) {
         Logger.d("Attempted to Login: Email: %s, Password: %s", session.email, session.password);
-        credential = userRepository.login(session);
+        return userRepository.login(session);
     }
 
     /**
      * User registration
-     * @param user New user
+     * @param session New user
      */
-    public MutableLiveData<MyResource<User>> registration(User user) {
-        user.userId = UUID.randomUUID().toString();
-        return userRepository.registration(user);
-    }
-
-    public MutableLiveData<MyResource<Credential>> getCredential() {
-        return credential;
+    public MutableLiveData<MyResource<User>> registration(Session session) {
+        return userRepository.registration(session);
     }
 
     /**

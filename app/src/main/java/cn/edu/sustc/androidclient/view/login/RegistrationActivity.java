@@ -12,6 +12,7 @@ import com.orhanobut.logger.Logger;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
+import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 
 public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
@@ -54,10 +55,8 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
 
     public void registration(View view) {
         Logger.d("User %s is attempt to registration...", email.get());
-        User newUser = new User();
-        newUser.password = password.get();
-        newUser.email = email.get();
-        model.registration(newUser).observe(this, data -> {
+        Session session = new Session(email.get(), password.get());
+        model.registration(session).observe(this, data -> {
             if (data != null) {
                 switch (data.status) {
                     case LOADING:
@@ -66,11 +65,12 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
                     case SUCCESS:
                         Logger.d("Registration Successfully");
                         binding.registrationProgressBar.setVisibility(View.GONE);
+                        showAlertDialog("", getString(R.string.register_success));
                         LoginActivity.start(this);
                         finish();
                         break;
                     case ERROR:
-                        showAlertDialog(data.message);
+                        showAlertDialog(getString(R.string.alert), data.message);
                         binding.registrationProgressBar.setVisibility(View.GONE);
                         break;
                 }
