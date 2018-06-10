@@ -44,26 +44,7 @@ public class NetworkModule {
         okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
         okHttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
-        // add network state interceptor
-        okHttpClientBuilder.addInterceptor(new NetworkConnectionInterceptor() {
-            @Override
-            public boolean isInternetAvailable() {
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnected();
-                if (isConnected) {
-                    EventBus.getDefault().post(new NetworkStateEvent(true));
-                }
-                return isConnected;
-            }
 
-            @Override
-            public void onInternetUnavailable() {
-                // broadcast this event to activity/fragment/service through EventBus
-                Logger.d("Network Unavailable!");
-                EventBus.getDefault().post(new NetworkStateEvent(false));
-            }
-        });
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         // add logging

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
+import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
@@ -22,7 +23,6 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
     public ObservableField<String> email;
     public ObservableField<String> password;
 
-    private AlertDialog alertDialog;
     private ActivityRegistrationBinding binding;
 
     public static void start(Context context) {
@@ -36,7 +36,6 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         binding = getBinding();
         binding.setRegistrationActivity(this);
         initData();
-        initViews();
     }
 
     @Override
@@ -49,40 +48,21 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
         password = new ObservableField<>();
     }
 
-    private void initViews() {
-        // set alert dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.alert))
-                .setCancelable(false)
-                .setPositiveButton("OK", (dialogInterface, i) -> {
-                });
-        alertDialog = builder.create();
-        binding.registrationProgressBar.setVisibility(View.GONE);
-    }
-
     public void registration(View view) {
-        User newUser = new User();
-        newUser.password = password.get();
-        newUser.email = email.get();
-        model.registration(newUser);
-        model.getCredential().observe(this, resource -> {
+        Session session = new Session(email.get(), password.get());
+        model.registration(session).observe(this, resource -> {
+            showLoading();
             if (resource != null) {
                 switch (resource.status) {
                     case ERROR:
-                        String errorInfo = resource.message;
-                        alertDialog.setMessage(errorInfo);
-                        alertDialog.show();
-                        binding.registrationProgressBar.setVisibility(View.GONE);
+                        hideLoading();
+                        showAlertDialog(getString(R.string.alert), resource.message);
                         break;
                     case LOADING:
-                        binding.registrationProgressBar.setVisibility(View.VISIBLE);
                         break;
                     case SUCCESS:
-                        // save credential and go to login
                         LoginActivity.start(this);
-                        binding.registrationProgressBar.setVisibility(View.GONE);
-                        break;
-                    default:
+                        hideLoading();
                         break;
                 }
             }

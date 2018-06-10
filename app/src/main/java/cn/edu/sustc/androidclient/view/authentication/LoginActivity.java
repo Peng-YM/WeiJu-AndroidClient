@@ -66,8 +66,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     public void login(View view) {
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
-            model.login(new Session(email.get(), password.get()));
-            model.getCredential().observe(this, resource -> {
+            model.login(new Session(email.get(), password.get())).observe(this, resource -> {
                 if (resource != null) {
                     switch (resource.status) {
                         case ERROR:
