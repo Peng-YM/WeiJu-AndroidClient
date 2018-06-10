@@ -29,18 +29,18 @@
 
         <!-- welcome activity -->
         <activity
-            android:name=".view.login.WelcomeActivity"
+            android:name=".view.authentication.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- login activity -->
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".view.authentication.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- registration activity -->
         <activity
-            android:name=".view.login.RegistrationActivity"
+            android:name=".view.authentication.RegistrationActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 

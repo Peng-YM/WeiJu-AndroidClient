@@ -3,11 +3,14 @@ package cn.edu.sustc.androidclient.view.task.taskdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.TaskViewModel;
@@ -17,8 +20,10 @@ import io.reactivex.disposables.Disposable;
 
 public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTaskDetailBinding> {
     // injected modules
+    @Inject
+    TaskViewModel viewModel;
     private ActivityTaskDetailBinding binding;
-    private TaskViewModel viewModel;
+
     private Task task;
     public CompositeDisposable disposables;
 
@@ -29,14 +34,9 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
     }
 
     @Override
-    protected Class<TaskViewModel> getViewModel() {
-        return TaskViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, TaskViewModel viewModel, ActivityTaskDetailBinding binding) {
-        this.viewModel = viewModel;
-        this.binding = binding;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         this.disposables = new CompositeDisposable();
         Intent intent = getIntent();
         task = (Task) intent.getSerializableExtra("task");

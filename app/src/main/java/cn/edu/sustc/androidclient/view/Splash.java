@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.view.login.WelcomeActivity;
+import cn.edu.sustc.androidclient.view.authentication.WelcomeActivity;
 
 public class Splash extends AppCompatActivity {
     private static int SPLASH_TIMEOUT = 1000;

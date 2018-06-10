@@ -1,23 +1,28 @@
-package cn.edu.sustc.androidclient.view.login;
+package cn.edu.sustc.androidclient.view.authentication;
 
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityRegistrationBinding;
 import cn.edu.sustc.androidclient.model.data.User;
 
 public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityRegistrationBinding> {
+    @Inject
+    LoginViewModel model;
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
+
     private AlertDialog alertDialog;
-    private LoginViewModel model;
     private ActivityRegistrationBinding binding;
 
     public static void start(Context context) {
@@ -26,15 +31,9 @@ public class RegistrationActivity extends BaseActivity<LoginViewModel, ActivityR
     }
 
     @Override
-    protected Class<LoginViewModel> getViewModel() {
-        return LoginViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, LoginViewModel viewModel, ActivityRegistrationBinding binding) {
-        this.model = viewModel;
-        this.binding = binding;
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         binding.setRegistrationActivity(this);
         initData();
         initViews();

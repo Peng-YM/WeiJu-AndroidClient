@@ -1,5 +1,8 @@
 package cn.edu.sustc.androidclient;
 
+import android.app.Activity;
+import android.app.Application;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -14,25 +17,47 @@ import com.orhanobut.logger.LogStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
-import cn.edu.sustc.androidclient.di.DaggerMyAppComponent;
-import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+import cn.edu.sustc.androidclient.di.component.DaggerMyAppComponent;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 
 /**
  * Application class which is responsible to initialize global variables
  */
-public class MyApplication extends DaggerApplication {
-    private static String PACKAGE_NAME;
+public class MyApplication extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector(){
+        return activityDispatchingAndroidInjector;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        // dependency injection
+        DaggerMyAppComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
+
+        setupSharedPreferences();
+        setupLogger();
+        Logger.d("Application Started");
+    }
+
+    private void setupSharedPreferences(){
         // Global SharedPreferences
         Context applicationContext = getApplicationContext();
         SharedPreferences globalPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         SharePreferenceHelper.setPreference(globalPrefs);
+    }
 
+    private void setupLogger(){
         // Initialize Logger
         PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)
@@ -45,13 +70,6 @@ public class MyApplication extends DaggerApplication {
                 return BuildConfig.DEBUG;
             }
         });
-
-        Logger.d("Application Started");
-    }
-
-    @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerMyAppComponent.builder().create(this);
     }
 
     private class LogCatStrategy implements LogStrategy {
@@ -61,7 +79,7 @@ public class MyApplication extends DaggerApplication {
         private long lastTime = SystemClock.uptimeMillis();
         private long offset = 5;
 
-        public LogCatStrategy() {
+        LogCatStrategy() {
             HandlerThread thread = new HandlerThread("thread_print");
             thread.start();
             handler = new Handler(thread.getLooper());
@@ -69,18 +87,12 @@ public class MyApplication extends DaggerApplication {
 
         @Override
         public void log(final int priority, final String tag, @NonNull final String message) {
-
             lastTime += offset;
             if (lastTime < SystemClock.uptimeMillis()) {
                 lastTime = SystemClock.uptimeMillis() + offset;
             }
             final long tmp = lastTime;
-            handler.postAtTime(new Runnable() {
-                @Override
-                public void run() {
-                    Log.println(priority, tag, message);
-                }
-            }, tmp);
+            handler.postAtTime(() -> Log.println(priority, tag, message), tmp);
         }
     }
 }

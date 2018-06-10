@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.common.base;
+package cn.edu.sustc.androidclient.common;
 
 import io.reactivex.Scheduler;
 

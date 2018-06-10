@@ -13,7 +13,6 @@ import cn.edu.sustc.androidclient.model.repository.FileRepository;
 public class AnnotationTaskViewModel extends ViewModel {
     private FileRepository fileRepository;
 
-    @Inject
     public AnnotationTaskViewModel(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
     }

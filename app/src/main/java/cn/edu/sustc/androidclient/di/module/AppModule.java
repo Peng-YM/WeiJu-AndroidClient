@@ -1,12 +1,12 @@
 package cn.edu.sustc.androidclient.di.module;
 
+import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
 
-import cn.edu.sustc.androidclient.MyApplication;
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.model.MyDataBase;
@@ -16,7 +16,6 @@ import dagger.Provides;
 import static cn.edu.sustc.androidclient.common.Constants.DATABASE_NAME;
 
 @Module(includes = {
-        ViewModelModule.class,
         NetworkModule.class,
         ServiceModule.class
 })
@@ -28,8 +27,8 @@ public class AppModule {
      */
     @Provides
     @Singleton
-    Context provideContext(MyApplication application) {
-        return application.getApplicationContext();
+    Context provideContext(Application application) {
+        return application;
     }
 
     /**
@@ -62,8 +61,8 @@ public class AppModule {
     MyDataBase provideDataBase(Context appContext){
         // don't allow main thread query
         // .allowMainThreadQueries()
-        MyDataBase dataBase = Room.databaseBuilder(appContext, MyDataBase.class, DATABASE_NAME)
+        return Room
+                .databaseBuilder(appContext, MyDataBase.class, DATABASE_NAME)
                 .build();
-        return dataBase;
     }
 }

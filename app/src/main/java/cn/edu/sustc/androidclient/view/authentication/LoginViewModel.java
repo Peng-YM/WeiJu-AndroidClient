@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.login;
+package cn.edu.sustc.androidclient.view.authentication;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
@@ -22,7 +22,6 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<MyResource<Credential>> credential;
     private MutableLiveData<MyResource<User>> createdUser;
 
-    @Inject
     public LoginViewModel(UserRepository repository) {
         this.userRepository = repository;
     }

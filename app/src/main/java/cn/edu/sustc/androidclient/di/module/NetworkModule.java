@@ -44,44 +44,15 @@ public class NetworkModule {
 
     /**
      * OkHttpClient Provider
-     *
-     * @param connectivityManager Injected ConnectivityManager to provide network info
      * @return OkHttpClient
      */
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient(ConnectivityManager connectivityManager) {
+    OkHttpClient provideOkHttpClient() {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
         okHttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
-        // add network state interceptor
-        okHttpClientBuilder.addInterceptor(new NetworkConnectionInterceptor() {
-            @Override
-            public boolean isInternetAvailable() {
-                NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnected();
-                if (isConnected) {
-                    EventBus.getDefault().post(new NetworkStateEvent(true));
-                }
-                return isConnected;
-            }
-
-            @Override
-            public void onInternetUnavailable() {
-                // broadcast this event to activity/fragment/service through EventBus
-                Logger.d("Network Unavailable!");
-                EventBus.getDefault().post(new NetworkStateEvent(false));
-            }
-        });
         return okHttpClientBuilder.build();
-    }
-
-    @Provides
-    @Singleton
-    ConnectivityManager provideConnectionManager(MyApplication application) {
-        Context context = application.getApplicationContext();
-        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }

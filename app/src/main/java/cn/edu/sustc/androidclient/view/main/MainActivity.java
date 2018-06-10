@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,16 +21,18 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.ActivityCollector;
 import cn.edu.sustc.androidclient.common.Status;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
-import cn.edu.sustc.androidclient.view.login.LoginActivity;
+import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
@@ -40,9 +43,10 @@ import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
         implements NavigationView.OnNavigationItemSelectedListener {
-    // injected modules
     private ActivityMainBinding binding;
-    private MainViewModel viewModel;
+
+    @Inject
+    MainViewModel viewModel;
 
     private NavHeaderMainBinding headerBinding;
 
@@ -52,10 +56,9 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     }
 
     @Override
-    protected void onCreate(Bundle instance, MainViewModel viewModel, ActivityMainBinding binding) {
-        this.binding = binding;
-        this.viewModel = viewModel;
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.binding = getBinding();
         binding.setMainListener(this);
         Toolbar toolbar = binding.contentMain.toolbar;
         setSupportActionBar(toolbar);
@@ -74,11 +77,6 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 .beginTransaction()
                 .add(R.id.task_fragment_layout, TaskFragment.getInstance())
                 .commit();
-    }
-
-    @Override
-    protected Class<MainViewModel> getViewModel() {
-        return MainViewModel.class;
     }
 
     @Override

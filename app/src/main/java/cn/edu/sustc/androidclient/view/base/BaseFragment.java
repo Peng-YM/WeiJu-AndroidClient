@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.common.base;
+package cn.edu.sustc.androidclient.view.base;
 
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;

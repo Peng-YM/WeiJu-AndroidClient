@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.view.task.collectiontask;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -14,13 +15,17 @@ import com.yanzhenjie.album.api.widget.Widget;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 
 public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel, ActivityCollectionTaskBinding> {
-    private CollectionTaskViewModel viewModel;
+    @Inject
+    CollectionTaskViewModel viewModel;
+
     private ActivityCollectionTaskBinding binding;
     private Task task;
 
@@ -28,24 +33,15 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
     private ArrayList<AlbumFile> albumFiles;
 
     public static void start(Context context, Task task){
-//        if (task.type == COLLECTION){
-//            Logger.e("Task type incorrect!");
-//        }
         Intent intent = new Intent(context, CollectionTaskActivity.class);
         intent.putExtra("task", task);
         context.startActivity(intent);
     }
 
     @Override
-    protected Class<CollectionTaskViewModel> getViewModel() {
-        return CollectionTaskViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, CollectionTaskViewModel viewModel, ActivityCollectionTaskBinding binding) {
-        this.viewModel = viewModel;
-        this.binding = binding;
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         this.task = (Task) getIntent().getSerializableExtra("task");
 
         RecyclerView recyclerView = binding.albumView;

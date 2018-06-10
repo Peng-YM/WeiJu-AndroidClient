@@ -2,16 +2,8 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -21,11 +13,11 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
-import cn.edu.sustc.androidclient.common.utils.FileUtils;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTagEditorBinding;
-import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.annotationtask.form.FormField;
 
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
@@ -37,8 +29,10 @@ import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AttributeT
 import static cn.edu.sustc.androidclient.model.data.AnnotationCommits.AttributeType.STRING;
 
 public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, ActivityTagEditorBinding> {
+    @Inject
+    AnnotationTaskViewModel viewModel;
+
     private AnnotationTag tag;
-    private AnnotationTaskViewModel viewModel;
     private ActivityTagEditorBinding binding;
     private AwesomeValidation awesomeValidation;
     private ArrayList<FormField> formFields;
@@ -50,14 +44,9 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     }
 
     @Override
-    protected Class<AnnotationTaskViewModel> getViewModel() {
-        return AnnotationTaskViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState, AnnotationTaskViewModel viewModel, ActivityTagEditorBinding binding) {
-        this.viewModel = viewModel;
-        this.binding = binding;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);//创建一个做验证的对象
         formFields = new ArrayList<>();
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,11 +16,16 @@ import android.widget.Toast;
 
 import com.scrat.app.richtext.RichEditText;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskPublishBinding;
 
 public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, ActivityTaskPublishBinding> {
+    @Inject
+    TaskPublishViewModel viewModel;
+
     private RichEditText taskEditor;
     private ActivityTaskPublishBinding binding;
 
@@ -29,14 +35,9 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
     }
 
     @Override
-    protected Class<TaskPublishViewModel> getViewModel() {
-        return TaskPublishViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, TaskPublishViewModel viewModel, ActivityTaskPublishBinding binding) {
-        this.binding = binding;
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         taskEditor = binding.knife;
         taskEditor.setSelection(taskEditor.getEditableText().length());
         taskEditor.fromHtml(

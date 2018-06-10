@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
-import cn.edu.sustc.androidclient.common.base.CompletedListener;
+import cn.edu.sustc.androidclient.common.CompletedListener;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import io.reactivex.Observer;

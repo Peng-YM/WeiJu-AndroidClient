@@ -13,8 +13,8 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.RetrofitFactory;
-import cn.edu.sustc.androidclient.common.base.BaseViewModel;
-import cn.edu.sustc.androidclient.common.base.SchedulerProvider;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
+import cn.edu.sustc.androidclient.common.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.service.FileService;

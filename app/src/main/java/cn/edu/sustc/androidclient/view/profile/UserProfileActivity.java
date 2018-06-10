@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.view.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.transition.TransitionManager;
@@ -13,15 +14,20 @@ import android.view.WindowManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.Status;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.databinding.ActivityUserProfileBinding;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.main.MainViewModel;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUserProfileBinding> {
+    @Inject
+    MainViewModel viewModel;
+
     private boolean isExpanded = false;
     private ConstraintSet layout, expandedLayout;
     private ConstraintLayout constraintLayout;
@@ -35,12 +41,9 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
     }
 
     @Override
-    protected Class<MainViewModel> getViewModel() {
-        return MainViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, MainViewModel viewModel, ActivityUserProfileBinding binding) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = getBinding();
         binding.setProfileActivity(this);
         // changing the status bar color to transparent
         Window window = getWindow();

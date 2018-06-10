@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.login;
+package cn.edu.sustc.androidclient.view.authentication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,10 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.orhanobut.logger.Logger;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.common.utils.SharePreferenceHelper;
 import cn.edu.sustc.androidclient.databinding.ActivityLoginBinding;
 import cn.edu.sustc.androidclient.model.data.Credential;
@@ -21,12 +23,15 @@ import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 
 public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBinding> {
+    @Inject
+    LoginViewModel model;
+
     // data binding
     public ObservableField<String> email;
     public ObservableField<String> password;
     // validation
     AwesomeValidation awesomeValidation;
-    private LoginViewModel model;
+
     private ActivityLoginBinding binding;
 
     public static void start(Context context) {
@@ -35,15 +40,9 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     }
 
     @Override
-    protected Class<LoginViewModel> getViewModel() {
-        return LoginViewModel.class;
-    }
-
-    @Override
-    protected void onCreate(Bundle instance, LoginViewModel viewModel, ActivityLoginBinding binding) {
-        this.model = viewModel;
-        this.binding = binding;
-
+    protected void onCreate(Bundle instance){
+        super.onCreate(instance);
+        binding = getBinding();
         binding.setLoginActivity(this);
         initData();
         initViews();
@@ -101,11 +100,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
                 }
             });
         }
-    }
-
-    public void goToRegistration(View view) {
-        Logger.d("Go to registration");
-        RegistrationActivity.start(this);
     }
 
     private void saveCredential(Credential credential) {

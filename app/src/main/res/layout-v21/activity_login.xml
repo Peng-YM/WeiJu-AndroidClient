@@ -7,7 +7,7 @@
 
         <variable
             name="loginActivity"
-            type="cn.edu.sustc.androidclient.view.login.LoginActivity" />
+            type="cn.edu.sustc.androidclient.view.authentication.LoginActivity" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -21,7 +21,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context=".view.login.LoginActivity">
+        tools:context=".view.authentication.LoginActivity">
 
         <ProgressBar
             android:id="@+id/login_progress_bar"

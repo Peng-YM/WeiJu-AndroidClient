@@ -31,7 +31,6 @@ public class TaskViewModel extends ViewModel {
         this.task = task;
     }
 
-    @Inject
     public TaskViewModel(MyDataBase dataBase) {
         this.dataBase = dataBase;
     }

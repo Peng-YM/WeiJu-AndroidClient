@@ -28,7 +28,6 @@ public class CollectionTaskViewModel extends ViewModel {
     private FileRepository fileRepository;
     private CompositeDisposable disposables;
 
-    @Inject
     public CollectionTaskViewModel(TaskRepository taskRepository, FileRepository fileRepository) {
         this.taskRepository = taskRepository;
         this.fileRepository = fileRepository;
