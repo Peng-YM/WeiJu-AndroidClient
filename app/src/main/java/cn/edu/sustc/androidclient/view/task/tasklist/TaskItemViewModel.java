@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.task;
+package cn.edu.sustc.androidclient.view.task.tasklist;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
@@ -10,26 +10,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
-import io.reactivex.Completable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
-public class TaskViewModel extends ViewModel {
+public class TaskItemViewModel extends ViewModel{
     public Task task;
-    private MyDataBase dataBase;
 
-    public TaskViewModel(Task task) {
+    public TaskItemViewModel(Task task){
         this.task = task;
-    }
-
-    public TaskViewModel(MyDataBase dataBase) {
-        this.dataBase = dataBase;
     }
 
     @BindingAdapter({"myApp:imageUrl"})
@@ -63,7 +54,8 @@ public class TaskViewModel extends ViewModel {
         }
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void onClick(View view) {
+        Logger.json(task.toString());
+        TaskDetailActivity.start(view.getContext(), task);
     }
 }

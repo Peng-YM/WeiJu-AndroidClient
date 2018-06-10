@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.main.tasklist;
+package cn.edu.sustc.androidclient.view.task.tasklist;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
@@ -35,8 +35,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder>
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.BindingHolder holder, int position) {
-        TaskViewModel taskViewModel = new TaskViewModel(tasks.get(position));
-        holder.itemBinding.setViewModel(taskViewModel);
+        TaskItemViewModel itemViewModel = new TaskItemViewModel(tasks.get(position));
+        holder.itemBinding.setViewModel(itemViewModel);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder>
 
     public void addItem(Task task) {
         tasks.add(task);
-        notifyItemInserted(tasks.size() - 1);
+        notifyItemInserted(getItemCount() - 1);
     }
 
     public void clearItems() {
@@ -54,10 +54,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.BindingHolder>
         notifyDataSetChanged();
     }
 
-    public static class BindingHolder extends RecyclerView.ViewHolder {
+    static class BindingHolder extends RecyclerView.ViewHolder {
         private TaskItemBinding itemBinding;
 
-        public BindingHolder(TaskItemBinding itemBinding) {
+        BindingHolder(TaskItemBinding itemBinding) {
             super(itemBinding.cardView);
             this.itemBinding = itemBinding;
         }

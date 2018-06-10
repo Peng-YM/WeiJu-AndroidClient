@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="cn.edu.sustc.androidclient.view.main.tasklist.TaskFragmentViewModel" />
+            type="cn.edu.sustc.androidclient.view.task.tasklist.TaskFragmentViewModel" />
     </data>
 
     <RelativeLayout
@@ -16,7 +16,7 @@
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.contentViewVisibility}">
+            android:visibility="visible">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -25,26 +25,5 @@
                 android:background="#ddd"
                 android:padding="4dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="@{viewModel.progressBarVisibility}" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="@{viewModel.errorInfoLayoutVisibility}">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{viewModel.exception}"
-                android:textSize="20sp" />
-        </RelativeLayout>
-
     </RelativeLayout>
 </layout>

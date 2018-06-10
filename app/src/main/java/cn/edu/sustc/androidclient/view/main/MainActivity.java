@@ -1,13 +1,13 @@
 package cn.edu.sustc.androidclient.view.main;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,17 +33,23 @@ import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
-import cn.edu.sustc.androidclient.view.main.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
-import cn.edu.sustc.androidclient.view.task.TaskManagerActivity;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
+import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragment;
+import cn.edu.sustc.androidclient.view.task.taskmanager.TaskManagerActivity;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding>
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector{
     private ActivityMainBinding binding;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     @Inject
     MainViewModel viewModel;
@@ -73,7 +79,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
 
         setUpNavigationView();
         // insert fragments
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.task_fragment_layout, TaskFragment.getInstance())
                 .commit();
@@ -131,15 +137,12 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                 .setTitle(R.string.alert)
                 .setMessage(R.string.alert_logout)
                 .setIcon(R.drawable.ic_alert)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // delete credentials
-                        SharedPreferences preferences = SharePreferenceHelper.getPreferences();
-                        preferences.edit().remove("id").remove("token").apply();
-                        // go to login page
-                        LoginActivity.start(MainActivity.this);
-                    }
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    // delete credentials
+                    SharedPreferences preferences = SharePreferenceHelper.getPreferences();
+                    preferences.edit().remove("id").remove("token").apply();
+                    // go to login page
+                    LoginActivity.start(MainActivity.this);
                 })
                 .setNegativeButton(R.string.no, null).show();
     }
@@ -209,5 +212,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
     }
 }

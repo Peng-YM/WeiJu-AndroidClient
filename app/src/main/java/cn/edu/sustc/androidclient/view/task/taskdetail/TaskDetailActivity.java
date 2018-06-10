@@ -45,25 +45,7 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         binding.setViewModel(viewModel);
         //TODO: change to task description!
         binding.taskDescriptions.loadUrl("file:///android_asset/about.html");
-        binding.takeTaskBtn.setOnClickListener(view ->
-                viewModel.takeTask()
-                        .subscribe(new CompletableObserver() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Logger.d("Added task: %s", task);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Logger.e("Cannot add task!");
-                            }
-                        })
-        );
+        binding.takeTaskBtn.setOnClickListener(view -> {});
     }
 
     @Override

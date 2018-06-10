@@ -15,11 +15,7 @@ import retrofit2.http.Query;
 
 public interface TaskService {
     @GET("tasks")
-    Observable<MyResponse<Task>> getTasks(@Query("offset") int offset, @Query("limit") int limit);
-
-    // TODO: remove fake api
-    @GET("tasks")
-    Observable<MyResponse<List<Task>>> fakeGetTasks();
+    Observable<MyResponse<List<Task>>> getTasks(@Query("offset") int offset, @Query("limit") int limit);
 
     @GET("tasks/apply/")
     Single<MyResponse<Transaction>> applyTask(@Body TransactionInfo info);

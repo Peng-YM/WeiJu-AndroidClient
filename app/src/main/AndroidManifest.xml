@@ -65,7 +65,7 @@
             android:name=".view.about.AboutActivity"
             android:label="@string/about" />
         <activity
-            android:name=".view.task.TaskManagerActivity"
+            android:name=".view.task.taskmanager.TaskManagerActivity"
             android:label="@string/my_task" />
         <activity
             android:name=".view.task.collectiontask.CollectionTaskActivity"

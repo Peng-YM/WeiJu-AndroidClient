@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.task;
+package cn.edu.sustc.androidclient.view.task.taskmanager;
 
 import cn.edu.sustc.androidclient.R;
 

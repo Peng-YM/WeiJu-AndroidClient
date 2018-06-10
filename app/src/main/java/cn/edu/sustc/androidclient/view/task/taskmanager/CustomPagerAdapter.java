@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.view.task;
+package cn.edu.sustc.androidclient.view.task.taskmanager;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -12,6 +12,7 @@ import cn.edu.sustc.androidclient.view.task.annotationtask.TagEditorActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
+import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragmentProvider;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -29,7 +30,7 @@ public abstract class ActivityBuilder {
     abstract RegistrationActivity bindRegistrationActivity();
 
     @ContributesAndroidInjector(
-            modules = {MainModule.class})
+            modules = {MainModule.class, TaskFragmentProvider.class})
     abstract MainActivity bindMainActivity();
 
     @ContributesAndroidInjector(

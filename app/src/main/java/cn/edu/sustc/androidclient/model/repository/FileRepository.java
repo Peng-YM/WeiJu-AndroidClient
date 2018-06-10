@@ -31,38 +31,16 @@ import okio.Okio;
 import retrofit2.Response;
 
 public class FileRepository implements BaseViewModel {
-    @Deprecated
-    private static FileRepository instance;
-
     private FileService fileService;
     private SchedulerProvider schedulerProvider;
-
     // data
-    private CompositeDisposable disposables = new CompositeDisposable();
-
-    @Deprecated
-    private FileRepository(FileService fileService) {
-        this.fileService = fileService;
-    }
+    private CompositeDisposable disposables;
 
     @Inject
     public FileRepository(FileService service, AppSchedulerProvider schedulerProvider) {
         this.fileService = service;
         this.schedulerProvider = schedulerProvider;
-    }
-
-    @Deprecated
-    public static FileRepository getInstance() {
-        if (instance == null) {
-            synchronized (UserRepository.class) {
-                if (instance == null) {
-                    instance = new FileRepository(
-                            RetrofitFactory.getInstance().create(FileService.class)
-                    );
-                }
-            }
-        }
-        return instance;
+        this.disposables = new CompositeDisposable();
     }
 
     public LiveData<MyResource<File>> download(String url, String pathToSave) {
@@ -128,5 +106,4 @@ public class FileRepository implements BaseViewModel {
     public void onClear() {
         disposables.dispose();
     }
-
 }

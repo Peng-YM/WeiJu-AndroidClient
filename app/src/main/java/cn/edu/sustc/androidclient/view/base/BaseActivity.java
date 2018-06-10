@@ -68,7 +68,7 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     int getLayoutResId();
 
 
-    protected void showAlertDialog(String title, String message) {
+    public void showAlertDialog(String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setTitle(title)
