@@ -36,7 +36,7 @@ public class User implements Serializable {
         this.userId = UUID.randomUUID().toString();
     }
 
-    @SerializedName("id")
+    @SerializedName("user_id")
     @PrimaryKey
     @NonNull
     public String userId;

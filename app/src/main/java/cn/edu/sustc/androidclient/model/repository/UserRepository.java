@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyDataBase;
+import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Credential;
@@ -40,8 +41,8 @@ public class UserRepository implements BaseViewModel {
     }
 
     public MutableLiveData<MyResource<Credential>> login(Session session) {
-        // TODO: remove fake login
-        userService.fakeLogin()
+        MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
+        userService.login(sessionMyRequest)
                 .subscribeOn(Schedulers.newThread())
                 .map(response -> {
                     dataBase.credentialDao().addCredential(response.data);
@@ -73,36 +74,37 @@ public class UserRepository implements BaseViewModel {
         return credential;
     }
 
-    public MutableLiveData<MyResource<Credential>> registration(User user) {
-        userService.registration(user)
+    public MutableLiveData<MyResource<User>> registration(Session session) {
+        MutableLiveData<MyResource<User>> userLive = new MutableLiveData<>();
+        userLive.postValue(MyResource.loading(null));
+        MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
+        userService.registration(sessionMyRequest)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
-                .subscribe(new SingleObserver<MyResponse<Credential>>() {
+                .subscribe(new SingleObserver<MyResponse<User>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposables.add(d);
-                        MyResource<Credential> resource = MyResource.loading(null);
-                        credential.postValue(resource);
                     }
 
                     @Override
-                    public void onSuccess(MyResponse<Credential> response) {
-                        MyResource<Credential> resource = MyResource.success(response.data);
-                        credential.postValue(resource);
+                    public void onSuccess(MyResponse<User> response) {
+                        userLive.postValue(MyResource.success(response.data));
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        MyResource<Credential> resource = MyResource.error("注册失败", null);
-                        credential.postValue(resource);
+                        userLive.postValue(MyResource.error("Registration Failed!", null));
+                        Logger.e(e.getMessage());
                     }
                 });
-
-        return credential;
+        return userLive;
     }
 
     public MutableLiveData<MyResource<User>> getUserProfile(String id) {
         userProfile = new MutableLiveData<>();
+        MyResource<User> resource = MyResource.loading(null);
+        userProfile.postValue(resource);
         userService.getProfile(id)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -110,8 +112,6 @@ public class UserRepository implements BaseViewModel {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposables.add(d);
-                        MyResource<User> resource = MyResource.loading(null);
-                        userProfile.postValue(resource);
                     }
 
                     @Override

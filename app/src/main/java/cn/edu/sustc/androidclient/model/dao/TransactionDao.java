@@ -15,7 +15,7 @@ import io.reactivex.Single;
 @Dao
 public interface TransactionDao {
     @Insert
-    void beginTransaction(Transaction transaction);
+    void addTransaction(Transaction transaction);
 
     @Update
     void updateTransaction(Transaction transaction);

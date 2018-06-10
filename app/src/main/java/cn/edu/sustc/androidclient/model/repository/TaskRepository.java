@@ -19,6 +19,7 @@ import cn.edu.sustc.androidclient.model.service.TaskService;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,6 +30,8 @@ public class TaskRepository implements BaseViewModel {
     // injected module
     private TaskService taskService;
     private AppSchedulerProvider schedulerProvider;
+    private MyDataBase dataBase;
+
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
@@ -48,10 +51,14 @@ public class TaskRepository implements BaseViewModel {
 
     public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info){
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
-        // TODO: need to save the transaction to database!
         taskService.applyTask(info)
-                .observeOn(schedulerProvider.ui())
+                .subscribeOn(Schedulers.newThread())
+                .map(response -> {
+                    dataBase.transactionDao().addTransaction(response.data);
+                    return response;
+                })
                 .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<Transaction>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

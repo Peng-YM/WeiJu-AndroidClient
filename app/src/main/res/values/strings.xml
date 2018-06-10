@@ -28,7 +28,7 @@
     <string name="welcome">欢迎</string>
     <string name="email_error">邮箱格式错误</string>
     <string name="forget_password">忘记密码？</string>
-
+    <string name="register_success">注册成功</string>
     <!--主界面-->
     <string name="welcome_back">欢迎回来</string>
     <string name="continue_task">你还有正在进行中的任务，是否继续？</string>
