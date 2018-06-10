@@ -20,6 +20,7 @@ import cn.edu.sustc.androidclient.common.http.NetworkStateEvent;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -75,6 +76,10 @@ public class NetworkModule {
                 EventBus.getDefault().post(new NetworkStateEvent(false));
             }
         });
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        // add logging
+        okHttpClientBuilder.addInterceptor(loggingInterceptor);
         return okHttpClientBuilder.build();
     }
 
