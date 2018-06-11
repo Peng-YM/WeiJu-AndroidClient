@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.view.task.collectiontask;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
@@ -16,20 +15,18 @@ import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.SingleObserver;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class CollectionTaskViewModel extends ViewModel {
+public class CollectionTaskViewModel extends BaseViewModel {
     private final static String FILE_URL = "http://206.189.35.98:12000/api/file/";
     private TaskRepository taskRepository;
     private FileRepository fileRepository;
-    private CompositeDisposable disposables;
 
     public CollectionTaskViewModel(TaskRepository taskRepository, FileRepository fileRepository) {
         this.taskRepository = taskRepository;
         this.fileRepository = fileRepository;
-        disposables = new CompositeDisposable();
     }
 
     public MutableLiveData<MyResource<Float>> uploadImages(ArrayList<AlbumFile> albumFiles) {
@@ -46,7 +43,7 @@ public class CollectionTaskViewModel extends ViewModel {
             SingleObserver<MyResponse<List<String>>> observer = new SingleObserver<MyResponse<List<String>>>() {
                 @Override
                 public void onSubscribe(Disposable d) {
-                    disposables.add(d);
+                    getCompositeDisposable().add(d);
                 }
 
                 @Override
@@ -74,11 +71,5 @@ public class CollectionTaskViewModel extends ViewModel {
             fileRepository.upload(FILE_URL, new File(file.getPath()), observer);
         }
         return progress;
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        disposables.dispose();
     }
 }

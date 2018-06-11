@@ -2,7 +2,6 @@ package cn.edu.sustc.androidclient.view.main;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.content.SharedPreferences;
 
 import javax.inject.Inject;
@@ -10,8 +9,9 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.repository.UserRepository;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends BaseViewModel {
     private UserRepository userRepository;
     private SharedPreferences preferences;
 

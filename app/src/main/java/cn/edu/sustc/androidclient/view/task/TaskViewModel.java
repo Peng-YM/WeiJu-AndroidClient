@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.view.task;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
@@ -13,11 +12,12 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
-public class TaskViewModel extends ViewModel {
+public class TaskViewModel extends BaseViewModel {
     public Task task;
     private MyDataBase dataBase;
 

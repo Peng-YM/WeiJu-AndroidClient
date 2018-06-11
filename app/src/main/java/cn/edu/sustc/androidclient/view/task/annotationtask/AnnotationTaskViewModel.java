@@ -1,14 +1,14 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
 
 import java.io.File;
 
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
-public class AnnotationTaskViewModel extends ViewModel {
+public class AnnotationTaskViewModel extends BaseViewModel {
     private FileRepository fileRepository;
 
     public AnnotationTaskViewModel(FileRepository fileRepository) {

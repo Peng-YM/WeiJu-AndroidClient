@@ -16,7 +16,6 @@ import cn.edu.sustc.androidclient.common.rx.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.service.FileService;
-import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,7 +28,7 @@ import okio.BufferedSink;
 import okio.Okio;
 import retrofit2.Response;
 
-public class FileRepository implements BaseViewModel {
+public class FileRepository {
     private FileService fileService;
     private SchedulerProvider schedulerProvider;
     // data
@@ -99,10 +98,5 @@ public class FileRepository implements BaseViewModel {
                 emitter.onError(e);
             }
         });
-    }
-
-    @Override
-    public void onClear() {
-        disposables.dispose();
     }
 }

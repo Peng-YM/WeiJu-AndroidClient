@@ -12,14 +12,13 @@ import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
-import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class TaskRepository implements BaseViewModel {
+public class TaskRepository{
     // injected module
     private TaskService taskService;
     private AppSchedulerProvider schedulerProvider;
@@ -73,10 +72,5 @@ public class TaskRepository implements BaseViewModel {
                     }
                 });
         return transaction;
-    }
-
-    @Override
-    public void onClear() {
-        disposables.dispose();
     }
 }

@@ -17,12 +17,11 @@ import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.service.UserService;
-import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class UserRepository implements BaseViewModel {
+public class UserRepository{
     // injected modules
     private final UserService userService;
     private final AppSchedulerProvider schedulerProvider;
@@ -156,10 +155,5 @@ public class UserRepository implements BaseViewModel {
     private void initData() {
         credential = new MutableLiveData<>();
         userProfile = new MutableLiveData<>();
-    }
-
-    @Override
-    public void onClear() {
-        disposables.dispose();
     }
 }

@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.view.task.tasklist;
 
-import android.arch.lifecycle.ViewModel;
 import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,12 +10,13 @@ import com.orhanobut.logger.Logger;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
-public class TaskItemViewModel extends ViewModel {
+public class TaskItemViewModel extends BaseViewModel {
     public Task task;
 
     public TaskItemViewModel(Task task) {

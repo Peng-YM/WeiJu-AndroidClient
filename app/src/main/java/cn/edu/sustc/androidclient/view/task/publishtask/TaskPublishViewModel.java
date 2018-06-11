@@ -1,8 +1,8 @@
 package cn.edu.sustc.androidclient.view.task.publishtask;
 
-import android.arch.lifecycle.ViewModel;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
-public class TaskPublishViewModel extends ViewModel {
+public class TaskPublishViewModel extends BaseViewModel {
     public TaskPublishViewModel() {
 
     }

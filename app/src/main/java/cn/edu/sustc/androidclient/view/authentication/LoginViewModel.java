@@ -10,8 +10,9 @@ import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.model.repository.UserRepository;
+import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends BaseViewModel {
     // injected modules
     private UserRepository userRepository;
 
@@ -31,14 +32,5 @@ public class LoginViewModel extends ViewModel {
      */
     public MutableLiveData<MyResource<User>> registration(Session session) {
         return userRepository.registration(session);
-    }
-
-    /**
-     * the mutable data should be clear when the ViewModel is destroyed.
-     */
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        userRepository.onClear();
     }
 }
