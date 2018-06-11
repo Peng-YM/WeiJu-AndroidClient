@@ -3,12 +3,16 @@ package cn.edu.sustc.androidclient.model.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(
         foreignKeys = {
@@ -24,27 +28,23 @@ import java.io.Serializable;
 )
 public class Transaction implements Serializable {
     @PrimaryKey
-    @NonNull
+    @SerializedName("commit_id")
     public int transactionId;
 
     @ColumnInfo(index = true)
     @NonNull
-    public String userId;
+    @SerializedName("user_id")
+    public int userId;
 
     @ColumnInfo(index = true)
     @NonNull
-    public String taskId;
+    @SerializedName("task_id")
+    public int taskId;
+
     public int status;
 
-    public Transaction(@NonNull int transactionId,
-                       @NonNull String userId,
-                       @NonNull String taskId,
-                       int status) {
-        this.transactionId = transactionId;
-        this.userId = userId;
-        this.taskId = taskId;
-        this.status = status;
-    }
+    @Ignore
+    public List<String> pictures;
 
     @Override
     public String toString() {

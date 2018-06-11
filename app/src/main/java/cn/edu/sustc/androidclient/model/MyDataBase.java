@@ -7,13 +7,13 @@ import android.arch.persistence.room.TypeConverters;
 import cn.edu.sustc.androidclient.model.converters.AnnotationTagListConverter;
 import cn.edu.sustc.androidclient.model.converters.TaskFormatterConverter;
 import cn.edu.sustc.androidclient.model.dao.AnnotationCommitDao;
-import cn.edu.sustc.androidclient.model.dao.CollectedImageDao;
+import cn.edu.sustc.androidclient.model.dao.TaskImageDao;
 import cn.edu.sustc.androidclient.model.dao.CredentialDao;
 import cn.edu.sustc.androidclient.model.dao.TaskDao;
 import cn.edu.sustc.androidclient.model.dao.TransactionDao;
 import cn.edu.sustc.androidclient.model.dao.UserDao;
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
-import cn.edu.sustc.androidclient.model.data.CollectedImage;
+import cn.edu.sustc.androidclient.model.data.TaskImage;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
@@ -25,7 +25,7 @@ import cn.edu.sustc.androidclient.model.data.User;
                 Transaction.class,
                 Task.class,
                 Credential.class,
-                CollectedImage.class,
+                TaskImage.class,
                 AnnotationCommits.class
         },
         version = 1, exportSchema = false)
@@ -36,7 +36,7 @@ import cn.edu.sustc.androidclient.model.data.User;
 public abstract class MyDataBase extends RoomDatabase {
     public abstract AnnotationCommitDao annotationCommitDao();
 
-    public abstract CollectedImageDao collectedImageDao();
+    public abstract TaskImageDao collectedImageDao();
 
     public abstract CredentialDao credentialDao();
 

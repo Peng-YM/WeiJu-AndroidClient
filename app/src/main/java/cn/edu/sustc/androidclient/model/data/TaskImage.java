@@ -16,13 +16,13 @@ import com.google.gson.Gson;
                 )
         }
 )
-public class CollectedImage {
+public class TaskImage {
     @NonNull
     public String transactionId;
     @NonNull
     public String imagePath;
 
-    public CollectedImage(String transactionId, String imagePath) {
+    public TaskImage(String transactionId, String imagePath) {
         this.transactionId = transactionId;
         this.imagePath = imagePath;
     }

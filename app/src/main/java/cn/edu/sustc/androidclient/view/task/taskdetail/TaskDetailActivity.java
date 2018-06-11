@@ -55,7 +55,6 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
                         break;
                     case SUCCESS:
                         hideLoading();
-                        Logger.d(resource.data);
                         break;
                     case ERROR:
                         hideLoading();

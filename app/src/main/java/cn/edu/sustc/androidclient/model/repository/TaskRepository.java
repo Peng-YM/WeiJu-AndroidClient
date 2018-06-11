@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.model.repository;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
@@ -40,8 +41,6 @@ public class TaskRepository{
         this.context = context;
     }
 
-
-
     public Observable<Task> getTaskList(int offset, int limit) {
         return taskService
                 .getTasks(offset, limit)
@@ -53,20 +52,15 @@ public class TaskRepository{
 
     public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
+        MyResource<Transaction> resource = MyResource.loading(null);
+        transaction.postValue(resource);
         taskService.applyTask(new MyRequest<>(info))
-                .subscribeOn(Schedulers.newThread())
-                .map(response -> {
-                    dataBase.transactionDao().addTransaction(response.data);
-                    return response;
-                })
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<Transaction>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposables.add(d);
-                        MyResource<Transaction> resource = MyResource.loading(null);
-                        transaction.postValue(resource);
                     }
 
                     @Override
@@ -84,5 +78,10 @@ public class TaskRepository{
                     }
                 });
         return transaction;
+    }
+
+    // save transaction into database
+    public LiveData<MyResource> saveTransaction(Transaction transaction){
+        return null;
     }
 }
