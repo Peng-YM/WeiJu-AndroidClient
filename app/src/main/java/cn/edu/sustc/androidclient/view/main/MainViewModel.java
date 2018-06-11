@@ -22,8 +22,8 @@ public class MainViewModel extends BaseViewModel {
         this.userRepository = userRepository;
         this.preferences = preferences;
         // get id from preference
-        String id = preferences.getString("id", "");
-        currentUser = userRepository.getUserProfile(id);
+        int userId = preferences.getInt("id", 0);
+        currentUser = userRepository.getUserProfile(userId);
     }
 
     public LiveData<MyResource<User>> getLiveCurrentUser() {

@@ -26,7 +26,7 @@ import static cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordina
 public class AnnotationCommits implements Serializable {
     @ColumnInfo(index = true)
     @NonNull
-    public String transactionId;
+    public int transactionId;
 
     @ColumnInfo(index = true)
     @NonNull

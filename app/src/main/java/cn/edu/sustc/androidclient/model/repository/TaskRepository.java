@@ -1,11 +1,16 @@
 package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
+
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyDataBase;
+import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
@@ -23,14 +28,19 @@ public class TaskRepository{
     private TaskService taskService;
     private AppSchedulerProvider schedulerProvider;
     private MyDataBase dataBase;
+    private Context context;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
-    public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider) {
+    public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider, MyDataBase dataBase, Context context) {
         this.taskService = taskService;
         this.schedulerProvider = schedulerProvider;
+        this.dataBase = dataBase;
+        this.context = context;
     }
+
+
 
     public Observable<Task> getTaskList(int offset, int limit) {
         return taskService
@@ -43,7 +53,7 @@ public class TaskRepository{
 
     public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
-        taskService.applyTask(info)
+        taskService.applyTask(new MyRequest<>(info))
                 .subscribeOn(Schedulers.newThread())
                 .map(response -> {
                     dataBase.transactionDao().addTransaction(response.data);
@@ -67,7 +77,9 @@ public class TaskRepository{
 
                     @Override
                     public void onError(Throwable e) {
-                        MyResource<Transaction> resource = MyResource.error("Cannot apply task!", null);
+                        MyResource<Transaction> resource =
+                                MyResource.error(context.getString(R.string.apply_error), null);
+                        Logger.e(e.getMessage());
                         transaction.postValue(resource);
                     }
                 });

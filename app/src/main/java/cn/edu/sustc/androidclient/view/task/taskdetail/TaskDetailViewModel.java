@@ -1,9 +1,16 @@
 package cn.edu.sustc.androidclient.view.task.taskdetail;
 
+import android.arch.lifecycle.LiveData;
+import android.content.SharedPreferences;
+
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.model.MyDataBase;
+import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
+import cn.edu.sustc.androidclient.model.data.TransactionInfo;
+import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
@@ -12,12 +19,18 @@ import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 public class TaskDetailViewModel extends BaseViewModel {
     public Task task;
     private MyDataBase dataBase;
+    private TaskRepository taskRepository;
+    private SharedPreferences sharedPreferences;
 
     @Inject
-    public TaskDetailViewModel(MyDataBase dataBase) {
+    public TaskDetailViewModel(MyDataBase dataBase, TaskRepository taskRepository, SharedPreferences sharedPreferences) {
         this.dataBase = dataBase;
+        this.taskRepository = taskRepository;
+        this.sharedPreferences = sharedPreferences;
     }
-
+    public void setTask(Task task) {
+        this.task = task;
+    }
     public String getTaskType() {
         switch (task.type) {
             case ANNOTATION:
@@ -29,7 +42,9 @@ public class TaskDetailViewModel extends BaseViewModel {
         }
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public LiveData<MyResource<Transaction>> applyTask(){
+        int userId = sharedPreferences.getInt("id", 0);
+        TransactionInfo info = new TransactionInfo(userId, task.taskId);
+        return taskRepository.applyTask(info);
     }
 }

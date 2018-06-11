@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class Transaction implements Serializable {
     @PrimaryKey
     @NonNull
-    public String transactionId;
+    public int transactionId;
 
     @ColumnInfo(index = true)
     @NonNull
@@ -36,7 +36,7 @@ public class Transaction implements Serializable {
     public String taskId;
     public int status;
 
-    public Transaction(@NonNull String transactionId,
+    public Transaction(@NonNull int transactionId,
                        @NonNull String userId,
                        @NonNull String taskId,
                        int status) {

@@ -2,8 +2,11 @@ package cn.edu.sustc.androidclient.view.task.taskdetail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -18,6 +21,8 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
     // injected modules
     @Inject
     TaskDetailViewModel viewModel;
+
+
     private ActivityTaskDetailBinding binding;
     private Task task;
 
@@ -37,11 +42,27 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
         viewModel.setTask(task);
 
         binding.setViewModel(viewModel);
+        // TODO: error encoding
         // show task description in web view
         binding.taskDescriptions
-                .loadData(task.description, "text/html; charset=utf-8", "UTF-8");
+                .loadDataWithBaseURL(null, task.description,
+                        "text/html; charset=utf-8", "UTF-8", null);
         binding.takeTaskBtn.setOnClickListener(view -> {
-
+            viewModel.applyTask().observe(this, resource -> {
+                showLoading();
+                switch (resource.status){
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        hideLoading();
+                        Logger.d(resource.data);
+                        break;
+                    case ERROR:
+                        hideLoading();
+                        showAlertDialog(getString(R.string.error), resource.message);
+                        break;
+                }
+            });
         });
     }
 

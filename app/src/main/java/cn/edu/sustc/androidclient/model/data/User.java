@@ -28,7 +28,7 @@ public class User implements Serializable {
     @SerializedName("user_id")
     @PrimaryKey
     @NonNull
-    public String userId;
+    public int userId;
     public String username;
     public String email;
     public String phone;
@@ -38,15 +38,10 @@ public class User implements Serializable {
     public int level;
     public String avatar;
 
-    public User(@NonNull String userId, String email, String password) {
+    public User(@NonNull int userId, String email, String password) {
         this.userId = userId;
         this.email = email;
         this.password = password;
-    }
-
-    @Ignore
-    public User() {
-        this.userId = UUID.randomUUID().toString();
     }
 
     @Override

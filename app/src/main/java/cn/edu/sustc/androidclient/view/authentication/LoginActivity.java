@@ -57,7 +57,6 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         password = new ObservableField<>();
 
         // init validations
-
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(binding.loginEmail, Patterns.EMAIL_ADDRESS, getString(R.string.email_error));
         awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
@@ -92,7 +91,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
 
     private void saveCredential(Credential credential) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("id", credential.userId);
+        editor.putInt("id", credential.userId);
         editor.putString("token", credential.token);
         editor.apply();
     }

@@ -15,11 +15,11 @@ public class Credential {
     @PrimaryKey
     @NonNull
     @SerializedName("user_id")
-    public String userId;
+    public int userId;
 
     public String token;
 
-    public Credential(@NonNull String userId, String token) {
+    public Credential(@NonNull int userId, String token) {
         this.userId = userId;
         this.token = token;
     }

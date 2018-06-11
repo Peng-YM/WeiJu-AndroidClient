@@ -41,7 +41,7 @@ public interface UserService {
      * @return User
      */
     @GET("api/users/{id}/")
-    Single<MyResponse<User>> getProfile(@Path("id") String id);
+    Single<MyResponse<User>> getProfile(@Path("id") int id);
 
     /**
      * Update User profile
@@ -50,5 +50,5 @@ public interface UserService {
      * @return updated user profile
      */
     @PATCH("api/users/{id}/")
-    Single<MyResponse<User>> updateProfile(@Path("id") String id, @Body User user);
+    Single<MyResponse<User>> updateProfile(@Path("id") int id, @Body User user);
 }

@@ -1,5 +1,7 @@
 package cn.edu.sustc.androidclient.view.task;
 
+import android.content.SharedPreferences;
+
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
@@ -13,8 +15,8 @@ import dagger.Provides;
 @Module
 public class TaskModule {
     @Provides
-    TaskDetailViewModel provideTaskViewModel(MyDataBase dataBase) {
-        return new TaskDetailViewModel(dataBase);
+    TaskDetailViewModel provideTaskViewModel(MyDataBase dataBase, TaskRepository taskRepository, SharedPreferences sharedPreferences) {
+        return new TaskDetailViewModel(dataBase, taskRepository, sharedPreferences);
     }
 
     @Provides

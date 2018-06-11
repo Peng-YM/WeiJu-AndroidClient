@@ -100,7 +100,7 @@ public class UserRepository{
         return userLive;
     }
 
-    public MutableLiveData<MyResource<User>> getUserProfile(String id) {
+    public MutableLiveData<MyResource<User>> getUserProfile(int id) {
         userProfile = new MutableLiveData<>();
         MyResource<User> resource = MyResource.loading(null);
         userProfile.postValue(resource);
