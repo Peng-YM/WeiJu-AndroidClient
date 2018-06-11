@@ -66,6 +66,11 @@ public class Rectangle extends Shape {
     }
 
     @Override
+    boolean inside(Rect rect) {
+        return rect.contains(startX, startY) && rect.contains(endX, endY);
+    }
+
+    @Override
     public String toString() {
         return String.format("Rectangle: [%d %d %d %d]", startX, startY, endX, endY);
     }

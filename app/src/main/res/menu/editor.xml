@@ -5,16 +5,16 @@
         android:id="@+id/undo"
         android:icon="@drawable/ic_action_undo"
         android:title="@string/menu_undo"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/redo"
         android:icon="@drawable/ic_action_redo"
         android:title="@string/menu_redo"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/github"
         android:title="@string/menu_github"
-        app:showAsAction="collapseActionView"></item>
+        app:showAsAction="collapseActionView"/>
 </menu>

@@ -1,6 +1,8 @@
 package cn.edu.sustc.androidclient.common.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.orhanobut.logger.Logger;
@@ -47,5 +49,16 @@ public final class FileUtils {
             e.printStackTrace();
         }
         return builder.toString();
+    }
+
+    public static Bitmap loadBitmap(String path){
+        File file = new File(path);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        if (file.exists()) {
+            return BitmapFactory.decodeFile(path, options);
+        }else{
+            return null;
+        }
     }
 }

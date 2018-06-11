@@ -45,9 +45,9 @@ public class NetworkModule {
     @Singleton
     OkHttpClient provideOkHttpClient() {
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-        okHttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
-        okHttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
-        okHttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
+        okHttpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
+        okHttpClientBuilder.readTimeout(5, TimeUnit.SECONDS);
+        okHttpClientBuilder.writeTimeout(5, TimeUnit.SECONDS);
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

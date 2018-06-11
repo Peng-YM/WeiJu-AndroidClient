@@ -9,7 +9,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 import com.orhanobut.logger.Logger;
@@ -20,7 +19,6 @@ import java.util.List;
 import cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordinate;
 
 public class AnnotateImageView extends AppCompatImageView {
-    private Context context;
     private Bitmap srcBitmap; // original picture
     private Bitmap mixedBitmap;
 
@@ -35,20 +33,16 @@ public class AnnotateImageView extends AppCompatImageView {
     private int edit_index = -1;
     private Matrix currentMatrix, savedMatrix;
 
-    private Canvas myCanvas; // canvas to draw the mixed picture
+    private Canvas mixCanvas; // canvas to draw the mixed picture
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
 
-    private DisplayMetrics dm;
-
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.context = context;
-
         // init data
         shapeList = new ArrayList<>();
-        mode = Mode.EDIT;
+        mode = Mode.DRAW;
     }
 
     /**
@@ -61,10 +55,10 @@ public class AnnotateImageView extends AppCompatImageView {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLUE);
 
-        dm = context.getResources().getDisplayMetrics();
-        initMixedBitmap();
         currentMatrix = new Matrix();
         savedMatrix = new Matrix();
+        setImageMatrix(currentMatrix);
+        initMixedBitmap();
     }
 
 
@@ -73,15 +67,17 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     private void initMixedBitmap() {
         mixedBitmap = null;
-        myCanvas = null;
+        mixCanvas = null;
 
         mixedBitmap = srcBitmap.copy(Bitmap.Config.RGB_565, true);
-        myCanvas = new Canvas(mixedBitmap);
+        mixCanvas = new Canvas(mixedBitmap);
 
         // draw existing rectangles
         for (Shape shape : shapeList) {
-            shape.draw(myCanvas, paint);
+            shape.draw(mixCanvas, paint);
         }
+        // draw image
+        setImageBitmap(mixedBitmap);
     }
 
     @Override
@@ -92,51 +88,6 @@ public class AnnotateImageView extends AppCompatImageView {
         if (currentShape != null) {
             currentShape.draw(canvas, paint);
         }
-
-        // draw image
-        setImageBitmap(mixedBitmap);
-    }
-
-    /**
-     * Center the image
-     *
-     * @param horizontal center in horizontal
-     * @param vertical   center in vertical
-     */
-    protected Matrix center(boolean horizontal, boolean vertical) {
-        Matrix m = new Matrix();
-        RectF rect = new RectF(0, 0, srcBitmap.getWidth(), srcBitmap.getHeight());
-        m.mapRect(rect);
-
-        float height = rect.height();
-        float width = rect.width();
-
-        float deltaX = 0, deltaY = 0;
-
-        if (vertical) {
-            // 图片小于屏幕大小，则居中显示。大于屏幕，上方留空则往上移，下方留空则往下移
-            int screenHeight = dm.heightPixels;
-            if (height < screenHeight) {
-                deltaY = (screenHeight - height) / 2 - rect.top;
-            } else if (rect.top > 0) {
-                deltaY = -rect.top;
-            } else if (rect.bottom < screenHeight) {
-                deltaY = this.getHeight() - rect.bottom;
-            }
-        }
-
-        if (horizontal) {
-            int screenWidth = dm.widthPixels;
-            if (width < screenWidth) {
-                deltaX = (screenWidth - width) / 2 - rect.left;
-            } else if (rect.left > 0) {
-                deltaX = -rect.left;
-            } else if (rect.right < screenWidth) {
-                deltaX = screenWidth - rect.right;
-            }
-        }
-        m.postTranslate(deltaX, deltaY);
-        return m;
     }
 
     /**
@@ -158,7 +109,9 @@ public class AnnotateImageView extends AppCompatImageView {
         shapeList.add(shape);
         currentShape = null;
         // draw current shape on mixed canvas
-        shape.draw(myCanvas, paint);
+        shape.draw(mixCanvas, paint);
+        // redraw mixed image
+        setImageBitmap(mixedBitmap);
     }
 
 
@@ -226,30 +179,23 @@ public class AnnotateImageView extends AppCompatImageView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getPointerCount() == 2) {
-            mode = Mode.SELECT;
-        } else if ((edit_index = getShape(new Coordinate(event.getX(), event.getY()))) > -1) {
-            mode = Mode.EDIT;
-        }
-        switch (mode) {
-            case EDIT:
-                handleEdit(event);
+        switch (event.getPointerCount()){
+            case 1:
+                handleDraw(event);
                 break;
-            case SELECT:
-                handleSelect(event);
+            case 2:
+                handleZoom(event);
                 break;
-            default:
         }
-        performClick();
         return true;
     }
 
     /**
-     * handle touch event when in select mode
+     * handle touch event when in zoom mode
      *
      * @param event
      */
-    private void handleSelect(MotionEvent event) {
+    private void handleZoom(MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_POINTER_DOWN: // double finger
                 oldDistance = calculateDistance(event);
@@ -260,44 +206,31 @@ public class AnnotateImageView extends AppCompatImageView {
                 }
 
             case MotionEvent.ACTION_MOVE:
-                if (event.getPointerCount() == 2) {
-                    // double fingers drag
-                    currentMatrix.set(savedMatrix);
-                    midPoint = calculateMidPoint(event);
-                    float dx = midPoint.x - startPoint.x;
-                    float dy = midPoint.y - startPoint.y;
-                    currentMatrix.postTranslate(dx, dy);
-                    // double fingers zoom
-                    float newDistance = calculateDistance(event);
-                    if (newDistance > 10f) {
-                        // calculate scale percentage from the movement
-                        float scale = newDistance / oldDistance;
-                        currentMatrix.postScale(scale, scale, midPoint.x, midPoint.y);
-                    }
+                // double fingers drag
+                currentMatrix.set(savedMatrix);
+                midPoint = calculateMidPoint(event);
+                float dx = midPoint.x - startPoint.x;
+                float dy = midPoint.y - startPoint.y;
+                currentMatrix.postTranslate(dx, dy);
+                // double fingers zoom
+                float newDistance = calculateDistance(event);
+                if (newDistance > 10f) {
+                    // calculate scale percentage from the movement
+                    float scale = newDistance / oldDistance;
+                    currentMatrix.postScale(scale, scale, midPoint.x, midPoint.y);
                 }
                 break;
         }
         setImageMatrix(currentMatrix);
-    }
-
-    private float calculateDistance(MotionEvent event) {
-        float x = event.getX(0) - event.getX(1);
-        float y = event.getY(0) - event.getY(1);
-        return (float) Math.sqrt(x * x + y * y);
-    }
-
-    private Coordinate calculateMidPoint(MotionEvent event) {
-        float x = event.getX(0) + event.getX(1);
-        float y = event.getY(0) + event.getY(1);
-        return new Coordinate(x / 2, y / 2);
+        invalidate();
     }
 
     /**
-     * handle touch event when in edit mode
+     * handle touch event when in draw mode
      *
-     * @param event
+     * @param event motion event
      */
-    private void handleEdit(MotionEvent event) {
+    private void handleDraw(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 touchDownX = (int) event.getX();
@@ -305,8 +238,8 @@ public class AnnotateImageView extends AppCompatImageView {
                 break;
             }
             case MotionEvent.ACTION_MOVE:
-                int lastTouchX = 0;
-                int lastTouchY = 0;
+                int lastTouchX;
+                int lastTouchY;
             {
                 lastTouchX = (int) event.getX();
                 lastTouchY = (int) event.getY();
@@ -326,9 +259,11 @@ public class AnnotateImageView extends AppCompatImageView {
                     if (currentMatrix.invert(inverseCopy)) {
                         inverseCopy.mapRect(rect);
                     }
-
+                    // TODO: universal implementation for any shapes
                     Shape transformedShape =
                             new Rectangle((int) rect.left, (int) rect.top, (int) rect.right, (int) rect.bottom);
+
+                    // TODO: test if the shape is out of image bound
                     addShape(transformedShape);
                     invalidate();
                 }
@@ -337,20 +272,23 @@ public class AnnotateImageView extends AppCompatImageView {
         }
     }
 
+    private float calculateDistance(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
+    private Coordinate calculateMidPoint(MotionEvent event) {
+        float x = event.getX(0) + event.getX(1);
+        float y = event.getY(0) + event.getY(1);
+        return new Coordinate(x / 2, y / 2);
+    }
+
     /**
      * Modes
      */
     public enum Mode {
-        SELECT,
-        EDIT
-    }
-
-    /**
-     * Select Modes
-     */
-    public enum SelectMode {
-        NONE,
-        DRAG,
-        ZOOM
+        ZOOM,
+        DRAW
     }
 }

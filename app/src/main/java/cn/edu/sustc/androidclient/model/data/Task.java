@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
+
 @Entity(
         indices = {
                 @Index(value = {"taskId"}, unique = true)
@@ -20,10 +23,8 @@ public class Task implements Serializable {
     @SerializedName("id")
     @PrimaryKey
     @NonNull
-    public String taskId;
-
-    @SerializedName("name")
-    public String title;
+    public int taskId;
+    public String name;
 
     @SerializedName("start_time")
     public String start;
@@ -31,11 +32,11 @@ public class Task implements Serializable {
     @SerializedName("deadline")
     public String end;
 
-    public String descriptions;
+    public String description;
     public String author;
     public int type;
     public String cover;
-    public TaskFormatter formatter;
+//    public TaskFormatter formatter;
 
     @Override
     public String toString() {
@@ -49,18 +50,6 @@ public class Task implements Serializable {
     }
 
     public static class TaskFormatter implements Serializable {
-        public List<Tag> tags;
-    }
-
-    public static class Tag implements Serializable {
-        public String name;
-        public String description;
-        public List<Attribute> attributes;
-    }
-
-    public static class Attribute implements Serializable {
-        public String name;
-        public String description;
-        public List<String> values;
+        public List<AnnotationTag> tags;
     }
 }

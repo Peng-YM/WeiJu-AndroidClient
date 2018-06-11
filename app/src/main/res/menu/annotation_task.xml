@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/annotation_undo"
-        android:icon="@drawable/ic_action_undo"
-        android:title="@string/menu_undo"
-        app:showAsAction="ifRoom"></item>
+        android:id="@+id/annotation_prev"
+        android:title="@string/prev_img"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/annotation_next"
+        android:title="@string/next_img"
+        app:showAsAction="always"
+        />
 </menu>

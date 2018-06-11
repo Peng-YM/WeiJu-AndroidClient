@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel;
 
 import com.orhanobut.logger.Logger;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Credential;
 import cn.edu.sustc.androidclient.model.data.Session;
@@ -16,6 +18,7 @@ public class LoginViewModel extends BaseViewModel {
     // injected modules
     private UserRepository userRepository;
 
+    @Inject
     public LoginViewModel(UserRepository repository) {
         this.userRepository = repository;
     }

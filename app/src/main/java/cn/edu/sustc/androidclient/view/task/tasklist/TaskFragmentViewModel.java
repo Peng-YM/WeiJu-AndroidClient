@@ -33,6 +33,7 @@ public class TaskFragmentViewModel extends BaseViewModel {
             @Override
             public void onError(Throwable e) {
                 finished.postValue(MyResource.error(e.getMessage(), null));
+                e.printStackTrace();
             }
 
             @Override

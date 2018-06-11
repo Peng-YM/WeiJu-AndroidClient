@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.io.Serializable;
 
@@ -13,6 +14,8 @@ public abstract class Shape {
     abstract Paint getPaint();
 
     abstract void setPaint(Paint paint);
+
+    abstract boolean inside(Rect rect);
 
     public static class Coordinate implements Serializable {
         public float x, y;

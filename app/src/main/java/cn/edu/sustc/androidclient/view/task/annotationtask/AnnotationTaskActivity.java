@@ -9,9 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 
-import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
-import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
@@ -30,7 +29,14 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private ActivityAnnotationTaskBinding binding;
     private AnnotateImageView annotateImageView;
     private Task task;
-    private List<Bitmap> pictures;
+    private final List<String> paths = Arrays.asList(
+            "/storage/emulated/0/DCIM/Camera/IMG_20180414_030741.jpg",
+            "/storage/emulated/0/DCIM/20180422_084623948_0c8b5e93bf380cbdfe07ed7f2d861a08.jpg",
+            "/storage/emulated/0/DCIM/20180427_153654166_7f105819762db7895fdc17ce2e9980f3.jpg",
+            "/storage/emulated/0/DCIM/20180427_153654166_7f105819762db7895fdc17ce2e9980f3.jpg",
+            "/storage/emulated/0/DCIM/Camera/IMG_20180414_030745.jpg"
+    );
+    private int currentIdx = 0;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
@@ -41,42 +47,21 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = getBinding();
-        task = (Task) getIntent().getSerializableExtra("task");
-
-        setTitle(task.title);
-        annotateImageView = binding.annotateImageView;
-        annotateImageView.init(pictures.get(0));
-
         binding.addTag.setOnClickListener(v -> popup_tags());
-        //动态生成的表单内容
-        // TODO: remove this
-        String JSONString = FileUtils.readAssetFile(this, "annotationTag.json");
-
-        Logger.json(JSONString);
-        binding.nextStep.setOnClickListener(v -> {
-            // next image
-            // TODO: only for test
-            try {
-                AnnotationCommits.AnnotationTag tag = new Gson().fromJson(JSONString, AnnotationCommits.AnnotationTag.class);
-                TagEditorActivity.start(this, tag);
-            } catch (Exception e) {
-                Logger.e("Cannot interpret JSON");
-                e.printStackTrace();
-            }
-        });
-
-//        binding.undoButton.setOnClickListener(view -> {
-//            annotateImageView.undo();
-//        });
-//        binding.clearButton.setOnClickListener(view -> {
-//            annotateImageView.clear();
-//        });
-//        binding.modeButton.setOnClickListener(view -> {
+        if (paths.size() > 0){
+            annotateImage(currentIdx);
+        }
         AnnotateImageView.Mode mode =
-                annotateImageView.getMode() == AnnotateImageView.Mode.EDIT
-                        ? AnnotateImageView.Mode.SELECT : AnnotateImageView.Mode.EDIT;
+                annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
+                        ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
         annotateImageView.setMode(mode);
-//        });
+    }
+
+    private void annotateImage(int index){
+        annotateImageView = binding.annotateImageView;
+        Bitmap currentBitmap = FileUtils.loadBitmap(paths.get(index));
+        annotateImageView.init(currentBitmap);
+        annotateImageView.clear();
     }
 
     private void popup_tags() {
@@ -90,25 +75,22 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         menu.add(Menu.NONE, Menu.FIRST + 2, 2, "tag3");
         menu.add(Menu.NONE, Menu.FIRST + 3, 3, "tag4");
         // menu的item点击事件
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                AnnotateImageView.Mode mode = AnnotateImageView.Mode.EDIT;
-                annotateImageView.setMode(mode);
+        popup.setOnMenuItemClickListener(item -> {
+            AnnotateImageView.Mode mode = AnnotateImageView.Mode.DRAW;
+            annotateImageView.setMode(mode);
 
-                switch (item.getItemId()) {
-                    case Menu.FIRST + 0:
-                        // 对标签模式的设置（颜色等）
-                        break;
-                    case Menu.FIRST + 1:
-                        break;
-                    case Menu.FIRST + 2:
-                        break;
-                    case Menu.FIRST + 3:
-                        break;
-                }
-                return false;
+            switch (item.getItemId()) {
+                case Menu.FIRST + 0:
+                    // 对标签模式的设置（颜色等）
+                    break;
+                case Menu.FIRST + 1:
+                    break;
+                case Menu.FIRST + 2:
+                    break;
+                case Menu.FIRST + 3:
+                    break;
             }
+            return false;
         });
 
         popup.show(); //showing popup menu
@@ -130,10 +112,23 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.annotation_undo) {
-            annotateImageView.undo();
+        switch (id){
+            case R.id.annotation_next:
+                Logger.d("Annotate next picture");
+                if (currentIdx < paths.size() - 1)
+                    annotateImage(++currentIdx);
+                else
+                    showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
+                break;
+            case R.id.annotation_prev:
+                Logger.d("Annotate previous picture");
+                if (currentIdx > 0)
+                    annotateImage(--currentIdx);
+                else
+                    showAlertDialog(getString(R.string.alert), getString(R.string.alert_first));
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }
