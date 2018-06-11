@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.common;
+package cn.edu.sustc.androidclient.common.utils;
 
 import android.app.Activity;
 
@@ -7,7 +7,8 @@ import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityCollector {
+public final class ActivityUtils {
+    private ActivityUtils(){}
     private static List<Activity> activities = new ArrayList<>();
 
     public static void addActivity(Activity activity) {

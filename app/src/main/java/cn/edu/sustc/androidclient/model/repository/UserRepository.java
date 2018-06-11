@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
+import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;

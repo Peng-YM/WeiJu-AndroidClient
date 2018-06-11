@@ -1,4 +1,4 @@
-package cn.edu.sustc.androidclient.common;
+package cn.edu.sustc.androidclient.model;
 
 public enum Status {
     SUCCESS,

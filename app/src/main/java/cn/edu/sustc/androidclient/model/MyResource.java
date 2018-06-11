@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.model;
 
-import cn.edu.sustc.androidclient.common.Status;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 

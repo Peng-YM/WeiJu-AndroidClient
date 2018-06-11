@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 
 import javax.inject.Singleton;
 
-import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
+import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import dagger.Module;
 import dagger.Provides;

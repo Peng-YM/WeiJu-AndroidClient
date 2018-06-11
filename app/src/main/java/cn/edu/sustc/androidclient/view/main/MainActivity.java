@@ -24,8 +24,8 @@ import com.bumptech.glide.request.RequestOptions;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.ActivityCollector;
-import cn.edu.sustc.androidclient.common.Status;
+import cn.edu.sustc.androidclient.common.utils.ActivityUtils;
+import cn.edu.sustc.androidclient.model.Status;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         int id = item.getItemId();
         switch (id) {
             case R.id.action_exit:
-                ActivityCollector.finishAll();
+                ActivityUtils.finishAll();
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.utils.ScreenUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
@@ -78,7 +79,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
 
     private void selectAlbum() {
         if (adapter == null) {
-            int itemSize = (binding.albumView.getWidth()) / 3;
+            int itemSize = ScreenUtils.getScreenWidth(this) / 3;
             adapter = new AlbumAdapter(this, itemSize, (view, position) -> previewAlbum(position));
             binding.albumView.setAdapter(adapter);
         }

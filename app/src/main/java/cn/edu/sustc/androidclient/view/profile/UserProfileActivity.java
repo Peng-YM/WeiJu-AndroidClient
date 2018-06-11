@@ -17,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.Status;
+import cn.edu.sustc.androidclient.model.Status;
 import cn.edu.sustc.androidclient.databinding.ActivityUserProfileBinding;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import cn.edu.sustc.androidclient.common.ActivityCollector;
+import cn.edu.sustc.androidclient.common.utils.ActivityUtils;
 import cn.edu.sustc.androidclient.common.utils.CommonUtils;
 import cn.edu.sustc.androidclient.common.utils.NetworkUtils;
 import dagger.android.AndroidInjection;
@@ -34,7 +34,7 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection();
         super.onCreate(savedInstanceState);
-        ActivityCollector.addActivity(this);
+        ActivityUtils.addActivity(this);
         binding = DataBindingUtil.setContentView(this, getLayoutResId());
     }
 
@@ -45,7 +45,7 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
             dialog.dismiss();
         if (progressDialog != null)
             progressDialog.dismiss();
-        ActivityCollector.removeActivity(this);
+        ActivityUtils.removeActivity(this);
     }
 
     @Override

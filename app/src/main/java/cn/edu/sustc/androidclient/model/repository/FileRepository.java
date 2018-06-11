@@ -11,8 +11,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
-import cn.edu.sustc.androidclient.common.SchedulerProvider;
+import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
+import cn.edu.sustc.androidclient.common.rx.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.service.FileService;
