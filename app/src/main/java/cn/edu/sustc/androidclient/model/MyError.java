@@ -3,11 +3,11 @@ package cn.edu.sustc.androidclient.model;
 import java.util.ArrayList;
 
 public class MyError {
-    ArrayList<ErrorContent> errors;
+    public ArrayList<ErrorContent> errors;
 
     static class ErrorContent {
-        String title;
-        String detail;
-        int status;
+        public String title;
+        public String detail;
+        public int status;
     }
 }

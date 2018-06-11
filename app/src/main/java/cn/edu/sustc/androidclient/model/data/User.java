@@ -31,17 +31,19 @@ public class User implements Serializable {
     public String userId;
     public String username;
     public String email;
-    public long phone;
+    public String phone;
     public String password;
     public int credit;
     public long balance;
     public int level;
     public String avatar;
+
     public User(@NonNull String userId, String email, String password) {
         this.userId = userId;
         this.email = email;
         this.password = password;
     }
+
     @Ignore
     public User() {
         this.userId = UUID.randomUUID().toString();

@@ -1,11 +1,13 @@
 package cn.edu.sustc.androidclient.model.repository;
 
+import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyRequest;
@@ -19,13 +21,13 @@ import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class UserRepository implements BaseViewModel {
     // injected modules
     private final UserService userService;
     private final AppSchedulerProvider schedulerProvider;
     private final MyDataBase dataBase;
+    private final Application application;
 
     // live data
     private CompositeDisposable disposables = new CompositeDisposable();
@@ -33,21 +35,18 @@ public class UserRepository implements BaseViewModel {
     private MutableLiveData<MyResource<User>> userProfile;
 
     @Inject
-    public UserRepository(UserService userService, AppSchedulerProvider schedulerProvider, MyDataBase dataBase) {
+    public UserRepository(UserService userService, AppSchedulerProvider schedulerProvider,
+                          MyDataBase dataBase, Application application) {
         this.userService = userService;
         this.schedulerProvider = schedulerProvider;
         this.dataBase = dataBase;
+        this.application = application;
         initData();
     }
 
     public MutableLiveData<MyResource<Credential>> login(Session session) {
         MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
         userService.login(sessionMyRequest)
-                .subscribeOn(Schedulers.newThread())
-                .map(response -> {
-                    dataBase.credentialDao().addCredential(response.data);
-                    return response;
-                })
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<Credential>>() {
@@ -66,7 +65,8 @@ public class UserRepository implements BaseViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        MyResource<Credential> resource = MyResource.error("Bad Credential!", null);
+                        MyResource<Credential> resource =
+                                MyResource.error(application.getString(R.string.bad_credential), null);
                         credential.postValue(resource);
                         Logger.e(e.getMessage());
                     }

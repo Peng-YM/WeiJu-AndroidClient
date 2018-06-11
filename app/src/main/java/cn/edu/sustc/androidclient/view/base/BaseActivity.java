@@ -27,6 +27,7 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
         extends AppCompatActivity implements BaseFragment.CallBack {
     private B binding;
     private ProgressDialog progressDialog;
+    private AlertDialog dialog;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -40,6 +41,10 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (dialog != null)
+            dialog.dismiss();
+        if (progressDialog != null)
+            progressDialog.dismiss();
         ActivityCollector.removeActivity(this);
     }
 
@@ -71,11 +76,12 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
 
 
     public void showAlertDialog(String title, String message) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", (dialogInterface, i) -> {
+                    dialogInterface.cancel();
                 })
                 .create();
         dialog.show();

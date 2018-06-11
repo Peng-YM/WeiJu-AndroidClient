@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.orhanobut.logger.Logger;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
@@ -23,6 +25,7 @@ public class TaskViewModel extends ViewModel {
         this.task = task;
     }
 
+    @Inject
     public TaskViewModel(MyDataBase dataBase) {
         this.dataBase = dataBase;
     }
@@ -39,12 +42,6 @@ public class TaskViewModel extends ViewModel {
                 .load(url)
                 .apply(options)
                 .into(imageView);
-    }
-
-    public String getCoverUrl() {
-        // TODO: change base url
-        String BASE_URL = "http://69.171.71.251:9000/";
-        return BASE_URL + task.cover;
     }
 
     public String getTaskType() {

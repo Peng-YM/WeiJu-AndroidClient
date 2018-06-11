@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="258dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.coverUrl}"
+                app:imageUrl="@{viewModel.task.cover}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

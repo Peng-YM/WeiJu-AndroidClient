@@ -49,6 +49,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             case AlbumFile.TYPE_VIDEO: {
                 // TODO
+                return null;
             }
             default:
                 Logger.e("Not handle yet!");

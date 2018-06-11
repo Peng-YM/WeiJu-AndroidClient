@@ -67,25 +67,22 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         Logger.d("Email: %s, Password: %s", email.get(), password.get());
         if (awesomeValidation.validate()) {
             model.login(new Session(email.get(), password.get())).observe(this, resource -> {
+                showLoading();
                 if (resource != null) {
                     switch (resource.status) {
-                        case ERROR:
-                            String errorInfo = resource.message;
-                            showAlertDialog(getString(R.string.alert), errorInfo);
-                            hideLoading();
-                            break;
-                        case LOADING:
-                            showLoading();
-                            break;
                         case SUCCESS:
                             // save credential and go to main activity
                             saveCredential(resource.data);
-                            Logger.d("Credential: %s", resource.data);
                             MainActivity.start(this);
                             hideLoading();
                             finish();
                             break;
-                        default:
+                        case ERROR:
+                            String errorInfo = resource.message;
+                            showAlertDialog(getString(R.string.error), errorInfo);
+                            hideLoading();
+                            break;
+                        case LOADING:
                             break;
                     }
                 }

@@ -37,12 +37,6 @@ public class TaskItemViewModel extends ViewModel {
                 .into(imageView);
     }
 
-    public String getCoverUrl() {
-        // TODO: change base url
-        String BASE_URL = "http://69.171.71.251:9000/";
-        return BASE_URL + task.cover;
-    }
-
     public String getTaskType() {
         switch (task.type) {
             case ANNOTATION:
