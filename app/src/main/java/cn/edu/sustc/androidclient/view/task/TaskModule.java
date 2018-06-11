@@ -6,14 +6,15 @@ import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskViewModel;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskViewModel;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishViewModel;
+import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailViewModel;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class TaskModule {
     @Provides
-    TaskViewModel provideTaskViewModel(MyDataBase dataBase) {
-        return new TaskViewModel(dataBase);
+    TaskDetailViewModel provideTaskViewModel(MyDataBase dataBase) {
+        return new TaskDetailViewModel(dataBase);
     }
 
     @Provides

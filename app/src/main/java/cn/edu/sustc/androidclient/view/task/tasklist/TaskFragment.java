@@ -58,17 +58,17 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
 
     public void fetchTasks() {
         fragmentViewModel.getTasks(taskAdapter).observe(this, resource -> {
-            getBaseActivity().showLoading();
             switch (resource.status) {
                 case SUCCESS:
-                    getBaseActivity().hideLoading();
                     if (fragmentBinding.swipeRefreshLayout.isRefreshing()) {
                         fragmentBinding.swipeRefreshLayout.setRefreshing(false);
                     }
                     break;
                 case ERROR:
-                    getBaseActivity().hideLoading();
-                    getBaseActivity().showAlertDialog(getString(R.string.alert), resource.message);
+                    if (fragmentBinding.swipeRefreshLayout.isRefreshing()) {
+                        fragmentBinding.swipeRefreshLayout.setRefreshing(false);
+                    }
+                    getBaseActivity().showAlertDialog(getString(R.string.error), resource.message);
                     break;
                 case LOADING:
                     break;

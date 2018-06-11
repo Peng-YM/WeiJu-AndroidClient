@@ -114,14 +114,14 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         int id = item.getItemId();
         switch (id){
             case R.id.annotation_next:
-                Logger.d("Annotate next picture");
+                Logger.v("Annotate next picture");
                 if (currentIdx < paths.size() - 1)
                     annotateImage(++currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
                 break;
             case R.id.annotation_prev:
-                Logger.d("Annotate previous picture");
+                Logger.v("Annotate previous picture");
                 if (currentIdx > 0)
                     annotateImage(--currentIdx);
                 else

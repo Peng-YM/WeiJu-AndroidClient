@@ -1,21 +1,21 @@
-package cn.edu.sustc.androidclient.view.task.tasklist;
+package cn.edu.sustc.androidclient.view.task.taskdetail;
 
-import android.view.View;
+import javax.inject.Inject;
 
-import com.orhanobut.logger.Logger;
-
+import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
-import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.ANNOTATION;
 import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
-public class TaskItemViewModel extends BaseViewModel {
+public class TaskDetailViewModel extends BaseViewModel {
     public Task task;
+    private MyDataBase dataBase;
 
-    public TaskItemViewModel(Task task) {
-        this.task = task;
+    @Inject
+    public TaskDetailViewModel(MyDataBase dataBase) {
+        this.dataBase = dataBase;
     }
 
     public String getTaskType() {
@@ -29,8 +29,7 @@ public class TaskItemViewModel extends BaseViewModel {
         }
     }
 
-    public void onClick(View view) {
-        Logger.json(task.toString());
-        TaskDetailActivity.start(view.getContext(), task);
+    public void setTask(Task task) {
+        this.task = task;
     }
 }

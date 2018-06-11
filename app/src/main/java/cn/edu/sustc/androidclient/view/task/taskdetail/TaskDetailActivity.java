@@ -11,14 +11,13 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
-import cn.edu.sustc.androidclient.view.task.TaskViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTaskDetailBinding> {
+public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, ActivityTaskDetailBinding> {
     public CompositeDisposable disposables;
     // injected modules
     @Inject
-    TaskViewModel viewModel;
+    TaskDetailViewModel viewModel;
     private ActivityTaskDetailBinding binding;
     private Task task;
 
@@ -38,9 +37,11 @@ public class TaskDetailActivity extends BaseActivity<TaskViewModel, ActivityTask
         viewModel.setTask(task);
 
         binding.setViewModel(viewModel);
-        //TODO: change to task description!
-        binding.taskDescriptions.loadUrl("file:///android_asset/about.html");
+        // show task description in web view
+        binding.taskDescriptions
+                .loadData(task.description, "text/html; charset=utf-8", "UTF-8");
         binding.takeTaskBtn.setOnClickListener(view -> {
+
         });
     }
 
