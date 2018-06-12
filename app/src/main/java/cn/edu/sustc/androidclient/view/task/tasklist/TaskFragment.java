@@ -59,7 +59,6 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
     }
 
     public void fetchTasks() {
-        Logger.d("Fetching Task");
         fragmentViewModel.getTasks(taskAdapter).observe(this, resource -> {
             switch (resource.status) {
                 case SUCCESS:

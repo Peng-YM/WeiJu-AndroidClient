@@ -9,7 +9,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragment;
 
 public class CustomPagerAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 2;
+    private static int NUM_ITEMS = 3;
     private Application context;
 
     public CustomPagerAdapter(Application context, FragmentManager fragmentManager){
@@ -32,8 +32,10 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             default:
             case 0:
-                return context.getString(R.string.processing_task);
+                return context.getString(R.string.my_all_tasks);
             case 1:
+                return context.getString(R.string.processing_task);
+            case 2:
                 return context.getString(R.string.finished_task);
         }
     }

@@ -20,8 +20,8 @@ public interface TransactionDao {
     @Update
     void updateTransaction(Transaction transaction);
 
-    @Delete
-    void deleteTransaction(Transaction transaction);
+    @Query("SELECT * FROM `Transaction` WHERE transactionId == :transactionId")
+    Transaction findById(int transactionId);
 
     /**
      * find all transaction of a user
@@ -37,5 +37,5 @@ public interface TransactionDao {
     Single<Transaction> findTransactionById(int transactionId);
 
     @Query("SELECT * FROM `Transaction` WHERE userId == :userId AND taskId == :taskId")
-    Single<Transaction> findUnfinishedTask(int userId, int taskId);
+    Transaction findUnfinishedTask(int userId, int taskId);
 }

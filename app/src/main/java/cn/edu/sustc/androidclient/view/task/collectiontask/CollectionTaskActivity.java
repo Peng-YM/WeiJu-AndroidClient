@@ -21,6 +21,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.utils.ScreenUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel, ActivityCollectionTaskBinding> {
@@ -29,13 +30,15 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
 
     private ActivityCollectionTaskBinding binding;
     private Task task;
+    private Transaction transaction;
 
     private AlbumAdapter adapter;
     private ArrayList<AlbumFile> albumFiles;
 
-    public static void start(Context context, Task task) {
+    public static void start(Context context, Task task, Transaction transaction) {
         Intent intent = new Intent(context, CollectionTaskActivity.class);
         intent.putExtra("task", task);
+        intent.putExtra("transaction", transaction);
         context.startActivity(intent);
     }
 
@@ -44,7 +47,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         super.onCreate(savedInstanceState);
         binding = getBinding();
         this.task = (Task) getIntent().getSerializableExtra("task");
-
+        this.transaction = (Transaction) getIntent().getSerializableExtra("transaction");
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -59,6 +62,9 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
                             break;
                         case SUCCESS:
                             binding.commitBtn.setText(getString(R.string.commit_success));
+                            showAlertDialog(getString(R.string.info), getString(R.string.commit_success));
+                            viewModel.commit(transaction.transactionId);
+                            finish();
                             break;
                         case ERROR:
                             showAlertDialog(getString(R.string.alert), resource.message);

@@ -45,7 +45,7 @@ public class TaskDetailViewModel extends BaseViewModel {
         return taskRepository.applyTask(info);
     }
 
-    public boolean hasUnfinshedTransaction(){
+    public Transaction hasUnfinishedTransaction(){
         return taskRepository.hasUnfinishedTransaction(task.taskId);
     }
 }

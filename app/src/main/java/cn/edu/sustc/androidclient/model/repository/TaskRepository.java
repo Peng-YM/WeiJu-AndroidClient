@@ -15,7 +15,6 @@ import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.model.data.TaskImage;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
@@ -23,6 +22,8 @@ import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+
+import static cn.edu.sustc.androidclient.model.data.Transaction.TransactionStatus.FINISHED;
 
 public class TaskRepository{
     // injected module
@@ -88,8 +89,15 @@ public class TaskRepository{
         return transaction;
     }
 
-    public boolean hasUnfinishedTransaction(int taskId){
-        int userId = preferences.getInt("user_id", 0);
-        return dataBase.transactionDao().findUnfinishedTask(userId, taskId) != null;
+    public Transaction hasUnfinishedTransaction(int taskId){
+        int userId = preferences.getInt("id", 0);
+        Logger.d("taskId: %s, userId: %s", taskId, userId);
+        return dataBase.transactionDao().findUnfinishedTask(userId, taskId);
+    }
+
+    public void finishTask(int transactionId) {
+        Transaction transaction = dataBase.transactionDao().findById(transactionId);
+        transaction.status = FINISHED;
+        dataBase.transactionDao().updateTransaction(transaction);
     }
 }

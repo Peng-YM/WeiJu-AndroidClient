@@ -72,4 +72,8 @@ public class CollectionTaskViewModel extends BaseViewModel {
         }
         return progress;
     }
+
+    public void commit(int transactionId){
+        taskRepository.finishTask(transactionId);
+    }
 }

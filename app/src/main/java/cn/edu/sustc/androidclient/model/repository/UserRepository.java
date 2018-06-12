@@ -102,7 +102,6 @@ public class UserRepository{
     }
 
     public MutableLiveData<MyResource<User>> getUserProfile(int id) {
-        Logger.d("Get User profile");
         userProfile = new MutableLiveData<>();
         MyResource<User> resource = MyResource.loading(null);
         userProfile.postValue(resource);

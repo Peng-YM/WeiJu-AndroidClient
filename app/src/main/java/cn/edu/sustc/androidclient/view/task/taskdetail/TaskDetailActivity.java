@@ -2,17 +2,15 @@ package cn.edu.sustc.androidclient.view.task.taskdetail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import io.reactivex.disposables.CompositeDisposable;
@@ -52,14 +50,15 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
 
     private void setButton(){
         // if task is not finished, enter task page
-        if (viewModel.hasUnfinshedTransaction()){
+        Transaction transaction = viewModel.hasUnfinishedTransaction();
+        if (transaction != null){
             binding.takeTaskBtn.setText(getString(R.string.enter_task));
             binding.takeTaskBtn.setOnClickListener(view -> {
                 switch (task.type){
                     case Task.TaskType.ANNOTATION:
                         break;
                     case Task.TaskType.COLLECTION:
-                        CollectionTaskActivity.start(this, task);
+                        CollectionTaskActivity.start(this, task, transaction);
                         break;
                 }
             });
@@ -73,6 +72,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
                         case SUCCESS:
                             hideLoading();
                             showAlertDialog(getString(R.string.info), getString(R.string.apply_success));
+                            setButton();
                             break;
                         case ERROR:
                             hideLoading();
@@ -82,6 +82,10 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
                 });
             });
         }
+    }
+
+    private void enterTask(){
+
     }
 
     @Override

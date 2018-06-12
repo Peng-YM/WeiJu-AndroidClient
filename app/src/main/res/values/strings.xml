@@ -50,6 +50,7 @@
     <string name="enter_task">进入任务</string>
 
     <!--我的任务-->
+    <string name="my_all_tasks">所有</string>
     <string name="finished_task">已完成</string>
     <string name="processing_task">进行中</string>
 
