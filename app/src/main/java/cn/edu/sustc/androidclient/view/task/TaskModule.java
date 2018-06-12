@@ -19,8 +19,8 @@ import dagger.Provides;
 @Module
 public class TaskModule {
     @Provides
-    TaskDetailViewModel provideTaskViewModel(MyDataBase dataBase, TaskRepository taskRepository, SharedPreferences sharedPreferences) {
-        return new TaskDetailViewModel(dataBase, taskRepository, sharedPreferences);
+    TaskDetailViewModel provideTaskViewModel(TaskRepository taskRepository, SharedPreferences sharedPreferences) {
+        return new TaskDetailViewModel(taskRepository, sharedPreferences);
     }
 
     @Provides
