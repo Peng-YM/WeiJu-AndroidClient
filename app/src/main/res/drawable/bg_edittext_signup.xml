@@ -3,7 +3,7 @@
 
     <!-- 这里的样式是注册页面里的 edit text 的边框线、圆角、颜色类型的指定 -->
     <solid android:color="#F8F8FA" />
-    <corners android:radius="29dip" />
+    <corners android:radius="24dip" />
     <stroke android:color="#EAEAF2"
             android:width="1dip" />
 
