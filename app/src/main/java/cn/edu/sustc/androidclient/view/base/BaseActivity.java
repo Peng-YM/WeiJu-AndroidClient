@@ -9,6 +9,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import cn.edu.sustc.androidclient.common.utils.ActivityUtils;
 import cn.edu.sustc.androidclient.common.utils.CommonUtils;
 import cn.edu.sustc.androidclient.common.utils.NetworkUtils;
 import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
 
 /**
  * Base class for all activities:
@@ -73,7 +75,6 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
 
     protected abstract @LayoutRes
     int getLayoutResId();
-
 
     public void showAlertDialog(String title, String message) {
         dialog = new AlertDialog.Builder(this)

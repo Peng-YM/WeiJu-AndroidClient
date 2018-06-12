@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.di.builder;
 import cn.edu.sustc.androidclient.view.authentication.AuthenticationModule;
 import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.authentication.RegistrationActivity;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 import cn.edu.sustc.androidclient.view.main.MainModule;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
@@ -13,6 +14,7 @@ import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivit
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailActivity;
 import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragmentProvider;
+import cn.edu.sustc.androidclient.view.task.taskmanager.TaskManagerActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -57,4 +59,9 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(
             modules = {MainModule.class})
     abstract UserProfileActivity bindUserProfileActivity();
+
+    @ContributesAndroidInjector(
+            modules = {TaskModule.class, TaskFragmentProvider.class}
+    )
+    abstract TaskManagerActivity bindTaskManagerActivity();
 }
