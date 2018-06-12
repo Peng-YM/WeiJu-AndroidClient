@@ -19,11 +19,6 @@
             android:title="@string/exchange" />
 
         <item
-            android:id="@+id/gallery"
-            android:icon="@drawable/ic_gallery"
-            android:title="图库" />
-
-        <item
             android:id="@+id/nav_publish"
             android:icon="@drawable/ic_publish"
             android:title="@string/publish_task" />

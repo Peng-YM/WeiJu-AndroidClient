@@ -182,13 +182,9 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_all_task:
-                AnnotationTaskActivity.start(this);
                 break;
             case R.id.nav_my_task:
                 TaskManagerActivity.start(this);
-                break;
-            case R.id.gallery:
-                CollectionTaskActivity.start(this, null);
                 break;
             case R.id.nav_about:
                 AboutActivity.start(this);
