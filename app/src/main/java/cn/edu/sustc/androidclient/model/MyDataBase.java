@@ -5,17 +5,16 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
 import cn.edu.sustc.androidclient.model.converters.AnnotationTagListConverter;
+import cn.edu.sustc.androidclient.model.converters.StringListConverter;
 import cn.edu.sustc.androidclient.model.converters.TaskFormatterConverter;
 import cn.edu.sustc.androidclient.model.dao.AnnotationCommitDao;
-import cn.edu.sustc.androidclient.model.dao.TaskImageDao;
 import cn.edu.sustc.androidclient.model.dao.CredentialDao;
-import cn.edu.sustc.androidclient.model.dao.TaskDao;
+import cn.edu.sustc.androidclient.model.dao.TaskImageDao;
 import cn.edu.sustc.androidclient.model.dao.TransactionDao;
 import cn.edu.sustc.androidclient.model.dao.UserDao;
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
-import cn.edu.sustc.androidclient.model.data.TaskImage;
 import cn.edu.sustc.androidclient.model.data.Credential;
-import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.TaskImage;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.User;
 
@@ -23,7 +22,6 @@ import cn.edu.sustc.androidclient.model.data.User;
         entities = {
                 User.class,
                 Transaction.class,
-                Task.class,
                 Credential.class,
                 TaskImage.class,
                 AnnotationCommits.class
@@ -31,16 +29,15 @@ import cn.edu.sustc.androidclient.model.data.User;
         version = 1, exportSchema = false)
 @TypeConverters({
         TaskFormatterConverter.class,
-        AnnotationTagListConverter.class
+        AnnotationTagListConverter.class,
+        StringListConverter.class
 })
 public abstract class MyDataBase extends RoomDatabase {
     public abstract AnnotationCommitDao annotationCommitDao();
 
-    public abstract TaskImageDao collectedImageDao();
+    public abstract TaskImageDao taskImageDao();
 
     public abstract CredentialDao credentialDao();
-
-    public abstract TaskDao taskDao();
 
     public abstract TransactionDao transactionDao();
 

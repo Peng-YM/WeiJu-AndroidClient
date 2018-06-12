@@ -2,8 +2,6 @@ package cn.edu.sustc.androidclient.model.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -11,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity(
         foreignKeys = {
@@ -19,15 +16,12 @@ import java.util.UUID;
                         parentColumns = "userId",
                         childColumns = "userId"
                 )
-        },
-        indices = {
-                @Index(value = {"userId"}, unique = true)
         }
 )
 public class User implements Serializable {
     @SerializedName("user_id")
-    @PrimaryKey
     @NonNull
+    @PrimaryKey
     public int userId;
     public String username;
     public String email;

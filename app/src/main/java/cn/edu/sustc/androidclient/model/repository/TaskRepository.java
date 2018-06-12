@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.model.repository;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
@@ -15,6 +14,7 @@ import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.TaskImage;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
@@ -22,7 +22,6 @@ import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class TaskRepository{
     // injected module
@@ -55,6 +54,7 @@ public class TaskRepository{
         MyResource<Transaction> resource = MyResource.loading(null);
         transaction.postValue(resource);
         taskService.applyTask(new MyRequest<>(info))
+                .subscribeOn(schedulerProvider.newThread())
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<Transaction>>() {
@@ -65,8 +65,11 @@ public class TaskRepository{
 
                     @Override
                     public void onSuccess(MyResponse<Transaction> response) {
+                        response.data.userId = info.userId;
                         MyResource<Transaction> resource = MyResource.success(response.data);
                         transaction.postValue(resource);
+                        dataBase.transactionDao()
+                                .addTransaction(response.data);
                     }
 
                     @Override
@@ -78,10 +81,5 @@ public class TaskRepository{
                     }
                 });
         return transaction;
-    }
-
-    // save transaction into database
-    public LiveData<MyResource> saveTransaction(Transaction transaction){
-        return null;
     }
 }

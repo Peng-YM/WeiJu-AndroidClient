@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
@@ -18,13 +17,11 @@ import static cn.edu.sustc.androidclient.model.data.Task.TaskType.COLLECTION;
 
 public class TaskDetailViewModel extends BaseViewModel {
     public Task task;
-    private MyDataBase dataBase;
     private TaskRepository taskRepository;
     private SharedPreferences sharedPreferences;
 
     @Inject
-    public TaskDetailViewModel(MyDataBase dataBase, TaskRepository taskRepository, SharedPreferences sharedPreferences) {
-        this.dataBase = dataBase;
+    public TaskDetailViewModel(TaskRepository taskRepository, SharedPreferences sharedPreferences) {
         this.taskRepository = taskRepository;
         this.sharedPreferences = sharedPreferences;
     }

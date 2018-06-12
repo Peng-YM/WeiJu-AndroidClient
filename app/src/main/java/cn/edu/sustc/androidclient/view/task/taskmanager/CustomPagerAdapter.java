@@ -1,50 +1,40 @@
 package cn.edu.sustc.androidclient.view.task.taskmanager;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.app.Application;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
-public class CustomPagerAdapter extends PagerAdapter {
-    private Context context;
+import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragment;
 
-    public CustomPagerAdapter(Context context) {
+public class CustomPagerAdapter extends FragmentPagerAdapter {
+    private static int NUM_ITEMS = 2;
+    private Application context;
+
+    public CustomPagerAdapter(Application context, FragmentManager fragmentManager){
+        super(fragmentManager);
         this.context = context;
     }
 
-    @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Pages page = Pages.values()[position];
-        LayoutInflater inflater = LayoutInflater.from(context);
-        ViewGroup layout = (ViewGroup)
-                inflater.inflate(page.getLayoutId(), container, false);
-        container.addView(layout);
-        return layout;
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+    public Fragment getItem(int position) {
+        return TaskFragment.getInstance();
     }
 
     @Override
     public int getCount() {
-        return Pages.values().length;
+        return NUM_ITEMS;
     }
 
     @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        Pages page = Pages.values()[position];
-        return context.getString(page.getTitleId());
+    public CharSequence getPageTitle(int position){
+        switch (position){
+            default:
+            case 0:
+                return context.getString(R.string.processing_task);
+            case 1:
+                return context.getString(R.string.finished_task);
+        }
     }
 }

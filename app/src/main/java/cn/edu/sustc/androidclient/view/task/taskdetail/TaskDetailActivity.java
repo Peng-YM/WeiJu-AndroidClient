@@ -22,7 +22,6 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
     @Inject
     TaskDetailViewModel viewModel;
 
-
     private ActivityTaskDetailBinding binding;
     private Task task;
 
@@ -55,6 +54,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
                         break;
                     case SUCCESS:
                         hideLoading();
+                        showAlertDialog(getString(R.string.info), getString(R.string.apply_success));
                         break;
                     case ERROR:
                         hideLoading();

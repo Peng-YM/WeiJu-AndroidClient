@@ -60,6 +60,7 @@ public class UserRepository{
                     public void onSuccess(MyResponse<Credential> response) {
                         MyResource<Credential> resource = MyResource.success(response.data);
                         credential.postValue(resource);
+                        dataBase.credentialDao().addCredential(response.data);
                     }
 
                     @Override
@@ -101,12 +102,13 @@ public class UserRepository{
     }
 
     public MutableLiveData<MyResource<User>> getUserProfile(int id) {
+        Logger.d("Get User profile");
         userProfile = new MutableLiveData<>();
         MyResource<User> resource = MyResource.loading(null);
         userProfile.postValue(resource);
         userService.getProfile(id)
-                .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe(new SingleObserver<MyResponse<User>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -117,6 +119,7 @@ public class UserRepository{
                     public void onSuccess(MyResponse<User> response) {
                         MyResource<User> resource = MyResource.success(response.data);
                         userProfile.postValue(resource);
+                        dataBase.userDao().addUser(response.data);
                     }
 
                     @Override
@@ -143,7 +146,6 @@ public class UserRepository{
                         MyResource<User> resource = MyResource.success(response.data);
                         userProfile.postValue(resource);
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         MyResource<User> resource = MyResource.error("Cannot update profile", null);

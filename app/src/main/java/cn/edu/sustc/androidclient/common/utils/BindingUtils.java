@@ -13,7 +13,7 @@ import cn.edu.sustc.androidclient.R;
 public final class BindingUtils {
     private BindingUtils(){}
 
-    @BindingAdapter({"myApp:imageUrl"})
+    @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
         Logger.v("Fetch Image from url: %s", url);
         RequestOptions options = new RequestOptions()

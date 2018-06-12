@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.view.task;
 
+import android.app.Application;
 import android.content.SharedPreferences;
 
 import cn.edu.sustc.androidclient.model.MyDataBase;
@@ -9,14 +10,17 @@ import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskViewMod
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskViewModel;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishViewModel;
 import cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailViewModel;
+import cn.edu.sustc.androidclient.view.task.taskmanager.CustomPagerAdapter;
+import cn.edu.sustc.androidclient.view.task.taskmanager.TaskManagerActivity;
+import cn.edu.sustc.androidclient.view.task.taskmanager.TaskManagerViewModel;
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class TaskModule {
     @Provides
-    TaskDetailViewModel provideTaskViewModel(MyDataBase dataBase, TaskRepository taskRepository, SharedPreferences sharedPreferences) {
-        return new TaskDetailViewModel(dataBase, taskRepository, sharedPreferences);
+    TaskDetailViewModel provideTaskViewModel(TaskRepository taskRepository, SharedPreferences sharedPreferences) {
+        return new TaskDetailViewModel(taskRepository, sharedPreferences);
     }
 
     @Provides
@@ -32,5 +36,15 @@ public class TaskModule {
     @Provides
     TaskPublishViewModel provideTaskPublishViewModel() {
         return new TaskPublishViewModel();
+    }
+
+    @Provides
+    TaskManagerViewModel provideTaskManagerViewModel(MyDataBase myDataBase, TaskRepository taskRepository){
+        return new TaskManagerViewModel(myDataBase, taskRepository);
+    }
+
+    @Provides
+    CustomPagerAdapter provideCustomPagerAdapter(Application application, TaskManagerActivity taskManagerActivity){
+        return new CustomPagerAdapter(application, taskManagerActivity.getSupportFragmentManager());
     }
 }

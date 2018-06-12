@@ -7,6 +7,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
+
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
@@ -57,6 +59,7 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
     }
 
     public void fetchTasks() {
+        Logger.d("Fetching Task");
         fragmentViewModel.getTasks(taskAdapter).observe(this, resource -> {
             switch (resource.status) {
                 case SUCCESS:
