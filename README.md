@@ -1,5 +1,6 @@
 # 微聚
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CodeFactor](https://www.codefactor.io/repository/github/peng-ym/androidclient/badge)](https://www.codefactor.io/repository/github/peng-ym/androidclient)
 ![](https://tokei.rs/b1/github/Peng-YM/AndroidClient)
 ![](https://tokei.rs/b1/github/Peng-YM/AndroidClient?category=files)
 [![CircleCI](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master.svg?style=svg&circle-token=5b83b358dafd7082f76eeb2de4412045b3832b46)](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master)
