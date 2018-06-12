@@ -48,7 +48,7 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         RecyclerView recyclerView = binding.albumView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
-//        binding.taskTitleTv.setText(task.title);
+        binding.taskTitleTv.setText(task.name);
         binding.fab.setOnClickListener(view -> selectAlbum());
         binding.commitBtn.setOnClickListener(view -> {
             if (albumFiles != null) {

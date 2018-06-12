@@ -39,8 +39,8 @@ public class TaskModule {
     }
 
     @Provides
-    TaskManagerViewModel provideTaskManagerViewModel(MyDataBase myDataBase, TaskRepository taskRepository){
-        return new TaskManagerViewModel(myDataBase, taskRepository);
+    TaskManagerViewModel provideTaskManagerViewModel(TaskRepository taskRepository){
+        return new TaskManagerViewModel(taskRepository);
     }
 
     @Provides

@@ -47,6 +47,7 @@
     <string name="get_task">领取任务</string>
     <string name="apply_success">领取成功</string>
     <string name="apply_error">领取失败</string>
+    <string name="enter_task">进入任务</string>
 
     <!--我的任务-->
     <string name="finished_task">已完成</string>

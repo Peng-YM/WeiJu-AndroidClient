@@ -31,8 +31,11 @@ public interface TransactionDao {
      * @return a list of transactions
      */
     @Query("SELECT * FROM `Transaction` WHERE userId == :userId")
-    Flowable<List<Transaction>> findAllTransactions(String userId);
+    Flowable<List<Transaction>> findAllTransactions(int userId);
 
     @Query("SELECT * FROM `Transaction` WHERE transactionId == :transactionId")
-    Single<Transaction> findTransactionById(String transactionId);
+    Single<Transaction> findTransactionById(int transactionId);
+
+    @Query("SELECT * FROM `Transaction` WHERE userId == :userId AND taskId == :taskId")
+    Single<Transaction> findUnfinishedTask(int userId, int taskId);
 }

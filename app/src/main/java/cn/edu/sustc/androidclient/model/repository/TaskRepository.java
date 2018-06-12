@@ -2,6 +2,7 @@ package cn.edu.sustc.androidclient.model.repository;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.orhanobut.logger.Logger;
 
@@ -25,6 +26,7 @@ import io.reactivex.disposables.Disposable;
 
 public class TaskRepository{
     // injected module
+    private SharedPreferences preferences;
     private TaskService taskService;
     private AppSchedulerProvider schedulerProvider;
     private MyDataBase dataBase;
@@ -33,7 +35,10 @@ public class TaskRepository{
     private CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
-    public TaskRepository(TaskService taskService, AppSchedulerProvider schedulerProvider, MyDataBase dataBase, Context context) {
+    public TaskRepository(SharedPreferences preferences,
+            TaskService taskService, AppSchedulerProvider schedulerProvider,
+            MyDataBase dataBase, Context context) {
+        this.preferences = preferences;
         this.taskService = taskService;
         this.schedulerProvider = schedulerProvider;
         this.dataBase = dataBase;
@@ -81,5 +86,10 @@ public class TaskRepository{
                     }
                 });
         return transaction;
+    }
+
+    public boolean hasUnfinishedTransaction(int taskId){
+        int userId = preferences.getInt("user_id", 0);
+        return dataBase.transactionDao().findUnfinishedTask(userId, taskId) != null;
     }
 }

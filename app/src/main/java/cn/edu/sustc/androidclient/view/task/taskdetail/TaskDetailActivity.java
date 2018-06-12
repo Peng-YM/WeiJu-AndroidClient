@@ -14,6 +14,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, ActivityTaskDetailBinding> {
@@ -46,23 +47,41 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
         binding.taskDescriptions
                 .loadDataWithBaseURL(null, task.description,
                         "text/html; charset=utf-8", "UTF-8", null);
-        binding.takeTaskBtn.setOnClickListener(view -> {
-            viewModel.applyTask().observe(this, resource -> {
-                showLoading();
-                switch (resource.status){
-                    case LOADING:
+        setButton();
+    }
+
+    private void setButton(){
+        // if task is not finished, enter task page
+        if (viewModel.hasUnfinshedTransaction()){
+            binding.takeTaskBtn.setText(getString(R.string.enter_task));
+            binding.takeTaskBtn.setOnClickListener(view -> {
+                switch (task.type){
+                    case Task.TaskType.ANNOTATION:
                         break;
-                    case SUCCESS:
-                        hideLoading();
-                        showAlertDialog(getString(R.string.info), getString(R.string.apply_success));
-                        break;
-                    case ERROR:
-                        hideLoading();
-                        showAlertDialog(getString(R.string.error), resource.message);
+                    case Task.TaskType.COLLECTION:
+                        CollectionTaskActivity.start(this, task);
                         break;
                 }
             });
-        });
+        }else {
+            binding.takeTaskBtn.setOnClickListener(view -> {
+                viewModel.applyTask().observe(this, resource -> {
+                    showLoading();
+                    switch (resource.status) {
+                        case LOADING:
+                            break;
+                        case SUCCESS:
+                            hideLoading();
+                            showAlertDialog(getString(R.string.info), getString(R.string.apply_success));
+                            break;
+                        case ERROR:
+                            hideLoading();
+                            showAlertDialog(getString(R.string.error), resource.message);
+                            break;
+                    }
+                });
+            });
+        }
     }
 
     @Override
