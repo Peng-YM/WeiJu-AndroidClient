@@ -1,7 +1,8 @@
 # 微聚
-[![CircleCI](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master.svg?style=svg&circle-token=5b83b358dafd7082f76eeb2de4412045b3832b46)](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![](https://tokei.rs/b1/github/Peng-YM/AndroidClient)
 ![](https://tokei.rs/b1/github/Peng-YM/AndroidClient?category=files)
+[![CircleCI](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master.svg?style=svg&circle-token=5b83b358dafd7082f76eeb2de4412045b3832b46)](https://circleci.com/gh/Peng-YM/AndroidClient/tree/master)
 --------
 ![logo](logo.png)
 
@@ -36,5 +37,4 @@
 - [Material Dialogs](https://github.com/afollestad/material-dialogs)
 
 ## 许可证
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可
+GPL v3.0
