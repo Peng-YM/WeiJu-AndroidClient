@@ -8,7 +8,6 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.LogStrategy;
 import com.orhanobut.logger.Logger;
@@ -16,9 +15,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 import javax.inject.Inject;
 
-import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.di.component.DaggerMyAppComponent;
-import cn.edu.sustc.androidclient.model.data.Task;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 

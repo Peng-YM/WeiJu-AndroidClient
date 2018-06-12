@@ -55,6 +55,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
                         break;
                     case SUCCESS:
                         hideLoading();
+
                         break;
                     case ERROR:
                         hideLoading();

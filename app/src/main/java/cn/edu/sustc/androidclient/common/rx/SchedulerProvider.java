@@ -6,4 +6,6 @@ public interface SchedulerProvider {
     Scheduler ui();
 
     Scheduler io();
+
+    Scheduler newThread();
 }

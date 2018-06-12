@@ -1,10 +1,5 @@
 package cn.edu.sustc.androidclient.model.data;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,15 +8,8 @@ import java.util.List;
 
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 
-@Entity(
-        indices = {
-                @Index(value = {"taskId"}, unique = true)
-        }
-)
 public class Task implements Serializable {
     @SerializedName("id")
-    @PrimaryKey
-    @NonNull
     public int taskId;
     public String name;
 
@@ -44,8 +32,8 @@ public class Task implements Serializable {
     }
 
     public static class TaskType {
-        public final static int COLLECTION = 0;
-        public final static int ANNOTATION = 1;
+        public final static int COLLECTION = 1;
+        public final static int ANNOTATION = 0;
     }
 
     public static class TaskFormatter implements Serializable {

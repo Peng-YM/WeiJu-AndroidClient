@@ -15,4 +15,9 @@ public class AppSchedulerProvider implements SchedulerProvider {
     public Scheduler io() {
         return Schedulers.io();
     }
+
+    @Override
+    public Scheduler newThread() {
+        return Schedulers.newThread();
+    }
 }

@@ -8,7 +8,6 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -19,10 +18,6 @@ import java.util.List;
                 @ForeignKey(entity = User.class,
                         parentColumns = "userId",
                         childColumns = "userId"
-                ),
-                @ForeignKey(entity = Task.class,
-                        parentColumns = "taskId",
-                        childColumns = "taskId"
                 )
         }
 )
@@ -43,7 +38,6 @@ public class Transaction implements Serializable {
 
     public int status;
 
-    @Ignore
     public List<String> pictures;
 
     @Override

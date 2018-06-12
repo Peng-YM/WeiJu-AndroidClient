@@ -67,9 +67,10 @@ public class AppModule {
     @Singleton
     MyDataBase provideDataBase(Context appContext) {
         // don't allow main thread query
-        // .allowMainThreadQueries()
+
         return Room
                 .databaseBuilder(appContext, MyDataBase.class, DATABASE_NAME)
+                .allowMainThreadQueries()
                 .build();
     }
 }
