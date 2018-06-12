@@ -24,6 +24,7 @@
         tools:context=".view.authentication.LoginActivity">
 
         <!--login alert-->
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/info"
             android:layout_width="295dp"
@@ -61,8 +62,8 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/fore_loginCard"
-                android:layout_width="276dp"
-                android:layout_height="300dp"
+                android:layout_width="272dp"
+                android:layout_height="266dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="2dp"
@@ -83,7 +84,7 @@
                         android:layout_height="58dp"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="50dp"
-                        android:background="@color/album_WhiteGray"
+                        android:background="#F8F8FA"
                         android:ems="10"
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
@@ -104,7 +105,7 @@
                         android:layout_width="210dp"
                         android:layout_height="58dp"
                         android:layout_marginTop="128dp"
-                        android:background="@color/album_WhiteGray"
+                        android:background="#F8F8FA"
                         android:ems="10"
                         android:hint="@string/prompt_password"
                         android:inputType="textPassword"
@@ -135,13 +136,14 @@
             </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
 
+        <!--登录按钮-->
         <android.support.v7.widget.CardView
             android:id="@+id/login_btn"
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:layout_marginTop="280dp"
             android:onClick="@{loginActivity::login}"
-            app:cardBackgroundColor="@color/colorAccent"
+            app:cardBackgroundColor="@color/button_loginPage"
             app:cardCornerRadius="25dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -163,6 +165,22 @@
                     android:textSize="15sp" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
+
+        <!--去往注册的按钮-->
+        <!--"#80FFFFFF"指的50%的白色-->
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/action_sign_up"
+            android:textColor="#80FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

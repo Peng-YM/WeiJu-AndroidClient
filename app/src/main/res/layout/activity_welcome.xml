@@ -55,6 +55,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 
+        <!--开始界面的登录按钮，android:layout_weight 好像是没有用的-->
         <Button
             android:id="@+id/button_login"
             android:layout_width="120dp"
@@ -64,6 +65,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
+
             android:background="@drawable/shape_button_selector"
             android:text="@string/action_login"
             android:textAlignment="center"
@@ -84,7 +86,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_weight="1"
+
             android:background="@drawable/shape_button_selector"
             android:text="@string/action_sign_up"
             android:textAlignment="center"

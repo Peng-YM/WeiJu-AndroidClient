@@ -53,6 +53,8 @@ public class UserProfileActivity extends BaseActivity<MainViewModel, ActivityUse
         expandedLayout = new ConstraintSet();
         constraintLayout = findViewById(R.id.profile_layout);
 
+
+        //获取数据
         layout.clone(constraintLayout);
         expandedLayout.clone(this, R.layout.user_profile_expanded);
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {

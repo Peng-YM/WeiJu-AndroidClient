@@ -5,6 +5,12 @@
     <color name="colorAccent">#FF4081</color>
     <color name="blue_500">#FF2196F3</color>
 
+    <!-- 登录页面的登录按钮颜色 -->
+    <color name="button_loginPage">#4837BC</color>
+
+    <!-- 注册页面的注册按钮颜色 -->
+    <color name="button_signinPage">#FFFFFF</color>
+
 
     <!--用于表单未填写完时的按钮颜色-->
     <color name="button_before_fill_up_form">#FFFFFF</color>
