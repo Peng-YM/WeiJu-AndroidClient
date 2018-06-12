@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+
 import javax.inject.Singleton;
 
 import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
@@ -67,10 +70,18 @@ public class AppModule {
     @Singleton
     MyDataBase provideDataBase(Context appContext) {
         // don't allow main thread query
-
         return Room
                 .databaseBuilder(appContext, MyDataBase.class, DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build();
+    }
+
+    /**
+     * provide basic form validation
+     * @return validation
+     */
+    @Provides
+    AwesomeValidation provideValidation(){
+        return new AwesomeValidation(ValidationStyle.BASIC);
     }
 }

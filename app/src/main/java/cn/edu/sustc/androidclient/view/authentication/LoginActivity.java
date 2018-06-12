@@ -29,7 +29,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     LoginViewModel model;
     @Inject
     SharedPreferences preferences;
-    // validation
+    @Inject
     AwesomeValidation awesomeValidation;
 
     private ActivityLoginBinding binding;
@@ -55,9 +55,7 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
     private void initData() {
         email = new ObservableField<>();
         password = new ObservableField<>();
-
         // init validations
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(binding.loginEmail, Patterns.EMAIL_ADDRESS, getString(R.string.email_error));
         awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
     }
