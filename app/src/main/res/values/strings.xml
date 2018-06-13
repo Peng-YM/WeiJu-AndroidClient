@@ -72,11 +72,13 @@
     <string name="menu_undo">撤销</string>
     <string name="menu_redo">重做</string>
     <string name="menu_github">GitHub</string>
+    <string name="menu_finished">确认</string>
 
     <string name="dialog_title">插入链接</string>
     <string name="dialog_edit_hint">http(s)://</string>
     <string name="dialog_button_ok">确认</string>
     <string name="dialog_button_cancel">取消</string>
+    <string name="submit_permit">确认提交吗</string>
 
     <string name="toast_bold">加粗</string>
     <string name="toast_italic">斜体</string>

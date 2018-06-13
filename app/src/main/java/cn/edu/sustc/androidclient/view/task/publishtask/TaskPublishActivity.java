@@ -64,6 +64,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
         binding.publishButton.setOnClickListener(view -> publishTask());
         binding.taskCover.setOnClickListener(view -> Album.image(this)
                 .singleChoice()
+                .columnCount(3)
                 .camera(true)
                 .onResult((requestCode, result) -> {
                     // show selected image
