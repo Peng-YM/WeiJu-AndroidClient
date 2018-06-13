@@ -22,4 +22,7 @@ public interface TaskService {
     @POST("api/tasks/apply/")
     Single<MyResponse<Transaction>> applyTask(@Body MyRequest<TransactionInfo> info);
 
+    @POST("api/tasks/")
+    Single<MyResponse<Task>> createTask(@Body MyRequest<Task> newTask);
+
 }

@@ -3,7 +3,6 @@ package cn.edu.sustc.androidclient.view.task;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskViewModel;
@@ -34,8 +33,8 @@ public class TaskModule {
     }
 
     @Provides
-    TaskPublishViewModel provideTaskPublishViewModel() {
-        return new TaskPublishViewModel();
+    TaskPublishViewModel provideTaskPublishViewModel(TaskRepository taskRepository) {
+        return new TaskPublishViewModel(taskRepository);
     }
 
     @Provides

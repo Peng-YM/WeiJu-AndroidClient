@@ -6,9 +6,6 @@
             name="viewModel"
             type="cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishViewModel"/>
     </data>
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -39,7 +36,7 @@
                     android:gravity="center"
                     android:text="@string/task_name"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                    app:layout_constraintTop_toBottomOf="@+id/task_cover" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -48,10 +45,10 @@
                     android:gravity="center"
                     android:text="@string/task_size"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText" />
+                    app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/publish_button"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="16dp"
@@ -68,7 +65,7 @@
                 app:layout_constraintVertical_bias="0.909" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/task_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -82,7 +79,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/task_size"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -113,7 +110,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                    app:layout_constraintTop_toBottomOf="@+id/task_size" />
 
                 <Button
                     android:id="@+id/editor_button"
@@ -125,7 +122,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/task_cover"
                 android:layout_width="0dp"
                 android:layout_height="197dp"
                 android:layout_marginEnd="8dp"
@@ -137,5 +134,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView11"
                 app:srcCompat="@drawable/background_signup" />
         </android.support.constraint.ConstraintLayout>
-    <!--</ScrollView>-->
 </layout>
