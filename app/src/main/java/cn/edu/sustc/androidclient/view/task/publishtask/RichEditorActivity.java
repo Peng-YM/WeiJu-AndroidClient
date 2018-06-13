@@ -2,9 +2,9 @@ package cn.edu.sustc.androidclient.view.task.publishtask;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.scrat.app.richtext.RichEditText;
 
 import cn.edu.sustc.androidclient.R;
@@ -167,9 +168,9 @@ public class RichEditorActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(link)) {
                 return;
             }
-
-            // When RichEditText lose focus, use this method
-            taskEditor.link(link, start, end);
+            Logger.d("URL：" + link);
+            Uri uri = Uri.parse(link);
+            taskEditor.image(uri);
         });
 
         builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) -> {
@@ -210,7 +211,6 @@ public class RichEditorActivity extends AppCompatActivity {
             default:
                 break;
         }
-
         return true;
     }
 }
