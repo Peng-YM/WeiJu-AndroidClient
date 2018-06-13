@@ -32,7 +32,6 @@ public class TaskPublishViewModel extends BaseViewModel {
         return taskRepository.publishTask(task);
     }
 
-
     public LiveData<MyResource<String>> uploadCover(String imagePath) {
         MutableLiveData<MyResource<String>> urlLive = new MutableLiveData<>();
         urlLive.postValue(MyResource.loading(null));
