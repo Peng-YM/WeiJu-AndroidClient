@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
@@ -20,7 +22,6 @@ import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 
 public class CollectionTaskViewModel extends BaseViewModel {
-    private final static String FILE_URL = "http://206.189.35.98:12000/api/file/";
     private TaskRepository taskRepository;
     private FileRepository fileRepository;
 
@@ -29,7 +30,7 @@ public class CollectionTaskViewModel extends BaseViewModel {
         this.fileRepository = fileRepository;
     }
 
-    public MutableLiveData<MyResource<Float>> uploadImages(ArrayList<AlbumFile> albumFiles) {
+    public MutableLiveData<MyResource<Float>> uploadImages(ArrayList<AlbumFile> albumFiles, String URL) {
         MutableLiveData<MyResource<Float>> progress = new MutableLiveData<>();
         MyResource<Float> resource = MyResource.loading(0f);
         progress.postValue(resource);
@@ -68,12 +69,13 @@ public class CollectionTaskViewModel extends BaseViewModel {
                     e.printStackTrace();
                 }
             };
-            fileRepository.upload(FILE_URL, new File(file.getPath()), observer);
+            fileRepository.upload(URL, new File(file.getPath()), observer);
         }
         return progress;
     }
 
     public void commit(int transactionId){
+
         taskRepository.finishTask(transactionId);
     }
 }

@@ -76,7 +76,7 @@
 
     <!--采集任务页-->
     <string name="commit">提交</string>
-    <string name="alert_nothing_selected">未选择文件！</string>
+    <string name="alert_wrong_selection">你应该选择张%d图片</string>
     <string name="commit_success">上传成功</string>
 
     <!--标注任务页-->
