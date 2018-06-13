@@ -12,6 +12,7 @@ import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -59,6 +60,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
             binding.takeTaskBtn.setOnClickListener(view -> {
                 switch (task.type){
                     case Task.TaskType.ANNOTATION:
+                        AnnotationTaskActivity.start(this);
                         break;
                     case Task.TaskType.COLLECTION:
                         CollectionTaskActivity.start(this, task, transaction);

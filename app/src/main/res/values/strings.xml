@@ -56,6 +56,16 @@
 
     <!--任务发布页-->
     <string name="publish_task">发布任务</string>
+    <string name="task_name">任务名称</string>
+    <string name="task_type">任务类型</string>
+    <string name="task_size">任务数量</string>
+    <string name="task_start">开始时间</string>
+    <string name="task_end">截止时间</string>
+    <string name="task_cover">任务封面</string>
+    <string name="task_description">任务描述</string>
+    <string name="go_to_editor">前往编辑器</string>
+
+    <!--编辑器-->
     <string name="menu_undo">撤销</string>
     <string name="menu_redo">重做</string>
     <string name="menu_github">GitHub</string>
