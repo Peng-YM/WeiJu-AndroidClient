@@ -13,6 +13,7 @@ import com.yanzhenjie.album.AlbumFile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -30,6 +31,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
 
     private ActivityTaskPublishBinding binding;
     private Task task;
+    private static final int CODE = 2;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, TaskPublishActivity.class);
@@ -41,6 +43,9 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
         super.onCreate(savedInstanceState);
         binding = getBinding();
         this.task = new Task();
+        // default description is empty
+        task.description = "";
+
         setValidation();
         setWidget();
     }
@@ -48,6 +53,13 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_task_publish;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODE){
+            task.description = data.getStringExtra("HTML");
+        }
     }
 
     private void setValidation() {
@@ -60,7 +72,10 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
     }
 
     private void setWidget() {
-        binding.editorButton.setOnClickListener(view -> RichEditorActivity.start(this));
+        binding.editorButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RichEditorActivity.class);
+            startActivityForResult(intent, CODE);
+        });
         binding.publishButton.setOnClickListener(view -> publishTask());
         binding.taskCover.setOnClickListener(view -> Album.image(this)
                 .singleChoice()
@@ -93,8 +108,6 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
     private void publishTask(){
         if (validation.validate()) {
             task.name = binding.taskName.getText().toString();
-            // TODO: get description from activity
-            task.description = "";
             // TODO: task type
             task.type = 0;
             task.start = String.valueOf(new Date().getTime());

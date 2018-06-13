@@ -26,11 +26,6 @@ public class RichEditorActivity extends AppCompatActivity {
     private RichEditText taskEditor;
     private ActivityRichEditorBinding binding;
 
-    public static void start(Context context){
-        Intent intent = new Intent(context, RichEditorActivity.class);
-        context.startActivity(intent);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,7 +196,11 @@ public class RichEditorActivity extends AppCompatActivity {
                         .setTitle(R.string.info)
                         .setMessage(R.string.submit_permit)
                         .setPositiveButton(R.string.dialog_button_ok, (dialogInterface, i) -> {
-
+                            // return html back to task publish activity
+                            Intent intentHtml = new Intent();
+                            intentHtml.putExtra("HTML", taskEditor.toHtml());
+                            setResult(2, intentHtml);
+                            finish();
                         })
                         .setNegativeButton(R.string.dialog_button_cancel, ((dialogInterface, i) -> {
                             dialogInterface.cancel();
