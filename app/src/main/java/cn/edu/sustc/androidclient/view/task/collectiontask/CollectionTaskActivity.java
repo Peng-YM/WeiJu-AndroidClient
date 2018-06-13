@@ -93,9 +93,12 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
             binding.albumView.setAdapter(adapter);
         }
         Logger.d("Select Images from album");
-        Album.image(this)
+        Album.album(this)
                 .multipleChoice()
                 .columnCount(3)
+                .cameraVideoQuality(1) // Video quality, [0, 1].
+                .cameraVideoLimitDuration(Long.MAX_VALUE) // The longest duration of the video is in milliseconds.
+                .cameraVideoLimitBytes(Long.MAX_VALUE) // Maximum size of the video, in bytes.
                 .selectCount(transaction.size)
                 .camera(true)
                 .checkedList(albumFiles)

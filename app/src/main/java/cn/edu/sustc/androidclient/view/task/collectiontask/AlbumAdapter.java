@@ -48,12 +48,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 return new ImageViewHolder(inflater.inflate(R.layout.item_content_image, parent, false), itemSize, itemClickListener);
             }
             case AlbumFile.TYPE_VIDEO: {
-                // TODO
-                return null;
+                return new VideoViewHolder(
+                        inflater.inflate(R.layout.album_item_content_video, parent, false), itemSize, itemClickListener);
             }
-            default:
-                Logger.e("Not handle yet!");
-                return null;
+            default: {
+                throw new AssertionError("Unrecognized Type!");
+            }
         }
     }
 
@@ -66,12 +66,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 break;
             }
             case AlbumFile.TYPE_VIDEO: {
-                // TODO
-                Logger.e("Not handle video yet");
+                ((VideoViewHolder) holder).setData(albumFiles.get(position));
                 break;
             }
-            default:
-                break;
+            default: {
+                throw new AssertionError("Unrecognized Type!");
+            }
         }
     }
 
