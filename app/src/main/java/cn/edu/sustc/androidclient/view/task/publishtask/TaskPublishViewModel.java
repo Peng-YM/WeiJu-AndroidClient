@@ -15,7 +15,6 @@ public class TaskPublishViewModel extends BaseViewModel {
     @Inject
     public TaskPublishViewModel(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-
     }
 
     public MutableLiveData<MyResource<Task>> publishTask(Task task){
