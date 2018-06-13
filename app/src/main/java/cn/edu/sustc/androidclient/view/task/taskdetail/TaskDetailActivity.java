@@ -12,8 +12,12 @@ import cn.edu.sustc.androidclient.databinding.ActivityTaskDetailBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import io.reactivex.disposables.CompositeDisposable;
+
+import static cn.edu.sustc.androidclient.model.data.Transaction.TransactionStatus.FINISHED;
+import static cn.edu.sustc.androidclient.model.data.Transaction.TransactionStatus.PROGRESSING;
 
 public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, ActivityTaskDetailBinding> {
     public CompositeDisposable disposables;
@@ -51,18 +55,24 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
     private void setButton(){
         // if task is not finished, enter task page
         Transaction transaction = viewModel.hasUnfinishedTransaction();
-        if (transaction != null){
+        if (transaction != null && transaction.status == PROGRESSING){
             binding.takeTaskBtn.setText(getString(R.string.enter_task));
             binding.takeTaskBtn.setOnClickListener(view -> {
                 switch (task.type){
                     case Task.TaskType.ANNOTATION:
+                        AnnotationTaskActivity.start(this);
                         break;
                     case Task.TaskType.COLLECTION:
                         CollectionTaskActivity.start(this, task, transaction);
                         break;
                 }
             });
-        }else {
+        }
+        else if(transaction != null && transaction.status == FINISHED){
+            binding.takeTaskBtn.setEnabled(false);
+            binding.takeTaskBtn.setText(getString(R.string.finished_task));
+        }
+        else {
             binding.takeTaskBtn.setOnClickListener(view -> {
                 viewModel.applyTask().observe(this, resource -> {
                     showLoading();

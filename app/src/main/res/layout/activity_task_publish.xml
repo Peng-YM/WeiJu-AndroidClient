@@ -1,131 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background">
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/tools"
-            android:layout_alignParentTop="true"
-            android:paddingEnd="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp">
-
-            <com.scrat.app.richtext.RichEditText
-                android:id="@+id/knife"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@android:color/transparent"
-                android:gravity="top|start"
-                android:scrollbars="vertical"
-                android:textColor="#fff"
-                app:bulletColor="@color/blue_500"
-                app:bulletGapWidth="@dimen/bullet_gap_width"
-                app:bulletRadius="@dimen/bullet_radius"
-                app:historyEnable="true"
-                app:historySize="99"
-                app:linkColor="@color/blue_500"
-                app:linkUnderline="true"
-                app:quoteCapWidth="@dimen/quote_gap_width"
-                app:quoteColor="@color/blue_500"
-                app:quoteStripeWidth="@dimen/quote_stripe_width" />
-        </ScrollView>
-
-
-        <HorizontalScrollView
-            android:id="@+id/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishViewModel"/>
+    </data>
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:scrollbars="none">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="73dp"
+                    android:layout_height="28dp"
+                    android:gravity="center"
+                    android:text="@string/task_cover"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="73dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/task_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="73dp"
+                    android:layout_height="28dp"
+                    android:gravity="center"
+                    android:text="@string/task_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_cover" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="73dp"
+                    android:layout_height="28dp"
+                    android:gravity="center"
+                    android:text="@string/task_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_name" />
+
+            <Button
+                android:id="@+id/publish_button"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="@string/publish_task"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editor_button"
+                app:layout_constraintVertical_bias="0.909" />
+
+            <EditText
+                android:id="@+id/task_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="@string/task_name"
+                android:inputType="textShortMessage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-                <ImageButton
-                    android:id="@+id/bold"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_bold" />
+            <EditText
+                android:id="@+id/task_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="@string/task_size"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-                <ImageButton
-                    android:id="@+id/italic"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_italic" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-                <ImageButton
-                    android:id="@+id/underline"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_underline" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="73dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:text="@string/task_type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_size" />
 
-                <ImageButton
-                    android:id="@+id/strikethrough"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_strikethrough" />
+                <Button
+                    android:id="@+id/editor_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/go_to_editor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-                <ImageButton
-                    android:id="@+id/bullet"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_bullet" />
-
-                <ImageButton
-                    android:id="@+id/quote"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_quote" />
-
-                <ImageButton
-                    android:id="@+id/link"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_insert_link" />
-
-                <ImageButton
-                    android:id="@+id/clear"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="?android:selectableItemBackground"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_format_clear" />
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-    </RelativeLayout>
-
+            <ImageView
+                android:id="@+id/task_cover"
+                android:layout_width="0dp"
+                android:layout_height="197dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:srcCompat="@drawable/background_signup" />
+        </android.support.constraint.ConstraintLayout>
 </layout>

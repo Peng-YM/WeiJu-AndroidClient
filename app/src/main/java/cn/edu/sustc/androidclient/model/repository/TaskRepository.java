@@ -91,7 +91,6 @@ public class TaskRepository{
 
     public Transaction hasUnfinishedTransaction(int taskId){
         int userId = preferences.getInt("id", 0);
-        Logger.d("taskId: %s, userId: %s", taskId, userId);
         return dataBase.transactionDao().findUnfinishedTask(userId, taskId);
     }
 
@@ -99,5 +98,30 @@ public class TaskRepository{
         Transaction transaction = dataBase.transactionDao().findById(transactionId);
         transaction.status = FINISHED;
         dataBase.transactionDao().updateTransaction(transaction);
+    }
+
+    public MutableLiveData<MyResource<Task>> publishTask(Task task) {
+        MutableLiveData<MyResource<Task>> resource = new MutableLiveData<>();
+        resource.postValue(MyResource.loading(null));
+        taskService.createTask(new MyRequest<>(task))
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new SingleObserver<MyResponse<Task>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(MyResponse<Task> response) {
+                        resource.postValue(MyResource.success(response.data));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        resource.postValue(MyResource.error(e.getMessage(), null));
+                    }
+                });
+        return resource;
     }
 }

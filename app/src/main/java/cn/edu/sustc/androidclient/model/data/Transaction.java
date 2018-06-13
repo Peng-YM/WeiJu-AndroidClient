@@ -38,6 +38,8 @@ public class Transaction implements Serializable {
 
     public int status;
 
+    public int size;
+
     public List<String> pictures;
 
     @Override

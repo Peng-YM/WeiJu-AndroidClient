@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.common.utils.ScreenUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityCollectionTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
@@ -54,8 +55,10 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
         binding.taskTitleTv.setText(task.name);
         binding.fab.setOnClickListener(view -> selectAlbum());
         binding.commitBtn.setOnClickListener(view -> {
-            if (albumFiles != null) {
-                viewModel.uploadImages(albumFiles).observe(this, resource -> {
+            String URL =Constants.BASE_URL +
+                    String.format("api/commits/pictures/%d/", transaction.transactionId);
+            if (albumFiles != null && albumFiles.size() == transaction.size) {
+                viewModel.uploadImages(albumFiles, URL).observe(this, resource -> {
                     switch (resource.status) {
                         case LOADING:
                             binding.commitBtn.setText(String.format("%.1f%%", resource.data));
@@ -64,7 +67,6 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
                             binding.commitBtn.setText(getString(R.string.commit_success));
                             showAlertDialog(getString(R.string.info), getString(R.string.commit_success));
                             viewModel.commit(transaction.transactionId);
-                            finish();
                             break;
                         case ERROR:
                             showAlertDialog(getString(R.string.alert), resource.message);
@@ -73,7 +75,8 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
                     }
                 });
             } else {
-                showAlertDialog(getString(R.string.alert), getString(R.string.alert_nothing_selected));
+                showAlertDialog(getString(R.string.alert),
+                        String.format(getString(R.string.alert_wrong_selection), transaction.size));
             }
         });
     }
@@ -90,10 +93,13 @@ public class CollectionTaskActivity extends BaseActivity<CollectionTaskViewModel
             binding.albumView.setAdapter(adapter);
         }
         Logger.d("Select Images from album");
-        Album.image(this)
+        Album.album(this)
                 .multipleChoice()
                 .columnCount(3)
-                .selectCount(6)
+                .cameraVideoQuality(1) // Video quality, [0, 1].
+                .cameraVideoLimitDuration(Long.MAX_VALUE) // The longest duration of the video is in milliseconds.
+                .cameraVideoLimitBytes(Long.MAX_VALUE) // Maximum size of the video, in bytes.
+                .selectCount(transaction.size)
                 .camera(true)
                 .checkedList(albumFiles)
                 .onResult((requestCode, result) -> {
