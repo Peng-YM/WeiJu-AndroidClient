@@ -91,7 +91,6 @@ public class TaskRepository{
 
     public Transaction hasUnfinishedTransaction(int taskId){
         int userId = preferences.getInt("id", 0);
-        Logger.d("taskId: %s, userId: %s", taskId, userId);
         return dataBase.transactionDao().findUnfinishedTask(userId, taskId);
     }
 

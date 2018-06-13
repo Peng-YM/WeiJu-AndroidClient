@@ -12,7 +12,10 @@ import com.orhanobut.logger.Logger;
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.common.ListFilter;
 import cn.edu.sustc.androidclient.databinding.TaskFragmentBinding;
+import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseFragment;
 
 public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragmentBinding>
@@ -22,9 +25,17 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
 
     private TaskAdapter taskAdapter;
     private TaskFragmentBinding fragmentBinding;
+    private int transactionStatus = -2;
 
     public static TaskFragment getInstance() {
         return new TaskFragment();
+    }
+
+    public static TaskFragment getInstance(int transactionStatus){
+        Bundle args = new Bundle();
+        TaskFragment fragment = new TaskFragment();
+        fragment.setTransactionStatus(transactionStatus);
+        return fragment;
     }
 
     @Override
@@ -55,6 +66,9 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
         fragmentBinding.swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
         fragmentBinding.swipeRefreshLayout.setOnRefreshListener(this);
         fragmentBinding.setViewModel(fragmentViewModel);
+        if (transactionStatus != -2){
+            fragmentViewModel.setStatusFilter(transactionStatus);
+        }
         fetchTasks();
     }
 
@@ -76,5 +90,9 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
                     break;
             }
         });
+    }
+
+    public void setTransactionStatus(int transactionStatus){
+        this.transactionStatus = transactionStatus;
     }
 }

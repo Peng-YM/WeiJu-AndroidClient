@@ -2,8 +2,15 @@ package cn.edu.sustc.androidclient.view.task.tasklist;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.orhanobut.logger.Logger;
+
+import java.util.List;
+
+import cn.edu.sustc.androidclient.common.ListFilter;
+import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;
 import io.reactivex.Observer;
@@ -11,6 +18,7 @@ import io.reactivex.disposables.Disposable;
 
 public class TaskFragmentViewModel extends BaseViewModel {
     private TaskRepository taskRepository;
+    private ListFilter<Task> taskListFilter;
 
     public TaskFragmentViewModel(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -27,7 +35,12 @@ public class TaskFragmentViewModel extends BaseViewModel {
 
             @Override
             public void onNext(Task task) {
-                adapter.addItem(task);
+                if (taskListFilter == null){
+                    adapter.addItem(task);
+                }
+                else if (taskListFilter.filter(task)) {
+                    adapter.addItem(task);
+                }
             }
 
             @Override
@@ -42,5 +55,22 @@ public class TaskFragmentViewModel extends BaseViewModel {
             }
         });
         return finished;
+    }
+
+    public void setStatusFilter(int statusFilter) {
+        Logger.d("Filter is set!");
+        this.taskListFilter = (task) -> {
+            Transaction transaction = taskRepository.hasUnfinishedTransaction(task.taskId);
+            Logger.d("Filtering task" + task.toString());
+            // show all task
+            if (transaction != null && statusFilter == -1) {
+                Logger.d("Passed 1");
+                return true;
+            }
+            else {
+                Logger.d("Passed 2");
+                return transaction != null && statusFilter == transaction.status;
+            }
+        };
     }
 }
