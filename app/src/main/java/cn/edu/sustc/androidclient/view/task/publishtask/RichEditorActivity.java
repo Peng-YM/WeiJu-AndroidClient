@@ -3,6 +3,7 @@ package cn.edu.sustc.androidclient.view.task.publishtask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +32,9 @@ public class RichEditorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding =
-                ActivityRichEditorBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_rich_editor);
+        binding =  DataBindingUtil.setContentView(this, R.layout.activity_rich_editor);
         taskEditor = binding.knife;
-
-        setUpEditor();
         taskEditor.setSelection(taskEditor.getEditableText().length());
         taskEditor.fromHtml(
                 "<blockquote>Android 端的富文本编辑器</blockquote>" +
@@ -45,8 +44,8 @@ public class RichEditorActivity extends AppCompatActivity {
                         "<li>使用<u>Glide 4</u>加载图片</li>" +
                         "</ul>" +
                         "<img src=\"http://biuugames.huya.com/221d89ac671feac1.gif\"><br><br>" +
-                        "<img src=\"http://biuugames.huya.com/5-160222145918.jpg\"><br><br>"
-        );
+                        "<img src=\"http://biuugames.huya.com/5-160222145918.jpg\"><br><br>");
+        setUpEditor();
     }
 
     private void setUpEditor() {

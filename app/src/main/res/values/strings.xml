@@ -67,6 +67,7 @@
     <string name="publish_success">发布成功</string>
     <string name="publish_error">发布失败</string>
 
+
     <!--编辑器-->
     <string name="menu_undo">撤销</string>
     <string name="menu_redo">重做</string>
@@ -90,7 +91,7 @@
     <string name="commit">提交</string>
     <string name="alert_wrong_selection">你应该选择张%d图片</string>
     <string name="commit_success">上传成功</string>
-
+    <string name="upload_failed">上传失败</string>
     <!--标注任务页-->
     <string name="add_tag">添加标签</string>
     <string name="edit_tag">编辑标签</string>

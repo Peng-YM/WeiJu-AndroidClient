@@ -33,8 +33,8 @@ public class TaskModule {
     }
 
     @Provides
-    TaskPublishViewModel provideTaskPublishViewModel(TaskRepository taskRepository) {
-        return new TaskPublishViewModel(taskRepository);
+    TaskPublishViewModel provideTaskPublishViewModel(TaskRepository taskRepository, FileRepository fileRepository) {
+        return new TaskPublishViewModel(taskRepository, fileRepository);
     }
 
     @Provides
