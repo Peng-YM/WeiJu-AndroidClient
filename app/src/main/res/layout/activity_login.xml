@@ -16,21 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F1F2F6"
-        android:orientation="vertical"
         tools:context=".view.authentication.RegistrationActivity">
+
+        <!--<ImageView
+            android:id="@+id/login_image"
+            android:layout_width="wrap_content"
+            android:layout_height="275dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_signup"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />-->
 
         <ImageView
             android:id="@+id/login_image"
-            android:layout_width="match_parent"
-            android:layout_height="233dp"
-            app:srcCompat="@drawable/background_signup"/>
+            android:layout_width="wrap_content"
+            android:layout_height="275dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_signup2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"/>
 
         <!-- 输入框 -->
         <EditText
             android:id="@+id/login_email"
             android:layout_width="280dp"
             android:layout_height="48dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/bg_edittext_signup"
             android:ems="10"
             android:hint="@string/prompt_email"
@@ -50,7 +63,7 @@
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_edittext_signup"
             android:ems="10"
             android:hint="@string/prompt_password"
@@ -69,7 +82,7 @@
             android:id="@+id/login_btn"
             android:layout_width="280dp"
             android:layout_height="48dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:onClick="@{loginActivity::login}"
             app:cardBackgroundColor="@color/button_signinPage"
             app:cardCornerRadius="24dp"
@@ -101,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:text="@string/action_sign_up"
             android:textColor="#80000000"
             app:layout_constraintEnd_toEndOf="parent"

@@ -13,13 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/background_welcome" />
+        app:srcCompat="@drawable/background_welcome3" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/intro"
             android:layout_width="260dp"
             android:layout_height="35dp"
@@ -35,9 +35,9 @@
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.19999999" />
+            app:layout_constraintVertical_bias="0.19999999" />-->
 
-        <TextView
+        <!--<TextView
             android:id="@+id/intro2"
             android:layout_width="260dp"
             android:layout_height="30dp"
@@ -53,51 +53,46 @@
             app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.3" />
+            app:layout_constraintVertical_bias="0.3" />-->
 
         <!--开始界面的登录按钮，android:layout_weight 好像是没有用的-->
         <Button
             android:id="@+id/button_login"
-            android:layout_width="120dp"
-            android:layout_height="45dp"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
 
+            android:layout_weight="1"
             android:background="@drawable/shape_button_selector"
             android:text="@string/action_login"
             android:textAlignment="center"
             android:textColor="@drawable/text_selector"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_registration"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintVertical_bias="0.97" />
 
+        <!-- 注册按钮 -->
         <Button
             android:id="@+id/button_registration"
-            android:layout_width="120dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
 
             android:background="@drawable/shape_button_selector"
             android:text="@string/action_sign_up"
             android:textAlignment="center"
             android:textColor="@drawable/text_selector"
-            android:textSize="18sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

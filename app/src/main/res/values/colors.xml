@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="blue_500">#FF2196F3</color>
 
+    <!-- 欢迎页面的按钮按下去的颜色 -->
+    <color name="button_welcome">#020E1A</color>
+
     <!-- 登录页面的登录按钮颜色 -->
     <color name="button_loginPage">#4837BC</color>
 

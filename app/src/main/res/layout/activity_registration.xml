@@ -22,9 +22,13 @@
 
         <ImageView
             android:id="@+id/signup_image"
-            android:layout_width="match_parent"
-            android:layout_height="233dp"
-            app:srcCompat="@drawable/background_signup"/>
+            android:layout_width="wrap_content"
+            android:layout_height="275dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_signup2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"/>
 
         <!-- 输入框 -->
         <!-- 邮箱输入框 -->
@@ -32,7 +36,7 @@
             android:id="@+id/signup_email"
             android:layout_width="280dp"
             android:layout_height="48dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/bg_edittext_signup"
             android:ems="10"
             android:hint="@string/prompt_email"
@@ -53,7 +57,7 @@
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_edittext_signup"
             android:ems="10"
             android:hint="@string/prompt_password"
@@ -72,7 +76,7 @@
             android:id="@+id/registration_btn"
             android:layout_width="280dp"
             android:layout_height="48dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:onClick="@{registrationActivity::registration}"
             app:cardBackgroundColor="@color/button_signinPage"
             app:cardCornerRadius="24dp"
