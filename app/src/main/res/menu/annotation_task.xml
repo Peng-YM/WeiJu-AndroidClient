@@ -11,4 +11,15 @@
         android:title="@string/next_img"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/annotation_undo"
+        android:title="@string/undo"
+        app:showAsAction="collapseActionView"
+        />
+
+    <item
+        android:id="@+id/annotation_clear"
+        android:title="@string/clear_all"
+        app:showAsAction="collapseActionView"/>
 </menu>

@@ -1,6 +1,5 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,12 +36,6 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
     private AwesomeValidation awesomeValidation;
     private ArrayList<FormField> formFields;
 
-    public static void start(Context context, AnnotationTag tag) {
-        Intent intent = new Intent(context, TagEditorActivity.class);
-        intent.putExtra("tag", tag);
-        context.startActivity(intent);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +44,10 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
         formFields = new ArrayList<>();
 
         Intent intent = getIntent();
-        tag = (AnnotationTag) intent.getSerializableExtra("task");
+        tag = (AnnotationTag) intent.getSerializableExtra("tag");
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
-        binding.previewTagButton.setOnClickListener(v -> {
-        });
         binding.saveTagButton.setOnClickListener(v -> { // 点击提交按钮的时候引用awesome validation验证
             // check all field is filled
             for (FormField field : formFields) {
@@ -69,6 +60,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             if (awesomeValidation.validate()) {
                 getResults();
                 showAlertDialog("", getString(R.string.add_success));
+                finish();
             }
         });
         addAttributes();
@@ -121,6 +113,9 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
             FormField field = formFields.get(i);
             tag.attributes.get(i).values = field.getValues();
         }
+        Intent intentTag = new Intent();
+        intentTag.putExtra("tag", tag);
+        setResult(1, intentTag);
         Logger.json(new Gson().toJson(tag));
     }
 

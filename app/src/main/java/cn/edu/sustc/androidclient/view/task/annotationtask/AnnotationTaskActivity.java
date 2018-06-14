@@ -3,30 +3,39 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.PopupMenu;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel, ActivityAnnotationTaskBinding> {
+    private static final int CODE = 1;
+
     @Inject
     AnnotationTaskViewModel viewModel;
 
@@ -35,6 +44,8 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
     private Transaction transaction;
     private Task task;
+    private MaterialDialog tagDialog;
+    private AnnotationTag tag;
 
     private int currentIdx = 0;
 
@@ -51,17 +62,68 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         binding = getBinding();
         setData();
         setView();
+        setTagDialog();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CODE){
+            AnnotationTag resultTag = (AnnotationTag) data.getSerializableExtra("tag");
+            // TODO: save result
+        }
+    }
+
+    private void setTagDialog(){
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View stdView = factory.inflate(R.layout.dialog_custom, null);
+        LinearLayout tagLayout = stdView.findViewById(R.id.tag_dialog_layout);
+        Spinner spinner = tagLayout.findViewById(R.id.tag_dialog_spinner);
+        // TODO: filled with tag list
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                Arrays.asList(getString(R.string.collection_task), getString(R.string.annotation_task)));
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+        this.tagDialog = builder.title(R.string.add_tag)
+                .customView(tagLayout, false)
+                .autoDismiss(false)
+                .negativeText(R.string.dialog_button_cancel)
+                .positiveText(R.string.dialog_button_ok)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        super.onPositive(dialog);
+                        Logger.d("You selected" + spinner.getSelectedItemId());
+                        Intent intent = new Intent(AnnotationTaskActivity.this, TagEditorActivity.class);
+                        intent.putExtra("tag", tag);
+                        startActivityForResult(intent, CODE);
+                        dialog.dismiss();
+                    }
+                    @Override
+                    public void onNegative(MaterialDialog dialog){
+                        super.onNegative(dialog);
+                        annotateImageView.undo();
+                        dialog.cancel();
+                    }
+                })
+                .build();
+    }
+
+    public void showTagDialog(){
+        tagDialog.show();
     }
 
     public void setData(){
         Intent intent = getIntent();
         this.transaction = (Transaction) intent.getSerializableExtra("transaction");
         this.task = (Task) intent.getSerializableExtra("task");
-        Logger.d(transaction.pictures);
+        this.tag = new Gson().fromJson(FileUtils.readAssetFile(this, "annotationTag.json"),
+                AnnotationTag.class);
+        Logger.d(tag.name);
     }
 
     public void setView(){
-        binding.addTag.setOnClickListener(v -> popup_tags());
         if (transaction.pictures.size() > 0){
             annotateImage(currentIdx);
         }
@@ -69,6 +131,8 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                 annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
                         ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
         annotateImageView.setMode(mode);
+
+        binding.savePictureCommit.setOnClickListener(view -> showTagDialog());
     }
 
     private void annotateImage(int index){
@@ -85,38 +149,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                         annotateImageView.clear();
                     }
                 });
-    }
-
-    private void popup_tags() {
-        PopupMenu popup = new PopupMenu(AnnotationTaskActivity.this, binding.addTag);
-        Menu menu = popup.getMenu();
-
-        // 此处应该用for循环加载tag
-        // 一个粗暴的test
-        menu.add(Menu.NONE, Menu.FIRST + 0, 0, "tag1");
-        menu.add(Menu.NONE, Menu.FIRST + 1, 1, "tag2");
-        menu.add(Menu.NONE, Menu.FIRST + 2, 2, "tag3");
-        menu.add(Menu.NONE, Menu.FIRST + 3, 3, "tag4");
-        // menu的item点击事件
-        popup.setOnMenuItemClickListener(item -> {
-            AnnotateImageView.Mode mode = AnnotateImageView.Mode.DRAW;
-            annotateImageView.setMode(mode);
-
-            switch (item.getItemId()) {
-                case Menu.FIRST + 0:
-                    // 对标签模式的设置（颜色等）
-                    break;
-                case Menu.FIRST + 1:
-                    break;
-                case Menu.FIRST + 2:
-                    break;
-                case Menu.FIRST + 3:
-                    break;
-            }
-            return false;
-        });
-
-        popup.show(); //showing popup menu
     }
 
     @Override
@@ -137,18 +169,22 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         int id = item.getItemId();
         switch (id){
             case R.id.annotation_next:
-                Logger.v("Annotate next picture");
                 if (currentIdx < transaction.pictures.size() - 1)
                     annotateImage(++currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
                 break;
             case R.id.annotation_prev:
-                Logger.v("Annotate previous picture");
                 if (currentIdx > 0)
                     annotateImage(--currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_first));
+                break;
+            case R.id.annotation_clear:
+                annotateImageView.clear();
+                break;
+            case R.id.annotation_undo:
+                annotateImageView.undo();
                 break;
         }
 

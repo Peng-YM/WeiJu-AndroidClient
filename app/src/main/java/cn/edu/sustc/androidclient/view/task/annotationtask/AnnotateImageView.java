@@ -53,7 +53,8 @@ public class AnnotateImageView extends AppCompatImageView {
         paint = new Paint();
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.WHITE);
+        paint.setAlpha(500);
 
         currentMatrix = new Matrix();
         savedMatrix = new Matrix();
@@ -114,29 +115,6 @@ public class AnnotateImageView extends AppCompatImageView {
         setImageBitmap(mixedBitmap);
     }
 
-
-    /**
-     * get the shape index clicked(center) by user
-     *
-     * @param clickPoint user's click point
-     */
-    public int getShape(Coordinate clickPoint) {
-        double minDistance = Integer.MAX_VALUE;
-        int minIndex = -1, cnt = 0;
-
-        for (Shape shape : shapeList) {
-            Coordinate center = shape.getCenter();
-            double newDistance = center.distanceTo(clickPoint);
-            if (minDistance > newDistance) {
-                minIndex = cnt;
-                minDistance = newDistance;
-                Logger.d("Update Distance: %f", minDistance);
-            }
-            cnt++;
-        }
-        return minIndex;
-    }
-
     /**
      * clear the screen
      */
@@ -145,7 +123,6 @@ public class AnnotateImageView extends AppCompatImageView {
         initMixedBitmap();
         invalidate();
     }
-
 
     /**
      * undo the previous step

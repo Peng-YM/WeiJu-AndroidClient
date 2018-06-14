@@ -98,11 +98,13 @@
     <string name="add_tag">添加标签</string>
     <string name="edit_tag">编辑标签</string>
     <string name="add_success">添加成功</string>
-    <string name="next_step">下一步</string>
+    <string name="next_step">保存</string>
     <string name="prev_img">上一张</string>
     <string name="next_img">下一张</string>
     <string name="alert_first">已经是第一张图片了</string>
     <string name="alert_last">已经是最后一张图片了</string>
+    <string name="clear_all">清空</string>
+    <string name="undo">上一步</string>
 
     <!--标签属性编辑页-->
     <string name="preview">预览</string>

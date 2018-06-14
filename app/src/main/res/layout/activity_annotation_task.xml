@@ -10,37 +10,27 @@
         <cn.edu.sustc.androidclient.view.task.annotationtask.AnnotateImageView
             android:id="@+id/annotate_image_view"
             android:layout_width="match_parent"
-            android:layout_height="458dp"
-            android:scaleType="matrix"
+            android:layout_height="0dp"
 
+            android:scaleType="matrix"
+            app:layout_constraintBottom_toTopOf="@+id/save_picture_commit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/add_tag"
+            android:id="@+id/save_picture_commit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/album_White"
-            android:text="@string/add_tag"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/next_step"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/next_step"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/album_White"
+            android:background="@color/colorPrimary"
+            android:textColor="#FFF"
             android:text="@string/next_step"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/add_tag" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
