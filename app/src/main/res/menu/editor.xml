@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/finish"
-        android:icon="@drawable/ic_chevron_right_black_24dp"
+        android:icon="@drawable/ic_done_black_24dp"
         android:title="@string/menu_finished"
         app:showAsAction="always" />
 
