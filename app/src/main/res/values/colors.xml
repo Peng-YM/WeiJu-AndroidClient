@@ -15,6 +15,7 @@
     <!-- 任务列表的"查看详情"的颜色 -->
     <color name="color_task_detail">#0F0F0F</color>
 
+    <!-- 【以下是注册登录页】 -->
     <!-- 欢迎页面的按钮按下去的颜色 -->
     <color name="button_welcome">#020E1A</color>
 
@@ -23,6 +24,11 @@
 
     <!-- 注册页面的注册按钮颜色 -->
     <color name="button_signinPage">#FFFFFF</color>
+
+    <!-- 【以下任务详情页】 -->
+    <!-- 积分的颜色 -->
+    <color name="point_background">#FDDCB3</color>
+    <color name="point_text_color">#DB871D</color>
 
 
     <!--用于表单未填写完时的按钮颜色-->

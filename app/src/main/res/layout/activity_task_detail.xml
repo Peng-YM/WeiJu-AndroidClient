@@ -19,8 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="#FFFFFF"
             tools:context=".view.task.taskdetail.TaskDetailActivity">
 
+            <!-- 一个任务只有的一张图片可以preview -->
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
@@ -30,46 +32,75 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/no_image_to_show_" />
 
+            <!-- 领取按钮 -->
             <Button
                 android:id="@+id/take_task_btn"
                 android:layout_width="0dp"
-                android:layout_height="34dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/get_task"
                 android:textColor="#fff"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <!-- 任务的名称 -->
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{viewModel.task.name}"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-light"
+                android:text="这个是任务的名称"
                 android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <!-- android:text="@{viewModel.task.name}" -->
 
+            <!-- 这个是表达积分的样式 -->
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="10积分/份"
+                android:layout_marginEnd="36dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_point"
+                android:textColor="@color/point_text_color"
+                android:padding="5dp"
+                android:text="10积分"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+            <!-- 任务的类型 -->
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{viewModel.taskType}"
+                android:layout_marginTop="4dp"
+                android:textSize="12dp"
+                android:textColor="#757575"
+                android:text="这个是任务的类型"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <!-- android:text="@{viewModel.taskType}" -->
+
+            <!-- 任务的截止时间 -->
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="24dp"
+                android:textSize="12dp"
+                android:textColor="#757575"
+                android:text="这个是任务的截止时间"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -77,13 +108,13 @@
                 android:id="@+id/task_descriptions"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/take_task_btn"
+                android:layout_marginEnd="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </layout>

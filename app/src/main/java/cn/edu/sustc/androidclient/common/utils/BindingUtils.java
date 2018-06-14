@@ -16,9 +16,10 @@ public final class BindingUtils {
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
         Logger.v("Fetch Image from url: %s", url);
+        /*对于不同的图片在不同情况下的替代*/
         RequestOptions options = new RequestOptions()
                 .centerCrop()
-                .placeholder(R.drawable.logo)
+//                .placeholder(R.drawable.logo) // 全局型的
                 .error(R.drawable.ic_load_error);
 
         Glide.with(imageView.getContext())

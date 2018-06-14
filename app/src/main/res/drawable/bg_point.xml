@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 这里是任务详情页里的积分的颜色和圆角的设定 -->
+    <corners android:radius="4dp"/>
+
+    <solid android:color="@color/point_background"/>
+
+    <padding
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp"/>
+
+</shape>
