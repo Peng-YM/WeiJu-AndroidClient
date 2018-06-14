@@ -106,10 +106,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         if (transaction.pictures.size() > 0) {
             onImageChanged(currentIdx);
         }
-        AnnotateImageView.Mode mode =
-                annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
-                        ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
-        annotateImageView.setMode(mode);
+        annotateImageView = binding.annotateImageView;
         annotateImageView.setShapeListener((shape)->{
             currentShape = shape;
             showTagDialog();
