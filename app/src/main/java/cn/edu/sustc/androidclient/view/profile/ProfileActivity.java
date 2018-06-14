@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -50,19 +51,21 @@ public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfile
         fab.setOnClickListener(view -> {
             // save changes
             if (mode == EditMode.EDIT_MODE){
-                user.phone = binding.profileMain.userprofilePhonenum.getText().toString();
-                user.username = binding.profileMain.userprofileUsername.getText().toString();
+                user.phone = binding.profileMain.phone.getText().toString();
+                user.username = binding.profileMain.userName.getText().toString();
                 viewModel.updateUserProfile(user);
             }
             mode = mode == EditMode.EDIT_MODE ? EditMode.VIEW_MODE : EditMode.EDIT_MODE;
             switch (mode){
                 case EDIT_MODE:
-                    binding.profileMain.userprofilePhonenum.setEnabled(false);
-                    binding.profileMain.userprofileUsername.setEnabled(false);
+                    binding.fab.setImageResource(R.drawable.ic_done_black_24dp);
+                    binding.profileMain.phone.setEnabled(true);
+                    binding.profileMain.userName.setEnabled(true);
                     break;
                 case VIEW_MODE:
-                    binding.profileMain.userprofilePhonenum.setEnabled(true);
-                    binding.profileMain.userprofileUsername.setEnabled(true);
+                    binding.fab.setImageResource(R.drawable.ic_profile_edit);
+                    binding.profileMain.phone.setEnabled(false);
+                    binding.profileMain.userName.setEnabled(false);
                     break;
                 default:
                     break;

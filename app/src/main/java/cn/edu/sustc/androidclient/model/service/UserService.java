@@ -50,5 +50,5 @@ public interface UserService {
      * @return updated user profile
      */
     @PATCH("api/users/{id}/")
-    Single<MyResponse<User>> updateProfile(@Path("id") int id, @Body User user);
+    Single<MyResponse<User>> updateProfile(@Path("id") int id, @Body MyRequest<User> user);
 }

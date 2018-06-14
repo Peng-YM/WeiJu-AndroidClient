@@ -32,7 +32,7 @@
 
                 <!--用户名的标注-->
                 <TextView
-                    android:id="@+id/userprofile_username"
+                    android:id="@+id/textview1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -44,8 +44,9 @@
 
                 <!--真的用户名-->
                 <EditText
-                    android:layout_below="@id/userprofile_username"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/user_name"
+                    android:layout_below="@id/textview1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -65,7 +66,7 @@
 
                 <!--邮箱的标注-->
                 <TextView
-                    android:id="@+id/userprofile_email"
+                    android:id="@+id/textview2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -77,12 +78,13 @@
 
                 <!--真的邮箱-->
                 <TextView
-                    android:layout_below="@id/userprofile_email"
+                    android:layout_below="@id/textview2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:text="@{viewModel.user.email}"
+                    android:enabled="false"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="#212121" />
             </RelativeLayout>
@@ -98,7 +100,7 @@
 
                 <!--手机号的标注-->
                 <TextView
-                    android:id="@+id/userprofile_phonenum"
+                    android:id="@+id/textview3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -110,10 +112,12 @@
                     android:textColor="#727272" />
 
                 <!--真的手机号-->
-                <TextView
-                    android:layout_below="@id/userprofile_phonenum"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_below="@id/textview3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:text="@{viewModel.user.phone}"

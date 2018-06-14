@@ -134,7 +134,7 @@ public class UserRepository{
     public LiveData<MyResource<User>> updateUserProfile(User user) {
         MutableLiveData<MyResource<User>> userLive = new MutableLiveData<>();
         userLive.postValue(MyResource.loading(null));
-        userService.updateProfile(user.userId, user)
+        userService.updateProfile(user.userId, new MyRequest<>(user))
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(new SingleObserver<MyResponse<User>>() {
