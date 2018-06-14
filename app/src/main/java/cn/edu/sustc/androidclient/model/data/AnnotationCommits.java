@@ -6,6 +6,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +27,7 @@ import static cn.edu.sustc.androidclient.view.task.annotationtask.Shape.Coordina
 public class AnnotationCommits implements Serializable {
     @ColumnInfo(index = true)
     @NonNull
+    @SerializedName("commit_id")
     public int transactionId;
 
     @ColumnInfo(index = true)

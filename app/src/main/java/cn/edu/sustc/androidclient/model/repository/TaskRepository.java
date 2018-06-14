@@ -98,7 +98,7 @@ public class TaskRepository{
         return dataBase.transactionDao().findUnfinishedTask(userId, taskId);
     }
 
-    public void finishTask(int transactionId) {
+    public void finishTransaction(int transactionId) {
         Transaction transaction = dataBase.transactionDao().findById(transactionId);
         transaction.status = FINISHED;
         dataBase.transactionDao().updateTransaction(transaction);
@@ -159,7 +159,7 @@ public class TaskRepository{
         MutableLiveData<MyResource> resource =
                 new MutableLiveData<>();
         resource.postValue(MyResource.loading(null));
-        taskService.annotationCommit(commits)
+        taskService.annotationCommit(new MyRequest(commits))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(

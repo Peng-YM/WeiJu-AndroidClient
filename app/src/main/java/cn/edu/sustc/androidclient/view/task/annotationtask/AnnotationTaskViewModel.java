@@ -23,4 +23,8 @@ public class AnnotationTaskViewModel extends BaseViewModel {
         return taskRepository.annotationCommit(commits);
     }
 
+    public void finishTransaction(int transactionId){
+        taskRepository.finishTransaction(transactionId);
+    }
+
 }

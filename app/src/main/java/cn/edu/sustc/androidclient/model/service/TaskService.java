@@ -33,6 +33,6 @@ public interface TaskService {
     Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Path("id") int taskId);
 
     @POST("/api/commits/")
-    Completable annotationCommit(@Body AnnotationCommits commits);
+    Completable annotationCommit(@Body MyRequest<AnnotationCommits> commits);
 
 }

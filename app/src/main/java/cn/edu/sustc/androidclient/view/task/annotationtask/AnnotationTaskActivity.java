@@ -52,7 +52,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private int tagCounter = 0;
     private int currentIdx = 0;
     private Shape currentShape;
-    private Bitmap currentBitmap;
 
     public static void start(Context context, Task task, Transaction transaction) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
@@ -121,11 +120,14 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         });
         binding.savePictureCommit.setOnClickListener(view -> {
             viewModel.uploadCommits(commits).observe(this, resource -> {
+                Logger.d("Uploading Commits");
+                Logger.json(new Gson().toJson(commits));
                 showLoading();
                 switch (resource.status){
                     case SUCCESS:
                         hideLoading();
                         showAlertDialog(getString(R.string.info), getString(R.string.commit_success));
+                        viewModel.finishTransaction(transaction.transactionId);
                         finish();
                         break;
                     case ERROR:
@@ -197,7 +199,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         hideLoading();
-                        currentBitmap = resource;
                         annotateImageView.init(resource);
                         annotateImageView.clear();
                     }
@@ -256,7 +257,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             binding.savePictureCommit.setVisibility(View.GONE);
         tagCounter = 0;
         currentShape = null;
-        currentBitmap =  null;
         currentIdx = index;
         annotateImage(index);
     }
