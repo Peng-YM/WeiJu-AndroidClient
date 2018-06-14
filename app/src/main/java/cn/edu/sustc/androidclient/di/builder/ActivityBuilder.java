@@ -5,7 +5,7 @@ import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.authentication.RegistrationActivity;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 import cn.edu.sustc.androidclient.view.main.MainModule;
-import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
+import cn.edu.sustc.androidclient.view.profile.ProfileActivity;
 import cn.edu.sustc.androidclient.view.task.TaskModule;
 import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
 import cn.edu.sustc.androidclient.view.task.annotationtask.TagEditorActivity;
@@ -56,8 +56,8 @@ public abstract class ActivityBuilder {
     abstract TaskPublishActivity bindTaskPublishActivity();
 
     @ContributesAndroidInjector(
-            modules = {MainModule.class})
-    abstract UserProfileActivity bindUserProfileActivity();
+            modules = MainModule.class)
+    abstract ProfileActivity bindProfileActivity();
 
     @ContributesAndroidInjector(
             modules = {TaskModule.class, TaskFragmentProvider.class}

@@ -32,7 +32,7 @@ import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
-import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
+import cn.edu.sustc.androidclient.view.profile.ProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragment;
@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                         .into(headerBinding.headerAvatar);
                 headerBinding.headerAvatar.
                         setOnClickListener(view ->
-                                UserProfileActivity.start(MainActivity.this, user));
+                                ProfileActivity.start(MainActivity.this, user));
             }
         });
     }

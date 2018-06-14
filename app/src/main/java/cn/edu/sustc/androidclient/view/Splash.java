@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.view.authentication.WelcomeActivity;
-import cn.edu.sustc.androidclient.view.profile.ProfileActivity;
 
 public class Splash extends AppCompatActivity {
     private static int SPLASH_TIMEOUT = 1000;
@@ -24,17 +23,4 @@ public class Splash extends AppCompatActivity {
         }, SPLASH_TIMEOUT);
 
     }
-
-    /*@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash);
-
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(Splash.this, ProfileActivity.class);
-            startActivity(intent);
-            finish();
-        }, SPLASH_TIMEOUT);
-
-    }*/
 }

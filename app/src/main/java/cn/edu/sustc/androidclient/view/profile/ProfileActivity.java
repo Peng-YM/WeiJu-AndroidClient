@@ -5,40 +5,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import cn.edu.sustc.androidclient.R;
+import cn.edu.sustc.androidclient.databinding.ActivityProfileBinding;
+import cn.edu.sustc.androidclient.model.data.User;
+import cn.edu.sustc.androidclient.view.base.BaseActivity;
+import cn.edu.sustc.androidclient.view.main.MainViewModel;
 import io.reactivex.annotations.Nullable;
 
-/**
- * 来自于github的测试数据
- */
-public class ProfileActivity extends AppCompatActivity{
+public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfileBinding>{
+    private ActivityProfileBinding binding;
 
-    public static void star(Context context){
+    public static void start(Context context, User user) {
         Intent intent = new Intent(context, ProfileActivity.class);
+        intent.putExtra("user", user);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        binding = getBinding();
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+    }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    private void setView(){
+
     }
 
     @Override
@@ -61,5 +57,10 @@ public class ProfileActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_profile;
     }
 }

@@ -61,9 +61,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.profile.UserProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".view.profile.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
