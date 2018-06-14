@@ -43,8 +43,13 @@ public class TaskDetailViewModel extends BaseViewModel {
     }
 
     public String getTaskDDL(){
-        long time = new Date().getTime();
+        long time = Long.valueOf(task.end);
         return CommonUtils.getPrettyDateFromLong(time);
+    }
+
+    public String getCredit(){
+        int credit = 10;
+        return String.format("%s积分", credit);
     }
 
     public LiveData<MyResource<Transaction>> applyTask(){
