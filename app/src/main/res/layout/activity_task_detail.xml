@@ -10,110 +10,126 @@
             type="cn.edu.sustc.androidclient.view.task.taskdetail.TaskDetailViewModel" />
     </data>
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <android.support.constraint.ConstraintLayout
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_gravity="center">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#FFFFFF"
-            tools:context=".view.task.taskdetail.TaskDetailActivity">
+            android:fillViewport="true">
 
-            <!-- 一个任务只有的一张图片可以preview -->
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="0dp"
-                android:layout_height="258dp"
-                android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.task.cover}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                tools:context=".view.task.taskdetail.TaskDetailActivity">
 
+                <!-- 一个任务只有的一张图片可以preview -->
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="258dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.task.cover}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <!-- 任务的名称 -->
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="这个是任务的名称"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                <!-- android:text="@{viewModel.task.name}" -->
+
+                <!-- 这个是表达积分的样式 -->
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_point"
+                    android:textColor="@color/point_text_color"
+                    android:padding="5dp"
+                    android:text="10积分"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <!-- 任务的类型 -->
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12dp"
+                    android:textColor="#757575"
+                    android:text="这个是任务的类型"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                <!-- android:text="@{viewModel.taskType}" -->
+
+                <!-- 任务的截止时间 -->
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="24dp"
+                    android:textSize="12dp"
+                    android:textColor="#757575"
+                    android:text="这个是任务的截止时间"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <WebView
+                    android:id="@+id/task_descriptions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_gravity="center">
             <!-- 领取按钮 -->
             <Button
                 android:id="@+id/take_task_btn"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/get_task"
                 android:textColor="#fff"
-                android:textSize="14sp"
+                android:textSize="@dimen/album_dp_15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <!-- 任务的名称 -->
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="sans-serif-light"
-                android:text="这个是任务的名称"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
-            <!-- android:text="@{viewModel.task.name}" -->
-
-            <!-- 这个是表达积分的样式 -->
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="36dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_point"
-                android:textColor="@color/point_text_color"
-                android:padding="5dp"
-                android:text="10积分"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-            <!-- 任务的类型 -->
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="12dp"
-                android:textColor="#757575"
-                android:text="这个是任务的类型"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <!-- android:text="@{viewModel.taskType}" -->
-
-            <!-- 任务的截止时间 -->
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
-                android:textSize="12dp"
-                android:textColor="#757575"
-                android:text="这个是任务的截止时间"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-            <WebView
-                android:id="@+id/task_descriptions"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="36dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>
