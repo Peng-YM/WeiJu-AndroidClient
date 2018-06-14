@@ -82,6 +82,13 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshUser();
+    }
+
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
     }
@@ -93,7 +100,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
         headerBinding = DataBindingUtil.inflate(getLayoutInflater(),
                 R.layout.nav_header_main, binding.navView, false);
         binding.navView.addHeaderView(headerBinding.getRoot());
+        refreshUser();
+    }
 
+    private void refreshUser(){
         viewModel.getLiveCurrentUser().observe(this, userMyResource -> {
             if (userMyResource != null && userMyResource.status == Status.SUCCESS) {
                 User user = userMyResource.data;
@@ -108,8 +118,9 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
                         .apply(options)
                         .into(headerBinding.headerAvatar);
                 headerBinding.headerAvatar.
-                        setOnClickListener(view ->
-                                ProfileActivity.start(MainActivity.this, user));
+                        setOnClickListener(view -> {
+                            ProfileActivity.start(MainActivity.this, user);
+                        });
             }
         });
     }
