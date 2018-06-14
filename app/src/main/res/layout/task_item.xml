@@ -14,12 +14,13 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:onClick="@{viewModel::onClick}"
         card_view:cardCornerRadius="0dp"
-        card_view:cardUseCompatPadding="true"
+
         app:cardElevation="6dp">
         <!-- card_view:cardUseCompatPadding="true"
         android:layout_height="wrap_content" -->
@@ -45,51 +46,51 @@
                 android:layout_height="match_parent"
                 android:layout_margin="14dp">
 
-                <!-- 标题 -->
                 <TextView
-                    android:id="@+id/task_title"
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.task.name}"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
+                    android:fontFamily="sans-serif-light"
                     card_view:layout_constraintStart_toStartOf="parent"
                     card_view:layout_constraintTop_toTopOf="parent"
                     card_view:layout_constraintVertical_chainStyle="packed" />
 
-                <!-- 公司名称 -->
-                <!-- 已取消任务的发布者 -->
                 <TextView
-                    android:id="@+id/task_author"
+                    android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="无"
+                    android:text="无名"
                     android:textColor="#B9B9B9"
                     android:textSize="12sp"
-                    card_view:layout_constraintBottom_toTopOf="@+id/task_type"
+                    android:fontFamily="sans-serif-light"
+                    card_view:layout_constraintBottom_toTopOf="@+id/textView13"
                     card_view:layout_constraintStart_toStartOf="parent" />
 
-                <!-- 任务类型 -->
                 <TextView
-                    android:id="@+id/task_type"
+                    android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.taskType}"
                     android:textColor="#B9B9B9"
                     android:textSize="12sp"
+                    android:fontFamily="sans-serif-light"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintStart_toStartOf="parent" />
 
                 <!-- 查看详情 -->
                 <TextView
-                    android:id="@+id/task_more_detail"
+                    android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/view_details"
                     android:textColor="@color/color_task_detail"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:fontFamily="sans-serif-light"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintEnd_toEndOf="parent" />
 

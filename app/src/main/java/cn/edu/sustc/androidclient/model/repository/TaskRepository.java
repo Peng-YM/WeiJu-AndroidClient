@@ -101,9 +101,6 @@ public class TaskRepository{
     }
 
     public MutableLiveData<MyResource<Task>> publishTask(Task task) {
-        int userId = preferences.getInt("id", 0);
-        task.author = userId;
-
         MutableLiveData<MyResource<Task>> resource = new MutableLiveData<>();
         resource.postValue(MyResource.loading(null));
         taskService.createTask(new MyRequest<>(task))
