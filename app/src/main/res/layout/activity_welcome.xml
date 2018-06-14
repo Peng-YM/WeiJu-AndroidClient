@@ -81,7 +81,7 @@
             android:id="@+id/button_registration"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginBottom="64dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
 

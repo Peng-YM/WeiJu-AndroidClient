@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="blue_500">#FF2196F3</color>
 
+    <!-- 任务列表的"查看详情"的颜色 -->
+    <color name="color_task_detail">#0F0F0F</color>
+
     <!-- 欢迎页面的按钮按下去的颜色 -->
     <color name="button_welcome">#020E1A</color>
 
