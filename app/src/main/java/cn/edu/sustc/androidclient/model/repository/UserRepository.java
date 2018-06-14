@@ -131,7 +131,9 @@ public class UserRepository{
         return userProfile;
     }
 
-    public void updateUserProfile(User user) {
+    public LiveData<MyResource<User>> updateUserProfile(User user) {
+        MutableLiveData<MyResource<User>> userLive = new MutableLiveData<>();
+        userLive.postValue(MyResource.loading(null));
         userService.updateProfile(user.userId, user)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -145,13 +147,16 @@ public class UserRepository{
                     public void onSuccess(MyResponse<User> response) {
                         MyResource<User> resource = MyResource.success(response.data);
                         userProfile.postValue(resource);
+                        userLive.postValue(resource);
                     }
                     @Override
                     public void onError(Throwable e) {
                         MyResource<User> resource = MyResource.error("Cannot update profile", null);
                         userProfile.postValue(resource);
+                        userLive.postValue(resource);
                     }
                 });
+        return userLive;
     }
 
     private void initData() {

@@ -28,4 +28,8 @@ public class MainViewModel extends BaseViewModel {
     public LiveData<MyResource<User>> getLiveCurrentUser() {
         return currentUser;
     }
+
+    public LiveData<MyResource<User>> updateUserProfile(User newUser) {
+        return userRepository.updateUserProfile(newUser);
+    }
 }

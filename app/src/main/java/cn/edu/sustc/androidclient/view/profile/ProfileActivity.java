@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import javax.inject.Inject;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityProfileBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -21,6 +23,11 @@ import io.reactivex.annotations.Nullable;
 public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfileBinding>{
     private ActivityProfileBinding binding;
     public User user;
+
+    @Inject
+    MainViewModel viewModel;
+
+    private EditMode mode = EditMode.VIEW_MODE;
 
     public static void start(Context context, User user) {
         Intent intent = new Intent(context, ProfileActivity.class);
@@ -40,8 +47,27 @@ public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfile
         binding.setViewModel(this);
         // floating button to edit profile
         FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> {
+            // save changes
+            if (mode == EditMode.EDIT_MODE){
+                user.phone = binding.profileMain.userprofilePhonenum.getText().toString();
+                user.username = binding.profileMain.userprofileUsername.getText().toString();
+                viewModel.updateUserProfile(user);
+            }
+            mode = mode == EditMode.EDIT_MODE ? EditMode.VIEW_MODE : EditMode.EDIT_MODE;
+            switch (mode){
+                case EDIT_MODE:
+                    binding.profileMain.userprofilePhonenum.setEnabled(false);
+                    binding.profileMain.userprofileUsername.setEnabled(false);
+                    break;
+                case VIEW_MODE:
+                    binding.profileMain.userprofilePhonenum.setEnabled(true);
+                    binding.profileMain.userprofileUsername.setEnabled(true);
+                    break;
+                default:
+                    break;
+            }
+        });
         RequestOptions options = new RequestOptions()
                 .centerCrop()
                 .error(R.drawable.ic_load_error);
@@ -78,5 +104,10 @@ public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfile
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_profile;
+    }
+
+    private enum EditMode{
+        EDIT_MODE,
+        VIEW_MODE
     }
 }

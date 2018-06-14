@@ -39,8 +39,6 @@
                     android:layout_gravity="center_horizontal"
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/logo" />
-
-
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.constraint.ConstraintLayout>
 

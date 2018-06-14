@@ -42,6 +42,10 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         super.onCreate(instance);
         binding = getBinding();
         binding.setLoginActivity(this);
+        binding.registrationTextview.setOnClickListener(view -> {
+            RegistrationActivity.start(this);
+            finish();
+        });
         initData();
     }
 
