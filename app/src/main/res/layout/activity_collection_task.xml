@@ -15,9 +15,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="48dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="64dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_add_image"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:elevation="10dp"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -32,15 +35,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!--任务的标题-->
         <TextView
             android:id="@+id/task_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:textColor="#000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <!--android:text="这个是标题"-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/album_view"

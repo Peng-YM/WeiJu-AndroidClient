@@ -15,13 +15,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingEnd="15sp"
-                android:paddingStart="15sp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!--图片-->
+                <!--用来在给图片写标签时候用的，图片一直保持在上方可供观看-->
                 <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/tag_photo"
                     android:layout_width="match_parent"

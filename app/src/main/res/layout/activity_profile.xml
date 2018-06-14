@@ -12,8 +12,9 @@
         android:id="@+id/constraint_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+
         tools:context="cn.edu.sustc.androidclient.view.profile.ProfileActivity">
+        <!--android:fitsSystemWindows="true"-->
 
         <!-- 用户的头像和积分bar-->
         <android.support.constraint.ConstraintLayout
@@ -22,15 +23,16 @@
             android:layout_height="230dp"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
-            
-                <ImageView
-                    android:id="@+id/user_profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:scaleType="fitXY"
-                    app:imageUrl="@{viewModel.user.avatar}"
-                    app:srcCompat="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/user_profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.user.avatar}"
+                app:srcCompat="@drawable/logo" />
+            <!--android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"-->
 
         </android.support.constraint.ConstraintLayout>
 
