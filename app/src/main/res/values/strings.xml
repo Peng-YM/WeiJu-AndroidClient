@@ -107,4 +107,10 @@
     <!--标签属性编辑页-->
     <string name="preview">预览</string>
     <string name="save">保存</string>
+
+
+
+    <!--来自于github的测试数据-->
+    <!--<string name="app_name">Material Profile</string>-->
+    <string name="action_settings">Settings</string>
 </resources>
