@@ -31,8 +31,7 @@
                 app:imageUrl="@{viewModel.task.cover}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/no_image_to_show_" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- 领取按钮 -->
             <Button

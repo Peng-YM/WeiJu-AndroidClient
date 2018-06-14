@@ -3,16 +3,19 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.orhanobut.logger.Logger;
-
-import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,6 +23,7 @@ import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 
 public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel, ActivityAnnotationTaskBinding> {
@@ -28,18 +32,16 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
     private ActivityAnnotationTaskBinding binding;
     private AnnotateImageView annotateImageView;
+
+    private Transaction transaction;
     private Task task;
-    private final List<String> paths = Arrays.asList(
-            "/storage/emulated/0/DCIM/Camera/IMG_20180414_030741.jpg",
-            "/storage/emulated/0/DCIM/20180422_084623948_0c8b5e93bf380cbdfe07ed7f2d861a08.jpg",
-            "/storage/emulated/0/DCIM/20180427_153654166_7f105819762db7895fdc17ce2e9980f3.jpg",
-            "/storage/emulated/0/DCIM/20180427_153654166_7f105819762db7895fdc17ce2e9980f3.jpg",
-            "/storage/emulated/0/DCIM/Camera/IMG_20180414_030745.jpg"
-    );
+
     private int currentIdx = 0;
 
-    public static void start(Context context) {
+    public static void start(Context context, Task task, Transaction transaction) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
+        intent.putExtra("task", task);
+        intent.putExtra("transaction", transaction);
         context.startActivity(intent);
     }
 
@@ -47,8 +49,20 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = getBinding();
+        setData();
+        setView();
+    }
+
+    public void setData(){
+        Intent intent = getIntent();
+        this.transaction = (Transaction) intent.getSerializableExtra("transaction");
+        this.task = (Task) intent.getSerializableExtra("task");
+        Logger.d(transaction.pictures);
+    }
+
+    public void setView(){
         binding.addTag.setOnClickListener(v -> popup_tags());
-        if (paths.size() > 0){
+        if (transaction.pictures.size() > 0){
             annotateImage(currentIdx);
         }
         AnnotateImageView.Mode mode =
@@ -59,9 +73,18 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
     private void annotateImage(int index){
         annotateImageView = binding.annotateImageView;
-        Bitmap currentBitmap = FileUtils.loadBitmap(paths.get(index));
-        annotateImageView.init(currentBitmap);
-        annotateImageView.clear();
+        showLoading();
+        Glide.with(this)
+                .asBitmap()
+                .load(transaction.pictures.get(index))
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        hideLoading();
+                        annotateImageView.init(resource);
+                        annotateImageView.clear();
+                    }
+                });
     }
 
     private void popup_tags() {
@@ -115,7 +138,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         switch (id){
             case R.id.annotation_next:
                 Logger.v("Annotate next picture");
-                if (currentIdx < paths.size() - 1)
+                if (currentIdx < transaction.pictures.size() - 1)
                     annotateImage(++currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
