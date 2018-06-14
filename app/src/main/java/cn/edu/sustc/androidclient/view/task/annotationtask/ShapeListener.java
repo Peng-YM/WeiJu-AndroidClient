@@ -1,6 +1,6 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 @FunctionalInterface
-public interface OnShapeListener {
-    void run();
+public interface ShapeListener {
+    void onShapeAdded(Shape shape);
 }

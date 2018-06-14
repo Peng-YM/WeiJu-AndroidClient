@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.view.task.publishtask;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;

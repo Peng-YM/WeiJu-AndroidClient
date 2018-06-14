@@ -23,6 +23,7 @@ public abstract class FormField {
 
     public abstract boolean filled();
 
+    /*填写数字的表单*/
     public static class NumberField extends FormField {
         private EditText editText;
 
@@ -50,6 +51,7 @@ public abstract class FormField {
         }
     }
 
+    /*填写文本的表单*/
     public static class StringField extends FormField {
         private EditText editText;
 
@@ -75,6 +77,7 @@ public abstract class FormField {
         }
     }
 
+    /*radio button的那种*/
     public static class BooleanField extends FormField {
         private RadioGroup group;
         private RadioButton trueButton;
@@ -107,6 +110,7 @@ public abstract class FormField {
         }
     }
 
+    /*spinner - 下拉选择器*/
     public static class SingleOptionField extends FormField {
         private Spinner spinner;
 
@@ -131,6 +135,7 @@ public abstract class FormField {
         }
     }
 
+    /*多选的选择器，checkbox*/
     public static class MultiOptionsField extends FormField {
         private ArrayList<CheckBox> checkboxes = new ArrayList<>();
 
@@ -154,6 +159,7 @@ public abstract class FormField {
             return results;
         }
 
+        /*判断是否表单填写完整*/
         @Override
         public boolean filled() {
             for (CheckBox checkBox : checkboxes) {

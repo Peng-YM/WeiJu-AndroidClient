@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
         Intent intent = getIntent();
         tag = (AnnotationTag) intent.getSerializableExtra("tag");
+        Bitmap currentBitmap = intent.getParcelableExtra("bitmap");
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
@@ -63,6 +65,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                 finish();
             }
         });
+        binding.tagPhoto.setImageBitmap(currentBitmap);
         addAttributes();
     }
 

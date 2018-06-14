@@ -16,6 +16,7 @@ import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
@@ -116,6 +117,32 @@ public class TaskRepository{
                     @Override
                     public void onSuccess(MyResponse<Task> response) {
                         resource.postValue(MyResource.success(response.data));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        resource.postValue(MyResource.error(e.getMessage(), null));
+                    }
+                });
+        return resource;
+    }
+
+    public LiveData<MyResource<AnnotationTaskFormatter>> getAnnotationTaskFormatter(int taskId){
+        MutableLiveData<MyResource<AnnotationTaskFormatter>> resource =
+                new MutableLiveData<>();
+        resource.postValue(MyResource.loading(null));
+        taskService.getAnnotationTaskFormatter(taskId)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new SingleObserver<AnnotationTaskFormatter>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(AnnotationTaskFormatter annotationTaskFormatter) {
+                        resource.postValue(MyResource.success(annotationTaskFormatter));
                     }
 
                     @Override

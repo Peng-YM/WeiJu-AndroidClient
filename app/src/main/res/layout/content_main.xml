@@ -1,7 +1,7 @@
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,7 +12,7 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -40,20 +40,20 @@
                 android:id="@+id/task_card_parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="#F2F2F2">
+                android:background="#F2F2F2"
+                android:orientation="vertical">
                 <!-- 这里的背景色是这个卡片下面的，为了保持和页面下面的task_item一样，修改了task_fragment的颜色 -->
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
-                    card_view:cardCornerRadius="0dp"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    app:cardElevation="6dp">
+                    android:layout_weight="3"
+                    app:cardElevation="6dp"
+                    card_view:cardCornerRadius="0dp">
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/relativeLayout"

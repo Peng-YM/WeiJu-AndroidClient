@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.common.utils.CommonUtils;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
@@ -37,6 +38,16 @@ public class TaskDetailViewModel extends BaseViewModel {
             default:
                 return "未知任务";
         }
+    }
+
+    public String getTaskDDL(){
+        long time = Long.valueOf(task.end);
+        return CommonUtils.getPrettyDateFromLong(time);
+    }
+
+    public String getCredit(){
+        int credit = 10;
+        return String.format("%s积分", credit);
     }
 
     public LiveData<MyResource<Transaction>> applyTask(){

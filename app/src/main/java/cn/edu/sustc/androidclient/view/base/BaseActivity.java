@@ -54,9 +54,9 @@ public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBindin
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            default:
+                return (super.onOptionsItemSelected(item));
         }
-
-        return (super.onOptionsItemSelected(item));
     }
 
     @Override

@@ -7,15 +7,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.orhanobut.logger.Logger;
-
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.ListFilter;
 import cn.edu.sustc.androidclient.databinding.TaskFragmentBinding;
-import cn.edu.sustc.androidclient.model.data.Task;
-import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.view.base.BaseFragment;
 
 public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragmentBinding>
@@ -86,6 +81,7 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
                     }
                     getBaseActivity().showAlertDialog(getString(R.string.error), resource.message);
                     break;
+                default:
                 case LOADING:
                     break;
             }
