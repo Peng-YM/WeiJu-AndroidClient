@@ -51,12 +51,12 @@
 
             <!-- 任务的名称 -->
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/task_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-light"
-                android:text="这个是任务的名称"
+                android:text="@{viewModel.task.name}"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -83,12 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="#757575"
-                android:text="这个是任务的类型"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <!-- android:text="@{viewModel.taskType}" -->
+                android:text="@{viewModel.taskType}"
+                app:layout_constraintStart_toStartOf="@+id/task_name"
+                app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
             <!-- 任务的截止时间 -->
             <TextView
@@ -97,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="24dp"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="#757575"
-                android:text="这个是任务的截止时间"
+                android:text="@{viewModel.taskDDL}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
