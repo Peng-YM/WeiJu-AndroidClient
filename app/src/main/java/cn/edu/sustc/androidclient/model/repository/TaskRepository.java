@@ -21,6 +21,7 @@ import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
@@ -162,14 +163,14 @@ public class TaskRepository{
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(
-                        new SingleObserver() {
+                        new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Object o) {
+                            public void onComplete() {
                                 resource.postValue(MyResource.success(null));
                             }
 

@@ -168,7 +168,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                         int selectedIndex = spinner.getSelectedItemPosition();
                         Intent intent = new Intent(AnnotationTaskActivity.this, TagEditorActivity.class);
                         intent.putExtra("tag", formatter.tags.get(selectedIndex));
-                        intent.putExtra("bitmap", currentBitmap);
+                        intent.putExtra("url", transaction.pictures.get(currentIdx));
                         startActivityForResult(intent, CODE);
                         // set tag image
                         dialog.dismiss();

@@ -10,6 +10,7 @@ import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -32,6 +33,6 @@ public interface TaskService {
     Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Path("id") int taskId);
 
     @POST("/api/commits/")
-    Single annotationCommit(@Body AnnotationCommits commits);
+    Completable annotationCommit(@Body AnnotationCommits commits);
 
 }

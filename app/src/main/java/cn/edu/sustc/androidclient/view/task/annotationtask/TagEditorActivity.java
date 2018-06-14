@@ -2,12 +2,14 @@ package cn.edu.sustc.androidclient.view.task.annotationtask;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
@@ -46,7 +48,7 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
 
         Intent intent = getIntent();
         tag = (AnnotationTag) intent.getSerializableExtra("tag");
-        Bitmap currentBitmap = intent.getParcelableExtra("bitmap");
+        String url = intent.getStringExtra("url");
 
         binding.tagName.setText(tag.name);
         binding.tagDescription.setText(tag.description);
@@ -65,7 +67,10 @@ public class TagEditorActivity extends BaseActivity<AnnotationTaskViewModel, Act
                 finish();
             }
         });
-        binding.tagPhoto.setImageBitmap(currentBitmap);
+        Glide.with(this)
+                .load(Uri.parse(url))
+                .into(binding.tagPhoto);
+
         addAttributes();
     }
 
