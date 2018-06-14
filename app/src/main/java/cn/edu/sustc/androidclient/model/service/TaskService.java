@@ -14,6 +14,7 @@ import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface TaskService {
@@ -26,7 +27,7 @@ public interface TaskService {
     @POST("api/tasks/")
     Single<MyResponse<Task>> createTask(@Body MyRequest<Task> newTask);
 
-    @GET("api/tasks/annotation/formatter")
-    Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Query("id") int taskId);
+    @GET("api/tasks/{id}/formatter")
+    Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Path("id") int taskId);
 
 }

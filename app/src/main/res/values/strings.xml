@@ -105,7 +105,7 @@
     <string name="alert_last">已经是最后一张图片了</string>
     <string name="clear_all">清空</string>
     <string name="undo">上一步</string>
-
+    <string name="tag_prompt">请选择框图的标签</string>
     <!--标签属性编辑页-->
     <string name="preview">预览</string>
     <string name="save">保存</string>

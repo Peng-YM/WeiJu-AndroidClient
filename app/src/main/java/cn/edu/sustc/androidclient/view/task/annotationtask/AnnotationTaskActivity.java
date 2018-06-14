@@ -13,20 +13,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
-import cn.edu.sustc.androidclient.common.utils.FileUtils;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 import cn.edu.sustc.androidclient.model.data.Task;
@@ -43,10 +41,11 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private AnnotateImageView annotateImageView;
 
     private Transaction transaction;
-    private Task task;
     private MaterialDialog tagDialog;
-    private AnnotationTag tag;
+    private Task.AnnotationTaskFormatter formatter;
+    private Shape currentShape;
 
+    private int tagCounter = 0;
     private int currentIdx = 0;
 
     public static void start(Context context, Task task, Transaction transaction) {
@@ -62,7 +61,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         binding = getBinding();
         setData();
         setView();
-        setTagDialog();
     }
 
     @Override
@@ -76,9 +74,23 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     public void setData() {
         Intent intent = getIntent();
         this.transaction = (Transaction) intent.getSerializableExtra("transaction");
-        this.task = (Task) intent.getSerializableExtra("task");
-        this.tag = new Gson().fromJson(FileUtils.readAssetFile(this, "annotationTag.json"),
-                AnnotationTag.class);
+        // get formatter
+        viewModel.getFormatter(transaction.taskId).observe(this, resource -> {
+            showLoading();
+            switch (resource.status){
+                case SUCCESS:
+                    hideLoading();
+                    this.formatter = resource.data;
+                    setTagDialog();
+                    break;
+                case ERROR:
+                    hideLoading();
+                    showAlertDialog(getString(R.string.error), resource.message);
+                    break;
+                case LOADING:
+                    break;
+            }
+        });
     }
 
     public void setView() {
@@ -89,8 +101,12 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                 annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
                         ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
         annotateImageView.setMode(mode);
-        annotateImageView.setShapeListener(this::showTagDialog);
-        // upload commit
+        annotateImageView.setShapeListener((shape)->{
+            currentShape = shape;
+            showTagDialog();
+            tagCounter++;
+        });
+        // TODO: upload commit
         binding.savePictureCommit.setOnClickListener(view -> {
 
         });
@@ -101,11 +117,16 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         LayoutInflater factory = LayoutInflater.from(this);
         final View stdView = factory.inflate(R.layout.dialog_custom, null);
         LinearLayout tagLayout = stdView.findViewById(R.id.tag_dialog_layout);
+        TextView tagDescription = tagLayout.findViewById(R.id.tag_dialog_guide);
+        tagDescription.setText(getString(R.string.tag_prompt));
         Spinner spinner = tagLayout.findViewById(R.id.tag_dialog_spinner);
-        // TODO: filled with tag list
+        // fill spinner with tag list
+        ArrayList<String> tagNameList = new ArrayList<>();
+        for (AnnotationTag tag: formatter.tags){
+            tagNameList.add(tag.name);
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
-                Arrays.asList(getString(R.string.collection_task), getString(R.string.annotation_task)));
+                android.R.layout.simple_spinner_item, tagNameList);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         this.tagDialog = builder.title(R.string.add_tag)
@@ -117,9 +138,9 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
-                        Logger.d("You selected" + spinner.getSelectedItemId());
+                        int selectedIndex = spinner.getSelectedItemPosition();
                         Intent intent = new Intent(AnnotationTaskActivity.this, TagEditorActivity.class);
-                        intent.putExtra("tag", tag);
+                        intent.putExtra("tag", formatter.tags.get(selectedIndex));
                         startActivityForResult(intent, CODE);
                         dialog.dismiss();
                     }
@@ -171,22 +192,30 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         int id = item.getItemId();
         switch (id){
             case R.id.annotation_next:
-                if (currentIdx < transaction.pictures.size() - 1)
+                if (currentIdx < transaction.pictures.size() - 1) {
                     annotateImage(++currentIdx);
+                    tagCounter = 0;
+                }
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
                 break;
             case R.id.annotation_prev:
-                if (currentIdx > 0)
+                if (currentIdx > 0) {
                     annotateImage(--currentIdx);
+                    tagCounter = 0;
+                }
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_first));
                 break;
             case R.id.annotation_clear:
                 annotateImageView.clear();
+                tagCounter = 0;
                 break;
             case R.id.annotation_undo:
-                annotateImageView.undo();
+                if (tagCounter > 1) {
+                    tagCounter -= 1;
+                    annotateImageView.undo();
+                }
                 break;
         }
 

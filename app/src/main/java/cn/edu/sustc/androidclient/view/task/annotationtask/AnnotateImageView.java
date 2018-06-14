@@ -35,7 +35,7 @@ public class AnnotateImageView extends AppCompatImageView {
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
-    private OnShapeListener listener;
+    private ShapeListener listener;
 
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -65,9 +65,9 @@ public class AnnotateImageView extends AppCompatImageView {
      * This method will be called from outside,
      * the listener will be called when a shape is added to the image
      *
-     * @param listener OnShapeListener
+     * @param listener ShapeListener
      */
-    public void setShapeListener(OnShapeListener listener) {
+    public void setShapeListener(ShapeListener listener) {
         this.listener = listener;
     }
 
@@ -115,13 +115,13 @@ public class AnnotateImageView extends AppCompatImageView {
      * @param shape shape to be added
      */
     public void addShape(Shape shape) {
+        listener.onShapeAdded(shape);
         shapeList.add(shape);
         currentShape = null;
         // draw current shape on mixed canvas
         shape.draw(mixCanvas, paint);
         // redraw mixed image
         setImageBitmap(mixedBitmap);
-        listener.run();
     }
 
     /**
