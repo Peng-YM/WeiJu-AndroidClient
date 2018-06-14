@@ -28,7 +28,7 @@ public class TaskPublishViewModel extends BaseViewModel {
         this.fileRepository = fileRepository;
     }
 
-    public MutableLiveData<MyResource<Task>> publishTask(Task task){
+    public LiveData<MyResource<Task>> publishTask(Task task) {
         return taskRepository.publishTask(task);
     }
 

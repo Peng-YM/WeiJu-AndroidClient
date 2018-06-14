@@ -6,6 +6,7 @@ import java.util.List;
 import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import io.reactivex.Observable;
@@ -24,5 +25,8 @@ public interface TaskService {
 
     @POST("api/tasks/")
     Single<MyResponse<Task>> createTask(@Body MyRequest<Task> newTask);
+
+    @GET("api/tasks/annotation/formatter")
+    Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Query("id") int taskId);
 
 }

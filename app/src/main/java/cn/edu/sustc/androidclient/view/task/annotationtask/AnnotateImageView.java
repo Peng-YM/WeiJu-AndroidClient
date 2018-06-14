@@ -11,8 +11,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +35,7 @@ public class AnnotateImageView extends AppCompatImageView {
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
+    private OnShapeListener listener;
 
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -62,6 +61,15 @@ public class AnnotateImageView extends AppCompatImageView {
         initMixedBitmap();
     }
 
+    /**
+     * This method will be called from outside,
+     * the listener will be called when a shape is added to the image
+     *
+     * @param listener OnShapeListener
+     */
+    public void setShapeListener(OnShapeListener listener) {
+        this.listener = listener;
+    }
 
     /**
      * reset mixedBitmap to original bitmap
@@ -113,6 +121,7 @@ public class AnnotateImageView extends AppCompatImageView {
         shape.draw(mixCanvas, paint);
         // redraw mixed image
         setImageBitmap(mixedBitmap);
+        listener.run();
     }
 
     /**

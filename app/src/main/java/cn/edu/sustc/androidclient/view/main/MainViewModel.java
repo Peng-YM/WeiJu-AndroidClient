@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.view.main;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.SharedPreferences;
 
 import javax.inject.Inject;
@@ -15,7 +14,7 @@ public class MainViewModel extends BaseViewModel {
     private UserRepository userRepository;
     private SharedPreferences preferences;
 
-    private MutableLiveData<MyResource<User>> currentUser;
+    private LiveData<MyResource<User>> currentUser;
 
     @Inject
     public MainViewModel(UserRepository userRepository, SharedPreferences preferences) {

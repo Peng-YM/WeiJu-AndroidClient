@@ -73,6 +73,29 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         }
     }
 
+    public void setData() {
+        Intent intent = getIntent();
+        this.transaction = (Transaction) intent.getSerializableExtra("transaction");
+        this.task = (Task) intent.getSerializableExtra("task");
+        this.tag = new Gson().fromJson(FileUtils.readAssetFile(this, "annotationTag.json"),
+                AnnotationTag.class);
+    }
+
+    public void setView() {
+        if (transaction.pictures.size() > 0) {
+            annotateImage(currentIdx);
+        }
+        AnnotateImageView.Mode mode =
+                annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
+                        ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
+        annotateImageView.setMode(mode);
+        annotateImageView.setShapeListener(this::showTagDialog);
+        // upload commit
+        binding.savePictureCommit.setOnClickListener(view -> {
+
+        });
+    }
+
     private void setTagDialog(){
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this);
         LayoutInflater factory = LayoutInflater.from(this);
@@ -112,27 +135,6 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
     public void showTagDialog(){
         tagDialog.show();
-    }
-
-    public void setData(){
-        Intent intent = getIntent();
-        this.transaction = (Transaction) intent.getSerializableExtra("transaction");
-        this.task = (Task) intent.getSerializableExtra("task");
-        this.tag = new Gson().fromJson(FileUtils.readAssetFile(this, "annotationTag.json"),
-                AnnotationTag.class);
-        Logger.d(tag.name);
-    }
-
-    public void setView(){
-        if (transaction.pictures.size() > 0){
-            annotateImage(currentIdx);
-        }
-        AnnotateImageView.Mode mode =
-                annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
-                        ? AnnotateImageView.Mode.ZOOM : AnnotateImageView.Mode.DRAW;
-        annotateImageView.setMode(mode);
-
-        binding.savePictureCommit.setOnClickListener(view -> showTagDialog());
     }
 
     private void annotateImage(int index){

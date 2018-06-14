@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.model.repository;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -55,7 +56,7 @@ public class TaskRepository{
                 .subscribeOn(schedulerProvider.io());
     }
 
-    public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
+    public LiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
         MyResource<Transaction> resource = MyResource.loading(null);
         transaction.postValue(resource);
@@ -100,7 +101,7 @@ public class TaskRepository{
         dataBase.transactionDao().updateTransaction(transaction);
     }
 
-    public MutableLiveData<MyResource<Task>> publishTask(Task task) {
+    public LiveData<MyResource<Task>> publishTask(Task task) {
         MutableLiveData<MyResource<Task>> resource = new MutableLiveData<>();
         resource.postValue(MyResource.loading(null));
         taskService.createTask(new MyRequest<>(task))

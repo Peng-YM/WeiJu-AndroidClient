@@ -28,7 +28,6 @@ public class Task implements Serializable {
     public String cover;
 
     public int size;
-//    public TaskFormatter formatter;
 
     @Override
     public String toString() {
@@ -41,7 +40,7 @@ public class Task implements Serializable {
         public final static int ANNOTATION = 0;
     }
 
-    public static class TaskFormatter implements Serializable {
+    public static class AnnotationTaskFormatter implements Serializable {
         public List<AnnotationTag> tags;
     }
 }
