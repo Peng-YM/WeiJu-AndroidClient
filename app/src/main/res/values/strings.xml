@@ -104,4 +104,10 @@
     <string name="tag_prompt">请选择框图的标签</string>
     <!--标签属性编辑页-->
     <string name="save">保存</string>
+
+
+
+    <!--来自于github的测试数据-->
+    <!--<string name="app_name">Material Profile</string>-->
+    <string name="action_settings">Settings</string>
 </resources>

@@ -10,7 +10,6 @@
             type="cn.edu.sustc.androidclient.view.authentication.RegistrationActivity" />
     </data>
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/registration_constraintLayout"
         android:layout_width="match_parent"

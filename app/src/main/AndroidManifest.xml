@@ -54,18 +54,22 @@
         <activity
             android:name=".view.Splash"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.profile.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".view.profile.ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".view.task.taskdetail.TaskDetailActivity"
-            android:label="@string/task_details" />
+            android:label="@string/task_details"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".view.about.AboutActivity"
             android:label="@string/about" />
