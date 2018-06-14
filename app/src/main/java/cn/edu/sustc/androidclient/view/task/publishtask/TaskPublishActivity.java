@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -16,6 +17,7 @@ import com.yanzhenjie.album.AlbumFile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -148,16 +150,22 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH)).show();
         });
+        // setup task type
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                Arrays.asList(getString(R.string.collection_task), getString(R.string.annotation_task)));
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        binding.spinner.setAdapter(adapter);
+        binding.spinner.setSelection(0);
     }
 
     private void publishTask(){
         if (validation.validate()) {
             task.name = binding.taskName.getText().toString();
-            task.type = 0;
-            task.start = String.valueOf(new Date().getTime());
+            // only support collection task right now
+            task.type = 1;
+            task.size = Integer.valueOf(binding.taskSize.getText().toString());
             task.author = preferences.getInt("id", 0);
-            // TODO: task end
-            task.end = String.valueOf(new Date().getTime());
             viewModel.publishTask(task).observe(this, resource -> {
                 showLoading();
                 switch (resource.status) {

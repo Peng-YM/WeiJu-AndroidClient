@@ -26,6 +26,8 @@ public class Task implements Serializable {
 
     public int type;
     public String cover;
+
+    public int size;
 //    public TaskFormatter formatter;
 
     @Override
