@@ -20,7 +20,10 @@ public class Task implements Serializable {
     public String end;
 
     public String description;
-    public String author;
+
+    @SerializedName("user_id")
+    public int author;
+
     public int type;
     public String cover;
 //    public TaskFormatter formatter;

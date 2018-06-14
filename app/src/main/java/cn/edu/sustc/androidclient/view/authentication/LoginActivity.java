@@ -56,8 +56,10 @@ public class LoginActivity extends BaseActivity<LoginViewModel, ActivityLoginBin
         email = new ObservableField<>();
         password = new ObservableField<>();
         // init validations
-        awesomeValidation.addValidation(binding.loginEmail, Patterns.EMAIL_ADDRESS, getString(R.string.email_error));
-        awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0, getString(R.string.alert_field_empty));
+        awesomeValidation.addValidation(binding.loginEmail, Patterns.EMAIL_ADDRESS,
+                getString(R.string.email_error));
+        awesomeValidation.addValidation(binding.loginPassword, s -> s.trim().length() != 0,
+                getString(R.string.alert_field_empty));
     }
 
     public void login(View view) {

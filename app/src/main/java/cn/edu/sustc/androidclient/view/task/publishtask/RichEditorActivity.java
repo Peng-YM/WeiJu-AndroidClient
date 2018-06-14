@@ -3,6 +3,8 @@ package cn.edu.sustc.androidclient.view.task.publishtask;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
 import com.scrat.app.richtext.RichEditText;
 
 import cn.edu.sustc.androidclient.R;
@@ -23,30 +26,24 @@ public class RichEditorActivity extends AppCompatActivity {
     private RichEditText taskEditor;
     private ActivityRichEditorBinding binding;
 
-    public static void start(Context context){
-        Intent intent = new Intent(context, RichEditorActivity.class);
-        context.startActivity(intent);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding =
-                ActivityRichEditorBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_rich_editor);
+        binding =  DataBindingUtil.setContentView(this, R.layout.activity_rich_editor);
         taskEditor = binding.knife;
-
-        setUpEditor();
         taskEditor.setSelection(taskEditor.getEditableText().length());
         taskEditor.fromHtml(
-                "<blockquote>Android 端的富文本编辑器</blockquote>" +
+                "<blockquote>猫照片收集</blockquote>" +
                         "<ul>" +
-                        "<li>支持实时编辑</li>" +
-                        "<li>支持图片插入,加粗,斜体,下划线,删除线,列表,引用块,超链接,撤销与恢复等</li>" +
-                        "<li>使用<u>Glide 4</u>加载图片</li>" +
+                        "<li>要可爱</li>" +
+                        "<li>多个角度</li>" +
+                        "<li>gif或者视频皆可</li>" +
                         "</ul>" +
+                        "<p>实例图片</p>"+
                         "<img src=\"http://biuugames.huya.com/221d89ac671feac1.gif\"><br><br>" +
-                        "<img src=\"http://biuugames.huya.com/5-160222145918.jpg\"><br><br>"
-        );
+                        "<img src=\"http://biuugames.huya.com/5-160222145918.jpg\"><br><br>");
+        setUpEditor();
     }
 
     private void setUpEditor() {
@@ -166,9 +163,9 @@ public class RichEditorActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(link)) {
                 return;
             }
-
-            // When RichEditText lose focus, use this method
-            taskEditor.link(link, start, end);
+            Logger.d("URL：" + link);
+            Uri uri = Uri.parse(link);
+            taskEditor.image(uri);
         });
 
         builder.setNegativeButton(R.string.dialog_button_cancel, (dialog, which) -> {
@@ -193,10 +190,26 @@ public class RichEditorActivity extends AppCompatActivity {
             case R.id.redo:
                 taskEditor.redo();
                 break;
+            case R.id.finish:
+                AlertDialog dialog = new AlertDialog
+                        .Builder(this)
+                        .setTitle(R.string.info)
+                        .setMessage(R.string.submit_permit)
+                        .setPositiveButton(R.string.dialog_button_ok, (dialogInterface, i) -> {
+                            // return html back to task publish activity
+                            Intent intentHtml = new Intent();
+                            intentHtml.putExtra("HTML", taskEditor.toHtml());
+                            setResult(2, intentHtml);
+                            finish();
+                        })
+                        .setNegativeButton(R.string.dialog_button_cancel, ((dialogInterface, i) -> {
+                            dialogInterface.cancel();
+                        }))
+                        .create();
+                dialog.show();
             default:
                 break;
         }
-
         return true;
     }
 }
