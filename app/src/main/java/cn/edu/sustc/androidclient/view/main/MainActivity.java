@@ -170,8 +170,10 @@ public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBindin
             case R.id.action_exit:
                 ActivityUtils.finishAll();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

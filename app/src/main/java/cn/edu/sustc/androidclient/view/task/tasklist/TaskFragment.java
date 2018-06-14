@@ -81,6 +81,7 @@ public class TaskFragment extends BaseFragment<TaskFragmentViewModel, TaskFragme
                     }
                     getBaseActivity().showAlertDialog(getString(R.string.error), resource.message);
                     break;
+                default:
                 case LOADING:
                     break;
             }

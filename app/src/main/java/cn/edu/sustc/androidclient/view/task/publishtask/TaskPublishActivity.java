@@ -136,6 +136,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
                                 hideLoading();
                                 showAlertDialog(getString(R.string.error), resource.message);
                                 break;
+                            default:
                             case LOADING:
                                 break;
                         }
@@ -180,6 +181,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
                         hideLoading();
                         showAlertDialog(getString(R.string.error), getString(R.string.publish_error));
                         break;
+                    default:
                     case LOADING:
                         break;
                 }
