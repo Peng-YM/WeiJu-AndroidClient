@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4D46BC</color>
-    <color name="colorPrimaryDark">#3D3896</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- 应用主题颜色 -->
+    <color name="colorPrimary">#437AF8</color>
+
+    <!-- 深色的应用主题颜色 -->
+    <color name="colorPrimaryDark">#3561C6</color>
+
+    <!-- 高亮的应用主题颜色 -->
+    <color name="colorAccent">#79B5EF</color>
+
+
     <color name="blue_500">#FF2196F3</color>
 
     <!-- 任务列表的"查看详情"的颜色 -->
