@@ -9,6 +9,12 @@
     <!-- 高亮的应用主题颜色 -->
     <color name="colorAccent">#79B5EF</color>
 
+    <!-- 表单背景色 -->
+    <color name="colorBackground">#f1f3fb</color>
+
+    <!-- 表单字体颜色 -->
+    <color name="colorText">#777a80</color>
+
 
     <color name="blue_500">#FF2196F3</color>
 
