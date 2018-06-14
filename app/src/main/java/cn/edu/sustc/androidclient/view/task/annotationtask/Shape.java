@@ -5,11 +5,14 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Shape {
     abstract void draw(Canvas canvas, Paint paint);
 
     abstract Coordinate getCenter();
+
+    abstract List<Coordinate> getCriticalPoints();
 
     abstract Paint getPaint();
 

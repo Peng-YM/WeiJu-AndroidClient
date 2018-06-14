@@ -23,8 +23,8 @@ public class TaskModule {
     }
 
     @Provides
-    AnnotationTaskViewModel provideAnnotationTaskViewModel(FileRepository repository) {
-        return new AnnotationTaskViewModel(repository);
+    AnnotationTaskViewModel provideAnnotationTaskViewModel(TaskRepository taskRepository) {
+        return new AnnotationTaskViewModel(taskRepository);
     }
 
     @Provides

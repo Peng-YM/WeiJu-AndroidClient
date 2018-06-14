@@ -1,7 +1,6 @@
 package cn.edu.sustc.androidclient.view.authentication;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.LiveData;
 
 import com.orhanobut.logger.Logger;
 
@@ -23,7 +22,7 @@ public class LoginViewModel extends BaseViewModel {
         this.userRepository = repository;
     }
 
-    public MutableLiveData<MyResource<Credential>> login(Session session) {
+    public LiveData<MyResource<Credential>> login(Session session) {
         Logger.d("Attempted to Login: Email: %s, Password: %s", session.email, session.password);
         return userRepository.login(session);
     }
@@ -33,7 +32,7 @@ public class LoginViewModel extends BaseViewModel {
      *
      * @param session New user
      */
-    public MutableLiveData<MyResource<User>> registration(Session session) {
+    public LiveData<MyResource<User>> registration(Session session) {
         return userRepository.registration(session);
     }
 }

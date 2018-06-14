@@ -11,8 +11,6 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +28,13 @@ public class AnnotateImageView extends AppCompatImageView {
     private int touchDownX = 0;
     private int touchDownY = 0;
     private Coordinate startPoint = new Coordinate(0, 0);
-    private int edit_index = -1;
     private Matrix currentMatrix, savedMatrix;
 
     private Canvas mixCanvas; // canvas to draw the mixed picture
 
     private float oldDistance = 1f;
     private Coordinate midPoint;
+    private ShapeListener listener;
 
     public AnnotateImageView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -53,7 +51,8 @@ public class AnnotateImageView extends AppCompatImageView {
         paint = new Paint();
         paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.WHITE);
+        paint.setAlpha(500);
 
         currentMatrix = new Matrix();
         savedMatrix = new Matrix();
@@ -61,6 +60,15 @@ public class AnnotateImageView extends AppCompatImageView {
         initMixedBitmap();
     }
 
+    /**
+     * This method will be called from outside,
+     * the listener will be called when a shape is added to the image
+     *
+     * @param listener ShapeListener
+     */
+    public void setShapeListener(ShapeListener listener) {
+        this.listener = listener;
+    }
 
     /**
      * reset mixedBitmap to original bitmap
@@ -106,35 +114,13 @@ public class AnnotateImageView extends AppCompatImageView {
      * @param shape shape to be added
      */
     public void addShape(Shape shape) {
+        listener.onShapeAdded(shape);
         shapeList.add(shape);
         currentShape = null;
         // draw current shape on mixed canvas
         shape.draw(mixCanvas, paint);
         // redraw mixed image
         setImageBitmap(mixedBitmap);
-    }
-
-
-    /**
-     * get the shape index clicked(center) by user
-     *
-     * @param clickPoint user's click point
-     */
-    public int getShape(Coordinate clickPoint) {
-        double minDistance = Integer.MAX_VALUE;
-        int minIndex = -1, cnt = 0;
-
-        for (Shape shape : shapeList) {
-            Coordinate center = shape.getCenter();
-            double newDistance = center.distanceTo(clickPoint);
-            if (minDistance > newDistance) {
-                minIndex = cnt;
-                minDistance = newDistance;
-                Logger.d("Update Distance: %f", minDistance);
-            }
-            cnt++;
-        }
-        return minIndex;
     }
 
     /**
@@ -145,7 +131,6 @@ public class AnnotateImageView extends AppCompatImageView {
         initMixedBitmap();
         invalidate();
     }
-
 
     /**
      * undo the previous step

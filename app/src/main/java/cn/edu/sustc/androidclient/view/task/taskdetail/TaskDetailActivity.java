@@ -60,7 +60,7 @@ public class TaskDetailActivity extends BaseActivity<TaskDetailViewModel, Activi
             binding.takeTaskBtn.setOnClickListener(view -> {
                 switch (task.type){
                     case Task.TaskType.ANNOTATION:
-                        AnnotationTaskActivity.start(this);
+                        AnnotationTaskActivity.start(this, task, transaction);
                         break;
                     case Task.TaskType.COLLECTION:
                         CollectionTaskActivity.start(this, task, transaction);

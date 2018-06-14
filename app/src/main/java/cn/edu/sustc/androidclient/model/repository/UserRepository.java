@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.model.repository;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.orhanobut.logger.Logger;
@@ -43,7 +44,7 @@ public class UserRepository{
         initData();
     }
 
-    public MutableLiveData<MyResource<Credential>> login(Session session) {
+    public LiveData<MyResource<Credential>> login(Session session) {
         MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
         userService.login(sessionMyRequest)
                 .subscribeOn(schedulerProvider.io())
@@ -74,7 +75,7 @@ public class UserRepository{
         return credential;
     }
 
-    public MutableLiveData<MyResource<User>> registration(Session session) {
+    public LiveData<MyResource<User>> registration(Session session) {
         MutableLiveData<MyResource<User>> userLive = new MutableLiveData<>();
         userLive.postValue(MyResource.loading(null));
         MyRequest<Session> sessionMyRequest = new MyRequest<>(session);
@@ -101,7 +102,7 @@ public class UserRepository{
         return userLive;
     }
 
-    public MutableLiveData<MyResource<User>> getUserProfile(int id) {
+    public LiveData<MyResource<User>> getUserProfile(int id) {
         userProfile = new MutableLiveData<>();
         MyResource<User> resource = MyResource.loading(null);
         userProfile.postValue(resource);

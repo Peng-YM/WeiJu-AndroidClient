@@ -58,17 +58,13 @@ public class TaskFragmentViewModel extends BaseViewModel {
     }
 
     public void setStatusFilter(int statusFilter) {
-        Logger.d("Filter is set!");
         this.taskListFilter = (task) -> {
             Transaction transaction = taskRepository.hasUnfinishedTransaction(task.taskId);
-            Logger.d("Filtering task" + task.toString());
             // show all task
             if (transaction != null && statusFilter == -1) {
-                Logger.d("Passed 1");
                 return true;
             }
             else {
-                Logger.d("Passed 2");
                 return transaction != null && statusFilter == transaction.status;
             }
         };

@@ -31,9 +31,7 @@
                 app:imageUrl="@{viewModel.task.cover}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/no_image_to_show_" />
-            <!--  -->
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- 领取按钮 -->
             <Button
@@ -53,7 +51,7 @@
 
             <!-- 任务的名称 -->
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/task_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -75,7 +73,7 @@
                 android:background="@drawable/bg_point"
                 android:textColor="@color/point_text_color"
                 android:padding="5dp"
-                android:text="10积分"
+                android:text="@{viewModel.credit}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -85,12 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:textColor="#757575"
                 android:text="@{viewModel.taskType}"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-            <!-- android:text="@{viewModel.taskType}" -->
+                app:layout_constraintStart_toStartOf="@+id/task_name"
+                app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
             <!-- 任务的截止时间 -->
             <TextView
@@ -99,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="24dp"
-                android:textSize="12dp"
-                android:textColor="#757575"
-                android:text="这个是任务的截止时间,绑定一个data_binding"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
+                android:text="@{viewModel.taskDDL}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

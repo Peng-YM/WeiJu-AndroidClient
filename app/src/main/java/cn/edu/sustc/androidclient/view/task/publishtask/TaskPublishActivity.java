@@ -7,11 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -19,9 +19,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -55,8 +53,6 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
         binding = getBinding();
         this.myCalendar = Calendar.getInstance();
         this.task = new Task();
-        // default description is empty
-        task.description = "";
 
         setValidation();
         setWidget();
@@ -69,9 +65,10 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CODE){
+        if (resultCode == CODE){
             task.description = data.getStringExtra("HTML");
-        }
+        }else
+            task.description = "";
     }
 
     private void setValidation() {
@@ -88,22 +85,24 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "yy/MM/dd";
+            String myFormat = "yyyy年MM月dd日";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.CHINA);
             String time = simpleDateFormat.format(myCalendar.getTime());
             binding.taskStart.setText(time);
-            task.start = String.valueOf(myCalendar.getTime());
+            long longFormat = myCalendar.getTime().getTime();
+            task.start = String.valueOf(longFormat);
         };
 
         DatePickerDialog.OnDateSetListener endDateListener = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "yy/MM/dd";
+            String myFormat = "yyyy年MM月dd日";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.CHINA);
             String time = simpleDateFormat.format(myCalendar.getTime());
             binding.taskEnd.setText(time);
-            task.end = String.valueOf(myCalendar.getTime());
+            long longFormat = myCalendar.getTime().getTime();
+            task.end = String.valueOf(longFormat);
         };
         // setup go to rich editor
         binding.editorButton.setOnClickListener(view -> {

@@ -5,6 +5,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import cn.edu.sustc.androidclient.R;
 
 public final class CommonUtils {
@@ -22,5 +26,11 @@ public final class CommonUtils {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         return progressDialog;
+    }
+
+    public static String getPrettyDateFromLong(long time){
+        Date target = new Date(time);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
+        return dateFormat.format(target);
     }
 }

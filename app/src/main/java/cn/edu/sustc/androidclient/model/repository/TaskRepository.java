@@ -1,5 +1,6 @@
 package cn.edu.sustc.androidclient.model.repository;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
 import cn.edu.sustc.androidclient.model.data.Task;
+import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.data.TransactionInfo;
 import cn.edu.sustc.androidclient.model.service.TaskService;
@@ -55,7 +57,7 @@ public class TaskRepository{
                 .subscribeOn(schedulerProvider.io());
     }
 
-    public MutableLiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
+    public LiveData<MyResource<Transaction>> applyTask(TransactionInfo info) {
         MutableLiveData<MyResource<Transaction>> transaction = new MutableLiveData<>();
         MyResource<Transaction> resource = MyResource.loading(null);
         transaction.postValue(resource);
@@ -100,7 +102,7 @@ public class TaskRepository{
         dataBase.transactionDao().updateTransaction(transaction);
     }
 
-    public MutableLiveData<MyResource<Task>> publishTask(Task task) {
+    public LiveData<MyResource<Task>> publishTask(Task task) {
         MutableLiveData<MyResource<Task>> resource = new MutableLiveData<>();
         resource.postValue(MyResource.loading(null));
         taskService.createTask(new MyRequest<>(task))
@@ -115,6 +117,32 @@ public class TaskRepository{
                     @Override
                     public void onSuccess(MyResponse<Task> response) {
                         resource.postValue(MyResource.success(response.data));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        resource.postValue(MyResource.error(e.getMessage(), null));
+                    }
+                });
+        return resource;
+    }
+
+    public LiveData<MyResource<AnnotationTaskFormatter>> getAnnotationTaskFormatter(int taskId){
+        MutableLiveData<MyResource<AnnotationTaskFormatter>> resource =
+                new MutableLiveData<>();
+        resource.postValue(MyResource.loading(null));
+        taskService.getAnnotationTaskFormatter(taskId)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new SingleObserver<AnnotationTaskFormatter>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(AnnotationTaskFormatter annotationTaskFormatter) {
+                        resource.postValue(MyResource.success(annotationTaskFormatter));
                     }
 
                     @Override
