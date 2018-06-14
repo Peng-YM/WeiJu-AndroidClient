@@ -19,6 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityAnnotationTaskBinding;
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
 import cn.edu.sustc.androidclient.model.data.AnnotationCommits.AnnotationTag;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;
@@ -43,6 +45,8 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private Transaction transaction;
     private MaterialDialog tagDialog;
     private Task.AnnotationTaskFormatter formatter;
+    private AnnotationCommits commits;
+
     private Shape currentShape;
 
     private int tagCounter = 0;
@@ -59,21 +63,26 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = getBinding();
-        setData();
-        setView();
+        initData();
+        initView();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CODE){
             AnnotationTag resultTag = (AnnotationTag) data.getSerializableExtra("tag");
-            // TODO: save result
+            resultTag.positions = currentShape.getCriticalPoints();
+            this.commits.tags.add(resultTag);
         }
     }
 
-    public void setData() {
+    private void initData() {
         Intent intent = getIntent();
         this.transaction = (Transaction) intent.getSerializableExtra("transaction");
+        this.commits = new AnnotationCommits();
+        this.commits.transactionId = transaction.transactionId;
+        this.commits.tags = new ArrayList<>();
+
         // get formatter
         viewModel.getFormatter(transaction.taskId).observe(this, resource -> {
             showLoading();
@@ -81,7 +90,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                 case SUCCESS:
                     hideLoading();
                     this.formatter = resource.data;
-                    setTagDialog();
+                    initTagSelectionDialog();
                     break;
                 case ERROR:
                     hideLoading();
@@ -93,9 +102,9 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         });
     }
 
-    public void setView() {
+    private void initView() {
         if (transaction.pictures.size() > 0) {
-            annotateImage(currentIdx);
+            onImageChanged(currentIdx);
         }
         AnnotateImageView.Mode mode =
                 annotateImageView.getMode() == AnnotateImageView.Mode.DRAW
@@ -108,11 +117,11 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         });
         // TODO: upload commit
         binding.savePictureCommit.setOnClickListener(view -> {
-
+            Logger.d(commits);
         });
     }
 
-    private void setTagDialog(){
+    private void initTagSelectionDialog(){
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this);
         LayoutInflater factory = LayoutInflater.from(this);
         final View stdView = factory.inflate(R.layout.dialog_custom, null);
@@ -192,18 +201,14 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         int id = item.getItemId();
         switch (id){
             case R.id.annotation_next:
-                if (currentIdx < transaction.pictures.size() - 1) {
-                    annotateImage(++currentIdx);
-                    tagCounter = 0;
-                }
+                if (currentIdx < transaction.pictures.size() - 1)
+                    onImageChanged(++currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_last));
                 break;
             case R.id.annotation_prev:
-                if (currentIdx > 0) {
-                    annotateImage(--currentIdx);
-                    tagCounter = 0;
-                }
+                if (currentIdx > 0)
+                    onImageChanged(--currentIdx);
                 else
                     showAlertDialog(getString(R.string.alert), getString(R.string.alert_first));
                 break;
@@ -218,7 +223,20 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                 }
                 break;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onImageChanged(int index){
+        String title = String.format("%s(%d/%d)", getString(R.string.annotation_task), currentIdx + 1, transaction.pictures.size());
+        setTitle(title);
+        if (index == transaction.pictures.size() - 1)
+            binding.savePictureCommit.setVisibility(View.VISIBLE);
+        else
+            binding.savePictureCommit.setVisibility(View.GONE);
+        tagCounter = 0;
+        currentShape = null;
+
+        currentIdx = index;
+        annotateImage(index);
     }
 }

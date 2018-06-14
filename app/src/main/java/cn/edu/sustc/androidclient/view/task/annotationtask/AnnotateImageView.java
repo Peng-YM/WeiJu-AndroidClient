@@ -28,7 +28,6 @@ public class AnnotateImageView extends AppCompatImageView {
     private int touchDownX = 0;
     private int touchDownY = 0;
     private Coordinate startPoint = new Coordinate(0, 0);
-    private int edit_index = -1;
     private Matrix currentMatrix, savedMatrix;
 
     private Canvas mixCanvas; // canvas to draw the mixed picture

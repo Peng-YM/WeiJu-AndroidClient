@@ -20,7 +20,6 @@
     <color name="button_welcome">#020E1A</color>
 
     <!-- 登录页面的登录按钮颜色 -->
-    <color name="button_loginPage">#4837BC</color>
 
     <!-- 注册页面的注册按钮颜色 -->
     <color name="button_signinPage">#FFFFFF</color>
@@ -32,7 +31,5 @@
 
 
     <!--用于表单未填写完时的按钮颜色-->
-    <color name="button_before_fill_up_form">#FFFFFF</color>
     <!--用于表单填写完成后，提交前的按钮颜色-->
-    <color name="button_after_fill_up_form">#79B5EF</color>
 </resources>
