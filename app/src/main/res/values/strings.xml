@@ -102,6 +102,7 @@
     <string name="clear_all">清空</string>
     <string name="undo">上一步</string>
     <string name="tag_prompt">请选择框图的标签</string>
+    <string name="commit_error">提交失败</string>
     <!--标签属性编辑页-->
     <string name="save">保存</string>
 
@@ -111,7 +112,6 @@
     <string name="credit">信用</string>
     <string name="balance">账户余额</string>
     <string name="level">等级</string>
-    <!--来自于github的测试数据-->
-    <!--<string name="app_name">Material Profile</string>-->
+
     <string name="action_settings">Settings</string>
 </resources>

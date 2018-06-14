@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.edu.sustc.androidclient.model.MyRequest;
 import cn.edu.sustc.androidclient.model.MyResponse;
+import cn.edu.sustc.androidclient.model.data.AnnotationCommits;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Task.AnnotationTaskFormatter;
 import cn.edu.sustc.androidclient.model.data.Transaction;
@@ -29,5 +30,8 @@ public interface TaskService {
 
     @GET("api/tasks/{id}/formatter")
     Single<AnnotationTaskFormatter> getAnnotationTaskFormatter(@Path("id") int taskId);
+
+    @POST("/api/commits/")
+    Single annotationCommit(@Body AnnotationCommits commits);
 
 }

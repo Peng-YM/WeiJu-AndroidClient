@@ -31,7 +31,10 @@ public class AnnotationCommits implements Serializable {
     @ColumnInfo(index = true)
     @NonNull
     public String userId;
-    public List<AnnotationTag> tags;
+
+    public List<String> pictures;
+
+    public List<String> tags;
 
     @Override
     public String toString() {

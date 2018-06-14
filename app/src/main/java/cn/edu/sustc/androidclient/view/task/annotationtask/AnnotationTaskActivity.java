@@ -19,6 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -73,7 +74,8 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         if (resultCode == CODE){
             AnnotationTag resultTag = (AnnotationTag) data.getSerializableExtra("tag");
             resultTag.positions = currentShape.getCriticalPoints();
-            this.commits.tags.add(resultTag);
+            this.commits.tags.add(new Gson().toJson(resultTag));
+            this.commits.pictures.add(transaction.pictures.get(currentIdx));
         }else{
             annotateImageView.undo();
             tagCounter--;
@@ -86,7 +88,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
         this.commits = new AnnotationCommits();
         this.commits.transactionId = transaction.transactionId;
         this.commits.tags = new ArrayList<>();
-
+        this.commits.pictures = new ArrayList<>();
         // get formatter
         viewModel.getFormatter(transaction.taskId).observe(this, resource -> {
             showLoading();
@@ -100,6 +102,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                     hideLoading();
                     showAlertDialog(getString(R.string.error), resource.message);
                     break;
+                default:
                 case LOADING:
                     break;
             }
@@ -116,9 +119,23 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             showTagDialog();
             tagCounter++;
         });
-        // TODO: upload commit
         binding.savePictureCommit.setOnClickListener(view -> {
-            Logger.d(commits);
+            viewModel.uploadCommits(commits).observe(this, resource -> {
+                showLoading();
+                switch (resource.status){
+                    case SUCCESS:
+                        hideLoading();
+                        showAlertDialog(getString(R.string.info), getString(R.string.commit_success));
+                        finish();
+                        break;
+                    case ERROR:
+                        hideLoading();
+                        showAlertDialog(getString(R.string.error), getString(R.string.commit_error));
+                        break;
+                    case LOADING:
+                        break;
+                }
+            });
         });
     }
 
