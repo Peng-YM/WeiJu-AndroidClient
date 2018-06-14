@@ -8,6 +8,9 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.databinding.ActivityProfileBinding;
 import cn.edu.sustc.androidclient.model.data.User;
@@ -17,6 +20,7 @@ import io.reactivex.annotations.Nullable;
 
 public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfileBinding>{
     private ActivityProfileBinding binding;
+    public User user;
 
     public static void start(Context context, User user) {
         Intent intent = new Intent(context, ProfileActivity.class);
@@ -27,13 +31,25 @@ public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfile
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.user = (User) getIntent().getSerializableExtra("user");
         binding = getBinding();
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        setView();
     }
 
     private void setView(){
+        binding.setViewModel(this);
+        // floating button to edit profile
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.ic_load_error);
+
+        Glide.with(this)
+                .load(user.avatar)
+                .apply(options)
+                .into(binding.userProfileImage);
 
     }
 

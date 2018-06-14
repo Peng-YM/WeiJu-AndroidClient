@@ -20,7 +20,7 @@
         <include
             android:id="@+id/content_main"
             layout="@layout/content_main"
-            app:mainListener="@{mainListener}" />
+            app:mainListener="@{mainListener}"/>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"

@@ -105,8 +105,12 @@
     <!--标签属性编辑页-->
     <string name="save">保存</string>
 
-
-
+    <!--用户详情-->
+    <string name="user_name">用户名</string>
+    <string name="phone_number">手机号</string>
+    <string name="credit">信用</string>
+    <string name="balance">账户余额</string>
+    <string name="level">等级</string>
     <!--来自于github的测试数据-->
     <!--<string name="app_name">Material Profile</string>-->
     <string name="action_settings">Settings</string>
