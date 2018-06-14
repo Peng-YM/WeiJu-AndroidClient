@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.common.rx.AppSchedulerProvider;
 import cn.edu.sustc.androidclient.common.rx.SchedulerProvider;
 import cn.edu.sustc.androidclient.model.MyResource;
@@ -98,5 +99,30 @@ public class FileRepository {
                 emitter.onError(e);
             }
         });
+    }
+
+    public LiveData<MyResource<String>> uploadCover(String imagePath) {
+        MutableLiveData<MyResource<String>> urlLive = new MutableLiveData<>();
+        urlLive.postValue(MyResource.loading(null));
+
+        File image = new File(imagePath);
+        upload(Constants.FILE_URL, image, new SingleObserver<MyResponse<List<String>>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposables.add(d);
+            }
+
+            @Override
+            public void onSuccess(MyResponse<List<String>> response) {
+                String firstUrl = response.data.get(0);
+                urlLive.postValue(MyResource.success(firstUrl));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                urlLive.postValue(MyResource.error(e.getMessage(), null));
+            }
+        });
+        return urlLive;
     }
 }

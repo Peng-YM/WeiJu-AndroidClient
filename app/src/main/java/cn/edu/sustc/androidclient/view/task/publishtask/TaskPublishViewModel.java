@@ -33,27 +33,6 @@ public class TaskPublishViewModel extends BaseViewModel {
     }
 
     public LiveData<MyResource<String>> uploadCover(String imagePath) {
-        MutableLiveData<MyResource<String>> urlLive = new MutableLiveData<>();
-        urlLive.postValue(MyResource.loading(null));
-
-        File image = new File(imagePath);
-        fileRepository.upload(Constants.FILE_URL, image, new SingleObserver<MyResponse<List<String>>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                getCompositeDisposable().add(d);
-            }
-
-            @Override
-            public void onSuccess(MyResponse<List<String>> response) {
-                String firstUrl = response.data.get(0);
-                urlLive.postValue(MyResource.success(firstUrl));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                urlLive.postValue(MyResource.error(e.getMessage(), null));
-            }
-        });
-        return urlLive;
+        return fileRepository.uploadCover(imagePath);
     }
 }

@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.AlbumFile;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -71,15 +73,37 @@ public class ProfileActivity extends BaseActivity<MainViewModel, ActivityProfile
                     break;
             }
         });
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .error(R.drawable.ic_load_error);
-
-        Glide.with(this)
-                .load(user.avatar)
-                .apply(options)
-                .into(binding.userProfileImage);
-
+        binding.userProfileImage.setOnClickListener(view -> Album.image(this)
+                .singleChoice()
+                .columnCount(3)
+                .camera(true)
+                .onResult((requestCode, result) -> {
+                    // show selected image
+                    AlbumFile selected = result.get(0);
+                    RequestOptions options = new RequestOptions()
+                            .centerCrop();
+                    Glide.with(this)
+                            .load(new File(selected.getPath()))
+                            .apply(options)
+                            .into(binding.userProfileImage);
+                    // upload picture to server
+                    viewModel.uploadCover(selected.getPath()).observe(this, resource -> {
+                        showLoading();
+                        switch (resource.status) {
+                            case SUCCESS:
+                                hideLoading();
+                                user.avatar = resource.data;
+                                break;
+                            case ERROR:
+                                hideLoading();
+                                showAlertDialog(getString(R.string.error), resource.message);
+                                break;
+                            default:
+                            case LOADING:
+                                break;
+                        }
+                    });
+                }).start());
     }
 
     @Override

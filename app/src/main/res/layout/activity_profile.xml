@@ -29,6 +29,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
                     android:scaleType="fitXY"
+                    app:imageUrl="@{viewModel.user.avatar}"
                     app:srcCompat="@drawable/logo" />
 
         </android.support.constraint.ConstraintLayout>
