@@ -1,6 +1,7 @@
 package cn.edu.sustc.androidclient.view.task.annotationtask.form;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
