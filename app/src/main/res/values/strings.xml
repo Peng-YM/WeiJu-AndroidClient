@@ -63,7 +63,7 @@
     <string name="task_end">截止时间</string>
     <string name="task_cover">任务封面</string>
     <string name="task_description">任务描述</string>
-    <string name="go_to_editor">前往编辑器</string>
+    <string name="edit_task_description">编辑任务描述</string>
     <string name="publish_success">发布成功</string>
     <string name="publish_error">发布失败</string>
 
