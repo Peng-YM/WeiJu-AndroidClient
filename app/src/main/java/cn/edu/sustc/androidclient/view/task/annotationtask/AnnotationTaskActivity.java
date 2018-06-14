@@ -70,10 +70,13 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CODE){
+        if (resultCode == CODE){
             AnnotationTag resultTag = (AnnotationTag) data.getSerializableExtra("tag");
             resultTag.positions = currentShape.getCriticalPoints();
             this.commits.tags.add(resultTag);
+        }else{
+            annotateImageView.undo();
+            tagCounter--;
         }
     }
 

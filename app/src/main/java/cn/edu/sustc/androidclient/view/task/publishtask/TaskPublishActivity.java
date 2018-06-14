@@ -53,8 +53,6 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
         binding = getBinding();
         this.myCalendar = Calendar.getInstance();
         this.task = new Task();
-        // default description is empty
-        task.description = "";
 
         setValidation();
         setWidget();
@@ -67,9 +65,10 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CODE){
+        if (resultCode == CODE){
             task.description = data.getStringExtra("HTML");
-        }
+        }else
+            task.description = "";
     }
 
     private void setValidation() {
@@ -98,7 +97,7 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String myFormat = "yy/MM/dd";
+            String myFormat = "yyyy年MM月dd日";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.CHINA);
             String time = simpleDateFormat.format(myCalendar.getTime());
             binding.taskEnd.setText(time);
