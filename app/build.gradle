@@ -121,6 +121,6 @@ dependencies {
     // Form Validation
     implementation 'com.basgeekball:awesome-validation:4.1'
 
-    // Event Bus
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    // Photo view
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 }

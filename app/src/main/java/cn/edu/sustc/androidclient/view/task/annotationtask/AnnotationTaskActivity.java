@@ -47,10 +47,11 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
     private Task.AnnotationTaskFormatter formatter;
     private AnnotationCommits commits;
 
-    private Shape currentShape;
 
     private int tagCounter = 0;
     private int currentIdx = 0;
+    private Shape currentShape;
+    private Bitmap currentBitmap;
 
     public static void start(Context context, Task task, Transaction transaction) {
         Intent intent = new Intent(context, AnnotationTaskActivity.class);
@@ -147,7 +148,9 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                         int selectedIndex = spinner.getSelectedItemPosition();
                         Intent intent = new Intent(AnnotationTaskActivity.this, TagEditorActivity.class);
                         intent.putExtra("tag", formatter.tags.get(selectedIndex));
+                        intent.putExtra("bitmap", currentBitmap);
                         startActivityForResult(intent, CODE);
+                        // set tag image
                         dialog.dismiss();
                     }
                     @Override
@@ -174,6 +177,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         hideLoading();
+                        currentBitmap = resource;
                         annotateImageView.init(resource);
                         annotateImageView.clear();
                     }
@@ -232,7 +236,7 @@ public class AnnotationTaskActivity extends BaseActivity<AnnotationTaskViewModel
             binding.savePictureCommit.setVisibility(View.GONE);
         tagCounter = 0;
         currentShape = null;
-
+        currentBitmap =  null;
         currentIdx = index;
         annotateImage(index);
     }

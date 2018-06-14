@@ -21,21 +21,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <!--图片-->
+                <com.github.chrisbanes.photoview.PhotoView
+                    android:id="@+id/tag_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <!--标签名称-->
                 <TextView
                     android:id="@+id/tag_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10sp"
-                    android:text="属性名称"
                     android:textColor="#000"
                     android:textSize="20sp" />
 
+                <!--标签描述-->
                 <TextView
                     android:id="@+id/tag_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10sp"
-                    android:text="属性描述" />
+                    android:padding="10sp"/>
 
             </LinearLayout>
 
