@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import cn.edu.sustc.androidclient.common.Constants;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.MyResponse;
-import cn.edu.sustc.androidclient.model.data.Transaction;
 import cn.edu.sustc.androidclient.model.repository.FileRepository;
 import cn.edu.sustc.androidclient.model.repository.TaskRepository;
 import cn.edu.sustc.androidclient.view.base.BaseViewModel;

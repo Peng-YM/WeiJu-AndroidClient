@@ -13,6 +13,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/background_welcome2"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"/>
+        tools:layout_editor_absoluteY="0dp" />
 
 </RelativeLayout>

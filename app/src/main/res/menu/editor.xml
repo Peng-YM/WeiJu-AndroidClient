@@ -5,22 +5,21 @@
         android:id="@+id/undo"
         android:icon="@drawable/ic_action_undo"
         android:title="@string/menu_undo"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/redo"
         android:icon="@drawable/ic_action_redo"
         android:title="@string/menu_redo"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/finish"
         android:icon="@drawable/ic_chevron_right_black_24dp"
         android:title="@string/menu_finished"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
     <item
         android:title="@string/menu_github"
-        app:showAsAction="collapseActionView"/>
+        app:showAsAction="collapseActionView" />
 </menu>

@@ -9,8 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 

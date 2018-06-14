@@ -3,8 +3,6 @@ package cn.edu.sustc.androidclient.view.task.taskdetail;
 import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.common.utils.CommonUtils;

@@ -18,8 +18,8 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="#FFFFFF"
+            android:orientation="vertical"
             tools:context=".view.task.taskdetail.TaskDetailActivity">
 
             <!-- 一个任务只有的一张图片可以preview -->
@@ -38,9 +38,9 @@
                 android:id="@+id/take_task_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                android:background="@color/colorPrimary"
                 android:text="@string/get_task"
                 android:textColor="#fff"
                 android:textSize="14sp"
@@ -71,9 +71,9 @@
                 android:layout_marginEnd="36dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/bg_point"
-                android:textColor="@color/point_text_color"
                 android:padding="5dp"
                 android:text="@{viewModel.credit}"
+                android:textColor="@color/point_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -83,9 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:textColor="#757575"
                 android:text="@{viewModel.taskType}"
+                android:textColor="#757575"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/task_name"
                 app:layout_constraintTop_toBottomOf="@+id/task_name" />
 
@@ -96,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="24dp"
-                android:textSize="12sp"
-                android:textColor="@color/colorPrimary"
                 android:text="@{viewModel.taskDDL}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

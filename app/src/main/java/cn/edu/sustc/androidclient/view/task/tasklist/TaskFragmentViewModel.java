@@ -2,12 +2,7 @@ package cn.edu.sustc.androidclient.view.task.tasklist;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.orhanobut.logger.Logger;
-
-import java.util.List;
-
 import cn.edu.sustc.androidclient.common.ListFilter;
-import cn.edu.sustc.androidclient.model.MyDataBase;
 import cn.edu.sustc.androidclient.model.MyResource;
 import cn.edu.sustc.androidclient.model.data.Task;
 import cn.edu.sustc.androidclient.model.data.Transaction;

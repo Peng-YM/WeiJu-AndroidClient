@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 

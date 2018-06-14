@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.orhanobut.logger.Logger;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 
@@ -127,14 +126,18 @@ public class TaskPublishActivity extends BaseActivity<TaskPublishViewModel, Acti
                             .into(binding.taskCover);
                     // upload picture to server
                     viewModel.uploadCover(selected.getPath()).observe(this, resource -> {
+                        showLoading();
                         switch (resource.status) {
                             case SUCCESS:
+                                hideLoading();
                                 task.cover = resource.data;
+                                break;
+                            case ERROR:
+                                hideLoading();
+                                showAlertDialog(getString(R.string.error), resource.message);
                                 break;
                             case LOADING:
                                 break;
-                            case ERROR:
-                                showAlertDialog(getString(R.string.error), getString(R.string.upload_failed));
                         }
                     });
                 }).start());

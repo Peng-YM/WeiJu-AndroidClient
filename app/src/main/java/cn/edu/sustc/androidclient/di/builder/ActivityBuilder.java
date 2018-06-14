@@ -3,7 +3,6 @@ package cn.edu.sustc.androidclient.di.builder;
 import cn.edu.sustc.androidclient.view.authentication.AuthenticationModule;
 import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.authentication.RegistrationActivity;
-import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.main.MainActivity;
 import cn.edu.sustc.androidclient.view.main.MainModule;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;

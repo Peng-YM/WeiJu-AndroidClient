@@ -25,17 +25,15 @@ import javax.inject.Inject;
 
 import cn.edu.sustc.androidclient.R;
 import cn.edu.sustc.androidclient.common.utils.ActivityUtils;
-import cn.edu.sustc.androidclient.model.Status;
 import cn.edu.sustc.androidclient.databinding.ActivityMainBinding;
 import cn.edu.sustc.androidclient.databinding.NavHeaderMainBinding;
+import cn.edu.sustc.androidclient.model.Status;
 import cn.edu.sustc.androidclient.model.data.User;
 import cn.edu.sustc.androidclient.view.about.AboutActivity;
 import cn.edu.sustc.androidclient.view.authentication.LoginActivity;
 import cn.edu.sustc.androidclient.view.base.BaseActivity;
 import cn.edu.sustc.androidclient.view.profile.UserProfileActivity;
 import cn.edu.sustc.androidclient.view.settings.SettingsActivity;
-import cn.edu.sustc.androidclient.view.task.annotationtask.AnnotationTaskActivity;
-import cn.edu.sustc.androidclient.view.task.collectiontask.CollectionTaskActivity;
 import cn.edu.sustc.androidclient.view.task.publishtask.TaskPublishActivity;
 import cn.edu.sustc.androidclient.view.task.tasklist.TaskFragment;
 import cn.edu.sustc.androidclient.view.task.taskmanager.TaskManagerActivity;
