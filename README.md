@@ -10,7 +10,31 @@
 
 ## 介绍
 
-本项目将实现一个数据采集，标注模块的安卓APP。后端服务器的实现在[这里](https://github.com/Wang-GY/Data-Collection-Annotation-Android-App)
+本项目实现了一个在安卓端进行数据标注，采集的平台。实现的功能如下：
+
+1. **用户管理系统**
+
+   - [x] 用户注册，登录
+   - [x] 查看，修改用户信息
+
+2. **任务管理系统**
+
+   - [x] 查看所有，进行中，已完成的图片
+   - [x] 发布采集任务，可采用富文本编辑器编辑任务详情页
+
+3. **采集任务**
+
+   - [x] 图片采集，从相册中选取图片或使用相机进行拍照
+   - [x] 视频采集，从相册中选取视频或使用相机进行拍摄
+
+4. **标注任务**
+
+   - [x] 使用JSON自定义标注的标签及每个标签对应的属性，实现灵活的标注
+
+     
+
+   - [x] 单图片多标签标注
+
 ## Demo
 
 | ![9010BDFF-0A1F-4AA2-B6BE-825F18043EC7](https://ws2.sinaimg.cn/large/006tNc79gy1fsbeu8m3daj30bj0kegpx.jpg) | ![C58C9C93-52AF-44A8-93C6-6F1259270FF8](https://ws4.sinaimg.cn/large/006tNc79gy1fsbetmwgilj30bj0ke7cn.jpg) |
@@ -28,19 +52,57 @@
 - [x] 用户信息页
 - [x] 任务详情页
 - [x] 我的任务页
+- [x] 任务发布页
 - [x] 数据采集页
 - [x] 数据标注页
-## 技术栈
-- [Material Design](https://material.io/guidelines/#introduction-principles) UI设计规范
-- [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
+## 第三方库
+
+### 架构
+
 - [Restrofit2](https://github.com/square/retrofit) 处理Restful HTTP请求端
+
 - [RxJava2](https://github.com/ReactiveX/RxJava) Java异步框架
+
+- [Dagger2](https://github.com/google/dagger) [ButterKnife](http://jakewharton.github.io/butterknife/) 依赖注入框架
+
+- [Room Persistent Library](https://developer.android.com/topic/libraries/architecture/room)  本地数据库
+
+### 调试
+
+- [Logger](https://github.com/orhanobut/logger) 调试信息
+
+- [Android-Debug-Database](https://github.com/amitshekhariitbhu/Android-Debug-Database) 安卓数据库调试
+
+## UI
+
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/index.html) 数据绑定
-- [JSON Server](https://github.com/typicode/json-server) Fake REST API
-- [Logger](https://github.com/orhanobut/logger)
-- [Dagger2](https://github.com/google/dagger) 依赖注入框架
-- [Glide](https://github.com/bumptech/glide) 图片加载库
-- [Material Dialogs](https://github.com/afollestad/material-dialogs)
+
+- [Glide](https://github.com/bumptech/glide) 图片加载
+
+- [Material Dialogs](https://github.com/afollestad/material-dialogs) 弹窗
+
+- [Knife](https://github.com/mthli/Knife) 富文本编辑器
+
+- [CircleImageView](https://github.com/hdodenhof/CircleImageView) 圆角图片
+- [AwesomeValidation]() 表单验证
+- [PhotoView](https://github.com/chrisbanes/PhotoView) 图片展示控件
+
+## 开发者
+
+### 移动端
+
+[Peng-YM](https://github.com/Peng-YM)
+
+[Alinxl](https://github.com/Alinxl)
+
+[HansWanglin](https://github.com/Hanswanglin)
+
+### 服务端
+
+[Wang-GY](https://github.com/Wang-GY)
+
+[l0uvre](https://github.com/l0uvre)
 
 ## 许可证
-GPL v3.0
+
+GPL v3.0[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
